@@ -1,0 +1,280 @@
+/*
+ * Skin of the CustomProvider — DocPensieve's custom theme.
+ *
+ * The grid, the sticky columns and accessibility live in structure.css,
+ * shared by every provider. Here, only the visual decisions: colours,
+ * typography, look of the menu and of the content.
+ *
+ * The article typography lives in prose.css, shared with Tailwind.
+ *
+ * The light palette lives in the provider's tokens, which the ThemeEngine
+ * writes first, in a :root block.
+ */
+
+/* --- Dark mode ----------------------------------------------------------- */
+
+/*
+ * Two blocks, on purpose. The first follows the system preference; the second
+ * wins when a class is set on <html>, which theme.darkMode allows. The
+ * :not(.light) selector lets an explicit "light" choice win over the system
+ * preference.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-bg: #0f1115;
+    --dp-bg-soft: #171a21;
+    --dp-text: #e8eaed;
+    --dp-text-soft: #9aa2ae;
+    --dp-border: #272b33;
+    --dp-rule: #262a32;
+    --dp-accent: #9b97f0;
+    --dp-accent-soft: #1e1d33;
+    --dp-shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root.dark {
+  --dp-bg: #0f1115;
+  --dp-bg-soft: #171a21;
+  --dp-text: #e8eaed;
+  --dp-text-soft: #9aa2ae;
+  --dp-border: #272b33;
+  --dp-rule: #262a32;
+  --dp-accent: #9b97f0;
+  --dp-accent-soft: #1e1d33;
+  --dp-shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+body {
+  background: var(--dp-bg);
+  color: var(--dp-text);
+  font-family: var(--dp-font);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--dp-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--dp-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.dp-skip:focus {
+  background: var(--dp-bg);
+  border: 1px solid var(--dp-border);
+  box-shadow: 0 4px 16px var(--dp-shadow);
+}
+
+/* --- Header -------------------------------------------------------------- */
+
+.dp-header {
+  background: color-mix(in srgb, var(--dp-bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--dp-border);
+}
+
+.dp-brand {
+  font-weight: 620;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  color: var(--dp-text);
+  text-decoration: none;
+}
+
+/* --- Version switcher ---------------------------------------------------- */
+
+.dp-versions > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--dp-text-soft);
+}
+.dp-versions > summary::after {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: -0.2rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.dp-versions[open] > summary::after {
+  transform: rotate(-135deg);
+  margin-top: 0.15rem;
+}
+.dp-versions > summary:hover {
+  color: var(--dp-text);
+  border-color: var(--dp-text-soft);
+}
+
+.dp-versions-list {
+  padding: 0.3rem;
+  background: var(--dp-bg);
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  box-shadow: 0 8px 24px var(--dp-shadow);
+}
+.dp-versions-list a {
+  display: block;
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.86rem;
+  color: var(--dp-text);
+  text-decoration: none;
+}
+.dp-versions-list a:hover {
+  background: var(--dp-bg-soft);
+}
+.dp-versions-list a[aria-current] {
+  color: var(--dp-accent);
+  font-weight: 560;
+}
+
+/* --- Side columns -------------------------------------------------------- */
+
+.dp-sidebar,
+.dp-toc {
+  font-size: 0.885rem;
+}
+
+/* --- Tree-shaped side menu ----------------------------------------------- */
+
+.dp-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * The vertical rule links children to their parent. It only applies to
+ * nested levels: the root of the menu has nothing to link.
+ */
+.dp-nav .dp-nav {
+  margin: 0.1rem 0 0.35rem 0.35rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--dp-rule);
+}
+
+.dp-nav-item {
+  margin: 0;
+}
+
+.dp-nav-link,
+.dp-nav-label {
+  display: block;
+  padding: 0.24rem 0.5rem 0.24rem 0.35rem;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--dp-text-soft);
+}
+
+.dp-nav-link:hover {
+  color: var(--dp-text);
+  background: var(--dp-bg-soft);
+}
+
+/* A category without an index page is not clickable: it reads as a heading. */
+.dp-nav-label {
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-top: 0.7rem;
+}
+
+/* A clickable category keeps the weight of a heading, without the capitals. */
+.dp-nav-item--parent > .dp-nav-link {
+  font-weight: 600;
+  color: var(--dp-text);
+  margin-top: 0.55rem;
+}
+
+.dp-nav-link[aria-current='page'] {
+  position: relative;
+  color: var(--dp-accent);
+  font-weight: 560;
+  background: var(--dp-accent-soft);
+}
+
+/*
+ * The bar of the current page sits exactly on the parent's rule, in place of
+ * the grey line: the eye follows a single vertical line.
+ */
+.dp-nav .dp-nav .dp-nav-link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: calc(-0.85rem - 1px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--dp-accent);
+  border-radius: 2px;
+}
+
+/* --- Table of contents --------------------------------------------------- */
+
+.dp-toc-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dp-text-soft);
+}
+
+.dp-toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--dp-rule);
+}
+.dp-toc-list .dp-toc-list {
+  border: 0;
+  padding-left: 0.8rem;
+}
+
+.dp-toc-item a {
+  display: block;
+  padding: 0.18rem 0 0.18rem 0.8rem;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  color: var(--dp-text-soft);
+  text-decoration: none;
+  line-height: 1.45;
+}
+.dp-toc-item a:hover {
+  color: var(--dp-accent);
+  border-left-color: var(--dp-accent);
+}
+
+/* --- Footer -------------------------------------------------------------- */
+
+.dp-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--dp-border);
+  font-size: 0.85rem;
+  color: var(--dp-text-soft);
+  text-align: center;
+}
+.dp-footer p {
+  margin: 0;
+}
+
+@media (max-width: 56rem) {
+  .dp-sidebar {
+    border-bottom: 1px solid var(--dp-border);
+  }
+}

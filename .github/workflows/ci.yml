@@ -1,0 +1,55 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# The orphan branches only hold generated HTML: checking them would make no
+# sense and would fail the job for lack of a package.json.
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      # The matrix covers Node versions, not documentation versions: it is
+      # what proves that the "engines" field announced in package.json is
+      # true. A single "npm run build" already produces every version of the
+      # site.
+      #
+      # The floor follows what the development toolchain accepts: "npm ci"
+      # fails under Node 20, and this repository sets "engine-strict".
+      # Announcing a version that cannot be tested would be worth nothing.
+      matrix:
+        node: ['22', '24']
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      # format:check + tsc + eslint + vitest.
+      - run: npm run check
+
+      # A green suite does not say the output is right: build as well.
+      - run: npm run build
+
+      # And read the output: dead links fail no test.
+      - run: npm run check:links
+
+      # What npm would really take. The packing chain has its own ways of
+      # breaking — declarations rebuilt in the wrong order, a file forgotten
+      # in "files" — and nothing else exercises it. Finding out on publishing
+      # day would be the worst moment.
+      - run: npm publish --workspaces --dry-run

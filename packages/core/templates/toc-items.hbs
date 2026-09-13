@@ -1,0 +1,10 @@
+<ul class="{{{@root.cls.tocList}}}">
+  {{#each this}}
+  <li class="{{{@root.cls.tocItem}}}">
+    <a href="#{{id}}">{{text}}</a>
+    {{#if children.length}}
+    {{> tocItems children}}
+    {{/if}}
+  </li>
+  {{/each}}
+</ul>

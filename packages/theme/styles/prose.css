@@ -1,0 +1,109 @@
+/*
+ * Prose typography, shared by the providers that bring none.
+ *
+ * CustomProvider uses it for lack of a framework, TailwindProvider because its
+ * Preflight resets headings, lists and quotes: without this stylesheet, a
+ * Tailwind article would come out entirely bare.
+ *
+ * Everything is expressed in --dp-* tokens, which every provider defines in
+ * its own way.
+ */
+
+/* --- Article ------------------------------------------------------------- */
+
+.dp-article h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.6rem;
+}
+
+.dp-article h2 {
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  margin: 2.75rem 0 0.9rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--dp-border);
+}
+
+.dp-article h3 {
+  font-size: 1.12rem;
+  margin: 2rem 0 0.6rem;
+}
+
+.dp-article p,
+.dp-article ul,
+.dp-article ol {
+  margin: 0 0 1.1rem;
+}
+
+.dp-article li + li {
+  margin-top: 0.3rem;
+}
+
+.dp-article img {
+  border-radius: var(--dp-radius);
+}
+
+.dp-article blockquote {
+  margin: 1.4rem 0;
+  padding: 0.1rem 1.1rem;
+  border-left: 3px solid var(--dp-accent);
+  background: var(--dp-bg-soft);
+  border-radius: 0 var(--dp-radius) var(--dp-radius) 0;
+  /*
+   * Full-strength text, not softened: on the recessed background, the soft
+   * grey fell below readable contrast. The border is enough to say it is a
+   * quote.
+   */
+  color: var(--dp-text);
+}
+
+.dp-article hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--dp-border);
+}
+
+.dp-article table {
+  border-collapse: collapse;
+  margin: 0 0 1.3rem;
+  font-size: 0.93rem;
+}
+.dp-article th,
+.dp-article td {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--dp-border);
+  text-align: left;
+}
+.dp-article th {
+  background: var(--dp-bg-soft);
+  font-weight: 600;
+}
+
+/* --- Code ---------------------------------------------------------------- */
+
+.dp-article code {
+  padding: 0.12em 0.38em;
+  background: var(--dp-bg-soft);
+  border: 1px solid var(--dp-border);
+  border-radius: 4px;
+  font-family: var(--dp-font-mono);
+  font-size: 0.86em;
+}
+
+.dp-article pre {
+  margin: 0 0 1.3rem;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+
+.dp-article pre code {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: inherit;
+}

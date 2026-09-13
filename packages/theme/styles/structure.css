@@ -1,0 +1,235 @@
+/*
+ * Skeleton shared by every provider.
+ *
+ * This file decides no colour and no font: it lays out the grid, the sticky
+ * columns and accessibility. Every provider includes it, then adds its skin.
+ * Without this sharing, the layout would have to be rewritten — and
+ * maintained — in each theme.
+ *
+ * The measures come from the --dp-*-width variables, which every provider
+ * must define.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* A clicked anchor must not slide under the sticky header. */
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  margin: 0;
+}
+
+/* The skip link stays off screen until it has the focus. */
+.dp-skip {
+  position: absolute;
+  left: -100vw;
+}
+.dp-skip:focus {
+  position: fixed;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 30;
+  padding: 0.55rem 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.dp-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  height: 3.5rem;
+  padding: 0 1.5rem;
+}
+
+/* The version switcher is a <details>: it opens without JavaScript. */
+.dp-versions {
+  position: relative;
+}
+.dp-versions > summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.dp-versions > summary::-webkit-details-marker {
+  display: none;
+}
+.dp-versions-list {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  min-width: 8rem;
+  margin: 0;
+  list-style: none;
+}
+
+/*
+ * A documentation page takes the whole available width, 25 pixels short of
+ * each edge. Three columns share the space — menu, content, table of
+ * contents — and capping it would shrink the content for no gain.
+ */
+.dp-shell {
+  display: grid;
+  grid-template-columns: var(--dp-sidebar-width) minmax(0, 1fr) var(--dp-toc-width);
+  gap: 2.5rem;
+  align-items: start;
+  max-width: none;
+  margin: 0 auto;
+  padding: 2rem 25px 5rem;
+}
+
+/*
+ * Entrance hall: neither menu nor table of contents, and the content is no
+ * longer held to reading width. Its width stays bounded, unlike documentation
+ * pages: nothing shares the space with it, and a line crossing a whole wide
+ * screen would become unreadable.
+ */
+.dp-shell--wide {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 76rem;
+  padding-top: 3rem;
+}
+
+/*
+ * The entrance hall is not held to reading width, even when a project sets
+ * one: nothing shares the space with it.
+ */
+.dp-shell--wide .dp-article {
+  max-width: none;
+}
+
+/*
+ * Notice of the versions that are not the current one. It comes before the
+ * content rather than floating: someone arriving from a search engine must
+ * read it before the text, not after believing it.
+ */
+.dp-notice {
+  display: block;
+  margin: 0 0 1.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--dp-accent);
+  border-radius: var(--dp-radius);
+  background: var(--dp-accent-soft);
+  color: var(--dp-text);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.dp-notice a {
+  color: inherit;
+  font-weight: 600;
+}
+
+.dp-sidebar,
+.dp-toc {
+  position: sticky;
+  top: 4.5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+/* Without min-width, a wide code block would make the whole grid overflow. */
+.dp-main {
+  min-width: 0;
+}
+
+/*
+ * Targets of in-page jumps — skip link, back to top. The focus is moved there
+ * without them being controls: an outline around the whole area would tell
+ * nothing.
+ */
+#top:focus,
+#content:focus {
+  outline: none;
+}
+
+/*
+ * The content fills its column. `--dp-content-width` is `none` by default: a
+ * project that prefers a narrow reading column gives it a length, for
+ * instance `44rem`.
+ */
+.dp-article {
+  max-width: var(--dp-content-width, none);
+}
+.dp-article > *:first-child {
+  margin-top: 0;
+}
+.dp-article img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+ * Wide tables and code blocks scroll on their own rather than widen the page.
+ * A wide table scrolls inside its wrapper, not the table itself: a
+ * `display: block` set on a <table> stripped its table role, and a screen
+ * reader no longer announced rows or columns. The wrapper is added by the
+ * compiler.
+ */
+.dp-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.dp-article pre {
+  overflow-x: auto;
+}
+
+/*
+ * Shiki writes both themes at once: the light colour in `color`, the dark one
+ * in the `--shiki-dark` variable. These two blocks switch between them without
+ * a line of JavaScript or an extra stylesheet to ship.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .shiki,
+  :root:not(.light) .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+:root.dark .shiki,
+:root.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+@media (max-width: 82rem) {
+  .dp-shell {
+    grid-template-columns: var(--dp-sidebar-width) minmax(0, 1fr);
+  }
+  .dp-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 56rem) {
+  .dp-shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem 25px 4rem;
+  }
+  /*
+   * On a small screen the menu moves above the content and stops being
+   * sticky: a fixed column would eat half of the useful surface.
+   */
+  .dp-sidebar {
+    position: static;
+    max-height: none;
+    padding-bottom: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,39 @@
+name: Publish to npm
+
+# On a published release, never on a push: republishing on every commit would
+# burn version numbers for nothing.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      # npm provenance: publicly attests that the package really comes from
+      # this repository and this workflow.
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run check
+
+      # The five packages leave together, at the same version: they reference
+      # each other as ^x.y.z, and publishing one without the others would break
+      # their internal dependencies.
+      - name: Publish the five packages
+        run: npm publish --workspaces --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,193 @@
+---
+title: Columns
+description: Column grid, equal or in twelfths.
+---
+
+# Columns
+
+A **grid**: each block is placed, with its width. Not to be confused with CSS
+multi-column, where content flows from one column to the next — see below, it
+needs no component.
+
+## Equal columns
+
+Without an imposed width, the columns share the space equally, whatever their
+content.
+
+<Columns>
+  <Column>
+    <Card>
+      <CardBody>First</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>
+        Second, with a noticeably longer text to check that the columns keep the same width.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>Third</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>…</Column>
+  <Column>…</Column>
+</Columns>
+```
+
+## Widths in twelfths
+
+`span` is the number of **tracks** a column takes out of twelve: `span={6}` for
+a half, `span={8}` for two thirds, `span={3}` for a quarter. Twelve because
+twelve divides by two, three, four and six — halves, thirds, quarters and
+sixths all fall right.
+
+A value outside 1–12 stops the build, as does a row that mixes columns with and
+without a width: the column without a width would take only one track out of
+twelve, a sliver where the author expected a column.
+
+<Columns>
+  <Column span={8}>
+    <Card>
+      <CardBody>span={8}</CardBody>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card>
+      <CardBody>span={4}</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column span={8}>…</Column>
+  <Column span={4}>…</Column>
+</Columns>
+```
+
+A `Column` written outside a `Columns` is refused: on its own, it would
+produce nothing visible, and the error would take a long time to find.
+
+## Spacing the columns
+
+`span` sets the **width** of a column, `gap` the **space between** columns: two
+independent settings. The grid subtracts the gaps by itself, so spacing the
+columns distorts no width.
+
+<Columns className="gap-10">
+  <Column>
+    <Card>
+      <CardBody>The gap widens</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>without touching the widths</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns className="gap-10">…</Columns>
+```
+
+## An aside next to the text
+
+The most useful layout in documentation: the main point wide, the remark
+narrow.
+
+<Columns>
+  <Column span={8}>
+
+The compiler plugins rewrite the URLs of the tree built from the Markdown. That
+work happens **before** the components are rendered: a target written in a prop
+escapes them, and must resolve itself.
+
+That is why every rendered page is announced to the components, just as the
+class table is announced to them.
+
+  </Column>
+  <Column span={4}>
+    <Card className="h-full border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30">
+      <CardHeader className="text-sm">Remember</CardHeader>
+      <CardBody className="text-sm">
+        A component that produces a URL resolves it itself, following the same rules as a
+        Markdown link.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column span={8}>The point</Column>
+  <Column span={4}>The remark</Column>
+</Columns>
+```
+
+## Two code columns
+
+Compare two spellings side by side.
+
+<Columns>
+  <Column span={6}>
+
+```js
+versions: [{ slug: 'v1.0', current: true }];
+```
+
+  </Column>
+  <Column span={6}>
+
+```js
+versions: [
+  { slug: 'v1.1', prerelease: true },
+  { slug: 'v1.0', current: true },
+];
+```
+
+  </Column>
+</Columns>
+
+## Letting content flow
+
+For a text or a gallery that _flows_ from one column to the next, the grid is
+not the right tool and no component is needed: the theme's utilities are
+enough, directly in the page.
+
+<div className="columns-2 gap-6 sm:columns-3">
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>One</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Two, a little longer, so that the heights differ.</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Three</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Four</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Five</CardBody>
+  </Card>
+</div>
+
+```mdx
+<div className="columns-2 gap-6 sm:columns-3">…</div>
+```
+
+The difference is there: above, the order is vertical and the browser
+distributes as it likes; with `Columns`, each block stays where you put it.
+
+## On small screens
+
+Below tablet width, the grid columns stack one under the other. Shrink the
+window to check.

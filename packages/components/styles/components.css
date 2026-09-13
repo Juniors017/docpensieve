@@ -1,0 +1,590 @@
+/*
+ * Default structure of the shipped components.
+ *
+ * Everything is in `@layer components`, below the utilities in layer order. A
+ * `className="border-0"` set at use therefore always wins, whatever the place
+ * of this stylesheet in the final file. Without this layer, these rules beat
+ * the utilities and the author's `className` was silently ignored.
+ *
+ * Only structure lives here — wrappers, separators, spacing. Typography and
+ * colours are set at use, through `className`.
+ *
+ * Values come from the `--dp-*` tokens: the components follow the active
+ * theme's palette without knowing anything about it.
+ */
+
+@layer components {
+  /* --- Card -------------------------------------------------------------- */
+
+  /*
+   * No `overflow: hidden` here, though it was the shortest path for the image
+   * to follow the corners: it would clip **everything** that sticks out,
+   * starting with a tooltip opened from the card body. The image corners are
+   * therefore rounded one by one, below.
+   */
+  .dp-card {
+    display: flex;
+    flex-direction: column;
+    /*
+     * Two cards following each other in the flow of the text would touch. In
+     * a column, the grid gap already does that job: the margin is taken back
+     * below, otherwise both would add up.
+     */
+    margin-block-end: 1.3rem;
+    background: var(--dp-bg);
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .dp-card--elevated {
+    box-shadow: 0 4px 14px var(--dp-shadow);
+  }
+
+  .dp-column > .dp-card,
+  .dp-card-body > .dp-card:last-child {
+    margin-block-end: 0;
+  }
+
+  /* A clickable card must signal itself on hover. */
+  a.dp-card:hover {
+    border-color: var(--dp-accent);
+  }
+
+  .dp-card-header {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--dp-border);
+    font-weight: 600;
+  }
+
+  .dp-card-body {
+    flex: 1;
+    padding: 1.1rem;
+  }
+
+  .dp-card-footer {
+    padding: 0.85rem 1.1rem;
+    border-top: 1px solid var(--dp-border);
+    font-size: 0.9rem;
+    color: var(--dp-text-soft);
+  }
+
+  /* The content of a card does not have to inherit the prose margins. */
+  .dp-card-header > *:first-child,
+  .dp-card-body > *:first-child,
+  .dp-card-footer > *:first-child {
+    margin-top: 0;
+  }
+  .dp-card-header > *:last-child,
+  .dp-card-body > *:last-child,
+  .dp-card-footer > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .dp-card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The image only rounds the corners it actually occupies. */
+  .dp-card-image:first-child {
+    border-start-start-radius: var(--dp-radius);
+    border-start-end-radius: var(--dp-radius);
+  }
+
+  .dp-card-image:last-child {
+    border-end-start-radius: var(--dp-radius);
+    border-end-end-radius: var(--dp-radius);
+  }
+
+  /* --- Columns ----------------------------------------------------------- */
+
+  /*
+   * Without a declared width: as many columns as children, all equal.
+   * `minmax(0, 1fr)` rather than `1fr` — otherwise unbreakable content, a
+   * code block for instance, widens its column and unbalances the row.
+   */
+  .dp-columns {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+    width: 100%;
+    margin: 0 0 1.3rem;
+  }
+
+  /*
+   * With declared widths: twelve tracks, and each column takes what it asks
+   * for. The grid subtracts the gaps by itself, so a width has no calculation
+   * to make and changing `gap` breaks nothing.
+   */
+  .dp-columns--twelfths {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .dp-column {
+    min-width: 0;
+  }
+
+  .dp-column--span-1 {
+    grid-column: span 1;
+  }
+  .dp-column--span-2 {
+    grid-column: span 2;
+  }
+  .dp-column--span-3 {
+    grid-column: span 3;
+  }
+  .dp-column--span-4 {
+    grid-column: span 4;
+  }
+  .dp-column--span-5 {
+    grid-column: span 5;
+  }
+  .dp-column--span-6 {
+    grid-column: span 6;
+  }
+  .dp-column--span-7 {
+    grid-column: span 7;
+  }
+  .dp-column--span-8 {
+    grid-column: span 8;
+  }
+  .dp-column--span-9 {
+    grid-column: span 9;
+  }
+  .dp-column--span-10 {
+    grid-column: span 10;
+  }
+  .dp-column--span-11 {
+    grid-column: span 11;
+  }
+  .dp-column--span-12 {
+    grid-column: span 12;
+  }
+
+  /* Below tablet width, a grid of columns becomes unreadable. */
+  @media (max-width: 48rem) {
+    .dp-columns,
+    .dp-columns--twelfths {
+      grid-auto-flow: row;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dp-column,
+    .dp-column[class*='dp-column--span-'] {
+      grid-column: auto;
+    }
+  }
+
+  /* --- Tooltip ----------------------------------------------------------- */
+
+  /*
+   * The bubble is positioned absolutely: inside a container that clips its
+   * overflow, it will be cut. That is the limit of a tooltip without
+   * JavaScript, and it is accepted.
+   */
+  .dp-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  /*
+   * Underlined in the text colour. The border tint fell to 1.2:1 against the
+   * background: nobody saw there was something to hover.
+   */
+  .dp-tooltip-trigger {
+    border-bottom: 1px dashed currentColor;
+    cursor: help;
+  }
+
+  /*
+   * An invisible margin around the bubble. Without it, the pointer left the
+   * term, crossed the gap and lost the hover before reaching the bubble, which
+   * closed under it. Hidden along with the bubble, it catches nothing when the
+   * bubble is closed.
+   */
+  .dp-tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    inset: -0.6rem;
+  }
+
+  .dp-tooltip-bubble {
+    position: absolute;
+    z-index: 20;
+    width: max-content;
+    max-width: 16rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: var(--dp-radius);
+    background: var(--dp-text);
+    color: var(--dp-bg);
+    font-size: 0.85rem;
+    line-height: 1.35;
+    text-align: left;
+    /*
+     * `visibility` on top of the opacity: a merely transparent bubble would
+     * stay hoverable and intercept the pointer.
+     */
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.12s ease,
+      visibility 0.12s;
+  }
+
+  .dp-tooltip:hover .dp-tooltip-bubble,
+  .dp-tooltip:focus-within .dp-tooltip-bubble {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .dp-tooltip--top .dp-tooltip-bubble {
+    bottom: calc(100% + 0.45rem);
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .dp-tooltip--bottom .dp-tooltip-bubble {
+    top: calc(100% + 0.45rem);
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .dp-tooltip--left .dp-tooltip-bubble {
+    top: 50%;
+    right: calc(100% + 0.45rem);
+    translate: 0 -50%;
+  }
+
+  .dp-tooltip--right .dp-tooltip-bubble {
+    top: 50%;
+    left: calc(100% + 0.45rem);
+    translate: 0 -50%;
+  }
+
+  /* --- Tree -------------------------------------------------------------- */
+
+  .dp-tree {
+    margin: 0 0 1.3rem;
+    padding-left: 0;
+    font-family: var(--dp-font-mono);
+    font-size: 0.9rem;
+    list-style: none;
+  }
+
+  /* Nested levels are indented and carry a reminder rule. */
+  .dp-tree .dp-tree {
+    margin: 0;
+    padding-left: 0.85rem;
+    border-left: 1px solid var(--dp-rule);
+  }
+
+  .dp-tree-item {
+    margin: 0.1rem 0;
+  }
+
+  .dp-tree-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: var(--dp-radius);
+  }
+
+  summary.dp-tree-label {
+    cursor: pointer;
+    /* The native triangle changes shape from one browser to another. */
+    list-style: none;
+  }
+
+  summary.dp-tree-label::-webkit-details-marker {
+    display: none;
+  }
+
+  summary.dp-tree-label:hover {
+    background: var(--dp-bg-soft);
+  }
+
+  summary.dp-tree-label::before {
+    content: '';
+    width: 0.38rem;
+    height: 0.38rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    rotate: -45deg;
+    transition: rotate 0.15s ease;
+  }
+
+  .dp-tree-details[open] > summary.dp-tree-label::before {
+    rotate: 45deg;
+  }
+
+  /* A leaf has no chevron: its label lines up with the branches. */
+  .dp-tree-item--leaf > .dp-tree-label {
+    padding-left: 1.13rem;
+  }
+
+  /* --- Back to top ------------------------------------------------------- */
+
+  .dp-scroll-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--dp-border);
+    border-radius: 999px;
+    background: var(--dp-bg);
+    box-shadow: 0 4px 14px var(--dp-shadow);
+    color: var(--dp-text);
+    text-decoration: none;
+  }
+
+  .dp-scroll-top:hover {
+    border-color: var(--dp-accent);
+    color: var(--dp-accent);
+  }
+
+  .dp-scroll-top-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  @keyframes dp-scroll-top-appear {
+    from {
+      visibility: hidden;
+      opacity: 0;
+      scale: 0.8;
+    }
+    to {
+      visibility: visible;
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  /*
+   * The button only appears once the page has scrolled. Where the scroll
+   * timeline is missing, it simply stays visible: always there is better than
+   * never there.
+   */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .dp-scroll-top {
+        animation: dp-scroll-top-appear linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 6rem;
+      }
+    }
+  }
+
+  /*
+   * The component exists to scroll: smooth scrolling is therefore its
+   * business, but only on the pages that use it.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(.dp-scroll-top) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* --- Level gauge ------------------------------------------------------- */
+
+  .dp-skill {
+    margin: 0 0 1rem;
+  }
+
+  .dp-skill-head {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+  }
+
+  .dp-skill-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+  }
+
+  /*
+   * The icon takes the gauge's tint: both designate the same thing, and seeing
+   * them match helps read a column of gauges at a glance.
+   */
+  .dp-skill-icon {
+    display: inline-flex;
+    color: var(--dp-skill-color, var(--dp-accent));
+  }
+
+  .dp-skill-value {
+    color: var(--dp-text-soft);
+    font-size: 0.85rem;
+    /* Fixed-width digits: a column of values stays aligned. */
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dp-skill-track {
+    overflow: hidden;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--dp-bg-soft);
+  }
+
+  .dp-skill-fill {
+    width: var(--dp-skill-level, 0%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--dp-skill-color, var(--dp-accent));
+  }
+
+  .dp-skill-note {
+    margin-top: 0.35rem;
+    color: var(--dp-text-soft);
+    font-size: 0.85rem;
+  }
+
+  @keyframes dp-skill-grow {
+    from {
+      width: 0;
+    }
+    to {
+      width: var(--dp-skill-level, 0%);
+    }
+  }
+
+  /* The fill plays as it enters the viewport, where that is possible.
+     Elsewhere the bar is full from the start: the value is still read. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .dp-skill-fill {
+        animation: dp-skill-grow linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 60%;
+      }
+    }
+  }
+
+  /* --- Icon -------------------------------------------------------------- */
+
+  .dp-logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--dp-logo-icon-size, 1.5rem);
+    block-size: var(--dp-logo-icon-size, 1.5rem);
+    color: inherit;
+    vertical-align: -0.15em;
+  }
+
+  /*
+   * The SVG fills its wrapper. Its colour stays the file's business: a `fill`
+   * declaration here would override the `fill="none"` of an outline icon —
+   * CSS always wins over a presentation attribute — and make it solid. A file
+   * that relies on `currentColor` already follows the text colour through the
+   * inheritance set on the wrapper.
+   */
+  .dp-logo-icon > svg {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  /* --- Reduced motion ---------------------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    .dp-tooltip-bubble,
+    summary.dp-tree-label::before {
+      transition: none;
+    }
+  }
+
+  /* --- Circle gauge ------------------------------------------------------ */
+
+  .dp-skill--circle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-inline-end: 1.25rem;
+    text-align: center;
+  }
+
+  .dp-skill-dial {
+    position: relative;
+    inline-size: var(--dp-skill-size, 6rem);
+    block-size: var(--dp-skill-size, 6rem);
+  }
+
+  .dp-skill-dial svg {
+    inline-size: 100%;
+    block-size: 100%;
+    /* The stroke starts at three o'clock: bring it back to the top. */
+    rotate: -90deg;
+  }
+
+  .dp-skill-dial-track,
+  .dp-skill-dial-fill {
+    fill: none;
+    stroke-width: 3.2;
+  }
+
+  .dp-skill-dial-track {
+    stroke: var(--dp-bg-soft);
+  }
+
+  /*
+   * The radius gives the circle a circumference of a hundred: the level is
+   * therefore directly the drawn share, with no multiplication or rounding.
+   */
+  .dp-skill-dial-fill {
+    stroke: var(--dp-skill-color, var(--dp-accent));
+    stroke-dasharray: var(--dp-skill-level, 0) 100;
+    stroke-linecap: round;
+  }
+
+  .dp-skill-dial-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    /* Fixed-width digits: the value does not dance from one gauge to the next. */
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dp-skill--circle .dp-skill-name {
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  @keyframes dp-skill-draw {
+    from {
+      stroke-dasharray: 0 100;
+    }
+    to {
+      stroke-dasharray: var(--dp-skill-level, 0) 100;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .dp-skill-dial-fill {
+        animation: dp-skill-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 60%;
+      }
+    }
+  }
+}

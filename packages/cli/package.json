@@ -1,0 +1,59 @@
+{
+  "name": "docpensieve",
+  "version": "0.1.0",
+  "description": "DocPensieve command-line interface (init, build, check, dev, serve)",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "bin": {
+    "docpensieve": "./bin/docpensieve.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "types"
+  ],
+  "dependencies": {
+    "@docpensieve/components": "^0.1.0",
+    "@docpensieve/core": "^0.1.0",
+    "@docpensieve/shared": "^0.1.0",
+    "@docpensieve/theme": "^0.1.0",
+    "chalk": "^6.0.0",
+    "chokidar": "^5.0.0",
+    "commander": "^15.0.0"
+  },
+  "keywords": [
+    "docpensieve",
+    "cli",
+    "documentation",
+    "static-site-generator",
+    "mdx",
+    "ssg"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juniors017/docpensieve.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/Juniors017/docpensieve#readme",
+  "bugs": {
+    "url": "https://github.com/Juniors017/docpensieve/issues"
+  },
+  "author": "Valentin Chevoleau (Juniors017)",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "prepack": "tsc -b tsconfig.build.json"
+  }
+}

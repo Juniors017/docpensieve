@@ -1,0 +1,58 @@
+{
+  "name": "@docpensieve/core",
+  "version": "0.1.0",
+  "description": "DocPensieve engine: loading, MDX compilation, structured data, site generation",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "templates",
+    "types"
+  ],
+  "dependencies": {
+    "@docpensieve/shared": "^0.1.0",
+    "@mdx-js/mdx": "^3.1.1",
+    "@shikijs/rehype": "^4.4.3",
+    "gray-matter": "^4.0.3",
+    "handlebars": "^4.7.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "keywords": [
+    "docpensieve",
+    "documentation",
+    "static-site-generator",
+    "mdx",
+    "markdown",
+    "json-ld",
+    "seo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juniors017/docpensieve.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/Juniors017/docpensieve#readme",
+  "bugs": {
+    "url": "https://github.com/Juniors017/docpensieve/issues"
+  },
+  "author": "Valentin Chevoleau (Juniors017)",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "prepack": "tsc -b tsconfig.build.json"
+  }
+}

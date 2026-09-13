@@ -1,0 +1,25 @@
+{
+  // Generates the .d.ts from the JSDoc, for consumers of the published package.
+  // Run by "prepack": the shipped types cannot be stale.
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // The root aliases make neighbouring packages resolve to their source,
+    // which checking wants but emitting does not: the neighbours' sources
+    // would fall outside rootDir. Here each package reads its neighbours
+    // through their published declarations, as a consumer will.
+    "paths": {},
+
+    // "composite" lets "tsc -b" rebuild the neighbours in dependency order.
+    // Without it, a package compiles against the declarations its neighbours
+    // already have — stale as soon as an API has moved, and nothing says so:
+    // publishing would ship wrong types.
+    "composite": true,
+
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "types"
+  },
+  "include": ["src/**/*.js"]
+}

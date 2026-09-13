@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+
+# Prettier reads .hbs files with the Glimmer (Ember) parser, which does not
+# understand the syntax of classic Handlebars partials: {{> partial context}}.
+*.hbs

@@ -1,0 +1,50 @@
+{
+  "name": "@docpensieve/theme",
+  "version": "0.1.0",
+  "description": "DocPensieve theme system: composable providers (Tailwind, custom)",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "styles",
+    "types"
+  ],
+  "dependencies": {
+    "@docpensieve/shared": "^0.1.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "keywords": [
+    "docpensieve",
+    "theme",
+    "css",
+    "tailwindcss",
+    "design-system"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juniors017/docpensieve.git",
+    "directory": "packages/theme"
+  },
+  "homepage": "https://github.com/Juniors017/docpensieve#readme",
+  "bugs": {
+    "url": "https://github.com/Juniors017/docpensieve/issues"
+  },
+  "author": "Valentin Chevoleau (Juniors017)",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "prepack": "tsc -b tsconfig.build.json"
+  }
+}

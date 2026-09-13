@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="{{lang}}"{{#if darkModeClass}} class="{{darkModeClass}}"{{/if}}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}}{{#if projectName}} · {{projectName}}{{/if}}</title>
+    {{#if description}}
+    <meta name="description" content="{{description}}" />
+    {{/if}}
+    {{#if noindex}}
+    <meta name="robots" content="noindex, follow" />
+    {{/if}}
+    {{#if canonical}}
+    <link rel="canonical" href="{{canonical}}" />
+    {{/if}}
+    {{#each preloads}}
+    <link rel="preload" as="{{as}}" href="{{href}}" />
+    {{/each}}
+    <link rel="stylesheet" href="{{cssHref}}" />
+    {{{jsonld}}}
+  </head>
+  <body>
+    <a class="{{{cls.skip}}}" href="#content">Skip to content</a>
+
+    {{!-- Target of the back-to-top link: bring the focus back, not only the view. --}}
+    <header class="{{{cls.header}}}" id="top" tabindex="-1">
+      <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{projectName}}</a>
+      {{#if showVersions}}
+      <details class="{{{cls.versions}}}">
+        {{!-- The accessible name contains the visible label: when dictated by
+        voice, what is read on screen must find this button. --}}
+        <summary aria-label="Version {{versionName}}, switch version">{{versionName}}</summary>
+        <ul class="{{{cls.versionsList}}}">
+          {{#each versions}}
+          <li><a href="{{url}}"{{#if current}} aria-current="true"{{/if}}>{{name}}</a></li>
+          {{/each}}
+        </ul>
+      </details>
+      {{/if}}
+    </header>
+
+    <div class="{{#if wide}}{{{cls.shellWide}}}{{else}}{{{cls.shell}}}{{/if}}">
+      {{#if sidebar.length}}
+      <nav class="{{{cls.sidebar}}}" aria-label="Documentation navigation">
+        {{> navItems sidebar}}
+      </nav>
+      {{/if}}
+
+      <main class="{{{cls.main}}}" id="content" tabindex="-1">
+        {{#if notice}}
+        <aside class="{{{cls.notice}}}" role="note">
+          {{#if notice.prerelease}}
+          This version is in preparation and may change.
+          {{else}}
+          This version is no longer maintained.
+          {{/if}}
+          The current version is <a href="{{notice.url}}">{{notice.name}}</a>.
+        </aside>
+        {{/if}}
+        <article class="{{{cls.article}}}">{{{content}}}</article>
+      </main>
+
+      {{#if toc.length}}
+      <nav class="{{{cls.toc}}}" aria-label="On this page">
+        <p class="{{{cls.tocTitle}}}">On this page</p>
+        {{> tocItems toc}}
+      </nav>
+      {{/if}}
+    </div>
+
+    <footer class="{{{cls.footer}}}">
+      <p>{{projectName}} — version {{versionName}}</p>
+    </footer>
+
+    {{#if scrollToTop}}
+    <a class="{{{cls.scrollTop}}}" href="#top" aria-label="Back to top">
+      <svg
+        class="{{{cls.scrollTopIcon}}}"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    {{/if}}
+  </body>
+</html>

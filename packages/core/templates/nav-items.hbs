@@ -1,0 +1,14 @@
+<ul class="{{{@root.cls.nav}}}">
+  {{#each this}}
+  <li class="{{{@root.cls.navItem}}}{{#if items.length}} {{{@root.cls.navItemParent}}}{{/if}}">
+    {{#if url}}
+    <a class="{{{@root.cls.navLink}}}" href="{{url}}"{{#if (eq url @root.currentUrl)}} aria-current="page"{{/if}}>{{label}}</a>
+    {{else}}
+    <span class="{{{@root.cls.navLabel}}}">{{label}}</span>
+    {{/if}}
+    {{#if items.length}}
+    {{> navItems items}}
+    {{/if}}
+  </li>
+  {{/each}}
+</ul>

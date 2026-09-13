@@ -1,0 +1,195 @@
+---
+title: Card
+description: Structured card, with header, body, footer and image.
+---
+
+# Card
+
+## The simplest
+
+<Card className="max-w-sm">
+  <CardBody>A card reduced to its body.</CardBody>
+</Card>
+
+```mdx
+<Card className="max-w-sm">
+  <CardBody>A card reduced to its body.</CardBody>
+</Card>
+```
+
+## With its three parts
+
+<Card className="max-w-sm">
+  <CardHeader>Header</CardHeader>
+  <CardBody>
+    The body of the card. It takes the remaining space when several cards sit side by side.
+  </CardBody>
+  <CardFooter>Card footer</CardFooter>
+</Card>
+
+## With an image
+
+`CardImage` goes wherever you want in the card. At the top or at the bottom, it
+follows the corners; between two blocks, it stays square.
+
+<Columns>
+  <Column span={6}>
+    <Card>
+      <CardImage src="/components/icons/banner.svg" alt="" />
+      <CardHeader>Image at the top</CardHeader>
+      <CardBody>The top corners follow those of the card.</CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card>
+      <CardHeader>Image at the bottom</CardHeader>
+      <CardBody>The bottom corners follow those of the card.</CardBody>
+      <CardImage src="/components/icons/banner.svg" alt="" />
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Card>
+  <CardImage src="/components/icons/banner.svg" alt="" />
+  <CardBody>…</CardBody>
+</Card>
+```
+
+`alt` defaults to the empty string: a decorative image is thus passed over by
+screen readers, rather than announced by its file name. An image that carries
+meaning deserves a written `alt`.
+
+## A grid of cards
+
+It is the most common use. `h-full` aligns the heights whatever the content.
+
+<Columns>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Stateless</CardHeader>
+      <CardBody>
+        Components are rendered at build time. None of them keeps state or listens to events.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Dependency-free</CardHeader>
+      <CardBody>The delivered HTML loads nothing.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>No surprises</CardHeader>
+      <CardBody>
+        What cannot be rendered stops the build rather than disappearing silently.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>
+    <Card className="h-full">…</Card>
+  </Column>
+</Columns>
+```
+
+## Elevation
+
+<Card className="max-w-sm" elevated>
+  <CardBody>This card carries a shadow.</CardBody>
+</Card>
+
+```mdx
+<Card elevated>…</Card>
+```
+
+## Fully clickable
+
+<Card className="max-w-sm" href="/components/columns/">
+  <CardHeader>Go to the columns</CardHeader>
+  <CardBody>The whole card is a link, not just the title.</CardBody>
+</Card>
+
+```mdx
+<Card href="/components/columns/">…</Card>
+```
+
+A relative target starts from the page, an absolute target from the version
+root — the same rules as for a Markdown link.
+
+## A highlighted figure
+
+Nothing specific to the component: a card, a little typography, and the footer
+carrying the caption.
+
+<Columns>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">0</div>
+        <div className="text-sm">bytes of JavaScript</div>
+      </CardBody>
+      <CardFooter>on every delivered page</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">8</div>
+        <div className="text-sm">components</div>
+      </CardBody>
+      <CardFooter>usable without an import</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">1</div>
+        <div className="text-sm">stylesheet</div>
+      </CardBody>
+      <CardFooter>per version</CardFooter>
+    </Card>
+  </Column>
+</Columns>
+
+## A warning card
+
+<Card className="border-amber-400 bg-amber-50 dark:bg-amber-950/30">
+  <CardHeader className="text-amber-800 dark:text-amber-200">To check before publishing</CardHeader>
+  <CardBody className="text-sm">
+    A generated site can compile without error and contain dead links.
+    <code>docpensieve check</code> reads the output back.
+  </CardBody>
+</Card>
+
+## The look through className
+
+The component offers no typography prop: the theme's utilities take care of
+it, and win over the default style.
+
+<Card className="max-w-sm border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centred, in capitals
+  </CardHeader>
+  <CardBody className="text-sm italic">Small, italic body.</CardBody>
+</Card>
+
+```mdx
+<Card className="border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centred, in capitals
+  </CardHeader>
+  <CardBody className="text-sm italic">Small, italic body.</CardBody>
+</Card>
+```
+
+The component rules live in the `components` layer, below the utilities: a
+`className` set at use always wins, even to undo the default style.
+
+<Card className="max-w-sm border-0 shadow-none bg-transparent">
+  <CardBody className="px-0">No border, no background, no inner padding.</CardBody>
+</Card>

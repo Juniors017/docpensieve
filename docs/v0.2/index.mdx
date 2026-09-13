@@ -1,0 +1,244 @@
+---
+title: DocPensieve
+description: Static documentation site generator — Markdown and MDX in, runtime-free HTML out, one version per branch.
+layout: home
+authors: [Valentin Chevoleau]
+date: 2026-09-09
+tags: [home]
+draft: false
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: false
+---
+
+<div className="dp-hero">
+
+# DocPensieve
+
+Your Markdown and MDX files become a static site. No runtime to load, one version per branch, structured data derived from the frontmatter.
+
+<div className="dp-actions">
+
+[Get started](/guide/installation/) [See the components](/components/)
+
+</div>
+
+</div>
+
+<Columns>
+  <Column>
+    <Card className="h-full" href="/guide/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/compass.svg" size="1.75rem" className="text-indigo-600" />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Guide</strong>
+
+        From installation to deployment, in order.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/components/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/blocks.svg" size="1.75rem" className="text-indigo-600" />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Components</strong>
+
+        Eight components usable without an import, none of them with JavaScript.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/reference/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/list.svg" size="1.75rem" className="text-indigo-600" />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Reference</strong>
+
+        Commands, configuration, frontmatter and theme.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/architecture/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/branch.svg" size="1.75rem" className="text-indigo-600" />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Architecture</strong>
+
+        How a page becomes HTML, and why it works that way.
+      </CardBody>
+    </Card>
+
+  </Column>
+</Columns>
+
+## In three commands
+
+<Columns>
+  <Column span={7}>
+
+```bash
+npx docpensieve init my-site
+cd my-site
+npx docpensieve dev
+```
+
+The first one sets up a configuration and a documentation folder, the last one
+opens a server that rebuilds on every save.
+
+Nothing else to install: the <Tooltip text="Turning the sources into HTML pages ready to serve.">build</Tooltip> runs on your machine, and the produced site only needs a file host.
+
+  </Column>
+  <Column span={5}>
+    <Card className="h-full">
+      <CardHeader>What you get</CardHeader>
+      <CardBody>
+        <Tree>
+          <TreeItem label="dist" open>
+            <TreeItem label="index.html" />
+            <TreeItem label="versions.json" />
+            <TreeItem label="versions" open>
+              <TreeItem label="v1.0">
+                <TreeItem label="index.html" />
+                <TreeItem label="assets" />
+              </TreeItem>
+            </TreeItem>
+          </TreeItem>
+        </Tree>
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## What it costs the reader
+
+<div className="flex flex-wrap justify-center gap-6 my-8">
+  <Skill
+    name="JavaScript"
+    level={0}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="Hydration"
+    level={0}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="HTML served as is"
+    level={100}
+    shape="circle"
+    color="#6366f1"
+    icon={<LogoIcon src="./icons/shield.svg" />}
+  />
+  <Skill
+    name="One stylesheet per version"
+    level={100}
+    shape="circle"
+    color="#6366f1"
+    icon={<LogoIcon src="./icons/book.svg" />}
+  />
+</div>
+
+Two dials at zero, and that is on purpose: React serves the **build**, not the
+display. What reaches the reader is markup and a stylesheet.
+
+## What sets the tool apart
+
+<Columns>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>Nothing to load</CardHeader>
+      <CardBody className="text-sm">
+        No hydration, no bundle to download before reading. A page stays readable in ten years,
+        because there is nothing that can stop working.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>One version per branch</CardHeader>
+      <CardBody className="text-sm">
+        Each published version lives on its own orphan branch, with its history. Going back to an
+        old version does not require rebuilding it.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>The frontmatter is enough</CardHeader>
+      <CardBody className="text-sm">
+        Title, description, authors and dates produce the JSON-LD, the breadcrumb and the metadata.
+        Nothing to write twice.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>Nothing fails silently</CardHeader>
+      <CardBody className="text-sm">
+        An unknown value, a missing parent, a dead link: each one stops the build with a message and
+        a hint.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Quality, in figures
+
+<Columns>
+  <Column span={7}>
+
+These gauges are not decorative: they are the repository's own measurements,
+taken by hand — nothing updates them on its own. <Tooltip text="Share of lines executed by the test suite.">Coverage</Tooltip> and <Tooltip text="TypeScript checks the JSDoc of the source code and of the tests.">typing</Tooltip> are checked on every push.
+
+What is not measured does not improve — and what is not checked every time
+degrades.
+
+  </Column>
+  <Column span={5}>
+    <Skill name="Line coverage" level={97} color="#10b981" icon={<LogoIcon src="./icons/shield.svg" />} />
+    <Skill name="Branch coverage" level={87} color="#f59e0b" icon={<LogoIcon src="./icons/shield.svg" />} />
+    <Skill name="Typing of code and tests" level={100} color="#6366f1" icon={<LogoIcon src="./icons/star.svg" />} />
+  </Column>
+</Columns>
+
+## A page, end to end
+
+<Columns>
+  <Column span={5}>
+
+```mdx
+---
+title: Installation
+description: Install the tool.
+---
+
+# Installation
+
+Node.js 22 or later.
+
+<Tooltip text="Complete new project">init</Tooltip>
+sets up the configuration.
+```
+
+  </Column>
+  <Column span={7}>
+
+The file is read, its frontmatter detached, its content compiled to HTML.
+Components are rendered **at build time**: `Tooltip` becomes two elements and a
+style rule, without a line of script.
+
+The title feeds the `<title>` tag, the description the metadata, and both
+together the JSON-LD. The file name gives the URL, its folder the place in the
+menu.
+
+None of this needs configuration: [writing a page](/guide/writing-pages/) is
+enough.
+
+  </Column>
+</Columns>

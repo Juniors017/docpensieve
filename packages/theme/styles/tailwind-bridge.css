@@ -1,0 +1,131 @@
+/*
+ * Bridge between the DocPensieve shell and Tailwind.
+ *
+ * Tailwind dresses the shell through utilities set on the slots: this file
+ * only holds what a utility cannot express — the descendant selectors of the
+ * menu — and the dark-mode palette of the --dp-* tokens, which Tailwind does
+ * not emit on its own.
+ *
+ * The article typography comes from prose.css: Tailwind's Preflight resets
+ * headings, lists and quotes.
+ */
+
+/* --- Dark mode ----------------------------------------------------------- */
+
+/*
+ * Tailwind v4 varies `dark:` on the system preference. These blocks follow
+ * the same rule for the shared tokens, with the `.light` / `.dark` escape
+ * hatch that theme.darkMode allows.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-bg: oklch(12.9% 0.042 264.695);
+    --dp-bg-soft: oklch(20.8% 0.042 265.755);
+    --dp-text: oklch(96.8% 0.007 247.896);
+    --dp-text-soft: oklch(70.4% 0.04 256.788);
+    --dp-border: oklch(27.9% 0.041 260.031);
+    --dp-rule: oklch(27.9% 0.041 260.031);
+    --dp-accent: oklch(78.5% 0.115 274.713);
+    --dp-accent-soft: oklch(20.8% 0.042 265.755);
+    --dp-shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root.dark {
+  --dp-bg: oklch(12.9% 0.042 264.695);
+  --dp-bg-soft: oklch(20.8% 0.042 265.755);
+  --dp-text: oklch(96.8% 0.007 247.896);
+  --dp-text-soft: oklch(70.4% 0.04 256.788);
+  --dp-border: oklch(27.9% 0.041 260.031);
+  --dp-rule: oklch(27.9% 0.041 260.031);
+  --dp-accent: oklch(78.5% 0.115 274.713);
+  --dp-accent-soft: oklch(20.8% 0.042 265.755);
+  --dp-shadow: rgba(0, 0, 0, 0.45);
+}
+
+body {
+  background-color: var(--dp-bg);
+  color: var(--dp-text);
+  font-family: var(--dp-font);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--dp-accent);
+}
+
+/* --- Side menu ----------------------------------------------------------- */
+
+/*
+ * A utility applies to one element, not to a relation between elements: the
+ * rule linking a child to its parent can only come from here.
+ */
+.dp-nav .dp-nav {
+  margin: 0.1rem 0 0.35rem 0.35rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--dp-rule);
+}
+
+.dp-nav,
+.dp-toc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The bar of the current page sits on the parent's rule, in its place. */
+.dp-nav .dp-nav .dp-nav-link[aria-current='page'] {
+  position: relative;
+}
+.dp-nav .dp-nav .dp-nav-link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: calc(-0.85rem - 1px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--dp-accent);
+  border-radius: 2px;
+}
+
+/* --- Version switcher ---------------------------------------------------- */
+
+.dp-versions > summary::after {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: -0.2rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.dp-versions[open] > summary::after {
+  transform: rotate(-135deg);
+  margin-top: 0.15rem;
+}
+
+/* --- Table of contents --------------------------------------------------- */
+
+.dp-toc-list .dp-toc-list {
+  border-left: 0;
+  padding-left: 0.8rem;
+}
+.dp-toc-item a {
+  display: block;
+  padding: 0.18rem 0 0.18rem 0.8rem;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  color: var(--dp-text-soft);
+  text-decoration: none;
+  line-height: 1.45;
+}
+.dp-toc-item a:hover {
+  color: var(--dp-accent);
+  border-left-color: var(--dp-accent);
+}
+
+@media (max-width: 56rem) {
+  .dp-sidebar {
+    border-bottom: 1px solid var(--dp-border);
+  }
+}

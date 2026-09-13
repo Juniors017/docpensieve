@@ -1,0 +1,52 @@
+{
+  "name": "@docpensieve/components",
+  "version": "0.1.0",
+  "description": "DocPensieve global MDX components, usable without import: Card, Columns, Tooltip, Tree, Skill, TimeTimer, LogoIcon, ScrollToTop",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "styles",
+    "types"
+  ],
+  "dependencies": {
+    "@docpensieve/shared": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "keywords": [
+    "docpensieve",
+    "mdx",
+    "components",
+    "react",
+    "documentation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juniors017/docpensieve.git",
+    "directory": "packages/components"
+  },
+  "homepage": "https://github.com/Juniors017/docpensieve#readme",
+  "bugs": {
+    "url": "https://github.com/Juniors017/docpensieve/issues"
+  },
+  "author": "Valentin Chevoleau (Juniors017)",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "prepack": "tsc -b tsconfig.build.json"
+  }
+}

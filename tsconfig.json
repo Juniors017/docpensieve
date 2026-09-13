@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  // The project stays in JavaScript: TypeScript only checks the JSDoc already
+  // written, it never produces code. No file is renamed and the source keeps
+  // running as is on Node 22.
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+
+    "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+
+    // Third-party packages are none of our business: their own types look
+    // after them, and checking them would slow down every `npm run check`.
+    "skipLibCheck": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    // The packages see one another through their source, not through the
+    // `.d.ts` that `prepack` drops in `packages/*/types/`. Otherwise the
+    // checker reads stale declarations: an export just added stays invisible
+    // to it, and a changed signature goes unnoticed until the next
+    // `npm run types`.
+    "paths": {
+      "@docpensieve/shared": ["./packages/shared/src/index.js"],
+      "@docpensieve/core": ["./packages/core/src/index.js"],
+      "@docpensieve/theme": ["./packages/theme/src/index.js"],
+      "@docpensieve/components": ["./packages/components/src/index.js"],
+      "docpensieve": ["./packages/cli/src/index.js"]
+    }
+  },
+
+  // Source and tests alike: a changed signature breaks the tests that call it
+  // before they even run.
+  "include": ["packages/*/src/**/*.js", "packages/*/test/**/*.js", "*.js"],
+  "exclude": ["node_modules", "dist", "coverage"]
+}

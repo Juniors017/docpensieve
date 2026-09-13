@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Two simultaneous deployments would step on each other, on Pages as well as
+# on the orphan branches. The running one is not cancelled: it pushes
+# branches, and interrupting it would leave them half written.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Needed to push the orphan branches of the versions.
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      # A single build produces every version, versions.json and the root
+      # redirect. Splitting it into a matrix would run "npm ci" N times for
+      # fragments none of which could write the manifest.
+      - run: npm run build
+
+      # "checkout" only sets the credentials in the repository it checked out.
+      # The script pushes from a temporary clone: without this global rule,
+      # git asks for a user name there and fails.
+      - name: Let git push from any clone
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global url."https://x-access-token:$TOKEN@github.com/".insteadOf "https://github.com/"
+
+      - name: Push each version to its orphan branch
+        run: node scripts/publish-versions.mjs
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
