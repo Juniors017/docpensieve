@@ -15,7 +15,7 @@
     }
   },
   "bin": {
-    "docpensieve": "./bin/docpensieve.js"
+    "docpensieve": "bin/docpensieve.js"
   },
   "files": [
     "bin",
