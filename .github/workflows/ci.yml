@@ -48,8 +48,9 @@ jobs:
       # And read the output: dead links fail no test.
       - run: npm run check:links
 
-      # What npm would really take. The packing chain has its own ways of
+      # What npm would really pack. The packing chain has its own ways of
       # breaking — declarations rebuilt in the wrong order, a file forgotten
-      # in "files" — and nothing else exercises it. Finding out on publishing
-      # day would be the worst moment.
-      - run: npm publish --workspaces --dry-run
+      # in "files" — and nothing else exercises it. "npm pack" rather than a
+      # publish dry run: recent npm versions also ask the registry whether
+      # the version is still free, which fails on every push once released.
+      - run: npm pack --workspaces --dry-run
