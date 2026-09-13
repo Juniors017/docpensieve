@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Configuration · DocPensieve</title>
-    <meta name="description" content="Every field of docpensieve.config.js, its default value and its effect." />
+    <meta name="description" content="Every field of docpensieve.config.mjs, its default value and its effect." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/" />
     <link rel="stylesheet" href="/docpensieve/versions/v0.2/assets/docpensieve.css" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://juniors017.github.io/docpensieve/#organization","name":"DocPensieve","url":"https://juniors017.github.io/docpensieve"},{"@type":"TechArticle","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/#article","headline":"Configuration","mainEntityOfPage":{"@type":"WebPage","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/"},"publisher":{"@id":"https://juniors017.github.io/docpensieve/#organization"},"description":"Every field of docpensieve.config.js, its default value and its effect.","keywords":["reference","configuration"]},{"@type":"BreadcrumbList","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://juniors017.github.io/docpensieve/versions/v0.2/"},{"@type":"ListItem","position":2,"name":"Reference","item":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/"},{"@type":"ListItem","position":3,"name":"Configuration","item":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/"}]}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://juniors017.github.io/docpensieve/#organization","name":"DocPensieve","url":"https://juniors017.github.io/docpensieve"},{"@type":"TechArticle","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/#article","headline":"Configuration","mainEntityOfPage":{"@type":"WebPage","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/"},"publisher":{"@id":"https://juniors017.github.io/docpensieve/#organization"},"description":"Every field of docpensieve.config.mjs, its default value and its effect.","keywords":["reference","configuration"]},{"@type":"BreadcrumbList","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://juniors017.github.io/docpensieve/versions/v0.2/"},{"@type":"ListItem","position":2,"name":"Reference","item":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/"},{"@type":"ListItem","position":3,"name":"Configuration","item":"https://juniors017.github.io/docpensieve/versions/v0.2/reference/configuration/"}]}]}</script>
   </head>
   <body>
     <a class="dp-skip" href="#content">Skip to content</a>
@@ -108,10 +108,13 @@
           The current version is <a href="/docpensieve/versions/v0.1/">0.1</a>.
         </aside>
         <article class="dp-article"><h1 id="configuration">Configuration</h1>
-<p>The <code>docpensieve.config.js</code> file, at the root of the project.</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> { defineConfig } </span><span style="color:#D73A49;--shiki-dark:#F97583">from</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &#x27;@docpensieve/core&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> defineConfig</span><span style="color:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<p>The <code>docpensieve.config.mjs</code> file, at the root of the project.</p>
+<p>It is an ES module — hence <code>.mjs</code>, which Node reads as one whatever the
+project&#x27;s <code>package.json</code> says. <code>docpensieve.config.js</code> works too, in a project
+whose <code>package.json</code> declares <code>&quot;type&quot;: &quot;module&quot;</code>; with both files present, the
+build stops rather than pick one.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/** </span><span style="color:#D73A49;--shiki-dark:#F97583">@type</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> {import(&#x27;@docpensieve/core&#x27;).DocPensieveConfig}</span><span style="color:#6A737D;--shiki-dark:#6A737D"> */</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  projectName: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;My documentation&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  siteUrl: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;https://example.com/my-project&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"></span>
@@ -127,9 +130,14 @@
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  sidebar: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;auto&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  globalComponents: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  jsonld: { enabled: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
-<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">});</span></span></code></pre>
-<p><code>defineConfig</code> transforms nothing: it is only there for autocompletion and
-type checking in the editor.</p>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">};</span></span></code></pre>
+<p>The <code>@type</code> comment gives autocompletion and type checking in the editor
+without importing anything: the file stays readable even where DocPensieve
+only runs through <code>npx</code>. In a project that installs it as a dependency,
+<code>defineConfig</code> from <code>@docpensieve/core</code> does the same.</p>
+<p><code>docpensieve init</code> writes this file with <strong>every field</strong> in it — set to its
+default, or commented out with an example — so that it also tells you what you
+can change.</p>
 <h2 id="the-fields">The fields</h2>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Default</th><th>Effect</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Name shown in the header and in the JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Public URL. Used for the <code>canonical</code> and the JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Deployment prefix. Derived from <code>siteUrl</code> when omitted</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Output folder, relative to the root</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>At least one entry</td></tr><tr><td><code>theme</code></td><td>see below</td><td>Styling</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code>: the sidebar follows the file tree. The only value written so far</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Shipped components available without an import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Back-to-top button on every page</td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Structured data</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Language of the document, in <code>&lt;html lang&gt;</code>. The shell&#x27;s labels stay English</td></tr></tbody></table></div>
 <h2 id="versions"><code>versions</code></h2>
