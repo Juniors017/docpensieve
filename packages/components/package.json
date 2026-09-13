@@ -1,6 +1,6 @@
 {
   "name": "@docpensieve/components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DocPensieve global MDX components, usable without import: Card, Columns, Tooltip, Tree, Skill, TimeTimer, LogoIcon, ScrollToTop",
   "type": "module",
   "license": "MIT",

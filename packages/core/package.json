@@ -1,6 +1,6 @@
 {
   "name": "@docpensieve/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DocPensieve engine: loading, MDX compilation, structured data, site generation",
   "type": "module",
   "license": "MIT",

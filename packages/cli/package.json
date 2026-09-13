@@ -1,6 +1,6 @@
 {
   "name": "docpensieve",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DocPensieve command-line interface (init, build, check, dev, serve)",
   "type": "module",
   "license": "MIT",
