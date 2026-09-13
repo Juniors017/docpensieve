@@ -106,12 +106,12 @@
 <p>A version is a <strong>source folder</strong> and a <strong>configuration entry</strong>. Nothing else.
 Everything else — URL, menu, switcher, branch — follows from them.</p>
 <h2 id="the-two-track-model">The two-track model</h2>
-<p>It is the most common arrangement, and the one this site uses:</p>
+<p>It is the most common arrangement, and the one DocPensieve&#x27;s own documentation uses:</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Version</th><th>Role</th><th>Who sees it</th></tr></thead><tbody><tr><td><strong>current</strong></td><td>the one that is online and being fixed</td><td>everyone, by default</td></tr><tr><td><strong>beta</strong></td><td>the one being prepared for the next release</td><td>those who pick it</td></tr></tbody></table></div>
 <p>A visitor arriving at the root is sent to the <strong>current</strong> one. The beta exists,
 it is reachable, but nobody lands there by chance.</p>
 <h2 id="1-declaring-the-versions">1. Declaring the versions</h2>
-<p>In <code>docpensieve.config.js</code>:</p>
+<p>In <code>docpensieve.config.mjs</code>:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.1 (beta)&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, prerelease: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
