@@ -13,8 +13,9 @@ jobs:
 
     permissions:
       contents: read
-      # npm provenance: publicly attests that the package really comes from
-      # this repository and this workflow.
+      # Trusted publishing: npm authenticates this workflow through the OIDC
+      # token GitHub issues, so no npm token is stored anywhere. The same
+      # token signs the provenance statement npm attaches to every package.
       id-token: write
 
     steps:
@@ -26,14 +27,17 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
 
+      # Trusted publishing needs npm 11.5.1 or later, and the npm bundled with
+      # Node can lag behind.
+      - run: npm install -g npm@11
+
       - run: npm ci
 
       - run: npm run check
 
       # The five packages leave together, at the same version: they reference
       # each other as ^x.y.z, and publishing one without the others would break
-      # their internal dependencies.
+      # their internal dependencies. Each one must declare this repository and
+      # this workflow as its trusted publisher on npmjs.com.
       - name: Publish the five packages
-        run: npm publish --workspaces --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --workspaces --access public
