@@ -10,15 +10,15 @@ jsonld:
 
 # Reference
 
-- **[Commands](/reference/cli/)** — `init`, `build`, `check`, `dev`, `serve`
+- **[Commands](./cli/)** — `init`, `build`, `check`, `dev`, `serve`
   and their options.
-- **[Configuration](/reference/configuration/)** — every field of
+- **[Configuration](./configuration/)** — every field of
   `docpensieve.config.js`, its default value and its effect.
-- **[Frontmatter](/reference/frontmatter/)** — the fields recognised at the top
+- **[Frontmatter](./frontmatter/)** — the fields recognised at the top
   of a page.
-- **[Theme](/reference/theme/)** — slots, tokens and styling options.
+- **[Theme](./theme/)** — slots, tokens and styling options.
 
-To learn how to use them rather than look them up, the [guide](/guide/) is the
+To learn how to use them rather than look them up, the [guide](../guide/) is the
 right starting point.
 
 ## Errors

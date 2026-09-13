@@ -13,17 +13,17 @@ jsonld:
 These pages are read in order. Each one starts from what the previous one set
 up.
 
-1. **[Installation](/guide/installation/)** — what you need, and how to set up
+1. **[Installation](./installation/)** — what you need, and how to set up
    a project.
-2. **[First site](/guide/first-site/)** — build, serve, look at what was
+2. **[First site](./first-site/)** — build, serve, look at what was
    produced.
-3. **[Writing pages](/guide/writing-pages/)** — frontmatter, URLs, menu, links,
+3. **[Writing pages](./writing-pages/)** — frontmatter, URLs, menu, links,
    images.
-4. **[Versions](/guide/versions/)** — several documentation versions, one
+4. **[Versions](./versions/)** — several documentation versions, one
    branch each.
-5. **[Themes](/guide/themes/)** — style the site, change the classes without
+5. **[Themes](./themes/)** — style the site, change the classes without
    touching the HTML.
-6. **[Deployment](/guide/deployment/)** — publish, and keep past versions
+6. **[Deployment](./deployment/)** — publish, and keep past versions
    online.
 
 ## What to know first
@@ -34,5 +34,5 @@ reader's side.
 
 This has a consequence to keep in mind throughout: what depends on the moment —
 a date, a countdown — is frozen at build time, not at reading time.
-[TimeTimer](/components/time-timer/) says so explicitly, and a scheduled build
+[TimeTimer](../components/time-timer/) says so explicitly, and a scheduled build
 is enough to keep it right.

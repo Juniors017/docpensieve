@@ -1,7 +1,8 @@
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { DEFAULT_CONFIG, loadConfig } from '@docpensieve/core';
 import { DocPensieveError } from '@docpensieve/shared';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -67,7 +68,7 @@ describe('init', () => {
 
     expect(existsSync(path.join(dir, 'docpensieve.config.js'))).toBe(true);
     expect(existsSync(path.join(dir, 'docs', 'v1.0', 'index.md'))).toBe(true);
-    expect(existsSync(path.join(dir, 'docs', 'v1.0', 'guide', '01-installation.md'))).toBe(true);
+    expect(existsSync(path.join(dir, 'docs', 'v1.0', '01-guide', '01-installation.md'))).toBe(true);
     expect(read(dir, '.gitignore')).toContain('dist/');
   });
 
@@ -106,7 +107,7 @@ describe('init', () => {
   it('accepts “1.0” as well as “v1.0” for the first version', async () => {
     for (const version of ['1.0', 'v1.0']) {
       const dir = scratch();
-      await init(dir, { yes: true, version });
+      await init(dir, { yes: true, version, minimal: true });
 
       expect(existsSync(path.join(dir, 'docs', 'v1.0', 'index.md'))).toBe(true);
       expect(read(dir, 'docpensieve.config.js')).toContain("slug: 'v1.0'");
@@ -118,7 +119,7 @@ describe('init', () => {
     // send the user to install what they already have.
     for (const theme of ['tailwind', 'custom']) {
       vi.mocked(console.log).mockClear();
-      await init(scratch(), { yes: true, theme });
+      await init(scratch(), { yes: true, theme, minimal: true });
       const output = vi.mocked(console.log).mock.calls.flat().join('\n');
       expect(output, theme).not.toContain('npm install');
     }
@@ -139,7 +140,7 @@ describe('init', () => {
 
   it('refuses to overwrite an existing project', async () => {
     const dir = scratch();
-    await init(dir, { yes: true, name: 'First' });
+    await init(dir, { yes: true, name: 'First', minimal: true });
 
     await expect(init(dir, { yes: true, name: 'Second' })).rejects.toThrow(/already exists/);
     expect(read(dir, 'docpensieve.config.js')).toContain("projectName: 'First'");
@@ -147,8 +148,8 @@ describe('init', () => {
 
   it('overwrites on explicit request', async () => {
     const dir = scratch();
-    await init(dir, { yes: true, name: 'First' });
-    await init(dir, { yes: true, name: 'Second', force: true });
+    await init(dir, { yes: true, name: 'First', minimal: true });
+    await init(dir, { yes: true, name: 'Second', force: true, minimal: true });
 
     expect(read(dir, 'docpensieve.config.js')).toContain("projectName: 'Second'");
   });
@@ -157,7 +158,7 @@ describe('init', () => {
     const dir = scratch();
     writeFileSync(path.join(dir, '.gitignore'), '*.log\n', 'utf8');
 
-    await init(dir, { yes: true });
+    await init(dir, { yes: true, minimal: true });
 
     const ignore = read(dir, '.gitignore');
     expect(ignore).toContain('*.log');
@@ -168,7 +169,7 @@ describe('init', () => {
     const dir = scratch();
     writeFileSync(path.join(dir, '.gitignore'), 'dist/\n', 'utf8');
 
-    await init(dir, { yes: true });
+    await init(dir, { yes: true, minimal: true });
 
     expect(read(dir, '.gitignore').match(/dist\//g)).toHaveLength(1);
   });
@@ -179,10 +180,105 @@ describe('init — the .gitignore', () => {
     // Without it, “dist/” would stick to the last rule and distort it.
     const dir = scratch();
     writeFileSync(path.join(dir, '.gitignore'), '*.log', 'utf8');
-    await init(dir, { yes: true });
+    await init(dir, { yes: true, minimal: true });
 
     const contents = read(dir, '.gitignore');
     expect(contents).toContain('*.log\ndist/');
+  });
+});
+
+describe('init — the configuration file', () => {
+  it('shows every field the configuration accepts', async () => {
+    // The first file a user opens also tells them what they can change: a
+    // field added to the configuration without appearing here would stay
+    // unknown to them.
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true });
+    const config = read(dir, 'docpensieve.config.js');
+
+    const fields = [
+      ...Object.keys(DEFAULT_CONFIG),
+      'lang',
+      'framework',
+      'darkMode',
+      'tokens',
+      'css',
+      'source',
+    ];
+    for (const field of fields) expect(config, field).toMatch(new RegExp(`\\b${field}:`));
+    for (const field of ['current', 'prerelease', 'archived'])
+      expect(config, field).toContain(field);
+  });
+
+  it('only offers the Tailwind entry stylesheet with the Tailwind theme', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, theme: 'custom', minimal: true });
+    expect(read(dir, 'docpensieve.config.js')).not.toContain('source:');
+  });
+
+  it('writes a configuration the engine accepts as is', async () => {
+    // Commented fields must break nothing, and the values set must stay the
+    // defaults.
+    const dir = scratch();
+    await init(dir, { yes: true, siteUrl: 'https://example.com/docs', minimal: true });
+
+    const config = await loadConfig(dir);
+    expect(config.baseUrl).toBe('/docs/');
+    expect(config.lang).toBe('en');
+    expect(config.scrollToTop).toBe(true);
+    expect(config.globalComponents).toBe(true);
+  });
+});
+
+describe('init — DocPensieve documentation', () => {
+  /** @param {string} dir */
+  const section = (dir) => path.join(dir, 'docs', 'v1.0', '99-docpensieve');
+
+  it('installs it by default, in its own folder', async () => {
+    const dir = scratch();
+    const { docs } = await init(dir, { yes: true });
+
+    expect(docs).toBe(true);
+    expect(read(section(dir), 'index.md')).toContain('title: DocPensieve');
+    expect(existsSync(path.join(section(dir), '01-guide', '01-installation.md'))).toBe(true);
+    expect(existsSync(path.join(section(dir), '02-components', 'icons', 'banner.svg'))).toBe(true);
+    // Its home page, and the icons only that page uses, belong to
+    // DocPensieve's own site.
+    expect(existsSync(path.join(section(dir), 'index.mdx'))).toBe(false);
+    expect(existsSync(path.join(section(dir), 'icons'))).toBe(false);
+    // The project's home page points to it.
+    expect(read(dir, 'docs', 'v1.0', 'index.md')).toContain('(/docpensieve/)');
+  });
+
+  it('leaves it out with --minimal', async () => {
+    const dir = scratch();
+    const { docs } = await init(dir, { yes: true, minimal: true });
+
+    expect(docs).toBe(false);
+    expect(existsSync(section(dir))).toBe(false);
+    expect(read(dir, 'docs', 'v1.0', 'index.md')).not.toContain('/docpensieve/');
+  });
+
+  it('keeps its links relative, so that they work from their new folder', async () => {
+    // Installed under 99-docpensieve, a link written /guide/… would leave the
+    // section — and land on the project's own /guide/installation/ page,
+    // which exists: no dead link would give it away.
+    const dir = scratch();
+    await init(dir, { yes: true });
+
+    const pages = readdirSync(section(dir), { recursive: true })
+      .map(String)
+      .filter((file) => /\.mdx?$/.test(file));
+    expect(pages.length).toBeGreaterThan(10);
+
+    const absolute = /(\]\(|(?:href|src)=")\/(?:guide|components|reference|architecture)\//;
+    for (const page of pages) {
+      // Code shows examples to the reader: only the links actually followed count.
+      const prose = read(section(dir), page)
+        .replace(/```[\s\S]*?```/g, '')
+        .replace(/`[^`\n]*`/g, '');
+      expect(prose, page).not.toMatch(absolute);
+    }
   });
 });
 
@@ -201,7 +297,7 @@ describe('init — the dialogue', () => {
   });
 
   it('takes the typed answers', async () => {
-    dialogue.answers = ['My project', 'https://example.com/doc', '2.0', 'custom'];
+    dialogue.answers = ['My project', 'https://example.com/doc', '2.0', 'custom', 'n'];
     const dir = scratch();
     await init(dir);
 
@@ -213,53 +309,69 @@ describe('init — the dialogue', () => {
   });
 
   it('keeps the default value on an empty answer', async () => {
-    // Four empty answers: the user accepts everything without typing.
+    // Empty answers: the user accepts everything without typing.
     const dir = scratch();
-    await init(dir);
+    const { docs } = await init(dir);
 
     const config = read(dir, 'docpensieve.config.js');
     expect(config).toContain("framework: 'tailwind'");
     expect(config).toContain("slug: 'v1.0'");
+    expect(docs).toBe(true);
   });
 
   it('picks the framework by its number', async () => {
-    dialogue.answers = ['', '', '', '2'];
+    dialogue.answers = ['', '', '', '2', 'n'];
     const dir = scratch();
     expect((await init(dir)).theme).toBe('custom');
   });
 
   it('picks the framework by its name', async () => {
     // Typing “custom” is more natural than counting lines.
-    dialogue.answers = ['', '', '', 'CUSTOM'];
+    dialogue.answers = ['', '', '', 'CUSTOM', 'n'];
     const dir = scratch();
     expect((await init(dir)).theme).toBe('custom');
   });
 
   it('asks again after an answer it does not understand', async () => {
-    dialogue.answers = ['', '', '', 'bootstrap', '9', 'tailwind'];
+    dialogue.answers = ['', '', '', 'bootstrap', '9', 'tailwind', 'maybe', 'n'];
     const dir = scratch();
-    expect((await init(dir)).theme).toBe('tailwind');
+    const result = await init(dir);
+    expect(result.theme).toBe('tailwind');
+    expect(result.docs).toBe(false);
 
-    const questions = dialogue.asked.filter((q) => q.includes('Your choice'));
-    expect(questions).toHaveLength(3);
+    expect(dialogue.asked.filter((q) => q.includes('Your choice'))).toHaveLength(3);
+    expect(dialogue.asked.filter((q) => q.includes("DocPensieve's documentation"))).toHaveLength(2);
   });
 
   it('does not ask for the framework when the option gives it', async () => {
-    dialogue.answers = ['My project', '', ''];
+    dialogue.answers = ['My project', '', '', 'n'];
     const dir = scratch();
     expect((await init(dir, { theme: 'custom' })).theme).toBe('custom');
     expect(dialogue.asked.some((q) => q.includes('Your choice'))).toBe(false);
   });
 
+  it('asks whether to install the documentation', async () => {
+    dialogue.answers = ['', '', '', '', 'no'];
+    const dir = scratch();
+    expect((await init(dir)).docs).toBe(false);
+    expect(existsSync(path.join(dir, 'docs', 'v1.0', '99-docpensieve'))).toBe(false);
+  });
+
+  it('does not ask about the documentation with --minimal', async () => {
+    const dir = scratch();
+    expect((await init(dir, { minimal: true })).docs).toBe(false);
+    expect(dialogue.asked.some((q) => q.includes("DocPensieve's documentation"))).toBe(false);
+  });
+
   it('opens no dialogue with --yes', async () => {
-    await init(scratch(), { yes: true });
+    await init(scratch(), { yes: true, minimal: true });
     expect(dialogue.openings).toBe(0);
   });
 
   it('opens no dialogue without a terminal', async () => {
     // Script, continuous integration, pipe: the dialogue would never complete.
     Object.defineProperty(process.stdin, 'isTTY', { value: false, configurable: true });
-    await init(scratch());
+    await init(scratch(), { minimal: true });
     expect(dialogue.openings).toBe(0);
   });
 });

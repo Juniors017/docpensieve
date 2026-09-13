@@ -28,6 +28,12 @@ The command creates the folder and writes a configuration, a first
 documentation folder and a home page into it. It asks a few questions; `--yes`
 skips them and accepts the defaults.
 
+It also installs this very documentation, in a **DocPensieve** section at the
+end of the new site's menu. It matches the version you installed, and its
+folder, `99-docpensieve`, can be deleted as soon as you no longer need it;
+`--minimal` leaves it out. The configuration file lists every option, each with
+a comment, set to its default or given as an example.
+
 ```bash
 npx docpensieve init my-site --yes --name "My documentation"
 ```
@@ -40,6 +46,7 @@ npx docpensieve init my-site --yes --name "My documentation"
 | `--version-name <version>` | First version, `1.0` for instance                       |
 | `-y, --yes`                | Accepts the defaults without a dialogue                 |
 | `-f, --force`              | Overwrites an existing configuration                    |
+| `--minimal`                | Leaves DocPensieve's documentation out of the site      |
 
 ## In an existing project
 
@@ -60,7 +67,7 @@ package, with no styling dependency.
 
 Both are equivalent in use — the templates are the same, only the styling
 changes. The choice is not final: it fits in one field of the configuration,
-described in [Themes](/guide/themes/).
+described in [Themes](./themes/).
 
 ## Checking
 
@@ -69,4 +76,4 @@ npx docpensieve build
 ```
 
 If the output folder appears with an `index.html` inside, everything is in
-place. Next: [First site](/guide/first-site/).
+place. Next: [First site](./first-site/).

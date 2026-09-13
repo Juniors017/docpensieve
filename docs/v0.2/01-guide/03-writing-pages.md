@@ -29,7 +29,7 @@ tags: [guide, installation]
 `description` feeds the metadata and the JSON-LD. Everything is optional:
 without `title`, the project name stands in.
 
-The fields are detailed in the [reference](/reference/frontmatter/).
+The fields are detailed in the [reference](../reference/frontmatter/).
 
 ## What the URL depends on
 
@@ -104,7 +104,7 @@ In an `.mdx` page, the shipped components are used **without an import**:
 ```
 
 They are rendered at build time: the delivered HTML only holds their result.
-The list is in [Components](/components/).
+The list is in [Components](../components/).
 
 ## A trap to know
 

@@ -33,6 +33,7 @@ program
   .option('--version-name <version>', 'first version, e.g. 1.0')
   .option('-y, --yes', 'accept the defaults without a dialogue')
   .option('-f, --force', 'overwrite an existing configuration')
+  .option('--minimal', "leave DocPensieve's documentation out of the new site")
   .action(async (dir, options) => {
     await init(dir, { ...options, version: options.versionName });
   });

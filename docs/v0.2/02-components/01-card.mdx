@@ -35,7 +35,7 @@ follows the corners; between two blocks, it stays square.
 <Columns>
   <Column span={6}>
     <Card>
-      <CardImage src="/components/icons/banner.svg" alt="" />
+      <CardImage src="./icons/banner.svg" alt="" />
       <CardHeader>Image at the top</CardHeader>
       <CardBody>The top corners follow those of the card.</CardBody>
     </Card>
@@ -44,14 +44,14 @@ follows the corners; between two blocks, it stays square.
     <Card>
       <CardHeader>Image at the bottom</CardHeader>
       <CardBody>The bottom corners follow those of the card.</CardBody>
-      <CardImage src="/components/icons/banner.svg" alt="" />
+      <CardImage src="./icons/banner.svg" alt="" />
     </Card>
   </Column>
 </Columns>
 
 ```mdx
 <Card>
-  <CardImage src="/components/icons/banner.svg" alt="" />
+  <CardImage src="./icons/banner.svg" alt="" />
   <CardBody>…</CardBody>
 </Card>
 ```
@@ -109,13 +109,13 @@ It is the most common use. `h-full` aligns the heights whatever the content.
 
 ## Fully clickable
 
-<Card className="max-w-sm" href="/components/columns/">
+<Card className="max-w-sm" href="./columns/">
   <CardHeader>Go to the columns</CardHeader>
   <CardBody>The whole card is a link, not just the title.</CardBody>
 </Card>
 
 ```mdx
-<Card href="/components/columns/">…</Card>
+<Card href="./columns/">…</Card>
 ```
 
 A relative target starts from the page, an absolute target from the version

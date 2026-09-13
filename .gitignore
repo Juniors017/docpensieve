@@ -35,3 +35,5 @@ npm-debug.log*
 # Env
 .env
 .env.local
+# Documentation copied into the CLI package while it is being packed.
+packages/cli/starter/

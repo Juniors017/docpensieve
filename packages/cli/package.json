@@ -20,6 +20,7 @@
   "files": [
     "bin",
     "src",
+    "starter",
     "types"
   ],
   "dependencies": {
@@ -54,6 +55,7 @@
   },
   "types": "./types/index.d.ts",
   "scripts": {
-    "prepack": "tsc -b tsconfig.build.json"
+    "prepack": "tsc -b tsconfig.build.json && node scripts/starter.mjs",
+    "postpack": "node scripts/starter.mjs --clean"
   }
 }

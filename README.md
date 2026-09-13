@@ -37,8 +37,11 @@ cd my-site
 npx docpensieve dev
 ```
 
-`init` asks for the project name, its URL and the theme. In a script or in
-continuous integration, `--yes` accepts the defaults.
+`init` asks for the project name, its URL and the theme, then installs
+DocPensieve's documentation in a section of the new site's menu — `--minimal`
+leaves it out. The configuration file it writes lists every option, each with a
+comment. In a script or in continuous integration, `--yes` accepts the
+defaults.
 
 | Command                           | Effect                                                   |
 | --------------------------------- | -------------------------------------------------------- |

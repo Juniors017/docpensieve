@@ -63,8 +63,17 @@ describe('init, build, check', () => {
     // The root leads to the current version.
     expect(read(out, 'index.html')).toContain('versions/v1.0/');
     expect(JSON.parse(read(out, 'versions.json')).versions).toHaveLength(1);
+    // DocPensieve's own documentation comes with the project, in its section,
+    // and the home page leads to it.
+    expect(
+      existsSync(
+        path.join(out, 'versions', 'v1.0', 'docpensieve', 'guide', 'installation', 'index.html'),
+      ),
+    ).toBe(true);
+    expect(home).toContain('href="/versions/v1.0/docpensieve/"');
 
-    // And the review finds nothing to complain about.
+    // And the review finds nothing to complain about — the links of the
+    // installed documentation included.
     const { faults, pages } = await check({ cwd });
     expect(faults).toEqual([]);
     expect(pages).toBeGreaterThan(0);

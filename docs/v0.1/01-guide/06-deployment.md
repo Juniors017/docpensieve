@@ -121,4 +121,4 @@ produced at the time, and nothing would guarantee that a rebuild gives the same
 result years later.
 
 The branch model answers this — each compiled version on its own orphan branch,
-with its history. See [Versions](/guide/versions/).
+with its history. See [Versions](./versions/).

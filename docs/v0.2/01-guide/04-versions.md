@@ -15,7 +15,7 @@ Everything else — URL, menu, switcher, branch — follows from them.
 
 ## The two-track model
 
-It is the most common arrangement, and the one this site uses:
+It is the most common arrangement, and the one DocPensieve's own documentation uses:
 
 | Version     | Role                                        | Who sees it          |
 | ----------- | ------------------------------------------- | -------------------- |

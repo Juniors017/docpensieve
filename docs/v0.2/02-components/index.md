@@ -21,14 +21,14 @@ The component classes live in the `components` layer, below the utilities: a
 
 ## Available
 
-- [Card](/components/card/) — card, with header, body, footer and image
-- [Columns](/components/columns/) — column grid
-- [TimeTimer](/components/time-timer/) — display depending on a date
-- [Tooltip](/components/tooltip/) — tooltip on hover and from the keyboard
-- [Tree](/components/tree/) — collapsible tree
-- [ScrollToTop](/components/scroll-to-top/) — back to the top of the page
-- [Skill](/components/skill/) — level gauge
-- [LogoIcon](/components/logo-icon/) — SVG icon inlined in the page
+- [Card](./card/) — card, with header, body, footer and image
+- [Columns](./columns/) — column grid
+- [TimeTimer](./time-timer/) — display depending on a date
+- [Tooltip](./tooltip/) — tooltip on hover and from the keyboard
+- [Tree](./tree/) — collapsible tree
+- [ScrollToTop](./scroll-to-top/) — back to the top of the page
+- [Skill](./skill/) — level gauge
+- [LogoIcon](./logo-icon/) — SVG icon inlined in the page
 
 ## Without JavaScript
 

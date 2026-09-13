@@ -10,7 +10,7 @@ jsonld:
 
 # Theme
 
-To learn how to use it, see [Themes](/guide/themes/). This page lists what
+To learn how to use it, see [Themes](../guide/themes/). This page lists what
 exists.
 
 ## The options

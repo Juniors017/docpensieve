@@ -22,8 +22,11 @@ npx docpensieve check         # reads the produced site back: links, markup
 npx docpensieve serve         # serves the output folder
 ```
 
-`init` asks for the project name, its URL and the CSS framework. In a script
-or in CI, `--yes --theme tailwind` skips the dialogue.
+`init` asks for the project name, its URL and the CSS framework, and installs
+DocPensieve's documentation in a section of the new site's menu, matching the
+installed version — `--minimal` leaves it out. The configuration file it writes
+lists every option, each with a comment. In a script or in CI,
+`--yes --theme tailwind` skips the dialogue.
 
 The development server reloads the browser after every rebuild, through a
 script injected **at serving time**: the output of `build` stays free of

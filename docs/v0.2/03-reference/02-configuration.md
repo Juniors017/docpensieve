@@ -13,9 +13,8 @@ jsonld:
 The `docpensieve.config.js` file, at the root of the project.
 
 ```js
-import { defineConfig } from '@docpensieve/core';
-
-export default defineConfig({
+/** @type {import('@docpensieve/core').DocPensieveConfig} */
+export default {
   projectName: 'My documentation',
   siteUrl: 'https://example.com/my-project',
 
@@ -31,11 +30,17 @@ export default defineConfig({
   sidebar: 'auto',
   globalComponents: true,
   jsonld: { enabled: true },
-});
+};
 ```
 
-`defineConfig` transforms nothing: it is only there for autocompletion and
-type checking in the editor.
+The `@type` comment gives autocompletion and type checking in the editor
+without importing anything: the file stays readable even where DocPensieve
+only runs through `npx`. In a project that installs it as a dependency,
+`defineConfig` from `@docpensieve/core` does the same.
+
+`docpensieve init` writes this file with **every field** in it — set to its
+default, or commented out with an example — so that it also tells you what you
+can change.
 
 ## The fields
 
@@ -91,7 +96,7 @@ theme: {
 | `css`       | CSS appended to the produced stylesheet   |
 | `source`    | Stylesheet handed to the utility compiler |
 
-The available tokens are listed in [Themes](/guide/themes/).
+The available tokens are listed in [Themes](../guide/themes/).
 
 ## `baseUrl`, and why you rarely write it
 

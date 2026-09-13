@@ -31,7 +31,7 @@ no page.
 The templates **hard-code no class**. They ask the theme for the class of each
 slot — the header, the menu, a navigation link — and the theme answers.
 
-The twenty-four slots are listed in the [reference](/reference/theme/).
+The twenty-four slots are listed in the [reference](../reference/theme/).
 
 That is what lets a utility styling and a classic styling share the same HTML:
 one answers `dp-nav-link`, the other a handful of utilities. The template
@@ -43,7 +43,7 @@ they therefore follow the active palette without knowing anything about it.
 
 ## Changing the colours
 
-The fifteen tokens are listed in the [reference](/reference/theme/). They are
+The fifteen tokens are listed in the [reference](../reference/theme/). They are
 redefined from the configuration:
 
 ```js

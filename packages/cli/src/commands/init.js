@@ -4,10 +4,12 @@
  * @module docpensieve/commands/init
  */
 
-import { existsSync } from 'node:fs';
+import { cpSync, existsSync, readdirSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { createInterface } from 'node:readline/promises';
+import { fileURLToPath } from 'node:url';
 
 import { CONFIG_FILENAME, DocPensieveError, THEME_FRAMEWORKS } from '@docpensieve/shared';
 
@@ -22,6 +24,23 @@ const FRAMEWORK_LABELS = {
 
 /** Answers used when there is no dialogue. */
 const DEFAULTS = { name: 'My documentation', siteUrl: '', theme: 'tailwind', version: '1.0' };
+
+/**
+ * Folder of the installed DocPensieve documentation, inside the version folder.
+ *
+ * The prefix puts it last in the menu, after the project's own pages, and
+ * vanishes from the URL: the section is served under `/docpensieve/`.
+ */
+const DOCS_FOLDER = '99-docpensieve';
+
+/**
+ * Entries of DocPensieve's documentation that are not installed: its home page
+ * and the icons only that page uses belong to DocPensieve's own site.
+ */
+const NOT_INSTALLED = new Set(['index.md', 'index.mdx', 'icons']);
+
+/** Where the generated configuration sends readers for every field. */
+const DOCUMENTATION_URL = 'https://juniors017.github.io/docpensieve/';
 
 /**
  * Asks a question, with a default value shown between brackets.
@@ -67,10 +86,32 @@ async function askFramework(rl) {
 }
 
 /**
+ * Asks whether to install DocPensieve's documentation in the new site.
+ *
+ * @param {import('node:readline/promises').Interface} rl
+ * @returns {Promise<boolean>}
+ */
+async function askDocumentation(rl) {
+  for (;;) {
+    const answer = (await rl.question("Install DocPensieve's documentation in the site? [Y/n]: "))
+      .trim()
+      .toLowerCase();
+    if (answer === '' || answer === 'y' || answer === 'yes') return true;
+    if (answer === 'n' || answer === 'no') return false;
+    console.log('Answer not understood. Expected: y or n.');
+  }
+}
+
+/**
  * Gathers the answers, through a dialogue or from the options.
  *
- * @param {{ name?: string, theme?: string, siteUrl?: string, version?: string, yes?: boolean }} options
- * @returns {Promise<{ name: string, theme: string, siteUrl: string, version: string }>}
+ * @param {{
+ *   name?: string, theme?: string, siteUrl?: string, version?: string,
+ *   yes?: boolean, minimal?: boolean,
+ * }} options
+ * @returns {Promise<{
+ *   name: string, theme: string, siteUrl: string, version: string, docs: boolean,
+ * }>}
  */
 async function collect(options) {
   const fromOptions = {
@@ -78,6 +119,7 @@ async function collect(options) {
     siteUrl: options.siteUrl ?? DEFAULTS.siteUrl,
     theme: options.theme ?? DEFAULTS.theme,
     version: options.version ?? DEFAULTS.version,
+    docs: !options.minimal,
   };
 
   // Without a terminal — script, CI, pipe — the dialogue would never complete:
@@ -90,7 +132,8 @@ async function collect(options) {
     const siteUrl = await ask(rl, 'Public URL of the site (optional)', fromOptions.siteUrl);
     const version = await ask(rl, 'First version', fromOptions.version);
     const theme = options.theme ?? (await askFramework(rl));
-    return { name, siteUrl, version, theme };
+    const docs = options.minimal ? false : await askDocumentation(rl);
+    return { name, siteUrl, version, theme, docs };
   } finally {
     rl.close();
   }
@@ -108,6 +151,12 @@ async function collect(options) {
 const quote = (value) => `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 
 /**
+ * Renders `docpensieve.config.js`.
+ *
+ * Every field the configuration accepts appears in it — set to its default,
+ * or commented out with an example — so that the first file a user opens also
+ * tells them everything they can change.
+ *
  * @param {{ name: string, theme: string, siteUrl: string, version: string }} answers
  * @returns {string} Contents of `docpensieve.config.js`.
  */
@@ -121,45 +170,74 @@ function renderConfig({ name, theme, siteUrl, version }) {
   const lines = [
     "/** @type {import('@docpensieve/core').DocPensieveConfig} */",
     'export default {',
+    '  // Name shown in the header, in the page titles and in the structured data.',
     `  projectName: ${quote(name)},`,
-  ];
-
-  if (siteUrl) {
-    lines.push(
-      `  siteUrl: ${quote(siteUrl)},`,
-      '  // baseUrl is derived from the path of siteUrl. Set it to force it.',
-    );
-  }
-
-  lines.push(
     '',
-    '  // One entry per version. The compiled output then goes to an orphan',
-    '  // branch with the same slug.',
+    '  // Public address of the site. It feeds the canonical links and the',
+    '  // structured data, and its path gives the deployment prefix.',
+    siteUrl ? `  siteUrl: ${quote(siteUrl)},` : "  // siteUrl: 'https://example.com/my-project',",
+    "  // baseUrl: '/my-project/', // only to depart from the path of siteUrl",
+    '',
+    '  // Language of the pages, in <html lang>. The labels of the page shell',
+    '  // stay in English.',
+    "  lang: 'en',",
+    '',
+    '  // One entry per version, each one a folder of Markdown and MDX pages.',
+    '  //   current     the version the site root leads to — at most one',
+    '  //   prerelease  in preparation: a banner on every page, kept out of search',
+    '  //   archived    no longer maintained: a banner, still indexed',
     '  versions: [',
-    `    {`,
-    `      slug: ${quote(slug)},`,
-    `      name: ${quote(version)},`,
+    '    {',
+    `      slug: ${quote(slug)}, // URL segment, and name of the version's branch`,
+    `      name: ${quote(version)}, // label in the version switcher`,
     `      folder: ${quote(`docs/${slug}`)},`,
-    `      current: true,`,
-    `    },`,
+    '      current: true,',
+    '    },',
     '  ],',
     '',
+    '  // Output folder of "docpensieve build".',
     "  outDir: 'dist',",
     '',
     '  theme: {',
+    "    // 'tailwind' compiles the utilities your pages use; 'custom' is a plain",
+    '    // stylesheet with no dependency.',
     `    framework: ${quote(theme)},`,
     "    darkMode: 'class',",
-    "    // Override the palette: tokens: { '--dp-accent': '#008060' },",
+    '',
+    '    // Design tokens to override, for instance the accent colour:',
+    "    // tokens: { '--dp-accent': '#008060', '--dp-radius': '0.75rem' },",
+    '',
+    '    // CSS appended to the stylesheet, outside any layer: it wins over the',
+    '    // default rules.',
+    "    // css: '.dp-article h2 { letter-spacing: -0.01em; }',",
+    ...(theme === 'tailwind'
+      ? [
+          '',
+          '    // Entry stylesheet handed to Tailwind, to add a @theme block for',
+          '    // instance.',
+          `    // source: '@import "tailwindcss";',`,
+        ]
+      : []),
     '  },',
     '',
-    "  // 'auto': the sidebar follows the file tree and the 01-, 02- prefixes.",
+    "  // 'auto': the menu follows the folders and the 01-, 02- prefixes.",
     "  sidebar: 'auto',",
     '',
+    '  // The shipped components — Card, Columns, Tooltip… — usable in any .mdx',
+    '  // page without an import. false removes them, to use your own names.',
     '  globalComponents: true,',
+    '',
+    '  // Back-to-top button on every page.',
+    '  scrollToTop: true,',
+    '',
+    '  // Structured data (JSON-LD) generated from the frontmatter of each page.',
     '  jsonld: { enabled: true },',
     '};',
     '',
-  );
+    '// Every field is described in the reference of the DocPensieve documentation:',
+    `// the DocPensieve section of your site, or ${DOCUMENTATION_URL}`,
+    '',
+  ];
 
   return lines.join('\n');
 }
@@ -180,9 +258,10 @@ function versionSlug(version) {
 
 /**
  * @param {string} name Project name, for the title of the home page.
+ * @param {boolean} docs Whether DocPensieve's documentation is installed.
  * @returns {string}
  */
-const renderIndex = (name) => `---
+const renderIndex = (name, docs) => `---
 title: Introduction
 description: Documentation of ${name}.
 date: ${new Date().toISOString().slice(0, 10)}
@@ -202,7 +281,17 @@ Pages live in \`docs/\`. The \`01-\` prefix of a file orders the menu
 without appearing in the URL.
 
 See the [installation guide](/guide/installation/).
-`;
+${
+  docs
+    ? `
+## Learning DocPensieve
+
+The [DocPensieve](/docpensieve/) section of the menu is the documentation of the
+tool that builds this site, installed along with it. Delete its folder,
+\`${DOCS_FOLDER}\`, when you no longer need it.
+`
+    : ''
+}`;
 
 /** @returns {string} Sample page, showing ordering and highlighting. */
 const renderGuide = () => `---
@@ -228,15 +317,76 @@ npm run dev
 `;
 
 /**
+ * @param {string} slug Version slug, to name the folder to delete.
+ * @returns {string} Entry page of the installed documentation section.
+ */
+const renderDocsIndex = (slug) => `---
+title: DocPensieve
+description: Documentation of the tool this site is built with, installed along with it.
+---
+
+# DocPensieve
+
+This section is the documentation of DocPensieve, the tool this site is built
+with. \`docpensieve init\` installed it, and it matches the version you use.
+
+- [Guide](./guide/) — from installation to deployment, in order.
+- [Components](./components/) — the components usable in any page.
+- [Reference](./reference/) — commands, configuration, frontmatter and theme.
+- [Architecture](./architecture/) — how a page becomes HTML.
+
+When you no longer need it, delete the \`docs/${slug}/${DOCS_FOLDER}\` folder:
+nothing else depends on it.
+`;
+
+/**
+ * Folder holding DocPensieve's documentation, ready to be installed.
+ *
+ * The published package carries it in `starter/`, copied at packing time from
+ * the documentation of its own version. In this repository, outside packing,
+ * the same pages are read straight from `docs/`.
+ *
+ * @returns {string | null} The folder, or `null` when neither exists.
+ */
+function documentationSource() {
+  const packed = fileURLToPath(new URL('../../starter/', import.meta.url));
+  if (existsSync(packed)) return packed;
+
+  const { version } = createRequire(import.meta.url)('../../package.json');
+  const [major, minor] = String(version).split('.');
+  const repository = fileURLToPath(
+    new URL(`../../../../docs/v${major}.${minor}/`, import.meta.url),
+  );
+  return existsSync(repository) ? repository : null;
+}
+
+/**
+ * Copies DocPensieve's documentation into the new project, in its own folder.
+ *
+ * @param {string} source Folder of the documentation to install.
+ * @param {string} target Folder of the section, in the version folder.
+ * @param {string} slug Version slug.
+ */
+async function installDocumentation(source, target, slug) {
+  await mkdir(target, { recursive: true });
+  for (const entry of readdirSync(source)) {
+    if (NOT_INSTALLED.has(entry)) continue;
+    cpSync(path.join(source, entry), path.join(target, entry), { recursive: true });
+  }
+  await writeFile(path.join(target, 'index.md'), renderDocsIndex(slug), 'utf8');
+}
+
+/**
  * Sets up a documentation project.
  *
  * @param {string} [dir] Target folder, created if needed.
  * @param {{
  *   name?: string, theme?: string, siteUrl?: string, version?: string,
- *   yes?: boolean, force?: boolean,
- * }} [options]
- * @returns {Promise<{ dir: string, theme: string }>}
- * @throws {DocPensieveError} Unknown framework, or project already initialised.
+ *   yes?: boolean, force?: boolean, minimal?: boolean,
+ * }} [options] `minimal` leaves DocPensieve's documentation out of the site.
+ * @returns {Promise<{ dir: string, theme: string, docs: boolean }>}
+ * @throws {DocPensieveError} Unknown framework, project already initialised,
+ *   or documentation to install missing.
  */
 export async function init(dir = '.', options = {}) {
   const target = path.resolve(dir);
@@ -259,23 +409,38 @@ export async function init(dir = '.', options = {}) {
 
   const answers = await collect(options);
 
+  // Located before anything is written: a project left half set up would be
+  // worse than a clear error.
+  const documentation = answers.docs ? documentationSource() : null;
+  if (answers.docs && !documentation) {
+    throw new DocPensieveError('The DocPensieve documentation to install cannot be found.', {
+      hint: 'Reinstall docpensieve, or run init with --minimal to go without it.',
+    });
+  }
+
   const slug = versionSlug(answers.version);
   const docsDir = path.join(target, 'docs', slug);
 
-  await mkdir(path.join(docsDir, 'guide'), { recursive: true });
+  await mkdir(path.join(docsDir, '01-guide'), { recursive: true });
   await writeFile(configPath, renderConfig(answers), 'utf8');
-  await writeFile(path.join(docsDir, 'index.md'), renderIndex(answers.name), 'utf8');
-  await writeFile(path.join(docsDir, 'guide', '01-installation.md'), renderGuide(), 'utf8');
+  await writeFile(path.join(docsDir, 'index.md'), renderIndex(answers.name, answers.docs), 'utf8');
+  await writeFile(path.join(docsDir, '01-guide', '01-installation.md'), renderGuide(), 'utf8');
+  if (documentation) {
+    await installDocumentation(documentation, path.join(docsDir, DOCS_FOLDER), slug);
+  }
   await ignoreOutput(target);
 
   console.log(`\nProject initialised in ${target}`);
   console.log(`  ${CONFIG_FILENAME}`);
   console.log(`  docs/${slug}/index.md`);
-  console.log(`  docs/${slug}/guide/01-installation.md`);
+  console.log(`  docs/${slug}/01-guide/01-installation.md`);
+  if (documentation) {
+    console.log(`  docs/${slug}/${DOCS_FOLDER}/  DocPensieve's documentation, to delete when done`);
+  }
   console.log(`\nTheme: ${answers.theme} — ${FRAMEWORK_LABELS[answers.theme]}`);
   console.log('\nNext:  npx docpensieve dev');
 
-  return { dir: target, theme: answers.theme };
+  return { dir: target, theme: answers.theme, docs: answers.docs };
 }
 
 /**

@@ -31,8 +31,14 @@ npx docpensieve init [dir]
 | `--version-name <version>` | First version, `1.0` for instance       |
 | `-y, --yes`                | Accepts the defaults without a dialogue |
 | `-f, --force`              | Overwrites an existing configuration    |
+| `--minimal`                | Leaves DocPensieve's documentation out  |
 
 Without `--force`, the command refuses to overwrite an existing configuration.
+
+Unless `--minimal` is given, the command installs DocPensieve's documentation
+in the new site, in `docs/<version>/99-docpensieve/`: a **DocPensieve** section
+at the end of the menu, matching the installed version. Delete that folder when
+you no longer need it.
 
 ## `build`
 
@@ -81,7 +87,7 @@ back several times in a page is reported only once.
 - a **block element inside a paragraph**, a heading for instance.
 
 They usually come from the same source, described in
-[Writing pages](/guide/writing-pages/): the content of a JSX tag left alone on
+[Writing pages](../guide/writing-pages/): the content of a JSX tag left alone on
 its line becomes a paragraph. The browser then silently undoes the nesting, the
 wrapper disappears, and the intended layout with it.
 
