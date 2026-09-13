@@ -27,7 +27,7 @@ it is reachable, but nobody lands there by chance.
 
 ## 1. Declaring the versions
 
-In `docpensieve.config.js`:
+In `docpensieve.config.mjs`:
 
 ```js
 versions: [

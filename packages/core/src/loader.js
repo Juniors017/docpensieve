@@ -103,7 +103,7 @@ export class DocLoader {
     } catch (cause) {
       throw new LoaderError(`Documentation folder not found: ${root}.`, {
         cause,
-        hint: 'Check the "folder" field of the version in docpensieve.config.js.',
+        hint: 'Check the "folder" field of the version in the configuration file.',
       });
     }
     if (!stats.isDirectory()) {

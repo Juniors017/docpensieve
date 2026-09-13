@@ -6,8 +6,24 @@
 /** File extensions recognised as documentation pages. */
 export const DOC_EXTENSIONS = ['.md', '.mdx'];
 
-/** Name of the configuration file at the project root. */
-export const CONFIG_FILENAME = 'docpensieve.config.js';
+/**
+ * Name of the configuration file `init` writes at the project root.
+ *
+ * `.mjs` rather than `.js`: the file is an ES module, and Node reads a `.js`
+ * file as one only when the nearest package.json declares "type": "module".
+ * Elsewhere it warns on every build — or refuses the file outright when that
+ * package.json says "commonjs", as `npm init -y` now writes.
+ */
+export const CONFIG_FILENAME = 'docpensieve.config.mjs';
+
+/**
+ * Names accepted for the configuration file, in the order they are looked for.
+ * The `.js` spelling still works in a project whose package.json declares
+ * "type": "module".
+ *
+ * @type {readonly string[]}
+ */
+export const CONFIG_FILENAMES = Object.freeze([CONFIG_FILENAME, 'docpensieve.config.js']);
 
 /** Default output directory of a build. */
 export const DEFAULT_OUT_DIR = 'dist';

@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Every field of docpensieve.config.js, its default value and its effect.
+description: Every field of docpensieve.config.mjs, its default value and its effect.
 tags: [reference, configuration]
 
 jsonld:
@@ -10,7 +10,12 @@ jsonld:
 
 # Configuration
 
-The `docpensieve.config.js` file, at the root of the project.
+The `docpensieve.config.mjs` file, at the root of the project.
+
+It is an ES module — hence `.mjs`, which Node reads as one whatever the
+project's `package.json` says. `docpensieve.config.js` works too, in a project
+whose `package.json` declares `"type": "module"`; with both files present, the
+build stops rather than pick one.
 
 ```js
 /** @type {import('@docpensieve/core').DocPensieveConfig} */

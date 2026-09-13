@@ -66,7 +66,7 @@ describe('init', () => {
     const dir = scratch();
     await init(dir, { yes: true, name: 'My docs' });
 
-    expect(existsSync(path.join(dir, 'docpensieve.config.js'))).toBe(true);
+    expect(existsSync(path.join(dir, 'docpensieve.config.mjs'))).toBe(true);
     expect(existsSync(path.join(dir, 'docs', 'v1.0', 'index.md'))).toBe(true);
     expect(existsSync(path.join(dir, 'docs', 'v1.0', '01-guide', '01-installation.md'))).toBe(true);
     expect(read(dir, '.gitignore')).toContain('dist/');
@@ -75,7 +75,7 @@ describe('init', () => {
   it('creates the target folder when it does not exist', async () => {
     const dir = path.join(scratch(), 'new', 'project');
     await init(dir, { yes: true });
-    expect(existsSync(path.join(dir, 'docpensieve.config.js'))).toBe(true);
+    expect(existsSync(path.join(dir, 'docpensieve.config.mjs'))).toBe(true);
   });
 
   it('takes the requested name, URL and theme', async () => {
@@ -87,7 +87,7 @@ describe('init', () => {
       theme: 'custom',
     });
 
-    const config = read(dir, 'docpensieve.config.js');
+    const config = read(dir, 'docpensieve.config.mjs');
     expect(config).toContain("projectName: 'Workshop'");
     expect(config).toContain("siteUrl: 'https://example.com/docs'");
     expect(config).toContain("framework: 'custom'");
@@ -99,7 +99,7 @@ describe('init', () => {
     const dir = scratch();
     await init(dir, { yes: true, name: "Élise's workshop" });
 
-    const config = read(dir, 'docpensieve.config.js');
+    const config = read(dir, 'docpensieve.config.mjs');
     expect(config).toContain("projectName: 'Élise\\'s workshop'");
     expect(config).not.toContain('"É');
   });
@@ -110,7 +110,7 @@ describe('init', () => {
       await init(dir, { yes: true, version, minimal: true });
 
       expect(existsSync(path.join(dir, 'docs', 'v1.0', 'index.md'))).toBe(true);
-      expect(read(dir, 'docpensieve.config.js')).toContain("slug: 'v1.0'");
+      expect(read(dir, 'docpensieve.config.mjs')).toContain("slug: 'v1.0'");
     }
   });
 
@@ -135,7 +135,7 @@ describe('init', () => {
       expect(failure).toBeInstanceOf(DocPensieveError);
       expect(failure.hint).toContain('tailwind');
     }
-    expect(existsSync(path.join(dir, 'docpensieve.config.js'))).toBe(false);
+    expect(existsSync(path.join(dir, 'docpensieve.config.mjs'))).toBe(false);
   });
 
   it('refuses to overwrite an existing project', async () => {
@@ -143,7 +143,7 @@ describe('init', () => {
     await init(dir, { yes: true, name: 'First', minimal: true });
 
     await expect(init(dir, { yes: true, name: 'Second' })).rejects.toThrow(/already exists/);
-    expect(read(dir, 'docpensieve.config.js')).toContain("projectName: 'First'");
+    expect(read(dir, 'docpensieve.config.mjs')).toContain("projectName: 'First'");
   });
 
   it('overwrites on explicit request', async () => {
@@ -151,7 +151,32 @@ describe('init', () => {
     await init(dir, { yes: true, name: 'First', minimal: true });
     await init(dir, { yes: true, name: 'Second', force: true, minimal: true });
 
-    expect(read(dir, 'docpensieve.config.js')).toContain("projectName: 'Second'");
+    expect(read(dir, 'docpensieve.config.mjs')).toContain("projectName: 'Second'");
+  });
+
+  it('replaces an older docpensieve.config.js when forced to', async () => {
+    // A project keeps a single configuration file: two would make every build
+    // refuse both.
+    const dir = scratch();
+    writeFileSync(path.join(dir, 'docpensieve.config.js'), 'export default {};', 'utf8');
+
+    await expect(init(dir, { yes: true, minimal: true })).rejects.toThrow(
+      /docpensieve\.config\.js already exists/,
+    );
+    await init(dir, { yes: true, force: true, minimal: true });
+    expect(existsSync(path.join(dir, 'docpensieve.config.js'))).toBe(false);
+    expect(existsSync(path.join(dir, 'docpensieve.config.mjs'))).toBe(true);
+  });
+
+  it('writes a configuration no package.json can misread', async () => {
+    // "npm init -y" now writes "type": "commonjs": a .js file written as an ES
+    // module would not even load there. A .mjs file loads anywhere.
+    const dir = scratch();
+    writeFileSync(path.join(dir, 'package.json'), '{ "type": "commonjs" }', 'utf8');
+    await init(dir, { yes: true, name: 'CommonJS project', minimal: true });
+
+    const config = await loadConfig(dir);
+    expect(config.projectName).toBe('CommonJS project');
   });
 
   it('completes an existing .gitignore without overwriting it', async () => {
@@ -194,7 +219,7 @@ describe('init — the configuration file', () => {
     // unknown to them.
     const dir = scratch();
     await init(dir, { yes: true, minimal: true });
-    const config = read(dir, 'docpensieve.config.js');
+    const config = read(dir, 'docpensieve.config.mjs');
 
     const fields = [
       ...Object.keys(DEFAULT_CONFIG),
@@ -213,7 +238,7 @@ describe('init — the configuration file', () => {
   it('only offers the Tailwind entry stylesheet with the Tailwind theme', async () => {
     const dir = scratch();
     await init(dir, { yes: true, theme: 'custom', minimal: true });
-    expect(read(dir, 'docpensieve.config.js')).not.toContain('source:');
+    expect(read(dir, 'docpensieve.config.mjs')).not.toContain('source:');
   });
 
   it('writes a configuration the engine accepts as is', async () => {
@@ -301,7 +326,7 @@ describe('init — the dialogue', () => {
     const dir = scratch();
     await init(dir);
 
-    const config = read(dir, 'docpensieve.config.js');
+    const config = read(dir, 'docpensieve.config.mjs');
     expect(config).toContain("projectName: 'My project'");
     expect(config).toContain("siteUrl: 'https://example.com/doc'");
     expect(config).toContain("slug: 'v2.0'");
@@ -313,7 +338,7 @@ describe('init — the dialogue', () => {
     const dir = scratch();
     const { docs } = await init(dir);
 
-    const config = read(dir, 'docpensieve.config.js');
+    const config = read(dir, 'docpensieve.config.mjs');
     expect(config).toContain("framework: 'tailwind'");
     expect(config).toContain("slug: 'v1.0'");
     expect(docs).toBe(true);

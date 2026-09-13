@@ -163,13 +163,70 @@ describe('loadConfig', () => {
 
   it('clearly reports a missing config', async () => {
     const dir = makeProject(undefined);
-    await expect(loadConfig(dir)).rejects.toThrow(/No docpensieve\.config\.js/);
+    await expect(loadConfig(dir)).rejects.toThrow(/No docpensieve\.config\.mjs/);
   });
 
-  it('reports a config that does not compile', async () => {
+  it('reports a config that does not compile, with the reason', async () => {
     const dir = makeProject('export default { versions: [ ;');
     await expect(loadConfig(dir)).rejects.toThrow(ConfigError);
+    // "Could not load" alone left the author guessing what was wrong.
+    await expect(loadConfig(dir)).rejects.toThrow(/Could not load docpensieve\.config\.js: \S/);
   });
+
+  it('loads a docpensieve.config.mjs whatever the package.json declares', async () => {
+    // "npm init -y" now writes "type": "commonjs": a .js configuration
+    // written as a module is then refused outright. A .mjs file is a module
+    // anywhere.
+    const dir = makeProject(undefined);
+    writeFileSync(path.join(dir, 'package.json'), '{ "type": "commonjs" }', 'utf8');
+    writeFileSync(
+      path.join(dir, 'docpensieve.config.mjs'),
+      `export default { projectName: 'Module', versions: [${JSON.stringify(v1)}] };`,
+      'utf8',
+    );
+
+    const config = await loadConfig(dir);
+    expect(config.projectName).toBe('Module');
+    expect(config.configFile).toBe(path.join(dir, 'docpensieve.config.mjs'));
+  });
+
+  it('refuses two configuration files rather than pick one', async () => {
+    // Picking one silently would leave the other edited in vain.
+    const contents = `export default { versions: [${JSON.stringify(v1)}] };`;
+    const dir = makeProject(contents);
+    writeFileSync(path.join(dir, 'docpensieve.config.mjs'), contents, 'utf8');
+
+    await expect(loadConfig(dir)).rejects.toThrow(/Two configuration files/);
+  });
+
+  it(
+    'explains why a .js configuration cannot be read as a module',
+    { timeout: 30_000 },
+    async () => {
+      // Only Node itself refuses the file: the test runner loads modules its own
+      // way and would read it anyway. Hence a real Node process.
+      const { spawnSync } = await import('node:child_process');
+      const dir = makeProject(`export default { versions: [${JSON.stringify(v1)}] };`);
+      writeFileSync(path.join(dir, 'package.json'), '{ "type": "commonjs" }', 'utf8');
+
+      const core = new URL('../src/index.js', import.meta.url).href;
+      const script = `import { loadConfig } from ${JSON.stringify(core)};
+try {
+  await loadConfig(process.cwd());
+  console.log(JSON.stringify({ loaded: true }));
+} catch (error) {
+  console.log(JSON.stringify({ name: error.name, hint: error.hint }));
+}`;
+      const { stdout } = spawnSync(process.execPath, ['--input-type=module', '-e', script], {
+        cwd: dir,
+        encoding: 'utf8',
+      });
+
+      const result = JSON.parse(stdout.trim().split('\n').at(-1) ?? '{}');
+      expect(result.name).toBe('ConfigError');
+      expect(result.hint).toContain('docpensieve.config.mjs');
+    },
+  );
 });
 
 describe('dangerous values', () => {

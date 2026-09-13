@@ -1,5 +1,6 @@
 /**
- * Loading and normalisation of `docpensieve.config.js`.
+ * Loading and normalisation of the configuration file,
+ * `docpensieve.config.mjs`.
  * @module @docpensieve/core/config
  */
 
@@ -9,6 +10,7 @@ import { pathToFileURL } from 'node:url';
 
 import {
   CONFIG_FILENAME,
+  CONFIG_FILENAMES,
   ConfigError,
   DEFAULT_OUT_DIR,
   NotImplementedError,
@@ -39,6 +41,7 @@ import {
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {{ enabled: boolean }} jsonld
  * @property {string} [rootDir]   Project root, set by `loadConfig`.
+ * @property {string} [configFile] Path of the configuration file, set by `loadConfig`.
  * @property {string} [lang]      Document language, `'en'` by default.
  */
 
@@ -215,31 +218,59 @@ export function normalizeConfig(userConfig) {
 }
 
 /**
- * Loads `docpensieve.config.js` from a project folder.
+ * Loads the configuration file of a project folder.
+ *
+ * `docpensieve.config.mjs` is looked for first, then `docpensieve.config.js`,
+ * which a project whose package.json declares "type": "module" can still use.
  *
  * @param {string} [cwd] Project root. Default: `process.cwd()`.
  * @returns {Promise<DocPensieveConfig>} Normalised config.
- * @throws {ConfigError} When the file is missing or exports no object.
+ * @throws {ConfigError} When no file, or two, are found, or when the file does
+ *   not load or exports no object.
  */
 export async function loadConfig(cwd = process.cwd()) {
-  const configPath = path.resolve(cwd, CONFIG_FILENAME);
+  const found = CONFIG_FILENAMES.map((name) => path.resolve(cwd, name)).filter((file) =>
+    existsSync(file),
+  );
 
-  if (!existsSync(configPath)) {
+  if (found.length === 0) {
     throw new ConfigError(`No ${CONFIG_FILENAME} found in ${cwd}.`, {
-      hint: `Create a ${CONFIG_FILENAME} at the project root.`,
+      hint: `Create a ${CONFIG_FILENAME} at the project root, or run "docpensieve init".`,
     });
   }
+  // Picking one silently would leave the other edited in vain.
+  if (found.length > 1) {
+    throw new ConfigError(`Two configuration files in ${cwd}: ${CONFIG_FILENAMES.join(' and ')}.`, {
+      hint: `Keep only one of them — ${CONFIG_FILENAME} reads the same in any project.`,
+    });
+  }
+
+  const [configPath] = found;
+  const name = path.basename(configPath);
 
   let module;
   try {
     // pathToFileURL: on Windows, a raw path is not a valid specifier.
     module = await import(pathToFileURL(configPath).href);
   } catch (cause) {
-    throw new ConfigError(`Could not load ${CONFIG_FILENAME}.`, { cause });
+    // The reason is the useful part: a syntax error in the file, a missing
+    // module it imports. "Could not load" alone left the author guessing.
+    const reason = cause instanceof Error ? cause.message : String(cause);
+    throw new ConfigError(`Could not load ${name}: ${reason}`, {
+      cause,
+      // Node reads a .js file as an ES module only when the nearest
+      // package.json says so; "npm init -y" now writes "type": "commonjs",
+      // and "export default" then does not even parse.
+      hint:
+        name.endsWith('.js') && cause instanceof SyntaxError
+          ? `A .js file is read as an ES module only when the nearest package.json declares "type": "module". Rename it ${CONFIG_FILENAME}.`
+          : undefined,
+    });
   }
 
   const normalized = normalizeConfig(module.default);
   normalized.rootDir = cwd;
+  normalized.configFile = configPath;
   return normalized;
 }
 

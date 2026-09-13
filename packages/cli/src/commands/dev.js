@@ -80,7 +80,7 @@ export async function dev(options = {}) {
   console.log(`served at ${url}`);
 
   const watched = [
-    path.resolve(cwd, CONFIG_FILENAME),
+    config.configFile ?? path.resolve(cwd, CONFIG_FILENAME),
     ...config.versions.map((version) => path.resolve(cwd, version.folder)),
   ];
   const watcher = chokidar.watch(watched, { ignoreInitial: true });

@@ -107,7 +107,7 @@ export class TailwindProvider extends BaseThemeProvider {
     } catch (cause) {
       throw new ThemeError('The "tailwindcss" package cannot be found.', {
         cause,
-        hint: 'Reinstall the dependencies with "npm install", or choose the custom theme in docpensieve.config.js.',
+        hint: 'Reinstall the dependencies with "npm install", or choose the custom theme in the configuration file.',
       });
     }
   }

@@ -4,14 +4,19 @@
  * @module docpensieve/commands/init
  */
 
-import { cpSync, existsSync, readdirSync } from 'node:fs';
+import { cpSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { fileURLToPath } from 'node:url';
 
-import { CONFIG_FILENAME, DocPensieveError, THEME_FRAMEWORKS } from '@docpensieve/shared';
+import {
+  CONFIG_FILENAME,
+  CONFIG_FILENAMES,
+  DocPensieveError,
+  THEME_FRAMEWORKS,
+} from '@docpensieve/shared';
 
 /**
  * Description shown next to each framework.
@@ -151,14 +156,14 @@ async function collect(options) {
 const quote = (value) => `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 
 /**
- * Renders `docpensieve.config.js`.
+ * Renders `docpensieve.config.mjs`.
  *
  * Every field the configuration accepts appears in it — set to its default,
  * or commented out with an example — so that the first file a user opens also
  * tells them everything they can change.
  *
  * @param {{ name: string, theme: string, siteUrl: string, version: string }} answers
- * @returns {string} Contents of `docpensieve.config.js`.
+ * @returns {string} Contents of `docpensieve.config.mjs`.
  */
 function renderConfig({ name, theme, siteUrl, version }) {
   const slug = versionSlug(version);
@@ -391,9 +396,10 @@ async function installDocumentation(source, target, slug) {
 export async function init(dir = '.', options = {}) {
   const target = path.resolve(dir);
   const configPath = path.join(target, CONFIG_FILENAME);
+  const existing = CONFIG_FILENAMES.filter((name) => existsSync(path.join(target, name)));
 
-  if (existsSync(configPath) && !options.force) {
-    throw new DocPensieveError(`${CONFIG_FILENAME} already exists in ${target}.`, {
+  if (existing.length > 0 && !options.force) {
+    throw new DocPensieveError(`${existing[0]} already exists in ${target}.`, {
       hint: 'Use --force to overwrite it, or pick another folder.',
     });
   }
@@ -420,6 +426,10 @@ export async function init(dir = '.', options = {}) {
 
   const slug = versionSlug(answers.version);
   const docsDir = path.join(target, 'docs', slug);
+
+  // Overwritten, a project keeps a single configuration file: the one written
+  // here. An older spelling left behind would make the next build refuse both.
+  for (const name of existing) rmSync(path.join(target, name), { force: true });
 
   await mkdir(path.join(docsDir, '01-guide'), { recursive: true });
   await writeFile(configPath, renderConfig(answers), 'utf8');

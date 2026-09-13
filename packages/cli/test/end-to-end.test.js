@@ -8,13 +8,18 @@
  * put them off.
  */
 
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { build, check, init } from '../src/index.js';
+
+/** The command as users run it, for the cases only a real Node process shows. */
+const CLI = fileURLToPath(new URL('../bin/docpensieve.js', import.meta.url));
 
 /** @type {string[]} */
 const dirs = [];
@@ -46,7 +51,7 @@ describe('init, build, check', () => {
 
     const { theme } = await init(cwd, { yes: true, name: 'My docs' });
     expect(theme).toBe('tailwind');
-    expect(existsSync(path.join(cwd, 'docpensieve.config.js'))).toBe(true);
+    expect(existsSync(path.join(cwd, 'docpensieve.config.mjs'))).toBe(true);
 
     await build(undefined, { cwd });
 
@@ -109,4 +114,27 @@ describe('init, build, check', () => {
     const { faults } = await check({ cwd });
     expect(faults).toEqual([]);
   });
+
+  it(
+    'builds without a module warning, whatever package.json surrounds the project',
+    { timeout: 120_000 },
+    async () => {
+      // "npm init -y" writes "type": "commonjs", where a .js configuration
+      // written as a module did not even load; a package.json saying nothing
+      // made Node warn on every build. Only Node itself shows either — the
+      // test runner loads modules its own way — hence a real process.
+      for (const manifest of [{ name: 'site', type: 'commonjs' }, { name: 'site' }]) {
+        const cwd = scratch();
+        writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(manifest), 'utf8');
+        await init(cwd, { yes: true, minimal: true });
+
+        const { status, stderr } = spawnSync(process.execPath, [CLI, 'build'], {
+          cwd,
+          encoding: 'utf8',
+        });
+        expect(stderr, JSON.stringify(manifest)).not.toMatch(/ES module|Module type/);
+        expect(status, stderr).toBe(0);
+      }
+    },
+  );
 });

@@ -201,7 +201,7 @@ describe('errors', () => {
     } catch (error) {
       const failure = /** @type {Error & { hint?: string }} */ (error);
       expect(failure.message).toMatch(/not found/);
-      expect(failure.hint).toMatch(/docpensieve\.config\.js/);
+      expect(failure.hint).toMatch(/configuration file/);
     }
   });
 
