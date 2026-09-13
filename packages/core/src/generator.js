@@ -49,6 +49,22 @@ function joinUrl(...parts) {
 }
 
 /**
+ * Contents of the `<title>` tag.
+ *
+ * The page title followed by the project name, which tells tabs and search
+ * results apart — unless both are the same, as on a home page named after the
+ * project: "DocPensieve · DocPensieve" said nothing more.
+ *
+ * @param {string | undefined} title Title from the frontmatter.
+ * @param {string} projectName
+ * @returns {string}
+ */
+function documentTitle(title, projectName) {
+  if (!title || title === projectName) return projectName;
+  return projectName ? `${title} · ${projectName}` : title;
+}
+
+/**
  * Layout requested by a page.
  *
  * @param {import('./loader.js').Doc} doc
@@ -208,7 +224,7 @@ export class SiteGenerator {
       const page = layout({
         lang: this.config.lang ?? 'en',
         darkModeClass: null,
-        title: doc.frontmatter.title ?? this.config.projectName,
+        title: documentTitle(doc.frontmatter.title, this.config.projectName),
         description: doc.frontmatter.description ?? '',
         canonical: this.config.siteUrl ? new URL(url, this.config.siteUrl).href : '',
         projectName: this.config.projectName,

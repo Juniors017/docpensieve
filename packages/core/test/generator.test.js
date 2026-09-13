@@ -105,6 +105,17 @@ describe('buildVersion', () => {
     expect(html).toContain('</html>');
   });
 
+  it('does not repeat the project name in the title of a page named after it', async () => {
+    // The home page usually carries the project name: "My docs · My docs"
+    // told the reader nothing more.
+    const config = project({ 'index.md': page('My docs'), 'guide.md': page('Guide') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('<title>My docs</title>');
+    expect(read(out, 'guide', 'index.html')).toContain('<title>Guide · My docs</title>');
+  });
+
   it('injects the compiled content', async () => {
     const config = project({ 'index.md': page('Home', '## Section\n\nSome text.') });
     const out = path.join(config.rootDir, 'out');
