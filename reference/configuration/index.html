@@ -76,6 +76,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -151,6 +154,10 @@ can change.</p>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Effect</th></tr></thead><tbody><tr><td><code>framework</code></td><td><code>&#x27;tailwind&#x27;</code> or <code>&#x27;custom&#x27;</code></td></tr><tr><td><code>darkMode</code></td><td>Dark theme strategy</td></tr><tr><td><code>tokens</code></td><td>Redefined <code>--dp-*</code> tokens</td></tr><tr><td><code>css</code></td><td>CSS appended to the produced stylesheet</td></tr><tr><td><code>source</code></td><td>Stylesheet handed to the utility compiler</td></tr></tbody></table></div>
 <p>The available tokens are listed in <a href="/docpensieve/versions/v0.1/guide/themes/">Themes</a>.</p>
+<p>Longer rules go in the <code>theme/</code> folder, at the root of the project: every
+<code>.css</code> file in it is appended after <code>css</code>, in name order, and
+<code>docpensieve dev</code> picks up every change. Under the <code>custom</code> theme, <code>init</code>
+starts it with <code>theme/custom.css</code>.</p>
 <h2 id="baseurl-and-why-you-rarely-write-it"><code>baseUrl</code>, and why you rarely write it</h2>
 <p>A <code>siteUrl</code> with a sub-path already gives it: <code>https://example.com/my-project</code>
 produces <code>baseUrl: &#x27;/my-project/&#x27;</code>. Writing it is only useful to depart from

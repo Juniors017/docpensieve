@@ -76,6 +76,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -141,7 +144,8 @@ selector, without the slightest error.</p>
 <h2 id="the-stylesheets">The stylesheets</h2>
 <p>The delivered stylesheet is assembled from four pieces, in this order:</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Stylesheet</th><th>Content</th></tr></thead><tbody><tr><td><code>structure.css</code></td><td>Grid, sticky columns, accessibility. Shared by all</td></tr><tr><td><code>prose.css</code></td><td>Typography of the content</td></tr><tr><td>a skin or a bridge</td><td><code>custom.css</code>, or <code>tailwind-bridge.css</code></td></tr><tr><td>the components&#x27; one</td><td>The <code>dp-*</code> rules of the shipped components</td></tr></tbody></table></div>
-<p>Then comes what the project adds through <code>theme.css</code>.</p>
+<p>Then comes what the project adds: <code>theme.css</code>, then every <code>.css</code> file of its
+<code>theme/</code> folder, in name order.</p>
 <p>The layout is <strong>never</strong> duplicated in a provider: it lives in <code>structure.css</code>,
 which both share. A provider only takes care of the styling.</p>
 <h2 id="layer-order">Layer order</h2>
@@ -152,8 +156,8 @@ set at use therefore always wins, whatever the place of the rule in the file.</p
 <p>The <code>custom</code> theme has no utility layer: its stylesheets are in no layer, and
 therefore come before the component rules, which stay in the <code>components</code>
 layer.</p>
-<p>What <code>theme.css</code> adds is in no layer: without a layer, a rule wins over all
-those that have one. That is what lets you write a fix there without worrying
+<p>What <code>theme.css</code> and the <code>theme/</code> folder add is in no layer: without a layer, a
+rule wins over all those that have one. That is what lets you write a fix there without worrying
 about specificity.</p></article>
       </main>
 

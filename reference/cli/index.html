@@ -76,6 +76,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -117,6 +120,10 @@ makes that choice explicit and silences the notice.</p>
 in the new site, in <code>docs/&lt;version&gt;/99-docpensieve/</code>: a <strong>DocPensieve</strong> section
 at the end of the menu, matching the installed version. Delete that folder when
 you no longer need it.</p>
+<p>Under the <code>custom</code> theme, the command also writes <code>theme/custom.css</code>, where the
+project&#x27;s own classes go, and — with the documentation —
+<code>theme/99-docpensieve.css</code>, the classes of its examples, to delete along with
+it. An existing <code>theme/custom.css</code> is never overwritten, even with <code>--force</code>.</p>
 <h2 id="build"><code>build</code></h2>
 <p>Generates the site.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> [version]</span></span></code></pre>

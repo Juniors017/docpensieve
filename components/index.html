@@ -76,6 +76,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -105,12 +108,16 @@
         <article class="dp-article"><h1 id="components">Components</h1>
 <p>These components can be used in any <code>.mdx</code> page <strong>without an import</strong>.</p>
 <p>They provide the <strong>structure</strong> — wrappers, separators, spacing. The look is set
-with <code>className</code>, in utilities of the active theme:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Card</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;max-w-sm&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+with <code>className</code>.</p>
+<p>With the Tailwind theme, a <code>className</code> holds utilities, compiled from the ones
+your pages use:</p><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Card</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;max-w-sm&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">CardHeader</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;text-center font-bold&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;Title&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">CardHeader</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
-<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Card</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
-<p>The component classes live in the <code>components</code> layer, below the utilities: a
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Card</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre><p>The component classes live in the <code>components</code> layer, below the utilities: a
 <code>className</code> set at use always wins.</p>
+
+<p>Every example is shown in the terms of the site&#x27;s theme, through
+<a href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>: changing <code>theme.framework</code> in the configuration
+changes the examples too.</p>
 <h2 id="available">Available</h2>
 <ul>
 <li><a href="/docpensieve/versions/v0.1/components/card/">Card</a> — card, with header, body, footer and image</li>
@@ -121,6 +128,7 @@ with <code>className</code>, in utilities of the active theme:</p>
 <li><a href="/docpensieve/versions/v0.1/components/scroll-to-top/">ScrollToTop</a> — back to the top of the page</li>
 <li><a href="/docpensieve/versions/v0.1/components/skill/">Skill</a> — level gauge</li>
 <li><a href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a> — SVG icon inlined in the page</li>
+<li><a href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a> — content kept for one theme only</li>
 </ul>
 <h2 id="without-javascript">Without JavaScript</h2>
 <p>The produced site loads no script. Whatever needs interaction therefore goes

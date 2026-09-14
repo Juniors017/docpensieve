@@ -76,6 +76,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.1/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -117,7 +120,7 @@ printing, and costs not a line of JavaScript.</p>
 <p>The difference is read from the writing, with no prop to set: an entry <strong>with
 children</strong> is a collapsible branch, an entry <strong>without children</strong> is a leaf.
 <code>open</code> expands the branch as soon as the page opens.</p>
-<div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">Closed by default</div><div class="dp-card-body"><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details"><summary class="dp-tree-label">package</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.js</span></li></ul></details></li></ul></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">Opened by <code>open</code></div><div class="dp-card-body"><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">package</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.js</span></li></ul></details></li></ul></div></div></div></div>
+<div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card" style="height:100%"><div class="dp-card-header">Closed by default</div><div class="dp-card-body"><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details"><summary class="dp-tree-label">package</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.js</span></li></ul></details></li></ul></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card" style="height:100%"><div class="dp-card-header">Opened by <code>open</code></div><div class="dp-card-body"><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">package</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.js</span></li></ul></details></li></ul></div></div></div></div>
 <h2 id="a-plain-list">A plain list</h2>
 <p>Without any branch, the tree becomes a monospaced list — useful to list
 produced files.</p>
@@ -145,7 +148,8 @@ placed there is therefore not rewritten and will ignore the deployment
 prefix. For a link in a label, write the full URL.</p>
 </blockquote>
 <h2 id="styling-the-tree">Styling the tree</h2>
-<ul class="dp-tree text-indigo-700 dark:text-indigo-300"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">in colour</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">the children inherit</span></li></ul></details></li></ul>
+<ul class="dp-tree text-indigo-700 dark:text-indigo-300"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">in colour</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">the children inherit</span></li></ul></details></li></ul><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tree</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;text-indigo-700 dark:text-indigo-300&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;…&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tree</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+
 <h2 id="what-it-does-not-announce">What it does not announce</h2>
 <p>The structure is a nested list, not a <code>role=&quot;tree&quot;</code>. That role promises a
 screen reader arrow-key navigation that nothing here would implement:
