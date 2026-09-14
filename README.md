@@ -51,6 +51,10 @@ defaults.
 | `npx docpensieve dev`             | builds, serves, watches and reloads                      |
 | `npx docpensieve serve`           | serves the output folder                                 |
 
+To update a project that installs it: `npm install docpensieve@latest`. Run
+through `npx` alone, it needs nothing: `npx docpensieve` fetches the latest
+version by itself.
+
 ## Configuration
 
 ```javascript

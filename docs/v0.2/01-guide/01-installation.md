@@ -26,7 +26,9 @@ cd my-site
 
 The command creates the folder and writes a configuration, a first
 documentation folder and a home page into it. It asks a few questions; `--yes`
-skips them and accepts the defaults.
+skips them and accepts the defaults. Where it cannot ask — a script, continuous
+integration, or a terminal that gives the programs it runs no interactive
+input — it says so and sticks to the options and the defaults.
 
 It also installs this very documentation, in a **DocPensieve** section at the
 end of the new site's menu. It matches the version you installed, and its
@@ -68,6 +70,23 @@ package, with no styling dependency.
 Both are equivalent in use — the templates are the same, only the styling
 changes. The choice is not final: it fits in one field of the configuration,
 described in [Themes](./themes/).
+
+## Updating
+
+```bash
+npm install docpensieve@latest
+```
+
+Run through `npx` alone, DocPensieve needs nothing: `npx docpensieve` fetches
+the latest version by itself.
+
+A project set up with 0.1.0 has a `docpensieve.config.js`. It still works, but
+Node reads it as a module only when the `package.json` says so, and warns on
+every build otherwise: rename it `docpensieve.config.mjs`.
+
+The documentation `init` installed in `99-docpensieve` stays at the version it
+came with. To refresh it, run `init` in a scratch folder and copy that folder
+over.
 
 ## Checking
 

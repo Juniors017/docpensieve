@@ -35,6 +35,11 @@ npx docpensieve init [dir]
 
 Without `--force`, the command refuses to overwrite an existing configuration.
 
+Without an interactive terminal — a script, continuous integration, or a
+terminal that gives the programs it runs no interactive input — the command
+asks nothing: it says so, then sticks to the options and the defaults. `--yes`
+makes that choice explicit and silences the notice.
+
 Unless `--minimal` is given, the command installs DocPensieve's documentation
 in the new site, in `docs/<version>/99-docpensieve/`: a **DocPensieve** section
 at the end of the menu, matching the installed version. Delete that folder when

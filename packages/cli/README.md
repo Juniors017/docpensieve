@@ -32,6 +32,18 @@ The development server reloads the browser after every rebuild, through a
 script injected **at serving time**: the output of `build` stays free of
 JavaScript.
 
+## Updating
+
+```bash
+npm install docpensieve@latest
+```
+
+Run through `npx` alone, it needs nothing: `npx docpensieve` fetches the
+latest version by itself. A project set up with 0.1.0 can rename
+`docpensieve.config.js` to `docpensieve.config.mjs`, which Node reads as a
+module whatever the `package.json` says: the warning printed on every build
+goes away.
+
 ## Documentation
 
 See the [repository](https://github.com/Juniors017/docpensieve#readme).
