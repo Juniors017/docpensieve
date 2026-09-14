@@ -28,7 +28,7 @@
     "types": "npm run prepack --workspaces --if-present",
     "check:links": "node packages/cli/bin/docpensieve.js check",
     "deploy:versions": "node scripts/publish-versions.mjs",
-    "version:all": "npm version --workspaces --include-workspace-root"
+    "version:all": "node scripts/set-version.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

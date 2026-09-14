@@ -24,10 +24,10 @@
     "types"
   ],
   "dependencies": {
-    "@docpensieve/components": "^0.1.0",
-    "@docpensieve/core": "^0.1.0",
-    "@docpensieve/shared": "^0.1.0",
-    "@docpensieve/theme": "^0.1.0",
+    "@docpensieve/components": "0.1.1",
+    "@docpensieve/core": "0.1.1",
+    "@docpensieve/shared": "0.1.1",
+    "@docpensieve/theme": "0.1.1",
     "chalk": "^6.0.0",
     "chokidar": "^5.0.0",
     "commander": "^15.0.0"

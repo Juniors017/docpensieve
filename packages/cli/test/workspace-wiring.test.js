@@ -103,4 +103,18 @@ describe('what goes to npm', () => {
     const versions = new Set(PACKAGES.map((name) => manifest(name).version));
     expect(versions.size).toBe(1);
   });
+
+  it('pins every internal dependency at that same version', () => {
+    // With a caret, npm kept the internal packages a previous release had
+    // installed: moving the command-line package from 0.1.0 to 0.1.1 — which
+    // npx does on its own — left the four others at 0.1.0, and every command
+    // then failed on a missing export. An exact pin makes them follow.
+    const names = new Set(PACKAGES.map((name) => manifest(name).name));
+    for (const name of PACKAGES) {
+      const { version, dependencies = {} } = manifest(name);
+      for (const [dependency, range] of Object.entries(dependencies)) {
+        if (names.has(dependency)) expect(range, `${name}: ${dependency}`).toBe(version);
+      }
+    }
+  });
 });
