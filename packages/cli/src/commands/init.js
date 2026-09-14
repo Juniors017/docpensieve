@@ -127,9 +127,19 @@ async function collect(options) {
     docs: !options.minimal,
   };
 
+  if (options.yes) return fromOptions;
+
   // Without a terminal — script, CI, pipe — the dialogue would never complete:
-  // stick to the options and the defaults.
-  if (options.yes || !process.stdin.isTTY) return fromOptions;
+  // stick to the options and the defaults. But say so: some terminals run
+  // programs without handing them one, and the questions used to vanish
+  // without a word, the defaults going unnoticed.
+  if (!process.stdin.isTTY) {
+    console.log('No interactive terminal: no questions asked, the options and defaults apply.');
+    console.log(
+      'To choose, pass --name, --site-url, --theme, --version-name or --minimal; --yes silences this notice.',
+    );
+    return fromOptions;
+  }
 
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {

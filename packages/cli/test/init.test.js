@@ -61,6 +61,9 @@ function scratch() {
 /** @param {string} root @param {...string} parts */
 const read = (root, ...parts) => readFileSync(path.join(root, ...parts), 'utf8');
 
+/** Everything `init` printed, in one string. */
+const printed = () => vi.mocked(console.log).mock.calls.flat().join(' ');
+
 describe('init', () => {
   it('sets up configuration, pages and .gitignore', async () => {
     const dir = scratch();
@@ -393,10 +396,20 @@ describe('init — the dialogue', () => {
     expect(dialogue.openings).toBe(0);
   });
 
-  it('opens no dialogue without a terminal', async () => {
+  it('opens no dialogue without a terminal, and says so', async () => {
     // Script, continuous integration, pipe: the dialogue would never complete.
+    // Some terminals also run programs without handing them one: the
+    // questions used to vanish without a word.
     Object.defineProperty(process.stdin, 'isTTY', { value: false, configurable: true });
     await init(scratch(), { minimal: true });
     expect(dialogue.openings).toBe(0);
+    expect(printed()).toContain('No interactive terminal');
+    expect(printed()).toContain('--name');
+  });
+
+  it('stays quiet about the terminal with --yes', async () => {
+    Object.defineProperty(process.stdin, 'isTTY', { value: false, configurable: true });
+    await init(scratch(), { yes: true, minimal: true });
+    expect(printed()).not.toContain('No interactive terminal');
   });
 });
