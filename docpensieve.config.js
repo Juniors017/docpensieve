@@ -10,6 +10,14 @@ export default defineConfig({
   projectName: 'DocPensieve',
   siteUrl: 'https://juniors017.github.io/docpensieve',
 
+  // The project's images, from the root: beside the name in the header, in
+  // the browser tab, and as the preview of a shared page. The full logo,
+  // branding/logo.jpg, is too tall and too detailed for the first two: they
+  // take the bowl alone, cut square.
+  logo: 'branding/mark.png',
+  favicon: 'branding/favicon.png',
+  socialImage: 'branding/social.jpg',
+
   // One entry per version. `folder` points to the Markdown/MDX sources; the
   // compiled output then goes to an orphan branch with the same slug.
   //

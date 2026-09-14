@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/logo.jpg" alt="DocPensieve — Documentation &amp; Magical Memory" width="260">
+  <img src="branding/logo.jpg" alt="DocPensieve — Documentation &amp; Magical Memory" width="260">
 </p>
 
 # DocPensieve
