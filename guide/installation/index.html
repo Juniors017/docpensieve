@@ -112,7 +112,9 @@ that will host the site, which only has to serve files.</p>
 <span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-site</span></span></code></pre>
 <p>The command creates the folder and writes a configuration, a first
 documentation folder and a home page into it. It asks a few questions; <code>--yes</code>
-skips them and accepts the defaults.</p>
+skips them and accepts the defaults. Where it cannot ask — a script, continuous
+integration, or a terminal that gives the programs it runs no interactive
+input — it says so and sticks to the options and the defaults.</p>
 <p>It also installs this very documentation, in a <strong>DocPensieve</strong> section at the
 end of the new site&#x27;s menu. It matches the version you installed, and its
 folder, <code>99-docpensieve</code>, can be deleted as soon as you no longer need it;
@@ -133,6 +135,16 @@ package, with no styling dependency.</p>
 <p>Both are equivalent in use — the templates are the same, only the styling
 changes. The choice is not final: it fits in one field of the configuration,
 described in <a href="/docpensieve/versions/v0.1/guide/themes/">Themes</a>.</p>
+<h2 id="updating">Updating</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@latest</span></span></code></pre>
+<p>Run through <code>npx</code> alone, DocPensieve needs nothing: <code>npx docpensieve</code> fetches
+the latest version by itself.</p>
+<p>A project set up with 0.1.0 has a <code>docpensieve.config.js</code>. It still works, but
+Node reads it as a module only when the <code>package.json</code> says so, and warns on
+every build otherwise: rename it <code>docpensieve.config.mjs</code>.</p>
+<p>The documentation <code>init</code> installed in <code>99-docpensieve</code> stays at the version it
+came with. To refresh it, run <code>init</code> in a scratch folder and copy that folder
+over.</p>
 <h2 id="checking">Checking</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
 <p>If the output folder appears with an <code>index.html</code> inside, everything is in
@@ -153,6 +165,9 @@ place. Next: <a href="/docpensieve/versions/v0.1/guide/first-site/">First site</
           </li>
           <li class="dp-toc-item">
             <a href="#choosing-the-theme">Choosing the theme</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#updating">Updating</a>
           </li>
           <li class="dp-toc-item">
             <a href="#checking">Checking</a>
