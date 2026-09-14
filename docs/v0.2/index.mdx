@@ -44,7 +44,7 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
         <LogoIcon src="./icons/blocks.svg" size="1.75rem" className="text-indigo-600" />
         <strong className="block mt-3 mb-1 text-base font-semibold">Components</strong>
 
-        Eight components usable without an import, none of them with JavaScript.
+        Nine components usable without an import, none of them with JavaScript.
       </CardBody>
     </Card>
 
@@ -84,8 +84,9 @@ cd my-site
 npx docpensieve dev
 ```
 
-The first one sets up a configuration and a documentation folder, the last one
-opens a server that rebuilds on every save.
+The first one asks a few questions — [detailed below](#what-init-asks) — then
+sets up a configuration and a documentation folder; the last one opens a server
+that rebuilds on every save.
 
 Nothing else to install: the <Tooltip text="Turning the sources into HTML pages ready to serve.">build</Tooltip> runs on your machine, and the produced site only needs a file host.
 
@@ -110,6 +111,56 @@ Nothing else to install: the <Tooltip text="Turning the sources into HTML pages 
     </Card>
   </Column>
 </Columns>
+
+## What init asks
+
+`init` sets the project up through five questions. Enter keeps the default,
+listed in the table below; an answer it does not understand is asked again.
+
+```
+$ npx docpensieve init my-site
+Project name [My documentation]: Acme docs
+Public URL of the site (optional): https://acme.github.io/docs
+First version [1.0]:
+
+CSS framework:
+  1. tailwind — Tailwind CSS — ships with the tool, nothing to install
+  2. custom — custom theme, light stylesheet, your own classes in theme/
+Your choice [1-2]: 2
+Install DocPensieve's documentation in the site? [Y/n]:
+```
+
+| Question                    | Default            | What your answer changes                                                                                                                                                               | Answered in advance by |
+| --------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| Project name                | `My documentation` | The name in the header, in the page titles and in the structured data.                                                                                                                 | `--name`               |
+| Public URL of the site      | none               | The canonical links and the structured data. Its path becomes the deployment prefix: `https://acme.github.io/docs` serves the site under `/docs/`. Leave it empty until you know.      | `--site-url`           |
+| First version               | `1.0`              | The folder of your pages, `docs/v1.0/`, and the version in the URLs. `1.0` and `v1.0` are the same answer.                                                                             | `--version-name`       |
+| CSS framework               | `tailwind`         | `tailwind` compiles the utilities your pages use, with nothing more to install. `custom` is a plain stylesheet: your own classes go in a `theme/` folder. Type the number or the name. | `--theme`              |
+| DocPensieve's documentation | yes                | Yes: this documentation joins your menu, in a **DocPensieve** section matching your version. No: the site starts with your pages alone.                                                | `--minimal`, for no    |
+
+### What it writes, depending on your answers
+
+| File                                                             | Written when                                                         |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `docpensieve.config.mjs`                                         | always — every option, each with a comment                           |
+| `docs/v1.0/index.md` and `docs/v1.0/01-guide/01-installation.md` | always — a home page and a first page                                |
+| `.gitignore`                                                     | always — the output folder is added to it                            |
+| `docs/v1.0/99-docpensieve/`                                      | documentation: yes — delete it when you are done                     |
+| `theme/custom.css`                                               | theme: `custom` — where your own classes go                          |
+| `theme/99-docpensieve.css`                                       | theme: `custom` and documentation: yes — the classes of its examples |
+
+The answers end up in `docpensieve.config.mjs`: the name, the URL and the
+theme can be changed there later.
+
+In a script or in continuous integration, `--yes` accepts every default and
+the options answer the rest:
+
+```bash
+npx docpensieve init my-site --yes --name "Acme docs" --theme custom --minimal
+```
+
+Where the terminal cannot take answers, `init` says so, then keeps to the
+options and the defaults.
 
 ## What it costs the reader
 
