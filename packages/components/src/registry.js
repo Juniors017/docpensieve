@@ -9,6 +9,7 @@
 
 import { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 import { Column, Columns } from './columns.js';
+import { ForTheme } from './for-theme.js';
 import { LogoIcon } from './logo-icon.js';
 import { ScrollToTop } from './scroll-to-top.js';
 import { Skill } from './skill.js';
@@ -37,6 +38,7 @@ export const builtinComponents = {
   ScrollToTop,
   Skill,
   LogoIcon,
+  ForTheme,
 };
 
 /**

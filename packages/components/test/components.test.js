@@ -14,6 +14,7 @@ import {
   Columns,
   FallbackAfter,
   FallbackBefore,
+  ForTheme,
   TimeTimer,
   builtinComponents,
   classNames,
@@ -23,6 +24,7 @@ import {
   resolveUrl,
   setSiteContext,
   setThemeClasses,
+  setThemeFramework,
 } from '../src/index.js';
 
 /**
@@ -35,6 +37,7 @@ afterEach(() => {
   // The class table and the page context are module state: resetting them
   // keeps one test from contaminating another.
   setThemeClasses({});
+  setThemeFramework('');
   setSiteContext({});
 });
 
@@ -325,5 +328,35 @@ describe('registry and stylesheet', () => {
     const css = await componentsCss();
     expect(css.trimStart().startsWith('/*')).toBe(true);
     expect(css).toContain('@layer components {');
+  });
+});
+
+describe('ForTheme', () => {
+  const page = h(
+    'div',
+    null,
+    h(ForTheme, { framework: 'tailwind' }, 'utilities'),
+    h(ForTheme, { framework: 'custom' }, 'own classes'),
+  );
+
+  it('keeps the variant of the active theme only', () => {
+    setThemeFramework('custom');
+    expect(render(page)).toBe('<div>own classes</div>');
+    setThemeFramework('tailwind');
+    expect(render(page)).toBe('<div>utilities</div>');
+  });
+
+  it('refuses a framework the configuration does not know', () => {
+    setThemeFramework('custom');
+    expect(() => render(h(ForTheme, { framework: 'bootstrap' }, 'x'))).toThrow(DocPensieveError);
+  });
+
+  it('refuses to render before a theme is announced', () => {
+    // Rendering nothing would empty the page of every variant, without a word.
+    expect(() => render(h(ForTheme, { framework: 'custom' }, 'x'))).toThrow(/before any theme/);
+  });
+
+  it('is available without an import', () => {
+    expect(builtinComponents.ForTheme).toBe(ForTheme);
   });
 });

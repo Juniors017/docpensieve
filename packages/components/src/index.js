@@ -9,7 +9,15 @@
  * @module @docpensieve/components
  */
 
-export { classNames, cls, fallbackClass, getThemeClasses, setThemeClasses } from './classes.js';
+export {
+  classNames,
+  cls,
+  fallbackClass,
+  getThemeClasses,
+  getThemeFramework,
+  setThemeClasses,
+  setThemeFramework,
+} from './classes.js';
 export { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 export { Column, Columns } from './columns.js';
 export { FallbackAfter, FallbackBefore, TimeTimer } from './time-timer.js';
@@ -18,6 +26,7 @@ export { Tree, TreeItem } from './tree.js';
 export { ScrollToTop } from './scroll-to-top.js';
 export { SKILL_SHAPES, Skill } from './skill.js';
 export { LogoIcon } from './logo-icon.js';
+export { ForTheme } from './for-theme.js';
 export { componentsCss } from './styles.js';
 export { getSiteContext, resolveFile, resolveUrl, setSiteContext } from './site.js';
 export { builtinComponents, createRegistry, listComponentNames } from './registry.js';

@@ -36,6 +36,26 @@ export function getThemeClasses() {
 }
 
 /**
+ * Framework of the active theme, announced alongside the class table. Empty
+ * until then.
+ */
+let themeFramework = '';
+
+/**
+ * Declares the framework of the active theme, which `ForTheme` reads.
+ *
+ * @param {string} [framework]
+ */
+export function setThemeFramework(framework = '') {
+  themeFramework = framework;
+}
+
+/** @returns {string} The active framework, or `''` when none was announced. */
+export function getThemeFramework() {
+  return themeFramework;
+}
+
+/**
  * Converts a slot name into a fallback class.
  *
  * @example
