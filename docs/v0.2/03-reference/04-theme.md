@@ -76,6 +76,7 @@ the `dp-*` class below.
 | `skip`          | `dp-skip`                 | Skip link to the content                        |
 | `header`        | `dp-header`               | Site header                                     |
 | `brand`         | `dp-brand`                | Project name, in the header                     |
+| `brandLogo`     | `dp-brand-logo`           | Logo beside the project name                    |
 | `versions`      | `dp-versions`             | Version switcher                                |
 | `versionsList`  | `dp-versions-list`        | Open list of the switcher                       |
 | `shell`         | `dp-shell`                | Menu / content / table of contents grid         |

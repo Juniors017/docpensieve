@@ -13,6 +13,22 @@
     {{#if canonical}}
     <link rel="canonical" href="{{canonical}}" />
     {{/if}}
+    {{#if favicon}}
+    <link rel="icon" href="{{favicon.href}}" type="{{favicon.type}}" />
+    {{/if}}
+    {{!-- What a social network shows of a shared page. Only with a preview
+    image: without one, the title and description alone are read anyway. --}}
+    {{#if socialImage}}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{projectName}}" />
+    <meta property="og:title" content="{{title}}" />
+    {{#if description}}
+    <meta property="og:description" content="{{description}}" />
+    {{/if}}
+    <meta property="og:url" content="{{canonical}}" />
+    <meta property="og:image" content="{{socialImage}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{/if}}
     {{#each preloads}}
     <link rel="preload" as="{{as}}" href="{{href}}" />
     {{/each}}
@@ -24,7 +40,8 @@
 
     {{!-- Target of the back-to-top link: bring the focus back, not only the view. --}}
     <header class="{{{cls.header}}}" id="top" tabindex="-1">
-      <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{projectName}}</a>
+      {{!-- The logo's alt stays empty: the name that follows already says it. --}}
+      <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{#if logoUrl}}<img class="{{{cls.brandLogo}}}" src="{{logoUrl}}" alt="" />{{/if}}{{projectName}}</a>
       {{#if showVersions}}
       <details class="{{{cls.versions}}}">
         {{!-- The accessible name contains the visible label: when dictated by

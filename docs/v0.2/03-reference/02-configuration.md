@@ -62,6 +62,30 @@ can change.
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                            |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                             |
 | `lang`             | `'en'`              | Language of the document, in `<html lang>`. The shell's labels stay English |
+| `logo`             | `''`                | Image beside the project name, in the header                                |
+| `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                           |
+| `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                   |
+
+## Images
+
+```js
+logo: 'branding/logo.png',
+favicon: 'branding/favicon.png',
+socialImage: 'branding/social.png',
+```
+
+The paths start from the project root. Each image is copied into every
+version, under `assets/`, so that a version stays whole on its own branch.
+
+- `logo` sits beside the project name, at the height of the header's text: a
+  square image reads best there. Its `alt` stays empty, since the name follows
+  it. It is also the logo of the organisation in the structured data.
+- `favicon` is the icon of the browser tab: `.ico`, `.png` or `.svg`.
+- `socialImage` is what a social network shows of a shared page, with its
+  title and description. 1200 × 630 pixels is the usual size, and SVG is not
+  read there. Those networks only read an absolute address, hence `siteUrl`.
+
+A declared image that does not exist stops the build, naming the field.
 
 ## `versions`
 
@@ -127,6 +151,9 @@ internal link: if it is wrong, every link is.
 | Several `current` versions         | The list of those found           |
 | Unknown `framework`                | The accepted values               |
 | Requested slug not found           | The available slugs               |
+| An image of the wrong kind         | The accepted extensions           |
+| `socialImage` without `siteUrl`    | Why the address is needed         |
+| A declared image that is missing   | The field and its path            |
 
 Each one stops the build with a message and a hint, without a stack trace.
 

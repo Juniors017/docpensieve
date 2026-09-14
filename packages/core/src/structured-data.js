@@ -87,7 +87,7 @@ export class StructuredDataBuilder {
    * @param {Record<string, any>} frontmatter Page frontmatter.
    * @param {string} url Page URL on the site (`'/guide/install/'`).
    * @param {Record<string, any>} config Normalised project config.
-   * @param {{ breadcrumbTitles?: Record<string, string>, basePath?: string, dirUrl?: string }} [options]
+   * @param {{ breadcrumbTitles?: Record<string, string>, basePath?: string, dirUrl?: string, logo?: string }} [options]
    *   `breadcrumbTitles` maps a folder slug to its real title, so that the
    *   breadcrumb shows “Café Guide” rather than “Cafe guide”. `basePath` is
    *   the site root from which crumbs are counted: the generator sets
@@ -103,6 +103,8 @@ export class StructuredDataBuilder {
     this.breadcrumbTitles = options.breadcrumbTitles ?? {};
     this.basePath = options.basePath ?? '/';
     this.dirUrl = options.dirUrl;
+    // URL of the project's logo, once the generator has copied it.
+    this.logo = options.logo;
   }
 
   /**
@@ -196,6 +198,7 @@ export class StructuredDataBuilder {
       name: this.config.projectName,
     };
     if (this.config.siteUrl) node.url = this.config.siteUrl;
+    if (this.logo) node.logo = this.#absolute(this.logo);
     return node;
   }
 

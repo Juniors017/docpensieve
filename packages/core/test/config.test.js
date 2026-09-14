@@ -229,6 +229,54 @@ try {
   );
 });
 
+describe('project images', () => {
+  const site = 'https://example.com';
+
+  it('accepts a logo, a favicon and a preview image', () => {
+    const config = normalizeConfig({
+      versions: [v1],
+      siteUrl: site,
+      logo: 'brand/logo.svg',
+      favicon: 'brand/icon.png',
+      socialImage: 'brand/social.jpg',
+    });
+    expect([config.logo, config.favicon, config.socialImage]).toEqual([
+      'brand/logo.svg',
+      'brand/icon.png',
+      'brand/social.jpg',
+    ]);
+  });
+
+  it('declares none by default', () => {
+    const config = normalizeConfig({ versions: [v1] });
+    expect([config.logo, config.favicon, config.socialImage]).toEqual(['', '', '']);
+  });
+
+  it('refuses a favicon that browser tabs do not show', () => {
+    expect(() => normalizeConfig({ versions: [v1], favicon: 'brand/icon.jpg' })).toThrow(
+      /favicon must be/,
+    );
+  });
+
+  it('refuses a vector preview, which social networks do not read', () => {
+    expect(() =>
+      normalizeConfig({ versions: [v1], siteUrl: site, socialImage: 'brand/social.svg' }),
+    ).toThrow(/socialImage must be/);
+  });
+
+  it('refuses a preview image without siteUrl', () => {
+    // Social networks only read an absolute address: a relative one would be
+    // written in every page, and read by none of them.
+    expect(() => normalizeConfig({ versions: [v1], socialImage: 'brand/social.png' })).toThrow(
+      /needs siteUrl/,
+    );
+  });
+
+  it('refuses an image that is not a path', () => {
+    expect(() => normalizeConfig({ versions: [v1], logo: true })).toThrow(ConfigError);
+  });
+});
+
 describe('dangerous values', () => {
   it('refuses a version slug that is not a safe path segment', () => {
     // The slug becomes an output folder: "../../elsewhere" wrote outside the

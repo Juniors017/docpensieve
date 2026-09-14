@@ -72,6 +72,7 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   skip: 'dp-skip',
   header: 'dp-header',
   brand: 'dp-brand',
+  brandLogo: 'dp-brand-logo',
   versions: 'dp-versions',
   versionsList: 'dp-versions-list',
   shell: 'dp-shell',

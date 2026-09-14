@@ -521,6 +521,85 @@ layout: ${layout}
   });
 });
 
+describe('project images', () => {
+  /** @param {string} rootDir */
+  const drawImages = (rootDir) => {
+    mkdirSync(path.join(rootDir, 'brand'));
+    writeFileSync(path.join(rootDir, 'brand', 'logo.svg'), '<svg/>', 'utf8');
+    writeFileSync(path.join(rootDir, 'brand', 'icon.png'), 'png', 'utf8');
+    writeFileSync(path.join(rootDir, 'brand', 'social.jpg'), 'jpg', 'utf8');
+  };
+
+  /**
+   * The graph of structured data a page carries.
+   * @param {string} html
+   * @returns {Record<string, any>[]}
+   */
+  const graphOf = (html) => {
+    const opening = html.indexOf('>', html.indexOf('application/ld+json')) + 1;
+    return JSON.parse(html.slice(opening, html.indexOf('</script>', opening)))['@graph'];
+  };
+
+  it('copies them into the version and shows each one in its place', async () => {
+    const config = project(
+      { 'index.md': page('Home', 'Content.') },
+      {
+        siteUrl: 'https://example.com/docs',
+        logo: 'brand/logo.svg',
+        favicon: 'brand/icon.png',
+        socialImage: 'brand/social.jpg',
+      },
+    );
+    drawImages(config.rootDir);
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    for (const name of ['logo.svg', 'favicon.png', 'social-image.jpg']) {
+      expect(existsSync(path.join(out, 'assets', name)), name).toBe(true);
+    }
+
+    const html = read(out, 'index.html');
+    const assets = '/docs/versions/v1.0/assets';
+    expect(html).toContain(`<img class="dp-brand-logo" src="${assets}/logo.svg" alt="" />`);
+    expect(html).toContain(`<link rel="icon" href="${assets}/favicon.png" type="image/png" />`);
+    // Social networks only read an absolute address.
+    expect(html).toContain(
+      `<meta property="og:image" content="https://example.com${assets}/social-image.jpg" />`,
+    );
+    expect(html).toContain('<meta name="twitter:card" content="summary_large_image" />');
+
+    const organization = graphOf(html).find((node) => node['@type'] === 'Organization');
+    expect(organization?.logo).toBe(`https://example.com${assets}/logo.svg`);
+  });
+
+  it('shows none of them when none is declared', async () => {
+    const config = project({ 'index.md': page('Home') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).not.toContain('dp-brand-logo');
+    expect(html).not.toContain('rel="icon"');
+    expect(html).not.toContain('og:image');
+    expect(graphOf(html).find((node) => node['@type'] === 'Organization')).not.toHaveProperty(
+      'logo',
+    );
+  });
+
+  it('names the field of an image that does not exist', async () => {
+    // Silently skipped, a misspelt path would leave the header without its
+    // logo, and nobody would know why.
+    const config = project({ 'index.md': page('Home') }, { logo: 'brand/missing.png' });
+    const out = path.join(config.rootDir, 'out');
+    const build = generatorFor(config).buildVersion('v1.0', out);
+
+    await expect(build).rejects.toThrow(GeneratorError);
+    await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(
+      /logo image does not exist: "brand\/missing.png"/,
+    );
+  });
+});
+
 describe('page furniture', () => {
   it('puts the back-to-top link on every page', async () => {
     // It is furniture, not content: writing it in every file would mean

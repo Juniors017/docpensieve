@@ -40,6 +40,9 @@ import {
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {{ enabled: boolean }} jsonld
+ * @property {string} [logo]        Image beside the project name, in the header.
+ * @property {string} [favicon]     Icon of the browser tab: `.ico`, `.png` or `.svg`.
+ * @property {string} [socialImage] Preview of a shared page. Needs `siteUrl`.
  * @property {string} [rootDir]   Project root, set by `loadConfig`.
  * @property {string} [configFile] Path of the configuration file, set by `loadConfig`.
  * @property {string} [lang]      Document language, `'en'` by default.
@@ -65,7 +68,30 @@ export const DEFAULT_CONFIG = Object.freeze({
   globalComponents: true,
   scrollToTop: true,
   jsonld: { enabled: true },
+  logo: '',
+  favicon: '',
+  socialImage: '',
 });
+
+/**
+ * Extensions accepted for each project image, and what to do otherwise.
+ *
+ * @type {Record<'logo' | 'favicon' | 'socialImage', { extensions: string[], hint: string }>}
+ */
+const IMAGE_KINDS = {
+  logo: {
+    extensions: ['.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif', '.avif'],
+    hint: 'Give an image the browser displays: SVG, PNG, JPEG, WebP, GIF or AVIF.',
+  },
+  favicon: {
+    extensions: ['.ico', '.png', '.svg'],
+    hint: 'Browser tabs show .ico, .png and .svg icons.',
+  },
+  socialImage: {
+    extensions: ['.png', '.jpg', '.jpeg', '.webp', '.gif'],
+    hint: 'Social networks read neither SVG nor AVIF: export a PNG or a JPEG, 1200 × 630 pixels.',
+  },
+};
 
 /**
  * Identity over the config, used only for autocompletion and type checking
@@ -207,6 +233,29 @@ export function normalizeConfig(userConfig) {
     /^\/\/$/,
     '/',
   );
+
+  // The project's images: paths from the root, checked here for their kind.
+  // Whether they exist is checked when the build copies them.
+  for (const field of /** @type {const} */ (['logo', 'favicon', 'socialImage'])) {
+    const value = config[field];
+    if (value === undefined || value === '') continue;
+    const { extensions, hint } = IMAGE_KINDS[field];
+    if (typeof value !== 'string') {
+      throw new ConfigError(`${field} must be the path of an image, from the project root.`, {
+        hint,
+      });
+    }
+    if (!extensions.includes(path.extname(value).toLowerCase())) {
+      throw new ConfigError(`${field} must be a ${extensions.join(', ')} file: "${value}".`, {
+        hint,
+      });
+    }
+  }
+  if (config.socialImage && !config.siteUrl) {
+    throw new ConfigError('socialImage needs siteUrl.', {
+      hint: 'Social networks only read an absolute address: set siteUrl, the public address of the site.',
+    });
+  }
 
   if (!THEME_FRAMEWORKS.includes(config.theme.framework)) {
     throw new ConfigError(`Unknown theme framework: "${config.theme.framework}".`, {

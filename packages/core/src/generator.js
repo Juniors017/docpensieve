@@ -31,6 +31,22 @@ const TEMPLATE_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..
 /** Path of the stylesheet written into every version. */
 const STYLESHEET = 'assets/docpensieve.css';
 
+/**
+ * Where each project image is written in a version, before its extension.
+ * @type {Record<'logo' | 'favicon' | 'socialImage', string>}
+ */
+const IMAGE_FILES = {
+  logo: 'assets/logo',
+  favicon: 'assets/favicon',
+  socialImage: 'assets/social-image',
+};
+
+/**
+ * Type announced to the browser, by favicon extension.
+ * @type {Record<string, string>}
+ */
+const FAVICON_TYPES = { '.ico': 'image/x-icon', '.png': 'image/png', '.svg': 'image/svg+xml' };
+
 /** Collects the values of the `class` attributes of an HTML document. */
 const CLASS_ATTRIBUTE = /class="([^"]*)"/g;
 
@@ -191,6 +207,10 @@ export class SiteGenerator {
       [path.join(target, ...STYLESHEET.split('/')), 'the theme stylesheet'],
     ]);
 
+    // The project's images go into every version: each one stands on its
+    // own, down to the orphan branch it is published on.
+    const images = await this.#copyImages(target, versionBase, written);
+
     for (const doc of docs) {
       const url = pageUrl(doc);
 
@@ -215,6 +235,7 @@ export class SiteGenerator {
         breadcrumbTitles,
         basePath: versionBase,
         dirUrl,
+        logo: images.logo,
       }).toScriptTag();
 
       // A home page has neither menu nor table of contents: those are reading
@@ -232,6 +253,19 @@ export class SiteGenerator {
         homeUrl: versionBase,
         currentUrl: url,
         cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
+        logoUrl: images.logo ?? '',
+        favicon: images.favicon
+          ? {
+              href: images.favicon,
+              type: FAVICON_TYPES[path.extname(images.favicon).toLowerCase()],
+            }
+          : null,
+        // Social networks only read an absolute address: normalisation
+        // refuses a preview image without siteUrl.
+        socialImage:
+          images.socialImage && this.config.siteUrl
+            ? new URL(images.socialImage, this.config.siteUrl).href
+            : '',
         cls: classes,
         versions: this.#versionLinks(version.slug),
         // A switcher offering a single choice is not a switcher.
@@ -268,6 +302,52 @@ export class SiteGenerator {
     await this.#write(path.join(target, ...STYLESHEET.split('/')), css);
 
     return { pages: docs.length, outDir: target };
+  }
+
+  /**
+   * Copies the project's images into a version's assets.
+   *
+   * @param {string} target Output folder of the version.
+   * @param {string} versionBase URL of the version.
+   * @param {Map<string, string>} written Files already written, for collisions.
+   * @returns {Promise<Partial<Record<keyof typeof IMAGE_FILES, string>>>} URL
+   *   of each declared image.
+   * @throws {GeneratorError} When a declared image does not exist.
+   */
+  async #copyImages(target, versionBase, written) {
+    const rootDir = this.config.rootDir ?? process.cwd();
+    /** @type {Partial<Record<keyof typeof IMAGE_FILES, string>>} */
+    const urls = {};
+
+    for (const field of /** @type {(keyof typeof IMAGE_FILES)[]} */ (Object.keys(IMAGE_FILES))) {
+      const declared = this.config[field];
+      if (!declared) continue;
+
+      const file = `${IMAGE_FILES[field]}${path.extname(declared).toLowerCase()}`;
+      const destination = path.join(target, ...file.split('/'));
+      written.set(destination, `the ${field} image`);
+
+      try {
+        await mkdir(path.dirname(destination), { recursive: true });
+        await copyFile(path.resolve(rootDir, declared), destination);
+      } catch (cause) {
+        const missing = /** @type {NodeJS.ErrnoException} */ (cause).code === 'ENOENT';
+        throw new GeneratorError(
+          missing
+            ? `The ${field} image does not exist: "${declared}".`
+            : `Could not copy the ${field} image "${declared}".`,
+          {
+            cause,
+            hint: missing
+              ? `The path starts from the project root, ${rootDir}.`
+              : 'Check the permissions on the file and on the output folder.',
+          },
+        );
+      }
+      urls[field] = joinUrl(versionBase, path.posix.dirname(file)) + path.posix.basename(file);
+    }
+
+    return urls;
   }
 
   /**
