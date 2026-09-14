@@ -1,6 +1,6 @@
 {
   "name": "@docpensieve/core",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DocPensieve engine: loading, MDX compilation, structured data, site generation",
   "type": "module",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "types"
   ],
   "dependencies": {
-    "@docpensieve/shared": "0.1.4",
+    "@docpensieve/shared": "0.1.5",
     "@mdx-js/mdx": "^3.1.1",
     "@shikijs/rehype": "^4.4.3",
     "gray-matter": "^4.0.3",
