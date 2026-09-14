@@ -31,6 +31,8 @@ scrollToTop: false,
 text**, with its own content — a pointer at the end of a chapter, for
 instance.
 
+<ForTheme framework="tailwind">
+
 <div className="flex flex-wrap items-center gap-3">
   <ScrollToTop className="!static !inline-flex !w-auto !shadow-none px-4" label="Top of page">
     Top
@@ -58,6 +60,44 @@ instance.
 All three carry `!static`: that is what takes them out of the corner of the
 screen to set them in the text. **Without this class, they would stack** on
 top of the shell's button, all in the same place.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<div className="row">
+  <ScrollToTop className="inline-button" label="Top of page">
+    Top
+  </ScrollToTop>
+  <ScrollToTop className="inline-button" label="Back to the summit">
+    ↑ Summit
+  </ScrollToTop>
+  <ScrollToTop className="inline-button accent-text" label="Start reading again">
+    Start again
+  </ScrollToTop>
+</div>
+
+```mdx
+<ScrollToTop className="inline-button" label="Top of page">
+  Top
+</ScrollToTop>
+```
+
+```css
+.inline-button {
+  position: static;
+  display: inline-flex;
+  inline-size: auto;
+  box-shadow: none;
+  padding-inline: 1rem;
+}
+```
+
+All three carry `inline-button`, from `theme/99-docpensieve.css`: its
+`position: static` takes them out of the corner of the screen to set them in
+the text. **Without this class, they would stack** on top of the shell's
+button, all in the same place.
+
+</ForTheme>
 
 The accessible name stays set by `label`: without it, the link would announce
 itself by its appearance alone.

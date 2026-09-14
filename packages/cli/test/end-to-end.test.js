@@ -9,7 +9,7 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,6 +42,49 @@ function scratch() {
 
 /** @param {string} root @param {...string} parts */
 const read = (root, ...parts) => readFileSync(path.join(root, ...parts), 'utf8');
+
+/**
+ * Classes of the installed documentation's pages that no rule of the
+ * stylesheet mentions: an example that renders unstyled.
+ *
+ * The examples used to be written with utilities only: under the custom
+ * theme, the columns kept no gap, the cards no colour, and nothing said so.
+ * The code highlighter's classes are left out, and so are the `dp-*` classes,
+ * which belong to the theme and the components.
+ *
+ * @param {string} out Output folder.
+ * @returns {string[]} `page: class` entries.
+ */
+function unstyledClasses(out) {
+  const version = path.join(out, 'versions', 'v1.0');
+  // Selectors escape their special characters, class attributes do not.
+  const css = read(version, 'assets', 'docpensieve.css').split(String.fromCharCode(92)).join('');
+  /** @param {string} name */
+  const styled = (name) => {
+    for (let at = css.indexOf(`.${name}`); at >= 0; at = css.indexOf(`.${name}`, at + 1)) {
+      const next = css[at + name.length + 1];
+      if (!next || !/[a-zA-Z0-9_-]/.test(next)) return true;
+    }
+    return false;
+  };
+  const ignored = (/** @type {string} */ name) =>
+    !name || name === 'line' || /^(dp-|shiki|github-)/.test(name);
+
+  const section = path.join(version, 'docpensieve');
+  /** @type {Set<string>} */
+  const faults = new Set();
+  for (const file of readdirSync(section, { recursive: true, encoding: 'utf8' })) {
+    if (!file.endsWith('.html')) continue;
+    const html = read(section, file);
+    const article = html.slice(html.indexOf('<article'), html.lastIndexOf('</article>'));
+    for (const [, value] of article.matchAll(/class="([^"]*)"/g)) {
+      for (const name of value.replaceAll('&amp;', '&').split(' ')) {
+        if (!ignored(name) && !styled(name)) faults.add(`${file}: ${name}`);
+      }
+    }
+  }
+  return [...faults];
+}
 
 describe('init, build, check', () => {
   // Compiling the stylesheet and warming up highlighting take a few seconds:
@@ -82,6 +125,9 @@ describe('init, build, check', () => {
     const { faults, pages } = await check({ cwd });
     expect(faults).toEqual([]);
     expect(pages).toBeGreaterThan(0);
+
+    // Every example of the documentation renders with the utility theme.
+    expect(unstyledClasses(out)).toEqual([]);
   });
 
   it('produces a complete site with the dependency-free theme', { timeout: 120_000 }, async () => {
@@ -92,6 +138,11 @@ describe('init, build, check', () => {
 
     const css = read(path.join(cwd, 'dist'), 'versions', 'v1.0', 'assets', 'docpensieve.css');
     expect(css).toContain('--dp-bg');
+
+    // The documentation's examples find their classes in the theme folder
+    // init wrote: each page shows the variant of the custom theme.
+    expect(existsSync(path.join(cwd, 'theme', '99-docpensieve.css'))).toBe(true);
+    expect(unstyledClasses(path.join(cwd, 'dist'))).toEqual([]);
 
     const { faults } = await check({ cwd });
     expect(faults).toEqual([]);

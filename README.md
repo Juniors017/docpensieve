@@ -43,6 +43,11 @@ leaves it out. The configuration file it writes lists every option, each with a
 comment. In a script or in continuous integration, `--yes` accepts the
 defaults.
 
+To pin the version a project uses, install it there: `npm init -y` when the
+folder has no `package.json` yet, then `npm install docpensieve` and
+`npx docpensieve init .`. `npm install` alone creates no site, and in a folder
+without a `package.json` it installs in the nearest parent that has one.
+
 | Command                           | Effect                                                   |
 | --------------------------------- | -------------------------------------------------------- |
 | `npx docpensieve init [folder]`   | sets up a project                                        |
@@ -105,6 +110,13 @@ docpensieve/
 The dependency graph never goes up: `shared` ← `core` / `theme` /
 `components` ← `cli`. The engine receives theme and components by injection,
 which makes it testable without React or CSS.
+
+A component works under both themes, and its page shows its styling in the
+terms of each: an example about the look comes in a
+`<ForTheme framework="tailwind">` and a `<ForTheme framework="custom">`
+variant, and every class of the latter is defined in `docs/v<x.y>/examples.css`,
+which `init` installs as `theme/99-docpensieve.css`. The end-to-end test builds
+a site under each theme and fails on any example class that no rule styles.
 
 ## License
 

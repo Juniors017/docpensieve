@@ -81,6 +81,10 @@ produce nothing visible, and the error would take a long time to find.
 independent settings. The grid subtracts the gaps by itself, so spacing the
 columns distorts no width.
 
+<ForTheme framework="tailwind">
+
+With the Tailwind theme, a `gap-*` utility sets it:
+
 <Columns className="gap-10">
   <Column>
     <Card>
@@ -97,6 +101,37 @@ columns distorts no width.
 ```mdx
 <Columns className="gap-10">…</Columns>
 ```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+With the custom theme, a class of your own sets it — here `wide-gap`, from
+`theme/99-docpensieve.css`:
+
+<Columns className="wide-gap">
+  <Column>
+    <Card>
+      <CardBody>The gap widens</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>without touching the widths</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns className="wide-gap">…</Columns>
+```
+
+```css
+.wide-gap {
+  gap: 2.5rem;
+}
+```
+
+</ForTheme>
 
 ## An aside next to the text
 
@@ -115,9 +150,15 @@ class table is announced to them.
 
   </Column>
   <Column span={4}>
-    <Card className="h-full border-indigo-400 bg-indigo-50 dark:bg-indigo-950/30">
-      <CardHeader className="text-sm">Remember</CardHeader>
-      <CardBody className="text-sm">
+    <Card
+      style={{
+        height: '100%',
+        borderColor: 'var(--dp-accent)',
+        background: 'var(--dp-accent-soft)',
+      }}
+    >
+      <CardHeader style={{ fontSize: '0.875rem' }}>Remember</CardHeader>
+      <CardBody style={{ fontSize: '0.875rem' }}>
         A component that produces a URL resolves it itself, following the same rules as a
         Markdown link.
       </CardBody>
@@ -159,8 +200,12 @@ versions: [
 ## Letting content flow
 
 For a text or a gallery that _flows_ from one column to the next, the grid is
-not the right tool and no component is needed: the theme's utilities are
-enough, directly in the page.
+not the right tool and no component is needed: CSS multi-column is enough,
+directly in the page.
+
+<ForTheme framework="tailwind">
+
+With the Tailwind theme, its utilities write it:
 
 <div className="columns-2 gap-6 sm:columns-3">
   <Card className="mb-6 break-inside-avoid">
@@ -183,6 +228,54 @@ enough, directly in the page.
 ```mdx
 <div className="columns-2 gap-6 sm:columns-3">…</div>
 ```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+With the custom theme, a class of your own — here `flow`, from
+`theme/99-docpensieve.css`:
+
+<div className="flow">
+  <Card>
+    <CardBody>One</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Two, a little longer, so that the heights differ.</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Three</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Four</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Five</CardBody>
+  </Card>
+</div>
+
+```mdx
+<div className="flow">…</div>
+```
+
+```css
+.flow {
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .flow {
+    columns: 3;
+  }
+}
+
+.flow > * {
+  break-inside: avoid;
+  margin-block-end: 1.5rem;
+}
+```
+
+</ForTheme>
 
 The difference is there: above, the order is vertical and the browser
 distributes as it likes; with `Columns`, each block stays where you put it.

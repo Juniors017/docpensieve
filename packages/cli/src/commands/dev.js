@@ -4,11 +4,12 @@
  * @module docpensieve/commands/dev
  */
 
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 import { componentsCss, createRegistry, setSiteContext } from '@docpensieve/components';
 import { SiteGenerator, loadConfig } from '@docpensieve/core';
-import { CONFIG_FILENAME, DocPensieveError } from '@docpensieve/shared';
+import { CONFIG_FILENAME, DocPensieveError, THEME_FOLDER } from '@docpensieve/shared';
 import chokidar from 'chokidar';
 
 import { RELOAD_PATH, createStaticServer, listen } from '../server.js';
@@ -19,6 +20,9 @@ const DEFAULT_PORT = 3000;
 
 /** Delay for grouping file events, in milliseconds. */
 const DEBOUNCE = 120;
+
+/** How often a missing theme folder is looked for, in ms. */
+const THEME_POLL = 1000;
 
 /**
  * Reload script injected on the fly, never written to disk.
@@ -79,9 +83,12 @@ export async function dev(options = {}) {
   const url = `http://localhost:${port}${config.baseUrl}`;
   console.log(`served at ${url}`);
 
+  // The project's own stylesheets, re-read by every rebuild.
+  const themeFolder = path.resolve(cwd, THEME_FOLDER);
   const watched = [
     config.configFile ?? path.resolve(cwd, CONFIG_FILENAME),
     ...config.versions.map((version) => path.resolve(cwd, version.folder)),
+    ...(existsSync(themeFolder) ? [themeFolder] : []),
   ];
   const watcher = chokidar.watch(watched, { ignoreInitial: true });
 
@@ -92,7 +99,8 @@ export async function dev(options = {}) {
 
   /** @type {NodeJS.Timeout | undefined} */
   let pending;
-  watcher.on('all', (_event, changed) => {
+  /** @param {string} changed */
+  const schedule = (changed) => {
     // An editor emits several events per save: group them.
     clearTimeout(pending);
     pending = setTimeout(async () => {
@@ -111,7 +119,22 @@ export async function dev(options = {}) {
         }
       }
     }, DEBOUNCE);
-  });
+  };
+  watcher.on('all', (_event, changed) => schedule(changed));
+
+  // Handed a path that does not exist, chokidar loses the events of all the
+  // others. A missing theme folder is therefore looked for every second, and
+  // watched from the moment it appears — its creation itself triggers no
+  // event, hence the rebuild asked for here.
+  const lookForTheme = existsSync(themeFolder)
+    ? undefined
+    : setInterval(() => {
+        if (!existsSync(themeFolder)) return;
+        clearInterval(lookForTheme);
+        watcher.add(themeFolder);
+        schedule(themeFolder);
+      }, THEME_POLL);
+  lookForTheme?.unref();
 
   console.log('watching — Ctrl+C to stop');
 
@@ -122,6 +145,7 @@ export async function dev(options = {}) {
     url,
     close: async () => {
       clearTimeout(pending);
+      clearInterval(lookForTheme);
       await watcher.close();
       // Without this, close() waits for keep-alive connections to expire —
       // the reload stream keeps one open permanently.

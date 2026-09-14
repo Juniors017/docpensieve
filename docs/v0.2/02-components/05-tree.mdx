@@ -46,7 +46,7 @@ children** is a collapsible branch, an entry **without children** is a leaf.
 
 <Columns>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardHeader>Closed by default</CardHeader>
       <CardBody>
         <Tree>
@@ -58,7 +58,7 @@ children** is a collapsible branch, an entry **without children** is a leaf.
     </Card>
   </Column>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardHeader>Opened by `open`</CardHeader>
       <CardBody>
         <Tree>
@@ -146,11 +146,41 @@ well.
 
 ## Styling the tree
 
+<ForTheme framework="tailwind">
+
 <Tree className="text-indigo-700 dark:text-indigo-300">
   <TreeItem label="in colour" open>
     <TreeItem label="the children inherit" />
   </TreeItem>
 </Tree>
+
+```mdx
+<Tree className="text-indigo-700 dark:text-indigo-300">…</Tree>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+A class of your own colours it — here `accent-text`, from
+`theme/99-docpensieve.css`, which follows the palette in dark mode too:
+
+<Tree className="accent-text">
+  <TreeItem label="in colour" open>
+    <TreeItem label="the children inherit" />
+  </TreeItem>
+</Tree>
+
+```mdx
+<Tree className="accent-text">…</Tree>
+```
+
+```css
+.accent-text {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
 
 ## What it does not announce
 

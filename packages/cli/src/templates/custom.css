@@ -1,0 +1,20 @@
+/*
+ * Your own styles.
+ *
+ * Every .css file of this theme/ folder is appended to the site's stylesheet,
+ * after the theme's, in name order, and "docpensieve dev" picks up every
+ * change. The rules sit outside any layer: they win over the default look of
+ * the components.
+ *
+ * The custom theme loads no utility framework: a className written in a page
+ * names a class defined here. Write the colours on the --dp-* tokens
+ * (--dp-accent, --dp-accent-soft, --dp-bg, --dp-text, --dp-text-soft,
+ * --dp-border…) so that they follow the light and dark palettes.
+ *
+ * For instance, for <Card className="accent-card">:
+ *
+ *   .accent-card {
+ *     border-color: var(--dp-accent);
+ *     background: var(--dp-accent-soft);
+ *   }
+ */

@@ -45,6 +45,11 @@ in the new site, in `docs/<version>/99-docpensieve/`: a **DocPensieve** section
 at the end of the menu, matching the installed version. Delete that folder when
 you no longer need it.
 
+Under the `custom` theme, the command also writes `theme/custom.css`, where the
+project's own classes go, and — with the documentation —
+`theme/99-docpensieve.css`, the classes of its examples, to delete along with
+it. An existing `theme/custom.css` is never overwritten, even with `--force`.
+
 ## `build`
 
 Generates the site.

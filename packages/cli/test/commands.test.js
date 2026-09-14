@@ -105,6 +105,55 @@ describe('build', () => {
   });
 });
 
+describe('the theme folder', () => {
+  it(
+    'appends its stylesheets after the components, in name order',
+    async () => {
+      const cwd = project({ 'index.md': page('Home') }, { theme: { framework: 'custom' } });
+      mkdirSync(path.join(cwd, 'theme'));
+      writeFileSync(path.join(cwd, 'theme', 'b.css'), '.second-sheet { color: red; }', 'utf8');
+      writeFileSync(path.join(cwd, 'theme', 'a.css'), '.first-sheet { color: blue; }', 'utf8');
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      await build(undefined, { cwd });
+
+      const css = readFileSync(
+        path.join(cwd, 'dist', 'versions', 'v1.0', 'assets', 'docpensieve.css'),
+        'utf8',
+      );
+      const [components, first, second] = ['.dp-card', '.first-sheet', '.second-sheet'].map(
+        (selector) => css.indexOf(selector),
+      );
+      expect(components).toBeGreaterThan(-1);
+      expect(first).toBeGreaterThan(components);
+      expect(second).toBeGreaterThan(first);
+    },
+    BUILD_TIMEOUT,
+  );
+
+  it(
+    'is picked up by dev, even when created after it started',
+    async () => {
+      const cwd = project({ 'index.md': page('Home') }, { theme: { framework: 'custom' } });
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const session = await dev({ cwd, port: 0 });
+      teardown.push(session.close);
+
+      mkdirSync(path.join(cwd, 'theme'));
+      writeFileSync(path.join(cwd, 'theme', 'custom.css'), '.added-later { color: red; }', 'utf8');
+
+      const url = `http://localhost:${session.port}/versions/v1.0/assets/docpensieve.css`;
+      const css = await until(async () => {
+        const text = await (await fetch(url)).text();
+        return text.includes('.added-later') ? text : null;
+      });
+      expect(css).toContain('.added-later');
+    },
+    BUILD_TIMEOUT,
+  );
+});
+
 describe('serve', () => {
   it('refuses to serve a missing folder', async () => {
     const cwd = project({ 'index.md': page('Home') });

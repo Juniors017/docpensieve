@@ -27,6 +27,8 @@ folder. Nothing can leave it: a page does not read the rest of the machine.
 
 Placed in a text, the icon takes its size and colour.
 
+<ForTheme framework="tailwind">
+
 <div className="text-indigo-600 text-2xl">
   <LogoIcon src="./icons/star.svg" /> at the size and colour of the text
 </div>
@@ -35,38 +37,64 @@ Placed in a text, the icon takes its size and colour.
   <LogoIcon src="./icons/star.svg" /> and here, smaller and greyer
 </div>
 
+</ForTheme>
+<ForTheme framework="custom">
+
+<div className="accent-text large">
+  <LogoIcon src="./icons/star.svg" /> at the size and colour of the text
+</div>
+
+<div className="small muted">
+  <LogoIcon src="./icons/star.svg" /> and here, smaller and greyer
+</div>
+
+</ForTheme>
+
 ## Sizes
 
 `size` accepts any CSS length.
 
-<div className="flex items-end gap-4 text-emerald-600">
+<div style={{ display: 'flex', alignItems: 'flex-end', gap: '1rem', color: '#10b981' }}>
   <LogoIcon src="./icons/shield.svg" size="1rem" />
   <LogoIcon src="./icons/shield.svg" size="2rem" />
   <LogoIcon src="./icons/shield.svg" size="3rem" />
   <LogoIcon src="./icons/shield.svg" size="4rem" />
 </div>
 
+<ForTheme framework="tailwind">
+
 ```mdx
-<LogoIcon src="./icons/shield.svg" size="3rem" className="text-emerald-600" />
+<LogoIcon src="./icons/shield.svg" size="3rem" style={{ color: '#10b981' }} />
 ```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+```mdx
+<LogoIcon src="./icons/shield.svg" size="3rem" className="green" />
+```
+
+`green` comes from `theme/99-docpensieve.css`, and sets `color`.
+
+</ForTheme>
 
 The colour only follows if the file relies on `currentColor` rather than on a
 fixed colour.
 
 ## In a list
 
-<ul className="list-none pl-0 space-y-2">
-  <li className="flex items-center gap-2">
-    <LogoIcon src="./icons/lightning.svg" size="1.1rem" className="text-amber-500" /> No script to
+<ul style={{ listStyle: 'none', paddingInlineStart: 0, display: 'grid', gap: '0.5rem' }}>
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/lightning.svg" size="1.1rem" style={{ color: '#f59e0b' }} /> No script to
     load
   </li>
-  <li className="flex items-center gap-2">
-    <LogoIcon src="./icons/shield.svg" size="1.1rem" className="text-emerald-600" /> Links are read
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/shield.svg" size="1.1rem" style={{ color: '#10b981' }} /> Links are read
     back before publishing
   </li>
-  <li className="flex items-center gap-2">
-    <LogoIcon src="./icons/book.svg" size="1.1rem" className="text-indigo-600" /> One version per
-    branch
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/book.svg" size="1.1rem" style={{ color: 'var(--dp-accent)' }} /> One
+    version per branch
   </li>
 </ul>
 
@@ -74,10 +102,10 @@ fixed colour.
 
 <Columns>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardBody>
-        <LogoIcon src="./icons/lightning.svg" size="1.6rem" className="text-amber-500" />
-        <strong className="block mt-2 mb-1 text-base font-semibold">Fast</strong>
+        <LogoIcon src="./icons/lightning.svg" size="1.6rem" style={{ color: '#f59e0b' }} />
+        <strong style={{ display: 'block', margin: '0.5rem 0 0.25rem', fontSize: '1rem' }}>Fast</strong>
 
         No hydration, no bundle to download before reading.
       </CardBody>
@@ -85,10 +113,10 @@ fixed colour.
 
   </Column>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardBody>
-        <LogoIcon src="./icons/shield.svg" size="1.6rem" className="text-emerald-600" />
-        <strong className="block mt-2 mb-1 text-base font-semibold">Verified</strong>
+        <LogoIcon src="./icons/shield.svg" size="1.6rem" style={{ color: '#10b981' }} />
+        <strong style={{ display: 'block', margin: '0.5rem 0 0.25rem', fontSize: '1rem' }}>Verified</strong>
 
         Dead links and invalid markup stop the publication.
       </CardBody>

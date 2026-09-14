@@ -8,7 +8,12 @@ description: The components available in every page, without an import.
 These components can be used in any `.mdx` page **without an import**.
 
 They provide the **structure** — wrappers, separators, spacing. The look is set
-with `className`, in utilities of the active theme:
+with `className`.
+
+<ForTheme framework="tailwind">
+
+With the Tailwind theme, a `className` holds utilities, compiled from the ones
+your pages use:
 
 ```mdx
 <Card className="max-w-sm">
@@ -18,6 +23,43 @@ with `className`, in utilities of the active theme:
 
 The component classes live in the `components` layer, below the utilities: a
 `className` set at use always wins.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+With the custom theme, a `className` names classes of your own: there are no
+utilities. Every `.css` file of the `theme/` folder, at the root of the
+project, is appended to the stylesheet, and `docpensieve dev` picks up every
+change.
+
+```mdx
+<Card className="narrow">
+  <CardHeader className="centered">Title</CardHeader>
+</Card>
+```
+
+```css
+/* theme/custom.css */
+.narrow {
+  max-inline-size: 24rem;
+}
+
+.centered {
+  text-align: center;
+}
+```
+
+The component classes live in the `components` layer, those of the theme
+folder in none: a class of yours always wins.
+
+The examples of these pages use the classes of `theme/99-docpensieve.css`,
+which `init` wrote next to this documentation: delete both together.
+
+</ForTheme>
+
+Every example is shown in the terms of the site's theme, through
+[ForTheme](./for-theme/): changing `theme.framework` in the configuration
+changes the examples too.
 
 ## Available
 
@@ -29,6 +71,7 @@ The component classes live in the `components` layer, below the utilities: a
 - [ScrollToTop](./scroll-to-top/) — back to the top of the page
 - [Skill](./skill/) — level gauge
 - [LogoIcon](./logo-icon/) — SVG icon inlined in the page
+- [ForTheme](./for-theme/) — content kept for one theme only
 
 ## Without JavaScript
 

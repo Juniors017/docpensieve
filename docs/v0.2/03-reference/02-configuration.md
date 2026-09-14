@@ -103,6 +103,11 @@ theme: {
 
 The available tokens are listed in [Themes](../guide/themes/).
 
+Longer rules go in the `theme/` folder, at the root of the project: every
+`.css` file in it is appended after `css`, in name order, and
+`docpensieve dev` picks up every change. Under the `custom` theme, `init`
+starts it with `theme/custom.css`.
+
 ## `baseUrl`, and why you rarely write it
 
 A `siteUrl` with a sub-path already gives it: `https://example.com/my-project`

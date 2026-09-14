@@ -126,8 +126,8 @@ Three ways to guard against it:
 
 - prefer `<div>` to `<p>` as a wrapper — a paragraph is valid inside it;
 - write short content on the same line as its tags;
-- for repeated cases, put a class in `theme.css` rather than a long string of
-  utilities, so that the line stays short.
+- for repeated cases, put a class in the `theme/` folder rather than a long
+  string of utilities, so that the line stays short.
 
 `docpensieve check` reports these nestings on the produced site.
 

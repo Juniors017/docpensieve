@@ -25,6 +25,12 @@ export const CONFIG_FILENAME = 'docpensieve.config.mjs';
  */
 export const CONFIG_FILENAMES = Object.freeze([CONFIG_FILENAME, 'docpensieve.config.js']);
 
+/**
+ * Folder of the project's own stylesheets, at its root. Every `.css` file in
+ * it is appended to the site's stylesheet, after the theme's.
+ */
+export const THEME_FOLDER = 'theme';
+
 /** Default output directory of a build. */
 export const DEFAULT_OUT_DIR = 'dist';
 

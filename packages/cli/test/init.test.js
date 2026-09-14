@@ -413,3 +413,44 @@ describe('init — the dialogue', () => {
     expect(printed()).not.toContain('No interactive terminal');
   });
 });
+
+describe('init — the theme folder', () => {
+  it('gives the custom theme its stylesheets', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, theme: 'custom' });
+    expect(read(dir, 'theme', 'custom.css')).toContain('--dp-accent');
+    // The classes of the documentation's examples come with it, in a file of
+    // their own rather than among the pages.
+    expect(read(dir, 'theme', '99-docpensieve.css')).toContain('.narrow');
+    expect(existsSync(path.join(dir, 'docs', 'v1.0', '99-docpensieve', 'examples.css'))).toBe(
+      false,
+    );
+  });
+
+  it('leaves the examples stylesheet out with --minimal', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, theme: 'custom', minimal: true });
+    expect(existsSync(path.join(dir, 'theme', 'custom.css'))).toBe(true);
+    expect(existsSync(path.join(dir, 'theme', '99-docpensieve.css'))).toBe(false);
+  });
+
+  it('writes no theme folder for Tailwind', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, theme: 'tailwind' });
+    expect(existsSync(path.join(dir, 'theme'))).toBe(false);
+  });
+
+  it("never overwrites the project's own stylesheet, even when forced", async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, theme: 'custom', minimal: true });
+    writeFileSync(path.join(dir, 'theme', 'custom.css'), '.mine { color: red; }', 'utf8');
+    await init(dir, { yes: true, theme: 'custom', minimal: true, force: true });
+    expect(read(dir, 'theme', 'custom.css')).toBe('.mine { color: red; }');
+  });
+
+  it('points to the folder from the configuration', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true });
+    expect(read(dir, 'docpensieve.config.mjs')).toContain('theme/ folder');
+  });
+});

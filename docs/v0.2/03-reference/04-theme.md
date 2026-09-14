@@ -124,7 +124,8 @@ The delivered stylesheet is assembled from four pieces, in this order:
 | a skin or a bridge  | `custom.css`, or `tailwind-bridge.css`             |
 | the components' one | The `dp-*` rules of the shipped components         |
 
-Then comes what the project adds through `theme.css`.
+Then comes what the project adds: `theme.css`, then every `.css` file of its
+`theme/` folder, in name order.
 
 The layout is **never** duplicated in a provider: it lives in `structure.css`,
 which both share. A provider only takes care of the styling.
@@ -144,6 +145,6 @@ The `custom` theme has no utility layer: its stylesheets are in no layer, and
 therefore come before the component rules, which stay in the `components`
 layer.
 
-What `theme.css` adds is in no layer: without a layer, a rule wins over all
-those that have one. That is what lets you write a fix there without worrying
+What `theme.css` and the `theme/` folder add is in no layer: without a layer, a
+rule wins over all those that have one. That is what lets you write a fix there without worrying
 about specificity.

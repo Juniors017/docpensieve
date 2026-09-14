@@ -15,6 +15,7 @@ import {
   CONFIG_FILENAME,
   CONFIG_FILENAMES,
   DocPensieveError,
+  THEME_FOLDER,
   THEME_FRAMEWORKS,
 } from '@docpensieve/shared';
 
@@ -24,7 +25,7 @@ import {
  */
 const FRAMEWORK_LABELS = {
   tailwind: 'Tailwind CSS — ships with the tool, nothing to install',
-  custom: 'custom theme, light stylesheet, no utilities',
+  custom: 'custom theme, light stylesheet, your own classes in theme/',
 };
 
 /** Answers used when there is no dialogue. */
@@ -39,10 +40,20 @@ const DEFAULTS = { name: 'My documentation', siteUrl: '', theme: 'tailwind', ver
 const DOCS_FOLDER = '99-docpensieve';
 
 /**
- * Entries of DocPensieve's documentation that are not installed: its home page
- * and the icons only that page uses belong to DocPensieve's own site.
+ * Stylesheet of the documentation's examples, shipped next to its pages.
+ * Under the custom theme, it goes to the theme folder, not among the pages.
  */
-const NOT_INSTALLED = new Set(['index.md', 'index.mdx', 'icons']);
+const EXAMPLES_CSS = 'examples.css';
+
+/**
+ * Entries of DocPensieve's documentation that are not installed with the
+ * pages: its home page and the icons only that page uses belong to
+ * DocPensieve's own site, and the examples' stylesheet has a place of its own.
+ */
+const NOT_INSTALLED = new Set(['index.md', 'index.mdx', 'icons', EXAMPLES_CSS]);
+
+/** Starting point of the project's own stylesheet, under the custom theme. */
+const CUSTOM_CSS = fileURLToPath(new URL('../templates/custom.css', import.meta.url));
 
 /** Where the generated configuration sends readers for every field. */
 const DOCUMENTATION_URL = 'https://juniors017.github.io/docpensieve/';
@@ -225,6 +236,9 @@ function renderConfig({ name, theme, siteUrl, version }) {
     '    // CSS appended to the stylesheet, outside any layer: it wins over the',
     '    // default rules.',
     "    // css: '.dp-article h2 { letter-spacing: -0.01em; }',",
+    '',
+    '    // Longer rules go in the theme/ folder: every .css file in it is',
+    '    // appended after the theme, and "docpensieve dev" picks up changes.',
     ...(theme === 'tailwind'
       ? [
           '',
@@ -433,6 +447,17 @@ export async function init(dir = '.', options = {}) {
       hint: 'Reinstall docpensieve, or run init with --minimal to go without it.',
     });
   }
+  // Under the custom theme, its examples also need their stylesheet: without
+  // it, every one of them would render unstyled, and nothing would say why.
+  if (
+    documentation &&
+    answers.theme === 'custom' &&
+    !existsSync(path.join(documentation, EXAMPLES_CSS))
+  ) {
+    throw new DocPensieveError("The stylesheet of the documentation's examples is missing.", {
+      hint: 'Reinstall docpensieve, or run init with --minimal to go without the documentation.',
+    });
+  }
 
   const slug = versionSlug(answers.version);
   const docsDir = path.join(target, 'docs', slug);
@@ -448,6 +473,8 @@ export async function init(dir = '.', options = {}) {
   if (documentation) {
     await installDocumentation(documentation, path.join(docsDir, DOCS_FOLDER), slug);
   }
+  const stylesheets =
+    answers.theme === 'custom' ? await writeStylesheets(target, documentation) : [];
   await ignoreOutput(target);
 
   console.log(`\nProject initialised in ${target}`);
@@ -457,10 +484,39 @@ export async function init(dir = '.', options = {}) {
   if (documentation) {
     console.log(`  docs/${slug}/${DOCS_FOLDER}/  DocPensieve's documentation, to delete when done`);
   }
+  for (const line of stylesheets) console.log(`  ${line}`);
   console.log(`\nTheme: ${answers.theme} — ${FRAMEWORK_LABELS[answers.theme]}`);
   console.log('\nNext:  npx docpensieve dev');
 
   return { dir: target, theme: answers.theme, docs: answers.docs };
+}
+
+/**
+ * Gives the custom theme its stylesheets, in the project's theme folder.
+ *
+ * The custom theme loads no utility framework: the classes a page uses are
+ * defined by the project. `custom.css` is where they go — never overwritten,
+ * even with `--force`, since it holds the project's own rules. The installed
+ * documentation brings the classes of its examples in a file of its own, to
+ * delete along with it.
+ *
+ * @param {string} target Project folder.
+ * @param {string | null} documentation Source of the installed documentation.
+ * @returns {Promise<string[]>} One line per file, for the summary.
+ */
+async function writeStylesheets(target, documentation) {
+  const folder = path.join(target, THEME_FOLDER);
+  await mkdir(folder, { recursive: true });
+
+  const own = path.join(folder, 'custom.css');
+  if (!existsSync(own)) cpSync(CUSTOM_CSS, own);
+  const lines = [`${THEME_FOLDER}/custom.css  your own styles`];
+
+  if (documentation) {
+    cpSync(path.join(documentation, EXAMPLES_CSS), path.join(folder, `${DOCS_FOLDER}.css`));
+    lines.push(`${THEME_FOLDER}/${DOCS_FOLDER}.css  classes of its examples, to delete with it`);
+  }
+  return lines;
 }
 
 /**

@@ -31,7 +31,7 @@ Content passed as a child becomes a comment under the bar.
 `shape="circle"` draws a dial rather than a bar. Useful when the gauges are
 few and you want them to stand out.
 
-<div className="flex flex-wrap">
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
   <Skill name="Accessibility" level={85} shape="circle" />
   <Skill name="Performance" level={92} shape="circle" />
   <Skill name="Coverage" level={64} shape="circle" />
@@ -53,7 +53,9 @@ the entry animation only has to start from zero.
 
 It is set through `--dp-skill-size`, on the gauge or on what surrounds it.
 
-<div className="flex flex-wrap items-end" style={{ '--dp-skill-size': '4rem' }}>
+<div
+  style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', '--dp-skill-size': '4rem' }}
+>
   <Skill name="Smaller" level={70} shape="circle" />
   <Skill name="Also smaller" level={45} shape="circle" />
 </div>
@@ -72,7 +74,7 @@ It is set through `--dp-skill-size`, on the gauge or on what surrounds it.
 
 ### Without the figure
 
-<div className="flex flex-wrap">
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
   <Skill name="Silent" level={55} shape="circle" showValue={false} />
 </div>
 
@@ -96,7 +98,7 @@ seeing them match helps read a column of gauges at a glance.
 
 ### As a circle too
 
-<div className="flex flex-wrap">
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
   <Skill
     name="Speed"
     level={92}
@@ -161,7 +163,7 @@ Several gauges in columns, each in its card.
 
 <Columns>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardHeader>Quality</CardHeader>
       <CardBody>
         <Skill name="Tests" level={88} />
@@ -171,7 +173,7 @@ Several gauges in columns, each in its card.
     </Card>
   </Column>
   <Column span={6}>
-    <Card className="h-full">
+    <Card style={{ height: '100%' }}>
       <CardHeader>Delivery</CardHeader>
       <CardBody>
         <Skill name="Continuous integration" level={100} />
@@ -186,19 +188,49 @@ Several gauges in columns, each in its card.
 
 ## Styling the gauge
 
+<ForTheme framework="tailwind">
+
 The component classes live below the utilities: a `className` set at use wins.
 
 <Skill className="max-w-sm" name="Reduced width" level={55} />
 
-<div className="[&_.dp-skill-fill]:bg-emerald-500">
-  <Skill name="Green fill" level={78} />
-</div>
+The gauge takes its colour from `--dp-skill-color`, which an arbitrary
+property sets:
+
+<Skill className="[--dp-skill-color:#10b981]" name="Green fill" level={78} />
 
 ```mdx
-<div className="[&_.dp-skill-fill]:bg-emerald-500">
-  <Skill name="Green fill" level={78} />
-</div>
+<Skill className="[--dp-skill-color:#10b981]" name="Green fill" level={78} />
 ```
+
+A selector written in a class, such as `[&_.dp-skill-fill]:…`, would not do:
+its `&` reaches the HTML as `&amp;`, and the stylesheet — compiled from the
+rendered pages — never receives the rule.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+The component classes live in the `components` layer, those of the theme
+folder in none: a class of yours set at use wins. The gauge takes its colour
+from `--dp-skill-color`, which a class can set — here `narrow` and `green`,
+from `theme/99-docpensieve.css`:
+
+<Skill className="narrow" name="Reduced width" level={55} />
+
+<Skill className="green" name="Green fill" level={78} />
+
+```mdx
+<Skill className="green" name="Green fill" level={78} />
+```
+
+```css
+.green {
+  --dp-skill-color: #10b981;
+  color: #10b981;
+}
+```
+
+</ForTheme>
 
 ## The fill
 

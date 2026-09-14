@@ -50,22 +50,33 @@ npx docpensieve init my-site --yes --name "My documentation"
 | `-f, --force`              | Overwrites an existing configuration                    |
 | `--minimal`                | Leaves DocPensieve's documentation out of the site      |
 
-## In an existing project
+## Installing it in a project
+
+Through `npx` alone, the version used is the latest. To pin the one a project
+uses — what continuous integration needs — install it in the project:
 
 ```bash
+npm init -y              # only when the folder has no package.json yet
 npm install docpensieve
-npx docpensieve init . --force
+npx docpensieve init .
 ```
 
-`init` on an occupied folder refuses to overwrite an existing configuration:
-you have to ask for it with `--force`. The refusal is deliberate — a
+`npm install` only installs: it creates no site and asks nothing — `init` does.
+It also installs in the nearest folder that has a `package.json`, going up from
+the current one: in a folder without one, the package lands in a parent folder
+and nothing appears where you are. Hence `npm init -y` first. `npx docpensieve`
+then runs the installed copy.
+
+`init` refuses to overwrite an existing configuration: you have to ask for it
+with `--force`. The refusal is deliberate — a
 configuration overwritten by mistake is only noticed at the next deployment.
 
 ## Choosing the theme
 
 `tailwind` is the default and installs Tailwind as a dependency. `custom` does
 without it entirely: the site is then styled by a stylesheet written in the
-package, with no styling dependency.
+package, with no styling dependency. Your own classes then go in the `theme/`
+folder, which `init` starts with `theme/custom.css`.
 
 Both are equivalent in use — the templates are the same, only the styling
 changes. The choice is not final: it fits in one field of the configuration,

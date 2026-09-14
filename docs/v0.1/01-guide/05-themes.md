@@ -100,9 +100,11 @@ Without this layer, a component rule written after a utility would beat it at
 equal specificity, and the author's `className` would be ignored without a
 word.
 
-The `custom` theme has no utilities: a `className` there designates your own
-classes. Declare them in `theme.css` — outside any layer, they come before the
-component rules.
+The `custom` theme has no utilities: a `className` there names classes of your
+own. Write them in the `theme/` folder, at the root of the project: every `.css`
+file in it is appended to the stylesheet, outside any layer, so they come
+before the component rules. Under this theme, `init` starts the folder with
+`theme/custom.css`.
 
 ## The stylesheet is compiled last
 
