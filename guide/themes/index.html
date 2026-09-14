@@ -77,6 +77,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -156,9 +159,11 @@ set at use therefore always wins, whatever the place of the rule in the file:</p
 <p>Without this layer, a component rule written after a utility would beat it at
 equal specificity, and the author&#x27;s <code>className</code> would be ignored without a
 word.</p>
-<p>The <code>custom</code> theme has no utilities: a <code>className</code> there designates your own
-classes. Declare them in <code>theme.css</code> — outside any layer, they come before the
-component rules.</p>
+<p>The <code>custom</code> theme has no utilities: a <code>className</code> there names classes of your
+own. Write them in the <code>theme/</code> folder, at the root of the project: every <code>.css</code>
+file in it is appended to the stylesheet, outside any layer, so they come
+before the component rules. Under this theme, <code>init</code> starts the folder with
+<code>theme/custom.css</code>.</p>
 <h2 id="the-stylesheet-is-compiled-last">The stylesheet is compiled last</h2>
 <p>A utility theme only emits the rules of the classes actually used: it
 therefore needs the rendered pages before it can compile. The build first

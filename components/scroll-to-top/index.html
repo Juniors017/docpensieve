@@ -77,6 +77,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/components/logo-icon/">LogoIcon</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/components/for-theme/">ForTheme</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -124,13 +127,12 @@ anything having asked for it.</p>
 <p><code>ScrollToTop</code> stays available when you want a button <strong>in the flow of the
 text</strong>, with its own content — a pointer at the end of a chapter, for
 instance.</p>
-<div class="flex flex-wrap items-center gap-3"><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4" href="#top" aria-label="Top of page"><p>Top</p></a><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4" href="#top" aria-label="Back to the summit"><p>↑ Summit</p></a><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4 border-indigo-400 text-indigo-700" href="#top" aria-label="Start reading again"><p>Start again</p></a></div>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">ScrollToTop</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;!static !inline-flex !w-auto&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Top of page&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<div class="flex flex-wrap items-center gap-3"><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4" href="#top" aria-label="Top of page"><p>Top</p></a><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4" href="#top" aria-label="Back to the summit"><p>↑ Summit</p></a><a class="dp-scroll-top !static !inline-flex !w-auto !shadow-none px-4 border-indigo-400 text-indigo-700" href="#top" aria-label="Start reading again"><p>Start again</p></a></div><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">ScrollToTop</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;!static !inline-flex !w-auto&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Top of page&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  Top</span></span>
-<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">ScrollToTop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
-<p>All three carry <code>!static</code>: that is what takes them out of the corner of the
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">ScrollToTop</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre><p>All three carry <code>!static</code>: that is what takes them out of the corner of the
 screen to set them in the text. <strong>Without this class, they would stack</strong> on
 top of the shell&#x27;s button, all in the same place.</p>
+
 <p>The accessible name stays set by <code>label</code>: without it, the link would announce
 itself by its appearance alone.</p>
 <h2 id="appearing">Appearing</h2>
