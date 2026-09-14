@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/logo.jpg" alt="DocPensieve — Documentation &amp; Magical Memory" width="260">
+</p>
+
 # DocPensieve
 
 > _Preserve and navigate your documentation memories._
