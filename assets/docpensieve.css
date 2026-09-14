@@ -243,11 +243,17 @@
   .flex {
     display: flex;
   }
+  .inline-block {
+    display: inline-block;
+  }
   .h-full {
     height: 100%;
   }
   .\!w-auto {
     width: auto !important;
+  }
+  .w-56 {
+    width: calc(var(--spacing) * 56);
   }
   .max-w-sm {
     max-width: var(--container-sm);
@@ -697,6 +703,18 @@ body {
   padding: 0.55rem 0.9rem;
   border-radius: 6px;
   text-decoration: none;
+}
+
+/* The project's logo, beside its name, at the height of the header's text. */
+.dp-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dp-brand-logo {
+  block-size: 1.75rem;
+  inline-size: auto;
 }
 
 .dp-header {
