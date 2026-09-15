@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Juniors017/docpensieve/main/branding/logo.jpg" alt="DocPensieve — Documentation &amp; Magical Memory" width="180">
+</p>
+
 # @docpensieve/components
 
 > Global MDX components

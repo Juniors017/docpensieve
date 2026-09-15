@@ -56,7 +56,7 @@ const NOT_INSTALLED = new Set(['index.md', 'index.mdx', 'icons', EXAMPLES_CSS]);
 const CUSTOM_CSS = fileURLToPath(new URL('../templates/custom.css', import.meta.url));
 
 /** Where the generated configuration sends readers for every field. */
-const DOCUMENTATION_URL = 'https://juniors017.github.io/docpensieve/';
+const DOCUMENTATION_URL = 'https://docpensieve.com/';
 
 /**
  * Asks a question, with a default value shown between brackets.

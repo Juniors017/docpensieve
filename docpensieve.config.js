@@ -18,7 +18,9 @@ const { version: published } = JSON.parse(
 
 export default defineConfig({
   projectName: 'DocPensieve',
-  siteUrl: 'https://juniors017.github.io/docpensieve',
+  // Served at the root of its own domain: links carry no prefix, and
+  // robots.txt is written, since that is where crawlers read it.
+  siteUrl: 'https://docpensieve.com',
 
   // The project's images, from the root: beside the name in the header, in
   // the browser tab, and as the preview of a shared page. The full logo,

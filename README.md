@@ -10,7 +10,7 @@ Static documentation site generator: Markdown and MDX in, static HTML out, one
 version per orphan branch, JSON-LD structured data generated from the
 frontmatter.
 
-Full documentation: <https://juniors017.github.io/docpensieve/>
+Full documentation: <https://docpensieve.com/>
 
 ## Principles
 
@@ -83,7 +83,7 @@ export default {
 };
 ```
 
-Every field is described in the [configuration reference](https://juniors017.github.io/docpensieve/versions/v0.1/reference/configuration/).
+Every field is described in the [configuration reference](https://docpensieve.com/versions/v0.1/reference/configuration/).
 
 ## Contributing
 

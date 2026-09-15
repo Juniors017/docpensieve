@@ -45,7 +45,7 @@
     "url": "git+https://github.com/Juniors017/docpensieve.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://github.com/Juniors017/docpensieve#readme",
+  "homepage": "https://docpensieve.com",
   "bugs": {
     "url": "https://github.com/Juniors017/docpensieve/issues"
   },
