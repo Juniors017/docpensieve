@@ -65,6 +65,30 @@ docs/v1.0/
     └── 01-card.mdx
 ```
 
+## Writing the menu by hand
+
+When the file tree does not give the menu you want, describe it in a JSON file
+of the version's folder, and name it in the configuration:
+
+```js
+// docpensieve.config.mjs
+sidebar: 'sidebar.json',
+```
+
+```json
+[
+  "/",
+  { "label": "Start here", "items": ["guide/installation", "guide/first-site"] },
+  { "auto": "components" },
+  { "label": "Repository", "href": "https://github.com/me/my-project" }
+]
+```
+
+A page is named by its path, as in its URL. `{ "auto": "components" }` keeps
+the automatic menu of a folder — the DocPensieve section stays whole that way.
+A page the file leaves out is still published, only off the menu. Every kind
+of entry is in the [`sidebar` reference](../reference/configuration/).
+
 ## Internal links
 
 Two spellings, two meanings:
