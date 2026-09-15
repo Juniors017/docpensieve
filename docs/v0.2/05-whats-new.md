@@ -6,10 +6,16 @@ tags: [release]
 
 # What's new in 0.2
 
-This version is **in preparation**. It is not published on npm yet: the
-version you install today is the 0.1, documented in the 0.1 pages of this
-site. What follows is written as each piece lands, and describes the 0.2 as it
-stands.
+This version is **in preparation**. Its betas go out under the npm tag `beta`,
+while the version installed by default stays the 0.1, documented in the 0.1
+pages of this site:
+
+```bash
+npx docpensieve@beta init my-site
+```
+
+What follows describes the 0.2 as it stands, and
+[Moving from 0.1 to 0.2](./migrating/) says what to check in a 0.1 project.
 
 ## Already there
 
@@ -53,11 +59,12 @@ width and height, read from its file, so that the text no longer jumps when it
 arrives; all but the first load lazily, and are no longer preloaded — the
 first, often in view, keeps its normal loading. `CardImage` loads lazily too.
 
-## Still to come
+### The API reference, and two example projects
 
-| Piece            | What it brings                                           |
-| ---------------- | -------------------------------------------------------- |
-| API and examples | The reference of each package, complete example projects |
+Every export of the five packages is in the [API reference](./reference/api/),
+generated from the JSDoc of the sources, so that it cannot drift from the code.
+The repository also holds two complete example projects, one per theme, built
+and checked on every run of its tests.
 
 ## For a 0.1 project
 

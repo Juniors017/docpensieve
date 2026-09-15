@@ -1,0 +1,19 @@
+/*
+ * The classes of this handbook. The custom theme loads no utility framework:
+ * a className in a page names a class of this file, written on the --dp-*
+ * tokens so that it follows the palette.
+ */
+
+.full-height {
+  block-size: 100%;
+}
+
+.highlight {
+  border-color: var(--dp-accent);
+  background: var(--dp-accent-soft);
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--dp-text-soft);
+}
