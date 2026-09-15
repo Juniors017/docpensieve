@@ -235,6 +235,7 @@ function renderConfig({ name, theme, siteUrl, version }) {
     "    // 'tailwind' compiles the utilities your pages use; 'custom' is a plain",
     '    // stylesheet with no dependency.',
     `    framework: ${quote(theme)},`,
+    "    // 'class' follows the reader's system; 'dark' or 'light' keeps one scheme.",
     "    darkMode: 'class',",
     '',
     '    // Design tokens to override, for instance the accent colour:',

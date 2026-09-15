@@ -795,6 +795,45 @@ describe('a sidebar described by a file', () => {
   });
 });
 
+describe('colour scheme and version images', () => {
+  it('sets a fixed scheme on <html>', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      { theme: { framework: 'custom', darkMode: 'dark' } },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    expect(read(out, 'index.html')).toContain('<html lang="en" class="dark">');
+  });
+
+  it('leaves <html> without a class when the scheme follows the system', async () => {
+    const config = project({ 'index.md': page('Home') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    expect(read(out, 'index.html')).toContain('<html lang="en">');
+  });
+
+  it("puts a version's own logo in place of the project's", async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      {
+        logo: 'brand/logo.svg',
+        versions: [
+          { slug: 'v1.0', name: '1.0', folder: 'docs/v1.0', current: true, logo: 'brand/beta.svg' },
+        ],
+      },
+    );
+    mkdirSync(path.join(config.rootDir, 'brand'));
+    writeFileSync(path.join(config.rootDir, 'brand', 'logo.svg'), '<svg id="project"/>', 'utf8');
+    writeFileSync(path.join(config.rootDir, 'brand', 'beta.svg'), '<svg id="beta"/>', 'utf8');
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('src="/versions/v1.0/assets/logo.svg"');
+    expect(read(out, 'assets', 'logo.svg')).toBe('<svg id="beta"/>');
+  });
+});
+
 describe('page furniture', () => {
   it('puts the back-to-top link on every page', async () => {
     // It is furniture, not content: writing it in every file would mean

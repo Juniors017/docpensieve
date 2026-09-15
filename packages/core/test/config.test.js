@@ -316,6 +316,34 @@ describe('search', () => {
   });
 });
 
+describe('colour scheme and version images', () => {
+  it('accepts a scheme that follows the system, or one kept fixed', () => {
+    for (const darkMode of ['class', 'dark', 'light']) {
+      expect(
+        normalizeConfig({ versions: [v1], theme: { framework: 'custom', darkMode } }).theme
+          .darkMode,
+      ).toBe(darkMode);
+    }
+  });
+
+  it('refuses a scheme it does not know', () => {
+    // Declared and read nowhere, darkMode accepted anything, and did nothing.
+    expect(() =>
+      normalizeConfig({ versions: [v1], theme: { framework: 'custom', darkMode: 'night' } }),
+    ).toThrow(/Unknown darkMode/);
+  });
+
+  it('accepts a logo and a favicon of the version, checked like the project ones', () => {
+    const config = normalizeConfig({
+      versions: [{ ...v1, logo: 'brand/beta.svg', favicon: 'brand/beta.png' }],
+    });
+    expect(config.versions[0].logo).toBe('brand/beta.svg');
+    expect(() => normalizeConfig({ versions: [{ ...v1, favicon: 'brand/beta.jpg' }] })).toThrow(
+      /favicon of version "v1.0"/,
+    );
+  });
+});
+
 describe('dangerous values', () => {
   it('refuses a version slug that is not a safe path segment', () => {
     // The slug becomes an output folder: "../../elsewhere" wrote outside the

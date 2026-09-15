@@ -25,6 +25,8 @@ import {
  * @property {boolean} [archived] Version kept but no longer maintained.
  * @property {boolean} [prerelease] Version in preparation, not yet the
  *   reference one. Its pages carry a notice and are not indexed.
+ * @property {string} [logo]    Logo of this version, instead of the project's.
+ * @property {string} [favicon] Favicon of this version, instead of the project's.
  */
 
 /**
@@ -81,6 +83,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   feed: false,
   search: true,
 });
+
+/** Values of `theme.darkMode`. */
+const DARK_MODES = ['class', 'dark', 'light'];
 
 /**
  * Extensions accepted for each project image, and what to do otherwise.
@@ -171,6 +176,19 @@ export function normalizeConfig(userConfig) {
       throw new ConfigError(`Invalid version slug: "${version.slug}".`, {
         hint: 'Letters, digits, dot, dash and underscore, starting with a letter or a digit — "v1.0", "next".',
       });
+    }
+    // A version may carry its own logo and favicon — a beta told apart at a
+    // glance. Checked like the project's.
+    for (const field of /** @type {const} */ (['logo', 'favicon'])) {
+      const value = version[field];
+      if (value === undefined) continue;
+      const { extensions, hint } = IMAGE_KINDS[field];
+      if (typeof value !== 'string' || !extensions.includes(path.extname(value).toLowerCase())) {
+        throw new ConfigError(
+          `The ${field} of version "${version.slug}" must be a ${extensions.join(', ')} file: "${String(value)}".`,
+          { hint },
+        );
+      }
     }
     if (seen.has(version.slug)) {
       throw new ConfigError(`The version slug "${version.slug}" is declared twice.`);
@@ -292,6 +310,15 @@ export function normalizeConfig(userConfig) {
   if (config.socialImage && !config.siteUrl) {
     throw new ConfigError('socialImage needs siteUrl.', {
       hint: 'Social networks only read an absolute address: set siteUrl, the public address of the site.',
+    });
+  }
+
+  // 'class' follows the reader's system, and a dark or light class on <html>
+  // wins; 'dark' and 'light' set that class at build time, for a site that
+  // keeps one look whatever the system.
+  if (!DARK_MODES.includes(config.theme.darkMode ?? 'class')) {
+    throw new ConfigError(`Unknown darkMode: "${config.theme.darkMode}".`, {
+      hint: `Accepted values: ${DARK_MODES.join(', ')}.`,
     });
   }
 

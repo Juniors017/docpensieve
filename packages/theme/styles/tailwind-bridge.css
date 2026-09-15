@@ -13,12 +13,13 @@
 /* --- Dark mode ----------------------------------------------------------- */
 
 /*
- * Tailwind v4 varies `dark:` on the system preference. These blocks follow
- * the same rule for the shared tokens, with the `.light` / `.dark` escape
- * hatch that theme.darkMode allows.
+ * The system preference decides, unless a `.dark` or `.light` class on <html>
+ * — set by theme.darkMode — does. The provider gives Tailwind's `dark:`
+ * variant the same rule, so that tokens and utilities never disagree.
  */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
+    color-scheme: dark;
     --dp-bg: oklch(12.9% 0.042 264.695);
     --dp-bg-soft: oklch(20.8% 0.042 265.755);
     --dp-text: oklch(96.8% 0.007 247.896);
@@ -32,6 +33,7 @@
 }
 
 :root.dark {
+  color-scheme: dark;
   --dp-bg: oklch(12.9% 0.042 264.695);
   --dp-bg-soft: oklch(20.8% 0.042 265.755);
   --dp-text: oklch(96.8% 0.007 247.896);
@@ -128,4 +130,9 @@ a {
   .dp-sidebar {
     border-bottom: 1px solid var(--dp-border);
   }
+}
+
+/* A light scheme set on purpose keeps the native controls light too. */
+:root.light {
+  color-scheme: light;
 }

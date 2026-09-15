@@ -25,13 +25,13 @@ theme: {
 },
 ```
 
-| Field       | Default                  | Effect                                                |
-| ----------- | ------------------------ | ----------------------------------------------------- |
-| `framework` | `'tailwind'`             | `'tailwind'` or `'custom'`                            |
-| `darkMode`  | `'class'`                | Dark theme strategy                                   |
-| `tokens`    | —                        | Redefined `--dp-*` tokens, merged with the provider's |
-| `css`       | `''`                     | CSS appended to the produced stylesheet               |
-| `source`    | `@import "tailwindcss";` | Stylesheet handed to the utility compiler             |
+| Field       | Default                  | Effect                                                                                                    |
+| ----------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `framework` | `'tailwind'`             | `'tailwind'` or `'custom'`                                                                                |
+| `darkMode`  | `'class'`                | `'class'`: the reader's system, unless a class on `<html>` decides. `'dark'` or `'light'` sets that class |
+| `tokens`    | —                        | Redefined `--dp-*` tokens, merged with the provider's                                                     |
+| `css`       | `''`                     | CSS appended to the produced stylesheet                                                                   |
+| `source`    | `@import "tailwindcss";` | Stylesheet handed to the utility compiler                                                                 |
 
 `source` only concerns the `tailwind` provider: it is the entry stylesheet it
 compiles. Replacing it lets you add directives — a `@theme` block, for

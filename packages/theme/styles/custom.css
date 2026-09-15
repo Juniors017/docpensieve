@@ -21,6 +21,7 @@
  */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
+    color-scheme: dark;
     --dp-bg: #0f1115;
     --dp-bg-soft: #171a21;
     --dp-text: #e8eaed;
@@ -34,6 +35,7 @@
 }
 
 :root.dark {
+  color-scheme: dark;
   --dp-bg: #0f1115;
   --dp-bg-soft: #171a21;
   --dp-text: #e8eaed;
@@ -277,4 +279,9 @@ a {
   .dp-sidebar {
     border-bottom: 1px solid var(--dp-border);
   }
+}
+
+/* A light scheme set on purpose keeps the native controls light too. */
+:root.light {
+  color-scheme: light;
 }

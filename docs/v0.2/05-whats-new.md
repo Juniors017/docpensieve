@@ -38,6 +38,14 @@ built with the site; content pages still load no script — the search page
 alone does, and without it the page stays the list of every page. See
 [Search](./reference/configuration/) in the reference.
 
+### A colour scheme of your choosing, and a logo per version
+
+`theme.darkMode: 'dark'` keeps the site dark whatever the reader's system —
+`'light'` keeps it light; `'class'`, the default, still follows the system.
+Until now the field was accepted and did nothing. A version can also carry its
+own `logo` and `favicon`, to tell a beta apart at a glance. See the
+[configuration reference](./reference/configuration/).
+
 ## Still to come
 
 | Piece            | What it brings                                           |

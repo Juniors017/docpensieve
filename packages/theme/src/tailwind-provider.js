@@ -67,6 +67,26 @@ const TAILWIND_CLASSES = Object.freeze({
 /** Minimal stylesheet handed to Tailwind, unless the project says otherwise. */
 const DEFAULT_SOURCE = '@import "tailwindcss";';
 
+/**
+ * The `dark:` variant, on the same rule as the skins' tokens: the system
+ * preference, unless a `dark` or `light` class on <html> — which
+ * theme.darkMode sets — decides. Tailwind alone follows the system only: a
+ * site kept dark would have shown its light utilities on a dark ground.
+ * Appended to any entry stylesheet, `theme.source` included.
+ */
+const DARK_VARIANT = `
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:not(.light, .light *)) {
+      @slot;
+    }
+  }
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+}
+`;
+
 /** Tailwind theme: on-demand compilation of the classes actually used. */
 export class TailwindProvider extends BaseThemeProvider {
   static id = 'tailwind';
@@ -130,7 +150,7 @@ export class TailwindProvider extends BaseThemeProvider {
 
     let utilities;
     try {
-      const compiler = await compile(this.source, {
+      const compiler = await compile(this.source + DARK_VARIANT, {
         base: dir,
         /** @param {string} id */
         async loadStylesheet(id) {

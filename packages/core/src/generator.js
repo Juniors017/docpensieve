@@ -227,13 +227,17 @@ export class SiteGenerator {
 
     // The project's images go into every version: each one stands on its
     // own, down to the orphan branch it is published on.
-    const images = await this.#copyImages(target, versionBase, written);
+    const images = await this.#copyImages(target, versionBase, written, version);
 
     // What every page of the version shares, the search page included.
     const searchUrl = this.config.search !== false ? joinUrl(versionBase, SEARCH_SLUG) : '';
     const shell = {
       lang: this.config.lang ?? 'en',
-      darkModeClass: null,
+      // A fixed scheme is a class on <html>, which the skins and the dark
+      // variant of the utilities both obey.
+      darkModeClass: ['dark', 'light'].includes(this.config.theme?.darkMode ?? '')
+        ? this.config.theme.darkMode
+        : null,
       projectName: this.config.projectName,
       versionName: version.name,
       homeUrl: versionBase,
@@ -486,17 +490,19 @@ export class SiteGenerator {
    * @param {string} target Output folder of the version.
    * @param {string} versionBase URL of the version.
    * @param {Map<string, string>} written Files already written, for collisions.
+   * @param {import('./config.js').Version} version The version being built.
    * @returns {Promise<Partial<Record<keyof typeof IMAGE_FILES, string>>>} URL
    *   of each declared image.
    * @throws {GeneratorError} When a declared image does not exist.
    */
-  async #copyImages(target, versionBase, written) {
+  async #copyImages(target, versionBase, written, version) {
     const rootDir = this.config.rootDir ?? process.cwd();
     /** @type {Partial<Record<keyof typeof IMAGE_FILES, string>>} */
     const urls = {};
 
     for (const field of /** @type {(keyof typeof IMAGE_FILES)[]} */ (Object.keys(IMAGE_FILES))) {
-      const declared = this.config[field];
+      // A version's own logo or favicon replaces the project's.
+      const declared = (field !== 'socialImage' && version[field]) || this.config[field];
       if (!declared) continue;
 
       const file = `${IMAGE_FILES[field]}${path.extname(declared).toLowerCase()}`;
