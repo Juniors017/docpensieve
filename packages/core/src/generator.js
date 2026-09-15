@@ -9,6 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  ConfigError,
   DOC_EXTENSIONS,
   assetPathToSlug,
   dirPathToSlug,
@@ -22,7 +23,7 @@ import Handlebars from 'handlebars';
 import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
-import { buildSidebar, collectSectionTitles } from './sidebar.js';
+import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
 import { StructuredDataBuilder } from './structured-data.js';
 
 /** Template folder, resolved from this module rather than from the cwd. */
@@ -188,7 +189,12 @@ export class SiteGenerator {
     const current = this.config.versions.find((candidate) => candidate.current);
     const notice = versionNotice(version, current, this.config.baseUrl);
 
-    const sidebar = buildSidebar(docs, pageUrl, { brand: this.config.projectName });
+    // 'auto' follows the file tree; otherwise each version describes its menu
+    // in a file of its own, since each has its own pages.
+    const sidebar =
+      this.config.sidebar && this.config.sidebar !== 'auto'
+        ? await this.#describedSidebar(sourceDir, docs, pageUrl, version.folder)
+        : buildSidebar(docs, pageUrl, { brand: this.config.projectName });
     const breadcrumbTitles = collectSectionTitles(docs);
     const layout = await this.#loadLayout();
     const classes = this.#classes();
@@ -302,6 +308,47 @@ export class SiteGenerator {
     await this.#write(path.join(target, ...STYLESHEET.split('/')), css);
 
     return { pages: docs.length, outDir: target };
+  }
+
+  /**
+   * Reads the sidebar description of a version.
+   *
+   * @param {string} sourceDir Source folder of the version.
+   * @param {import('./loader.js').Doc[]} docs Documents of the version.
+   * @param {(doc: import('./loader.js').Doc) => string} pageUrl
+   * @param {string} folder The version's folder, as the configuration names it.
+   * @returns {Promise<import('./sidebar.js').SidebarNode[]>}
+   * @throws {ConfigError} When the file is missing, is not JSON, or describes
+   *   the menu wrongly.
+   */
+  async #describedSidebar(sourceDir, docs, pageUrl, folder) {
+    const name = this.config.sidebar;
+    const source = `${folder}/${name}`;
+
+    let text;
+    try {
+      text = await readFile(path.join(sourceDir, ...name.split('/')), 'utf8');
+    } catch (cause) {
+      throw new ConfigError(`No sidebar description at ${source}.`, {
+        cause,
+        hint: `Each version describes its own menu, since each has its own pages: create ${source}, or set sidebar: 'auto'.`,
+      });
+    }
+
+    let description;
+    try {
+      description = JSON.parse(text);
+    } catch (cause) {
+      throw new ConfigError(
+        `${source} is not valid JSON: ${/** @type {Error} */ (cause).message}`,
+        {
+          cause,
+          hint: 'JSON accepts neither comments nor a comma after the last entry.',
+        },
+      );
+    }
+
+    return buildSidebarFromDescription(description, docs, pageUrl, { source });
   }
 
   /**
@@ -498,6 +545,8 @@ export class SiteGenerator {
         });
       }
 
+      // The sidebar description is read by the build, not published.
+      if (this.config.sidebar !== 'auto' && readable === this.config.sidebar) continue;
       if (DOC_EXTENSIONS.includes(path.extname(entry.name).toLowerCase())) continue;
 
       const destination = path.join(target, ...assetPathToSlug(next).split('/'));

@@ -13,7 +13,6 @@ import {
   CONFIG_FILENAMES,
   ConfigError,
   DEFAULT_OUT_DIR,
-  NotImplementedError,
   THEME_FRAMEWORKS,
 } from '@docpensieve/shared';
 
@@ -193,13 +192,23 @@ export function normalizeConfig(userConfig) {
     config.versions[0].current = true;
   }
 
-  // The sidebar is derived from the file tree, and nothing else is written
-  // yet. Accepting a path without reading it would suggest it is used.
+  // 'auto' derives the sidebar from the file tree. Anything else names a JSON
+  // description, which the generator reads from each version's folder: each
+  // version has its own pages, so its own menu.
   if (config.sidebar !== 'auto') {
-    throw new NotImplementedError(
-      `A sidebar described by a file ("${config.sidebar}")`,
-      '4.2 Explicit sidebar',
-    );
+    const file = typeof config.sidebar === 'string' ? config.sidebar : '';
+    if (
+      !file.toLowerCase().endsWith('.json') ||
+      path.isAbsolute(file) ||
+      file.split('/').includes('..')
+    ) {
+      throw new ConfigError(
+        `sidebar must be 'auto' or a .json file within each version folder: "${String(config.sidebar)}".`,
+        {
+          hint: "For instance sidebar: 'sidebar.json', read as docs/v1.0/sidebar.json for that version.",
+        },
+      );
+    }
   }
 
   // siteUrl feeds everything that must be absolute: canonical, JSON-LD.

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildSidebar, collectSectionTitles } from '../src/index.js';
+import { ConfigError } from '@docpensieve/shared';
+
+import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from '../src/index.js';
 
 /**
  * Builds a document, in the order the loader would return it.
@@ -108,5 +110,109 @@ describe('collectSectionTitles', () => {
     ]);
     expect(titles['a/notes']).toBe('Notes of A');
     expect(titles['b/notes']).toBe('Notes of B');
+  });
+});
+
+describe('buildSidebarFromDescription', () => {
+  const docs = [
+    doc('', 'Home'),
+    doc('guide', 'Guide'),
+    doc('guide/installation', 'Installation'),
+    doc('guide/writing', 'Writing'),
+    doc('extra/one', 'One'),
+    doc('extra/two', 'Two'),
+    doc('hidden', 'Hidden'),
+  ];
+
+  /**
+   * The error a description raises.
+   * @param {unknown} description
+   * @returns {ConfigError}
+   */
+  const failureOf = (description) => {
+    try {
+      buildSidebarFromDescription(description, docs, undefined, {
+        source: 'docs/v1.0/sidebar.json',
+      });
+    } catch (error) {
+      return /** @type {ConfigError} */ (error);
+    }
+    throw new Error('the description was accepted');
+  };
+
+  it('lists pages in the order written, with their titles', () => {
+    expect(buildSidebarFromDescription(['guide/writing', '/', 'guide/installation'], docs)).toEqual(
+      [
+        { label: 'Writing', url: '/guide/writing/', items: [] },
+        { label: 'Home', url: '/', items: [] },
+        { label: 'Installation', url: '/guide/installation/', items: [] },
+      ],
+    );
+  });
+
+  it('builds categories, clickable when they name a page', () => {
+    const tree = buildSidebarFromDescription(
+      [
+        { label: 'Start here', page: 'guide', items: ['guide/installation'] },
+        { label: 'Loose', items: [{ page: 'guide/writing', label: 'Write' }] },
+      ],
+      docs,
+    );
+    expect(tree).toEqual([
+      {
+        label: 'Start here',
+        url: '/guide/',
+        items: [{ label: 'Installation', url: '/guide/installation/', items: [] }],
+      },
+      { label: 'Loose', url: null, items: [{ label: 'Write', url: '/guide/writing/', items: [] }] },
+    ]);
+  });
+
+  it('keeps a link outside the site as it is', () => {
+    const tree = buildSidebarFromDescription(
+      [{ label: 'Repo', href: 'https://example.com/r' }],
+      docs,
+    );
+    expect(tree).toEqual([{ label: 'Repo', url: 'https://example.com/r', items: [] }]);
+  });
+
+  it('inserts the automatic tree of a folder', () => {
+    // A section keeps its own menu without listing its pages one by one.
+    const [node] = buildSidebarFromDescription([{ auto: 'extra', label: 'More' }], docs);
+    expect(node.label).toBe('More');
+    expect(node.items.map((item) => item.label)).toEqual(['One', 'Two']);
+  });
+
+  it('prefixes the URLs as the automatic sidebar does', () => {
+    const [node] = buildSidebarFromDescription(['guide'], docs, (d) => `/versions/v1.0${d.url}`);
+    expect(node.url).toBe('/versions/v1.0/guide/');
+  });
+
+  it('leaves out, without complaint, a page the description does not list', () => {
+    expect(buildSidebarFromDescription(['/'], docs).map((node) => node.label)).toEqual(['Home']);
+  });
+
+  it('names the file and the close paths when a page does not exist', () => {
+    const failure = failureOf(['guide/instal']);
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure.message).toContain('docs/v1.0/sidebar.json');
+    expect(failure.message).toContain('"guide/instal"');
+    expect(failure.hint).toContain('"guide/installation"');
+  });
+
+  it('refuses a page listed twice, even through an automatic folder', () => {
+    expect(failureOf(['guide/writing', { page: 'guide/writing' }]).message).toMatch(/twice/);
+    expect(failureOf(['extra/one', { auto: 'extra' }]).message).toMatch(/twice/);
+  });
+
+  it('refuses what is not an array, and an entry of no known kind', () => {
+    expect(failureOf({ items: [] }).message).toMatch(/array of entries/);
+    expect(failureOf([{ title: 'Guide' }]).hint).toMatch(/auto/);
+    expect(failureOf([42]).message).toMatch(/page path or an object/);
+    expect(failureOf([{ href: 'https://example.com' }]).message).toMatch(/label and an href/);
+  });
+
+  it('refuses an automatic folder that holds no page', () => {
+    expect(failureOf([{ auto: 'nowhere' }]).message).toMatch(/holds no page/);
   });
 });

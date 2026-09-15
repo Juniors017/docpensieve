@@ -78,13 +78,23 @@ describe('normalizeConfig', () => {
     expect(config.versions[1].current).toBe(true);
   });
 
-  it('reports that a sidebar described by a file is not written', async () => {
-    // The option was documented and read nowhere: a path was silently
-    // accepted, and the sidebar stayed automatic without a word.
-    const { NotImplementedError } = await import('@docpensieve/shared');
-    expect(() => normalizeConfig({ versions: [v1], sidebar: 'sidebar.js' })).toThrow(
-      NotImplementedError,
+  it('accepts a sidebar described by a JSON file', () => {
+    expect(normalizeConfig({ versions: [v1], sidebar: 'sidebar.json' }).sidebar).toBe(
+      'sidebar.json',
     );
+    expect(normalizeConfig({ versions: [v1], sidebar: 'nav/menu.json' }).sidebar).toBe(
+      'nav/menu.json',
+    );
+  });
+
+  it('refuses a sidebar that is neither auto nor a JSON file of the version', () => {
+    // Read from each version's folder: a path leaving it, or another kind of
+    // file, could only be a mistake.
+    for (const sidebar of ['sidebar.js', '../sidebar.json', '/nav/sidebar.json', 'manual']) {
+      expect(() => normalizeConfig({ versions: [v1], sidebar }), sidebar).toThrow(
+        /sidebar must be 'auto' or a .json file/,
+      );
+    }
   });
 
   it('accepts the automatic sidebar', () => {

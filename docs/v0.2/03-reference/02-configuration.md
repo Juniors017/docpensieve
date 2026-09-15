@@ -49,22 +49,22 @@ can change.
 
 ## The fields
 
-| Field              | Default             | Effect                                                                      |
-| ------------------ | ------------------- | --------------------------------------------------------------------------- |
-| `projectName`      | `'Documentation'`   | Name shown in the header and in the JSON-LD                                 |
-| `siteUrl`          | `''`                | Public URL. Used for the `canonical` and the JSON-LD                        |
-| `baseUrl`          | `'/'`               | Deployment prefix. Derived from `siteUrl` when omitted                      |
-| `outDir`           | `'dist'`            | Output folder, relative to the root                                         |
-| `versions`         | `[]`                | At least one entry                                                          |
-| `theme`            | see below           | Styling                                                                     |
-| `sidebar`          | `'auto'`            | `'auto'`: the sidebar follows the file tree. The only value written so far  |
-| `globalComponents` | `true`              | Shipped components available without an import                              |
-| `scrollToTop`      | `true`              | Back-to-top button on every page                                            |
-| `jsonld`           | `{ enabled: true }` | Structured data                                                             |
-| `lang`             | `'en'`              | Language of the document, in `<html lang>`. The shell's labels stay English |
-| `logo`             | `''`                | Image beside the project name, in the header                                |
-| `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                           |
-| `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                   |
+| Field              | Default             | Effect                                                                             |
+| ------------------ | ------------------- | ---------------------------------------------------------------------------------- |
+| `projectName`      | `'Documentation'`   | Name shown in the header and in the JSON-LD                                        |
+| `siteUrl`          | `''`                | Public URL. Used for the `canonical` and the JSON-LD                               |
+| `baseUrl`          | `'/'`               | Deployment prefix. Derived from `siteUrl` when omitted                             |
+| `outDir`           | `'dist'`            | Output folder, relative to the root                                                |
+| `versions`         | `[]`                | At least one entry                                                                 |
+| `theme`            | see below           | Styling                                                                            |
+| `sidebar`          | `'auto'`            | `'auto'`: the menu follows the file tree. Or a `.json` file of each version folder |
+| `globalComponents` | `true`              | Shipped components available without an import                                     |
+| `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |
+| `jsonld`           | `{ enabled: true }` | Structured data                                                                    |
+| `lang`             | `'en'`              | Language of the document, in `<html lang>`. The shell's labels stay English        |
+| `logo`             | `''`                | Image beside the project name, in the header                                       |
+| `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                                  |
+| `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                          |
 
 ## Images
 
@@ -131,6 +131,42 @@ Longer rules go in the `theme/` folder, at the root of the project: every
 `.css` file in it is appended after `css`, in name order, and
 `docpensieve dev` picks up every change. Under the `custom` theme, `init`
 starts it with `theme/custom.css`.
+
+## `sidebar`
+
+`'auto'` builds the menu from the file tree: folders become categories, and the
+`01-`, `02-` prefixes set the order. To write it by hand, name a JSON file:
+
+```js
+sidebar: 'sidebar.json',
+```
+
+It is read from **each version's folder** — `docs/v1.0/sidebar.json` — since
+each version has its own pages. It holds an array of entries, kept in the order
+written:
+
+```json
+[
+  "/",
+  { "label": "Guide", "page": "guide", "items": ["guide/installation", "guide/first-site"] },
+  { "page": "reference/cli", "label": "Commands" },
+  { "auto": "docpensieve" },
+  { "label": "Repository", "href": "https://github.com/me/my-project" }
+]
+```
+
+| Entry                           | What it gives                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| `"guide/installation"`          | A page, by its path within the version, as in its URL — `"/"` for the home page |
+| `{ "page", "label" }`           | The same page, with a label of its own                                          |
+| `{ "label", "items", "page"? }` | A category, clickable when it names a page                                      |
+| `{ "label", "href" }`           | A link outside the site                                                         |
+| `{ "auto": "folder" }`          | The automatic menu of a folder: the DocPensieve section keeps its own this way  |
+
+A page left out stays published: it is only absent from the menu. A path that
+names no page, a page listed twice, or an entry of no known kind stops the
+build, naming the file and the paths close to the one written. The file itself
+is not published.
 
 ## `baseUrl`, and why you rarely write it
 

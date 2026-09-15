@@ -600,6 +600,53 @@ describe('project images', () => {
   });
 });
 
+describe('a sidebar described by a file', () => {
+  /** @param {string} html @returns {string} The navigation part of a page. */
+  const navOf = (html) =>
+    html.slice(html.indexOf('<nav class="dp-sidebar"'), html.indexOf('</nav>'));
+
+  it('follows the file, and does not publish it', async () => {
+    const config = project(
+      {
+        'index.md': page('Home'),
+        'a.md': page('A'),
+        'b.md': page('B'),
+        'sidebar.json': JSON.stringify(['b', { label: 'Site', href: 'https://example.com' }]),
+      },
+      { sidebar: 'sidebar.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const nav = navOf(read(out, 'b', 'index.html'));
+    expect(nav).toContain('href="/versions/v1.0/b/" aria-current="page">B</a>');
+    expect(nav.indexOf('>B<')).toBeLessThan(nav.indexOf('>Site<'));
+    // Left out of the description, the page is published but off the menu.
+    expect(nav).not.toContain('/versions/v1.0/a/');
+    expect(existsSync(path.join(out, 'a', 'index.html'))).toBe(true);
+    expect(existsSync(path.join(out, 'sidebar.json'))).toBe(false);
+  });
+
+  it('names the version whose description is missing', async () => {
+    const config = project({ 'index.md': page('Home') }, { sidebar: 'sidebar.json' });
+    const out = path.join(config.rootDir, 'out');
+    await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(
+      'No sidebar description at docs/v1.0/sidebar.json',
+    );
+  });
+
+  it('reports a description that is not JSON', async () => {
+    const config = project(
+      { 'index.md': page('Home'), 'sidebar.json': '[ "index", ]' },
+      { sidebar: 'sidebar.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(
+      'docs/v1.0/sidebar.json is not valid JSON',
+    );
+  });
+});
+
 describe('page furniture', () => {
   it('puts the back-to-top link on every page', async () => {
     // It is furniture, not content: writing it in every file would mean
