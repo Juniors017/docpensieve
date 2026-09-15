@@ -24,7 +24,7 @@ const ABSOLUTE_URL = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
  * @param {unknown} value
  * @returns {string | undefined} `'2026-01-15'`, or `undefined` when unusable.
  */
-function toISODate(value) {
+export function toISODate(value) {
   if (value === undefined || value === null || value === '') return undefined;
 
   /*

@@ -122,3 +122,14 @@ result years later.
 
 The branch model answers this — each compiled version on its own orphan branch,
 with its history. See [Versions](./versions/).
+
+## Search engines and feed readers
+
+With `siteUrl` set, the build writes `sitemap.xml` at the root of the site —
+every published version, a version in preparation excepted. Give its address
+to the search engines you care about; `robots.txt` names it for them when the
+site sits at the root of its domain.
+
+For pages that are news rather than reference — release notes, a changelog —
+give them a `date` and set `feed: true`: `feed.xml` then lists them, newest
+first. The fields are in the [configuration reference](../reference/configuration/).

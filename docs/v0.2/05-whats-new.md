@@ -24,12 +24,18 @@ section stays whole without listing its pages.
 See [Writing the menu by hand](./guide/writing-pages/) in the guide, and the
 [`sidebar` field](./reference/configuration/) in the reference.
 
+### Search engines and feed readers
+
+With `siteUrl` set, the build writes `sitemap.xml` for search engines — and
+`robots.txt` when the site sits at the root of its domain. `feed: true` adds an
+RSS feed of the dated pages. See [Sitemap and feed](./reference/configuration/)
+in the reference.
+
 ## Still to come
 
 | Piece            | What it brings                                                    |
 | ---------------- | ----------------------------------------------------------------- |
 | Search           | A search field, over an index of each version built with the site |
-| Sitemap and RSS  | `sitemap.xml`, `robots.txt`, and a feed of the dated pages        |
 | Optimisation     | A minified stylesheet, lighter images                             |
 | API and examples | The reference of each package, complete example projects          |
 

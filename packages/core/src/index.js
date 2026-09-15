@@ -33,3 +33,4 @@ export { Compiler } from './compiler.js';
 export { StructuredDataBuilder } from './structured-data.js';
 export { SiteGenerator } from './generator.js';
 export { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
+export { buildFeed, buildRobots, buildSitemap } from './discovery.js';

@@ -65,6 +65,8 @@ can change.
 | `logo`             | `''`                | Image beside the project name, in the header                                       |
 | `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                                  |
 | `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                          |
+| `sitemap`          | `true`              | `sitemap.xml` of the published versions, once `siteUrl` is set                     |
+| `feed`             | `false`             | RSS feed of the dated pages. Needs `siteUrl`                                       |
 
 ## Images
 
@@ -86,6 +88,29 @@ version, under `assets/`, so that a version stays whole on its own branch.
   read there. Those networks only read an absolute address, hence `siteUrl`.
 
 A declared image that does not exist stops the build, naming the field.
+
+## Sitemap and feed
+
+```js
+siteUrl: 'https://example.com',
+sitemap: true, // the default
+feed: true,
+```
+
+Once `siteUrl` is set, the build writes `sitemap.xml` at the root of the site:
+every page of every version, except a version in preparation, whose pages
+carry `noindex`. Each page is dated by its `modified` frontmatter, or failing
+that its `date`. `sitemap: false` turns it off.
+
+`robots.txt` joins it when the site is served at the root of its domain.
+Search engines only read that file there: under a sub-path, it would be
+written for nobody — declare the sitemap to them directly.
+
+`feed: true` writes `feed.xml`, an RSS feed of the pages of the current version
+that carry a `date`, newest first, and every page announces it in its head.
+It is off by default: most documentation pages carry no date.
+
+Both list absolute addresses: asked for without `siteUrl`, they stop the build.
 
 ## `versions`
 

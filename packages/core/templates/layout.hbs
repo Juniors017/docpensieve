@@ -13,6 +13,9 @@
     {{#if canonical}}
     <link rel="canonical" href="{{canonical}}" />
     {{/if}}
+    {{#if feedUrl}}
+    <link rel="alternate" type="application/rss+xml" title="{{projectName}}" href="{{feedUrl}}" />
+    {{/if}}
     {{#if favicon}}
     <link rel="icon" href="{{favicon.href}}" type="{{favicon.type}}" />
     {{/if}}

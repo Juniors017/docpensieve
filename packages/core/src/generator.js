@@ -23,6 +23,7 @@ import Handlebars from 'handlebars';
 import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
+import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
 import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
 import { StructuredDataBuilder } from './structured-data.js';
 
@@ -163,7 +164,8 @@ export class SiteGenerator {
    *
    * @param {string} versionSlug Slug of the version to generate.
    * @param {string} outDir Output folder of that version.
-   * @returns {Promise<{ pages: number, outDir: string }>}
+   * @returns {Promise<{ pages: number, outDir: string, published: import('./discovery.js').PublishedPage[] }>}
+   *   `published` lists the pages as the site serves them, for the sitemap and the feed.
    * @throws {GeneratorError} Write failure.
    */
   async buildVersion(versionSlug, outDir) {
@@ -259,6 +261,7 @@ export class SiteGenerator {
         homeUrl: versionBase,
         currentUrl: url,
         cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
+        feedUrl: this.#feedUrl(),
         logoUrl: images.logo ?? '',
         favicon: images.favicon
           ? {
@@ -307,7 +310,11 @@ export class SiteGenerator {
     const { css } = await this.deps.theme.compile({ candidates: [...candidates] });
     await this.#write(path.join(target, ...STYLESHEET.split('/')), css);
 
-    return { pages: docs.length, outDir: target };
+    return {
+      pages: docs.length,
+      outDir: target,
+      published: docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })),
+    };
   }
 
   /**
@@ -349,6 +356,61 @@ export class SiteGenerator {
     }
 
     return buildSidebarFromDescription(description, docs, pageUrl, { source });
+  }
+
+  /**
+   * Absolute address of the RSS feed, or `''` when none is written.
+   *
+   * Known before any page is rendered: every page announces the feed in its
+   * head, whereas the feed itself is written once every version is built.
+   *
+   * @returns {string}
+   */
+  #feedUrl() {
+    if (!this.config.feed || !this.config.siteUrl) return '';
+    return new URL(`${this.config.baseUrl}feed.xml`, this.config.siteUrl).href;
+  }
+
+  /**
+   * Writes what search engines and feed readers read, at the root of the
+   * site: `sitemap.xml`, `robots.txt` and the RSS feed.
+   *
+   * @param {string} target Output folder.
+   * @param {Map<string, import('./discovery.js').PublishedPage[]>} published
+   *   Pages of each version, by slug.
+   */
+  async #writeDiscovery(target, published) {
+    const { siteUrl, baseUrl } = this.config;
+    if (!siteUrl) return;
+
+    if (this.config.sitemap !== false) {
+      // A version in preparation is kept out of search engines: its pages
+      // carry noindex, and listing them would contradict it.
+      const pages = this.config.versions
+        .filter((version) => !version.prerelease)
+        .flatMap((version) => published.get(version.slug) ?? []);
+      await this.#write(path.join(target, 'sitemap.xml'), buildSitemap(pages, siteUrl));
+
+      // Crawlers only read robots.txt at the root of a domain: under a
+      // sub-path, the file would be written for nobody.
+      if (baseUrl === '/') {
+        const sitemapUrl = new URL('/sitemap.xml', siteUrl).href;
+        await this.#write(path.join(target, 'robots.txt'), buildRobots(sitemapUrl));
+      }
+    }
+
+    const feedUrl = this.#feedUrl();
+    if (feedUrl) {
+      const current = resolveVersion(this.config);
+      const feed = buildFeed(published.get(current.slug) ?? [], {
+        projectName: this.config.projectName,
+        siteUrl,
+        homeUrl: new URL(joinUrl(baseUrl, 'versions', current.slug), siteUrl).href,
+        feedUrl,
+        lang: this.config.lang,
+      });
+      await this.#write(path.join(target, 'feed.xml'), feed);
+    }
   }
 
   /**
@@ -408,16 +470,20 @@ export class SiteGenerator {
     const target = path.resolve(rootDir, this.config.outDir);
 
     let pages = 0;
+    /** @type {Map<string, import('./discovery.js').PublishedPage[]>} */
+    const published = new Map();
     for (const version of this.config.versions) {
       const result = await this.buildVersion(
         version.slug,
         path.join(target, 'versions', version.slug),
       );
       pages += result.pages;
+      published.set(version.slug, result.published);
     }
 
     await this.#writeManifest(target);
     await this.#writeRootRedirect(target);
+    await this.#writeDiscovery(target, published);
 
     return { versions: this.config.versions.length, pages, outDir: target };
   }

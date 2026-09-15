@@ -270,6 +270,17 @@ function renderConfig({ name, theme, siteUrl, version }) {
     '',
     '  // Structured data (JSON-LD) generated from the frontmatter of each page.',
     '  jsonld: { enabled: true },',
+    '',
+    '  // sitemap.xml of the published versions, for search engines — written',
+    '  // once siteUrl is set. robots.txt joins it when the site is served at',
+    '  // the root of its domain.',
+    // Commented out until siteUrl is known: written explicitly, it asks for a
+    // sitemap that cannot be built yet, and the configuration refuses it.
+    siteUrl ? '  sitemap: true,' : '  // sitemap: true,',
+    '',
+    '  // RSS feed of the pages that carry a date, at the root of the site. It',
+    '  // needs siteUrl.',
+    '  feed: false,',
     '};',
     '',
     '// Every field is described in the reference of the DocPensieve documentation:',

@@ -287,6 +287,27 @@ describe('project images', () => {
   });
 });
 
+describe('sitemap and feed', () => {
+  it('writes the sitemap by default, the feed on request', () => {
+    const config = normalizeConfig({ versions: [v1] });
+    expect([config.sitemap, config.feed]).toEqual([true, false]);
+  });
+
+  it('refuses them asked for without siteUrl', () => {
+    // Both list absolute addresses: without siteUrl, they could only be wrong.
+    expect(() => normalizeConfig({ versions: [v1], sitemap: true })).toThrow(
+      /sitemap needs siteUrl/,
+    );
+    expect(() => normalizeConfig({ versions: [v1], feed: true })).toThrow(/feed needs siteUrl/);
+    const config = normalizeConfig({ versions: [v1], siteUrl: 'https://example.com', feed: true });
+    expect(config.feed).toBe(true);
+  });
+
+  it('refuses a value that is neither true nor false', () => {
+    expect(() => normalizeConfig({ versions: [v1], feed: 'yes' })).toThrow(/true or false/);
+  });
+});
+
 describe('dangerous values', () => {
   it('refuses a version slug that is not a safe path segment', () => {
     // The slug becomes an output folder: "../../elsewhere" wrote outside the

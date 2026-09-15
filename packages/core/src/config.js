@@ -42,6 +42,8 @@ import {
  * @property {string} [logo]        Image beside the project name, in the header.
  * @property {string} [favicon]     Icon of the browser tab: `.ico`, `.png` or `.svg`.
  * @property {string} [socialImage] Preview of a shared page. Needs `siteUrl`.
+ * @property {boolean} [sitemap] `sitemap.xml` of the published versions.
+ * @property {boolean} [feed] RSS feed of the dated pages of the current version.
  * @property {string} [rootDir]   Project root, set by `loadConfig`.
  * @property {string} [configFile] Path of the configuration file, set by `loadConfig`.
  * @property {string} [lang]      Document language, `'en'` by default.
@@ -70,6 +72,12 @@ export const DEFAULT_CONFIG = Object.freeze({
   logo: '',
   favicon: '',
   socialImage: '',
+  // On by default, but only written once siteUrl is set: it lists absolute
+  // addresses.
+  sitemap: true,
+  // Off by default: most documentation pages carry no date, and a feed that
+  // is always empty would be announced in every page.
+  feed: false,
 });
 
 /**
@@ -260,6 +268,21 @@ export function normalizeConfig(userConfig) {
       });
     }
   }
+  // Both list absolute addresses. Asked for explicitly without siteUrl, they
+  // could only be written wrong; left to their default, they wait for it.
+  for (const field of /** @type {const} */ (['sitemap', 'feed'])) {
+    if (typeof config[field] !== 'boolean') {
+      throw new ConfigError(`${field} must be true or false.`, {
+        hint: `For instance ${field}: true.`,
+      });
+    }
+    if (userConfig[field] === true && !config.siteUrl) {
+      throw new ConfigError(`${field} needs siteUrl.`, {
+        hint: 'It lists absolute addresses: set siteUrl, the public address of the site.',
+      });
+    }
+  }
+
   if (config.socialImage && !config.siteUrl) {
     throw new ConfigError('socialImage needs siteUrl.', {
       hint: 'Social networks only read an absolute address: set siteUrl, the public address of the site.',

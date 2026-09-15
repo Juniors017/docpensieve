@@ -401,6 +401,101 @@ describe('buildAll', () => {
   });
 });
 
+describe('sitemap, robots.txt and feed', () => {
+  /** @param {string} title @param {string} date */
+  const dated = (title, date) => `---
+title: ${title}
+date: ${date}
+---
+
+${title}.
+`;
+
+  /**
+   * A site with three versions: in preparation, current and archived.
+   * @param {Record<string, any>} overrides Configuration fields.
+   */
+  const site = (overrides) => {
+    const rootDir = mkdtempSync(path.join(tmpdir(), 'docpensieve-disc-'));
+    created.push(rootDir);
+    const files = {
+      'v2.0/index.md': page('Next'),
+      'v1.0/index.md': page('Home'),
+      'v1.0/news.md': dated('News', '2026-01-02'),
+      'v1.0/older.md': dated('Older', '2025-05-01'),
+      'v0.9/index.md': page('Old'),
+    };
+    for (const [relative, contents] of Object.entries(files)) {
+      const full = path.join(rootDir, 'docs', ...relative.split('/'));
+      mkdirSync(path.dirname(full), { recursive: true });
+      writeFileSync(full, contents, 'utf8');
+    }
+    const config = normalizeConfig({
+      projectName: 'My docs',
+      outDir: 'dist',
+      versions: [
+        { slug: 'v2.0', name: '2.0', folder: 'docs/v2.0', prerelease: true },
+        { slug: 'v1.0', name: '1.0', folder: 'docs/v1.0', current: true },
+        { slug: 'v0.9', name: '0.9', folder: 'docs/v0.9', archived: true },
+      ],
+      ...overrides,
+    });
+    config.rootDir = rootDir;
+    return { config, out: path.join(rootDir, 'dist') };
+  };
+
+  it('lists the published versions, not the one in preparation', async () => {
+    const { config, out } = site({ siteUrl: 'https://example.com' });
+    await generatorFor(config).buildAll();
+
+    const sitemap = read(out, 'sitemap.xml');
+    expect(sitemap).toContain('<loc>https://example.com/versions/v1.0/news/</loc>');
+    expect(sitemap).toContain('<lastmod>2026-01-02</lastmod>');
+    expect(sitemap).toContain('<loc>https://example.com/versions/v0.9/</loc>');
+    // Its pages carry noindex: listing them would contradict it.
+    expect(sitemap).not.toContain('/versions/v2.0/');
+    expect(read(out, 'robots.txt')).toContain('Sitemap: https://example.com/sitemap.xml');
+  });
+
+  it('writes no robots.txt under a sub-path, where no crawler reads it', async () => {
+    const { config, out } = site({ siteUrl: 'https://example.com/docs' });
+    await generatorFor(config).buildAll();
+
+    expect(read(out, 'sitemap.xml')).toContain(
+      '<loc>https://example.com/docs/versions/v1.0/</loc>',
+    );
+    expect(existsSync(path.join(out, 'robots.txt'))).toBe(false);
+  });
+
+  it('waits for siteUrl, and can be turned off', async () => {
+    for (const overrides of [{}, { siteUrl: 'https://example.com', sitemap: false }]) {
+      const { config, out } = site(overrides);
+      await generatorFor(config).buildAll();
+      expect(existsSync(path.join(out, 'sitemap.xml')), JSON.stringify(overrides)).toBe(false);
+    }
+  });
+
+  it('writes the feed of dated pages when asked, and every page announces it', async () => {
+    const { config, out } = site({ siteUrl: 'https://example.com', feed: true });
+    await generatorFor(config).buildAll();
+
+    const feed = read(out, 'feed.xml');
+    expect(feed.indexOf('<title>News</title>')).toBeLessThan(feed.indexOf('<title>Older</title>'));
+    expect(feed).not.toContain('<title>Home</title>');
+    expect(read(out, 'versions', 'v1.0', 'index.html')).toContain(
+      '<link rel="alternate" type="application/rss+xml" title="My docs" href="https://example.com/feed.xml" />',
+    );
+  });
+
+  it('writes no feed by default', async () => {
+    const { config, out } = site({ siteUrl: 'https://example.com' });
+    await generatorFor(config).buildAll();
+
+    expect(existsSync(path.join(out, 'feed.xml'))).toBe(false);
+    expect(read(out, 'versions', 'v1.0', 'index.html')).not.toContain('application/rss+xml');
+  });
+});
+
 describe('errors', () => {
   it('reports a write failure', async () => {
     const config = project({ 'index.md': page('Home') });
