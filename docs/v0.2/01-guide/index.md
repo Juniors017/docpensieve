@@ -25,6 +25,8 @@ up.
    touching the HTML.
 6. **[Deployment](./deployment/)** — publish, and keep past versions
    online.
+7. **[Migrate from latest to beta](./migrate-to-beta/)** — move a 0.1 project
+   to the 0.2 beta.
 
 ## What to know first
 

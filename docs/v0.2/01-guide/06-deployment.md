@@ -133,3 +133,10 @@ site sits at the root of its domain.
 For pages that are news rather than reference — release notes, a changelog —
 give them a `date` and set `feed: true`: `feed.xml` then lists them, newest
 first. The fields are in the [configuration reference](../reference/configuration/).
+
+## What the reader downloads
+
+The build keeps it light on its own. The stylesheet is minified — a third to
+half lighter. Every image of a page gets its width and height, read from its
+file, so that the text does not jump when it arrives, and all but the first
+load lazily, when the reader nears them. There is nothing to configure.

@@ -1,22 +1,23 @@
 ---
-title: Moving from 0.1 to 0.2
-description: What the 0.2 changes on its own, what to check, and what to turn on.
-tags: [release, migration]
+title: Migrate from latest to beta
+description: Move a project from the latest version, the 0.1, to the 0.2 beta — what changes on its own, what to check, what to turn on.
+tags: [guide, migration]
 ---
 
-# Moving from 0.1 to 0.2
+# Migrate from latest to beta
 
-A 0.1 project builds with the 0.2 as it is: every new field is optional.
-A few things change on their own, though, and deserve a look.
+A project on the latest version — the 0.1 — builds with the 0.2 beta as it is:
+every new field is optional. A few things change on their own, though, and
+deserve a look.
 
 ## Update
 
 ```bash
-npm install docpensieve@beta   # while the 0.2 is in beta
-npm install docpensieve@latest # once it is released
+npm install docpensieve@beta
 ```
 
-Through `npx` alone, `npx docpensieve@beta` runs the beta.
+Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
+`npm install docpensieve@latest`.
 
 ## What changes on its own
 
@@ -50,4 +51,4 @@ Content pages still load no script: the search page alone does.
 | `versions[].logo`, `favicon` | A logo and a favicon of the version's own — a beta told apart |
 | `search: false`              | No search at all, if the site does not need one               |
 
-Every field is in the [configuration reference](./reference/configuration/).
+Every field is in the [configuration reference](../reference/configuration/).

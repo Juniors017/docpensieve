@@ -81,6 +81,50 @@ theme: {
 
 The content of `css` is appended to the produced stylesheet.
 
+## Colour scheme
+
+`theme.darkMode` decides which palette the reader gets. `'class'`, the default,
+follows the reader's system; `'dark'` or `'light'` keeps one whatever the
+system — the build sets it as a class on `<html>`.
+
+The dark palette is a set of tokens, the same under both themes. To change it,
+redefine them in the `theme/` folder, for both ways of being dark — the
+system's scheme, and the class that `darkMode: 'dark'` sets:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-bg: #060814;
+  }
+}
+
+:root.dark {
+  --dp-bg: #060814;
+}
+```
+
+<ForTheme framework="tailwind">
+
+The `dark:` utilities of your pages follow the same rule: they apply under the
+system's dark scheme, and always once `darkMode: 'dark'` is set.
+
+```mdx
+<div className="bg-white dark:bg-slate-900">…</div>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Your own classes follow it through the same two selectors:
+
+```css
+:root.dark .note {
+  border-color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
 ## Layer order
 
 Under the `tailwind` theme, the stylesheet declares its layers in this order:

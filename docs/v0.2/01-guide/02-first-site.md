@@ -95,3 +95,14 @@ online.
 
 It is the check to run after any change of `baseUrl`, of folder structure or of
 URL.
+
+## Searching the site
+
+Every page carries a search field in its header. It leads to the search page
+of the version, at `/search/`, which the build writes with the site: the list
+of every page, that a small script filters as the reader types — best matches
+first, each with an excerpt. Content pages load no script; the search page
+alone does, and without it, it stays the list of every page.
+
+It works the same under both themes. `search: false` in the configuration
+removes the field and the page.

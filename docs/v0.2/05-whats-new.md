@@ -15,7 +15,7 @@ npx docpensieve@beta init my-site
 ```
 
 What follows describes the 0.2 as it stands, and
-[Moving from 0.1 to 0.2](./migrating/) says what to check in a 0.1 project.
+[Migrate from latest to beta](./guide/migrate-to-beta/) says what to check in a 0.1 project.
 
 ## Already there
 
