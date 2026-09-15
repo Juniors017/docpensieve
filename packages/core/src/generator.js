@@ -24,6 +24,7 @@ import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
 import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
+import { minifyCss } from './minify-css.js';
 import { SEARCH_SLUG, htmlToText, searchPageContent } from './search-index.js';
 import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
 import { StructuredDataBuilder } from './structured-data.js';
@@ -284,6 +285,7 @@ export class SiteGenerator {
         url,
         dirUrl,
         basePath: versionBase,
+        sourceDir,
       });
 
       const jsonld = new StructuredDataBuilder(doc.frontmatter, url, this.config, {
@@ -379,7 +381,9 @@ export class SiteGenerator {
 
     // The stylesheet is compiled last: it needs the classes above.
     const { css } = await this.deps.theme.compile({ candidates: [...candidates] });
-    await this.#write(path.join(target, ...STYLESHEET.split('/')), css);
+    // Comments and indentation make the stylesheet readable, and heavier on
+    // every page: the reader receives it minified.
+    await this.#write(path.join(target, ...STYLESHEET.split('/')), minifyCss(css));
 
     return {
       pages: docs.length,

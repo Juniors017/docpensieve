@@ -116,6 +116,12 @@ An image sits next to the page and is written relatively:
 Files that are not pages are copied as is into the output, at the same
 relative place. The path is rewritten like a link.
 
+The build reads the width and height of each image from its file — PNG, JPEG,
+GIF, WebP or SVG — and writes them on the page: the browser keeps the room
+before the image arrives, instead of shifting the text when it does. Every
+image but the first loads lazily, when the reader nears it; the first, often in
+view, keeps its normal loading.
+
 ## Components
 
 In an `.mdx` page, the shipped components are used **without an import**:

@@ -79,16 +79,20 @@ export const CardFooter = cardPart('cardFooter', 'CardFooter');
  *
  * @param {{
  *   className?: string, style?: object, src?: string,
- *   alt?: string, title?: string, srcSet?: string, sizes?: string,
+ *   alt?: string, title?: string, srcSet?: string, sizes?: string, loading?: 'lazy' | 'eager',
  * }} props `alt` defaults to the empty string: without that attribute, a
  *   screen reader would announce the file URL.
  */
-export function CardImage({ className, style, src, alt = '', ...rest }) {
+export function CardImage({ className, style, src, alt = '', loading = 'lazy', ...rest }) {
   return h('img', {
     className: classNames(cls('cardImage'), className),
     style,
     src: resolveUrl(src),
     alt,
+    // Lazy by default: a card image is rarely what the reader sees first,
+    // and React stops preloading an image loaded lazily.
+    loading,
+    decoding: 'async',
     ...rest,
   });
 }

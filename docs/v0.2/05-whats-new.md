@@ -46,11 +46,17 @@ Until now the field was accepted and did nothing. A version can also carry its
 own `logo` and `favicon`, to tell a beta apart at a glance. See the
 [configuration reference](./reference/configuration/).
 
+### Lighter pages
+
+The stylesheet reaches the reader minified. Every image of a page gets its
+width and height, read from its file, so that the text no longer jumps when it
+arrives; all but the first load lazily, and are no longer preloaded — the
+first, often in view, keeps its normal loading. `CardImage` loads lazily too.
+
 ## Still to come
 
 | Piece            | What it brings                                           |
 | ---------------- | -------------------------------------------------------- |
-| Optimisation     | A minified stylesheet, lighter images                    |
 | API and examples | The reference of each package, complete example projects |
 
 ## For a 0.1 project

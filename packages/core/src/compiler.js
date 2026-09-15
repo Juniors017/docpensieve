@@ -8,6 +8,8 @@
  * @module @docpensieve/core/compiler
  */
 
+import { closeSync, openSync, readSync } from 'node:fs';
+import path from 'node:path';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import * as runtime from 'react/jsx-runtime';
@@ -16,6 +18,8 @@ import { CompileError, slugify } from '@docpensieve/shared';
 import { evaluate } from '@mdx-js/mdx';
 import rehypeShiki from '@shikijs/rehype';
 import remarkGfm from 'remark-gfm';
+
+import { imageSize } from './image-size.js';
 
 /**
  * Default Shiki themes: the dual theme follows dark mode without JS.
@@ -257,6 +261,75 @@ function rehypeSiteLinks({ url, dirUrl, basePath }) {
 }
 
 /**
+ * Prepares the images of a page for the browser: their dimensions, read from
+ * their file, so that the text does not jump when they arrive; and a lazy
+ * loading for all but the first, which is often in view — and which React
+ * then stops preloading, as it does for every image not loaded lazily.
+ *
+ * It runs before the targets are rewritten, while `src` is still the path
+ * the author wrote next to the page.
+ *
+ * @param {{ filepath?: string, sourceDir?: string }} context `sourceDir` is
+ *   the version's folder, from which an absolute `src` starts.
+ * @returns {() => (tree: any) => void}
+ */
+function rehypeImages({ filepath, sourceDir }) {
+  /** @param {string} src @returns {string | null} */
+  const fileOf = (src) => {
+    let clean;
+    try {
+      clean = decodeURI(src.split('?')[0].split('#')[0]);
+    } catch {
+      return null;
+    }
+    if (clean.startsWith('/')) return sourceDir ? path.join(sourceDir, clean) : null;
+    return filepath ? path.resolve(path.dirname(filepath), clean) : null;
+  };
+
+  /** @param {string} file */
+  const sizeOf = (file) => {
+    try {
+      const handle = openSync(file, 'r');
+      try {
+        const bytes = Buffer.alloc(65536);
+        const read = readSync(handle, bytes, 0, bytes.length, 0);
+        return imageSize(bytes.subarray(0, read), path.extname(file));
+      } finally {
+        closeSync(handle);
+      }
+    } catch {
+      // A missing image is the link check's business, not this one's.
+      return null;
+    }
+  };
+
+  return () => (tree) => {
+    let first = true;
+    walk(tree, (node) => {
+      if (node.type !== 'element' || node.tagName !== 'img') return;
+      const properties = (node.properties ??= {});
+
+      const src = properties.src;
+      if (typeof src === 'string' && src !== '' && !EXTERNAL_TARGET.test(src)) {
+        const file = fileOf(src);
+        const size = file ? sizeOf(file) : null;
+        if (size && properties.width === undefined && properties.height === undefined) {
+          properties.width = size.width;
+          properties.height = size.height;
+        }
+      }
+
+      if (first) {
+        first = false;
+        return;
+      }
+      properties.loading ??= 'lazy';
+      properties.decoding ??= 'async';
+    });
+  };
+}
+
+/**
  * Nests a flat list of headings into a tree, by depth.
  *
  * @param {{ id: string, text: string, depth: number }[]} headings
@@ -329,20 +402,21 @@ export class Compiler {
    * Compiles a source into an HTML fragment and a table of contents.
    *
    * @param {string} source Markdown/MDX content, frontmatter already removed.
-   * @param {{ filepath?: string, url?: string, dirUrl?: string, basePath?: string }} [context]
+   * @param {{ filepath?: string, url?: string, dirUrl?: string, basePath?: string, sourceDir?: string }} [context]
    *   `filepath` locates errors, `dirUrl` is the base of relative targets and
    *   `basePath` prefixes absolute targets (the version root).
    * @returns {Promise<CompileResult>}
    * @throws {CompileError} Invalid syntax, or a component unknown at use.
    */
   async compile(source, context = {}) {
-    const { filepath, url, dirUrl, basePath } = context;
+    const { filepath, url, dirUrl, basePath, sourceDir } = context;
 
     /** @type {{ id: string, text: string, depth: number }[]} */
     const headings = [];
 
     const rehypePlugins = [
       rehypeHeadingIds(headings),
+      rehypeImages({ filepath, sourceDir }),
       rehypeSiteLinks({ url, dirUrl, basePath }),
       rehypeTableScroll(),
       ...(this.highlight ? [[rehypeShiki, this.highlight]] : []),

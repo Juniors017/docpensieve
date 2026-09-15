@@ -360,3 +360,11 @@ describe('ForTheme', () => {
     expect(builtinComponents.ForTheme).toBe(ForTheme);
   });
 });
+
+describe('CardImage loading', () => {
+  it('loads lazily by default, and lets the page ask otherwise', () => {
+    // A card image is rarely what the reader sees first.
+    expect(render(h(CardImage, { src: 'a.png' }))).toContain('loading="lazy"');
+    expect(render(h(CardImage, { src: 'a.png', loading: 'eager' }))).toContain('loading="eager"');
+  });
+});
