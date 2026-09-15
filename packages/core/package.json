@@ -16,6 +16,7 @@
   },
   "files": [
     "src",
+    "client",
     "templates",
     "types"
   ],

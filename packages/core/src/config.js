@@ -44,6 +44,7 @@ import {
  * @property {string} [socialImage] Preview of a shared page. Needs `siteUrl`.
  * @property {boolean} [sitemap] `sitemap.xml` of the published versions.
  * @property {boolean} [feed] RSS feed of the dated pages of the current version.
+ * @property {boolean} [search] Search field, index and search page of each version.
  * @property {string} [rootDir]   Project root, set by `loadConfig`.
  * @property {string} [configFile] Path of the configuration file, set by `loadConfig`.
  * @property {string} [lang]      Document language, `'en'` by default.
@@ -78,6 +79,7 @@ export const DEFAULT_CONFIG = Object.freeze({
   // Off by default: most documentation pages carry no date, and a feed that
   // is always empty would be announced in every page.
   feed: false,
+  search: true,
 });
 
 /**
@@ -281,6 +283,10 @@ export function normalizeConfig(userConfig) {
         hint: 'It lists absolute addresses: set siteUrl, the public address of the site.',
       });
     }
+  }
+
+  if (typeof config.search !== 'boolean') {
+    throw new ConfigError('search must be true or false.', { hint: 'For instance search: false.' });
   }
 
   if (config.socialImage && !config.siteUrl) {

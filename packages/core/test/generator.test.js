@@ -401,6 +401,59 @@ describe('buildAll', () => {
   });
 });
 
+describe('search', () => {
+  it('builds a search page, its index and its script, and links to it from every page', async () => {
+    const config = project({
+      'index.md': page('Home', 'Welcome.'),
+      'guide/install.md': page('Install', 'Run the **installer** twice.'),
+    });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain(
+      '<form class="dp-search" role="search" action="/versions/v1.0/search/">',
+    );
+
+    const search = read(out, 'search', 'index.html');
+    expect(search).toContain('<li data-url="/versions/v1.0/guide/install/">');
+    expect(search).toContain(
+      '<script type="module" src="/versions/v1.0/assets/search.js"></script>',
+    );
+    expect(search).toContain('<meta name="robots" content="noindex, follow" />');
+    expect(existsSync(path.join(out, 'assets', 'search.js'))).toBe(true);
+
+    const index = JSON.parse(read(out, 'assets', 'search-index.json'));
+    expect(index.find((/** @type {any} */ found) => found.title === 'Install')?.text).toContain(
+      'Run the installer twice.',
+    );
+  });
+
+  it('keeps every content page free of script', async () => {
+    const config = project({ 'index.md': page('Home') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    expect(read(out, 'index.html')).not.toContain('<script type="module"');
+  });
+
+  it('can be turned off', async () => {
+    const config = project({ 'index.md': page('Home') }, { search: false });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).not.toContain('role="search"');
+    expect(existsSync(path.join(out, 'search'))).toBe(false);
+    expect(existsSync(path.join(out, 'assets', 'search-index.json'))).toBe(false);
+  });
+
+  it('refuses a page that would take the place of the search page', async () => {
+    const config = project({ 'index.md': page('Home'), 'search.md': page('Search') });
+    const out = path.join(config.rootDir, 'out');
+    await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(
+      'takes the place of the search page',
+    );
+  });
+});
+
 describe('sitemap, robots.txt and feed', () => {
   /** @param {string} title @param {string} date */
   const dated = (title, date) => `---

@@ -107,3 +107,43 @@
   border: 0;
   font-size: inherit;
 }
+
+/* Search: the field of the header, then the search page. */
+.dp-search input,
+.dp-search-page input {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg);
+  color: var(--dp-text);
+  font: inherit;
+}
+
+.dp-search-page input {
+  padding: 0.55rem 0.8rem;
+  font-size: 1.05rem;
+}
+
+.dp-search-page label {
+  margin-block-end: 0.4rem;
+  color: var(--dp-text-soft);
+}
+
+.dp-search-status {
+  color: var(--dp-text-soft);
+}
+
+.dp-search-results > li {
+  padding-block: 0.6rem;
+  border-block-end: 1px solid var(--dp-border);
+}
+
+.dp-search-results p {
+  margin: 0.25rem 0 0;
+  color: var(--dp-text-soft);
+}
+
+.dp-search-results mark {
+  background: var(--dp-accent-soft);
+  color: inherit;
+}

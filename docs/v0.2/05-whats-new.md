@@ -31,13 +31,19 @@ With `siteUrl` set, the build writes `sitemap.xml` for search engines — and
 RSS feed of the dated pages. See [Sitemap and feed](./reference/configuration/)
 in the reference.
 
+### Search
+
+A search field in the header, and a search page in each version. The index is
+built with the site; content pages still load no script — the search page
+alone does, and without it the page stays the list of every page. See
+[Search](./reference/configuration/) in the reference.
+
 ## Still to come
 
-| Piece            | What it brings                                                    |
-| ---------------- | ----------------------------------------------------------------- |
-| Search           | A search field, over an index of each version built with the site |
-| Optimisation     | A minified stylesheet, lighter images                             |
-| API and examples | The reference of each package, complete example projects          |
+| Piece            | What it brings                                           |
+| ---------------- | -------------------------------------------------------- |
+| Optimisation     | A minified stylesheet, lighter images                    |
+| API and examples | The reference of each package, complete example projects |
 
 ## For a 0.1 project
 

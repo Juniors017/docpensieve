@@ -53,6 +53,36 @@ body {
   inline-size: auto;
 }
 
+/* Search: where the field sits, and the list of the search page. Their look
+   is in prose.css, shared by every theme: this file decides no colour. */
+.dp-search {
+  margin-inline-start: auto;
+}
+
+.dp-search input {
+  inline-size: 100%;
+  max-inline-size: 14rem;
+}
+
+.dp-search-page label {
+  display: block;
+}
+
+.dp-search-page input {
+  inline-size: 100%;
+}
+
+.dp-search-results {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+@media (max-width: 40rem) {
+  .dp-search input {
+    max-inline-size: 8rem;
+  }
+}
+
 .dp-header {
   position: sticky;
   top: 0;

@@ -36,8 +36,9 @@ utility theme needs to know which classes were actually used.
 
 ## React does not leave the build
 
-Components are rendered to HTML during the build. The delivered site loads no
-runtime: what reaches the reader is markup and a stylesheet.
+Components are rendered to HTML during the build. Content pages load no
+runtime: what reaches the reader is markup and a stylesheet. The search page
+alone adds a script, of a few kilobytes, to filter its list.
 
 That explains the shape of the shipped components. None of them has state or
 an event listener, because there would be nothing to bring them to life.

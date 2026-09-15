@@ -98,6 +98,7 @@ the `dp-*` class below.
 | `footer`        | `dp-footer`               | Page footer                                     |
 | `scrollTop`     | `dp-scroll-top`           | Back-to-top button                              |
 | `scrollTopIcon` | `dp-scroll-top-icon`      | Arrow of that button                            |
+| `search`        | `dp-search`               | Search field of the header                      |
 
 A slot can carry **variants**, suffixed `--variant`: `column` gives
 `dp-column--span-8`, `skill` gives `dp-skill--circle`.

@@ -36,6 +36,10 @@
     <link rel="preload" as="{{as}}" href="{{href}}" />
     {{/each}}
     <link rel="stylesheet" href="{{cssHref}}" />
+    {{!-- Only the search page carries a script: content pages load none. --}}
+    {{#each scripts}}
+    <script type="module" src="{{this}}"></script>
+    {{/each}}
     {{{jsonld}}}
   </head>
   <body>
@@ -56,6 +60,12 @@
           {{/each}}
         </ul>
       </details>
+      {{/if}}
+      {{!-- A plain form: it leads to the search page, and needs no script. --}}
+      {{#if searchUrl}}
+      <form class="{{{cls.search}}}" role="search" action="{{searchUrl}}">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
       {{/if}}
     </header>
 

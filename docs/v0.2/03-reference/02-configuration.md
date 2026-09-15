@@ -67,6 +67,7 @@ can change.
 | `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                          |
 | `sitemap`          | `true`              | `sitemap.xml` of the published versions, once `siteUrl` is set                     |
 | `feed`             | `false`             | RSS feed of the dated pages. Needs `siteUrl`                                       |
+| `search`           | `true`              | Search field in the header, and a search page built with the site                  |
 
 ## Images
 
@@ -111,6 +112,22 @@ that carry a `date`, newest first, and every page announces it in its head.
 It is off by default: most documentation pages carry no date.
 
 Both list absolute addresses: asked for without `siteUrl`, they stop the build.
+
+## Search
+
+`search: true`, the default, puts a search field in the header and builds a
+search page in each version, at `/search/`. The build writes the index of the
+version — the plain text of every page — and the search page already lists
+every page with its description.
+
+The field is a plain form that leads to that page: **content pages load no
+script**. The search page alone loads one, of a few kilobytes, which filters
+the list as you type, best matches first, with an excerpt of each. Without
+JavaScript, the page stays the full list of pages.
+
+The search page is kept out of search engines (`noindex`) and out of the
+sitemap. A page of your own at `/search/` would take its place: the build
+refuses it, and `search: false` frees the address.
 
 ## `versions`
 

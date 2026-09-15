@@ -308,6 +308,14 @@ describe('sitemap and feed', () => {
   });
 });
 
+describe('search', () => {
+  it('is on by default, and takes true or false', () => {
+    expect(normalizeConfig({ versions: [v1] }).search).toBe(true);
+    expect(normalizeConfig({ versions: [v1], search: false }).search).toBe(false);
+    expect(() => normalizeConfig({ versions: [v1], search: 'yes' })).toThrow(/true or false/);
+  });
+});
+
 describe('dangerous values', () => {
   it('refuses a version slug that is not a safe path segment', () => {
     // The slug becomes an output folder: "../../elsewhere" wrote outside the

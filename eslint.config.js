@@ -23,6 +23,11 @@ export default [
     },
   },
   {
+    // The only code that runs in the reader's browser.
+    files: ['packages/*/client/**/*.js'],
+    languageOptions: { globals: { ...globals.browser } },
+  },
+  {
     files: ['packages/*/test/**/*.js'],
     languageOptions: { globals: { ...globals.node } },
   },

@@ -24,6 +24,7 @@ import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
 import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
+import { SEARCH_SLUG, htmlToText, searchPageContent } from './search-index.js';
 import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
 import { StructuredDataBuilder } from './structured-data.js';
 
@@ -32,6 +33,15 @@ const TEMPLATE_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..
 
 /** Path of the stylesheet written into every version. */
 const STYLESHEET = 'assets/docpensieve.css';
+
+/** Index of a version, which the search page reads. */
+const SEARCH_INDEX = 'assets/search-index.json';
+
+/** Script of the search page, the only one a site loads. */
+const SEARCH_SCRIPT = 'assets/search.js';
+
+/** Source of that script, shipped with this package. */
+const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.url));
 
 /**
  * Where each project image is written in a version, before its extension.
@@ -219,6 +229,39 @@ export class SiteGenerator {
     // own, down to the orphan branch it is published on.
     const images = await this.#copyImages(target, versionBase, written);
 
+    // What every page of the version shares, the search page included.
+    const searchUrl = this.config.search !== false ? joinUrl(versionBase, SEARCH_SLUG) : '';
+    const shell = {
+      lang: this.config.lang ?? 'en',
+      darkModeClass: null,
+      projectName: this.config.projectName,
+      versionName: version.name,
+      homeUrl: versionBase,
+      cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
+      feedUrl: this.#feedUrl(),
+      logoUrl: images.logo ?? '',
+      favicon: images.favicon
+        ? { href: images.favicon, type: FAVICON_TYPES[path.extname(images.favicon).toLowerCase()] }
+        : null,
+      // Social networks only read an absolute address: normalisation
+      // refuses a preview image without siteUrl.
+      socialImage:
+        images.socialImage && this.config.siteUrl
+          ? new URL(images.socialImage, this.config.siteUrl).href
+          : '',
+      searchUrl,
+      cls: classes,
+      versions: this.#versionLinks(version.slug),
+      // A switcher offering a single choice is not a switcher.
+      showVersions: this.config.versions.length > 1,
+      // The back-to-top button is page furniture, not content: writing it in
+      // every file would repeat it everywhere, and forget it somewhere.
+      scrollToTop: this.config.scrollToTop !== false,
+      notice,
+    };
+    /** @type {{ title: string, url: string, description: string, text: string }[]} */
+    const entries = [];
+
     for (const doc of docs) {
       const url = pageUrl(doc);
 
@@ -250,40 +293,20 @@ export class SiteGenerator {
       // landmarks within a document, not in an entrance hall.
       const wide = pageLayout(doc) === 'home';
 
+      entries.push({
+        title: String(doc.frontmatter.title ?? this.config.projectName),
+        url,
+        description: String(doc.frontmatter.description ?? ''),
+        text: htmlToText(html),
+      });
+
       const page = layout({
-        lang: this.config.lang ?? 'en',
-        darkModeClass: null,
+        ...shell,
         title: documentTitle(doc.frontmatter.title, this.config.projectName),
         description: doc.frontmatter.description ?? '',
         canonical: this.config.siteUrl ? new URL(url, this.config.siteUrl).href : '',
-        projectName: this.config.projectName,
-        versionName: version.name,
-        homeUrl: versionBase,
         currentUrl: url,
-        cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
-        feedUrl: this.#feedUrl(),
-        logoUrl: images.logo ?? '',
-        favicon: images.favicon
-          ? {
-              href: images.favicon,
-              type: FAVICON_TYPES[path.extname(images.favicon).toLowerCase()],
-            }
-          : null,
-        // Social networks only read an absolute address: normalisation
-        // refuses a preview image without siteUrl.
-        socialImage:
-          images.socialImage && this.config.siteUrl
-            ? new URL(images.socialImage, this.config.siteUrl).href
-            : '',
-        cls: classes,
-        versions: this.#versionLinks(version.slug),
-        // A switcher offering a single choice is not a switcher.
-        showVersions: this.config.versions.length > 1,
         wide,
-        // The back-to-top button is page furniture, not content: writing it in
-        // every file would repeat it everywhere, and forget it somewhere.
-        scrollToTop: this.config.scrollToTop !== false,
-        notice,
         // A version in preparation must not compete with the current one:
         // same content, two addresses, and the wrong one comes up. "follow"
         // still lets its links be followed.
@@ -302,6 +325,50 @@ export class SiteGenerator {
       const destination = path.join(target, ...doc.slug.split('/').filter(Boolean), 'index.html');
       written.set(destination, path.relative(sourceDir, doc.path).split(path.sep).join('/'));
       await this.#write(destination, page);
+    }
+
+    // The search page and the index it reads, built with the site: content
+    // pages load no script, and this page is useful before its own runs.
+    if (searchUrl) {
+      const destination = path.join(target, SEARCH_SLUG, 'index.html');
+      const taken = written.get(destination);
+      if (taken !== undefined) {
+        throw new GeneratorError(`"${taken}" takes the place of the search page, ${searchUrl}.`, {
+          hint: 'Rename that page, or set search: false in the configuration.',
+        });
+      }
+
+      /** @param {string} file */
+      const assetUrl = (file) =>
+        joinUrl(versionBase, path.posix.dirname(file)) + path.posix.basename(file);
+      const indexFile = path.join(target, ...SEARCH_INDEX.split('/'));
+      const scriptFile = path.join(target, ...SEARCH_SCRIPT.split('/'));
+      await this.#write(indexFile, JSON.stringify(entries));
+      await mkdir(path.dirname(scriptFile), { recursive: true });
+      await copyFile(CLIENT_SEARCH, scriptFile);
+
+      const page = layout({
+        ...shell,
+        title: documentTitle('Search', this.config.projectName),
+        description: `Search the pages of ${this.config.projectName} ${version.name}.`,
+        canonical: '',
+        currentUrl: searchUrl,
+        wide: false,
+        // A list of every page, and a script: nothing a search engine should
+        // offer as a result.
+        noindex: true,
+        sidebar,
+        toc: [],
+        preloads: [],
+        scripts: [assetUrl(SEARCH_SCRIPT)],
+        content: searchPageContent(entries, assetUrl(SEARCH_INDEX)),
+        jsonld: '',
+      });
+      for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
+        for (const token of value.split(/\s+/)) if (token) candidates.add(token);
+      }
+      await this.#write(destination, page);
+      for (const file of [destination, indexFile, scriptFile]) written.set(file, 'the search page');
     }
 
     await this.#copyAssets(sourceDir, target, '', written);
