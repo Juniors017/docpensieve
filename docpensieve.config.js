@@ -22,8 +22,8 @@ export default defineConfig({
 
   // The project's images, from the root: beside the name in the header, in
   // the browser tab, and as the preview of a shared page. The full logo,
-  // branding/logo.jpg, is too tall and too detailed for the first two: they
-  // take the bowl alone, cut square.
+  // branding/logo.jpg, is too detailed at the size of a header or a tab: they
+  // take the bowl alone, cut square. The beta carries its own, below.
   logo: 'branding/mark.png',
   favicon: 'branding/favicon.png',
   socialImage: 'branding/social.jpg',
@@ -38,7 +38,15 @@ export default defineConfig({
   // The numbers follow those of the packages: in 0.x, a breaking change needs
   // no ceremony, which suits an API that is still moving.
   versions: [
-    { slug: 'v0.2', name: '0.2 (beta)', folder: 'docs/v0.2', prerelease: true },
+    {
+      slug: 'v0.2',
+      name: '0.2 (beta)',
+      folder: 'docs/v0.2',
+      prerelease: true,
+      // The beta is told apart at a glance: its bowl is on fire.
+      logo: 'branding/mark-beta.png',
+      favicon: 'branding/favicon-beta.png',
+    },
     { slug: 'v0.1', name: published, folder: 'docs/v0.1', current: true },
   ],
 
