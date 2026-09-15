@@ -4,7 +4,17 @@
  * `defineConfig` transforms nothing: it only provides autocompletion and type
  * checking in the editor.
  */
+import { readFileSync } from 'node:fs';
+
 import { defineConfig } from '@docpensieve/core';
+
+// The label of the current version is the version published on npm: a
+// documentation version covers a whole 0.x series, but readers compare what
+// they installed with what they read. `npm run version:all` bumps it along
+// with the packages.
+const { version: published } = JSON.parse(
+  readFileSync(new URL('./packages/cli/package.json', import.meta.url), 'utf8'),
+);
 
 export default defineConfig({
   projectName: 'DocPensieve',
@@ -29,7 +39,7 @@ export default defineConfig({
   // no ceremony, which suits an API that is still moving.
   versions: [
     { slug: 'v0.2', name: '0.2 (beta)', folder: 'docs/v0.2', prerelease: true },
-    { slug: 'v0.1', name: '0.1', folder: 'docs/v0.1', current: true },
+    { slug: 'v0.1', name: published, folder: 'docs/v0.1', current: true },
   ],
 
   outDir: 'dist',
