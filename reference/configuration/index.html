@@ -27,7 +27,7 @@
         <summary aria-label="Version 0.2 (beta), switch version">0.2 (beta)</summary>
         <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
           <li><a href="/docpensieve/versions/v0.2/" aria-current="true">0.2 (beta)</a></li>
-          <li><a href="/docpensieve/versions/v0.1/">0.1</a></li>
+          <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
     </header>
@@ -110,13 +110,16 @@
           <li class="dp-nav-item">
             <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/architecture/">Architecture</a>
           </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/whats-new/">What&#x27;s new in 0.2</a>
+          </li>
         </ul>
       </nav>
 
       <main class="dp-main" id="content" tabindex="-1">
         <aside class="dp-notice" role="note">
           This version is in preparation and may change.
-          The current version is <a href="/docpensieve/versions/v0.1/">0.1</a>.
+          The current version is <a href="/docpensieve/versions/v0.1/">0.1.5</a>.
         </aside>
         <article class="dp-article"><h1 id="configuration">Configuration</h1>
 <p>The <code>docpensieve.config.mjs</code> file, at the root of the project.</p>
@@ -150,7 +153,7 @@ only runs through <code>npx</code>. In a project that installs it as a dependenc
 default, or commented out with an example — so that it also tells you what you
 can change.</p>
 <h2 id="the-fields">The fields</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Default</th><th>Effect</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Name shown in the header and in the JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Public URL. Used for the <code>canonical</code> and the JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Deployment prefix. Derived from <code>siteUrl</code> when omitted</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Output folder, relative to the root</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>At least one entry</td></tr><tr><td><code>theme</code></td><td>see below</td><td>Styling</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code>: the sidebar follows the file tree. The only value written so far</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Shipped components available without an import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Back-to-top button on every page</td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Structured data</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Language of the document, in <code>&lt;html lang&gt;</code>. The shell&#x27;s labels stay English</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image beside the project name, in the header</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icon of the browser tab: <code>.ico</code>, <code>.png</code> or <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Preview of a shared page. Needs <code>siteUrl</code></td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Default</th><th>Effect</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Name shown in the header and in the JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Public URL. Used for the <code>canonical</code> and the JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Deployment prefix. Derived from <code>siteUrl</code> when omitted</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Output folder, relative to the root</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>At least one entry</td></tr><tr><td><code>theme</code></td><td>see below</td><td>Styling</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code>: the menu follows the file tree. Or a <code>.json</code> file of each version folder</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Shipped components available without an import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Back-to-top button on every page</td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Structured data</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Language of the document, in <code>&lt;html lang&gt;</code>. The shell&#x27;s labels stay English</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image beside the project name, in the header</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icon of the browser tab: <code>.ico</code>, <code>.png</code> or <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Preview of a shared page. Needs <code>siteUrl</code></td></tr><tr><td><code>sitemap</code></td><td><code>true</code></td><td><code>sitemap.xml</code> of the published versions, once <code>siteUrl</code> is set</td></tr><tr><td><code>feed</code></td><td><code>false</code></td><td>RSS feed of the dated pages. Needs <code>siteUrl</code></td></tr></tbody></table></div>
 <h2 id="images">Images</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">logo</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/logo.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">favicon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/favicon.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
@@ -167,6 +170,21 @@ title and description. 1200 × 630 pixels is the usual size, and SVG is not
 read there. Those networks only read an absolute address, hence <code>siteUrl</code>.</li>
 </ul>
 <p>A declared image that does not exist stops the build, naming the field.</p>
+<h2 id="sitemap-and-feed">Sitemap and feed</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">siteUrl</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;https://example.com&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">sitemap</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6A737D;--shiki-dark:#6A737D">// the default</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">feed</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>Once <code>siteUrl</code> is set, the build writes <code>sitemap.xml</code> at the root of the site:
+every page of every version, except a version in preparation, whose pages
+carry <code>noindex</code>. Each page is dated by its <code>modified</code> frontmatter, or failing
+that its <code>date</code>. <code>sitemap: false</code> turns it off.</p>
+<p><code>robots.txt</code> joins it when the site is served at the root of its domain.
+Search engines only read that file there: under a sub-path, it would be
+written for nobody — declare the sitemap to them directly.</p>
+<p><code>feed: true</code> writes <code>feed.xml</code>, an RSS feed of the pages of the current version
+that carry a <code>date</code>, newest first, and every page announces it in its head.
+It is off by default: most documentation pages carry no date.</p>
+<p>Both list absolute addresses: asked for without <code>siteUrl</code>, they stop the build.</p>
 <h2 id="versions"><code>versions</code></h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
@@ -187,6 +205,25 @@ read there. Those networks only read an absolute address, hence <code>siteUrl</c
 <code>.css</code> file in it is appended after <code>css</code>, in name order, and
 <code>docpensieve dev</code> picks up every change. Under the <code>custom</code> theme, <code>init</code>
 starts it with <code>theme/custom.css</code>.</p>
+<h2 id="sidebar"><code>sidebar</code></h2>
+<p><code>&#x27;auto&#x27;</code> builds the menu from the file tree: folders become categories, and the
+<code>01-</code>, <code>02-</code> prefixes set the order. To write it by hand, name a JSON file:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">sidebar</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;sidebar.json&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>It is read from <strong>each version&#x27;s folder</strong> — <code>docs/v1.0/sidebar.json</code> — since
+each version has its own pages. It holds an array of entries, kept in the order
+written:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">  &quot;/&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;label&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Guide&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;page&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guide&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;items&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guide/installation&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guide/first-site&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">] },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;page&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;reference/cli&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;label&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Commands&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;auto&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;docpensieve&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;label&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Repository&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;href&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;https://github.com/me/my-project&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span></code></pre>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Entry</th><th>What it gives</th></tr></thead><tbody><tr><td><code>&quot;guide/installation&quot;</code></td><td>A page, by its path within the version, as in its URL — <code>&quot;/&quot;</code> for the home page</td></tr><tr><td><code>{ &quot;page&quot;, &quot;label&quot; }</code></td><td>The same page, with a label of its own</td></tr><tr><td><code>{ &quot;label&quot;, &quot;items&quot;, &quot;page&quot;? }</code></td><td>A category, clickable when it names a page</td></tr><tr><td><code>{ &quot;label&quot;, &quot;href&quot; }</code></td><td>A link outside the site</td></tr><tr><td><code>{ &quot;auto&quot;: &quot;folder&quot; }</code></td><td>The automatic menu of a folder: the DocPensieve section keeps its own this way</td></tr></tbody></table></div>
+<p>A page left out stays published: it is only absent from the menu. A path that
+names no page, a page listed twice, or an entry of no known kind stops the
+build, naming the file and the paths close to the one written. The file itself
+is not published.</p>
 <h2 id="baseurl-and-why-you-rarely-write-it"><code>baseUrl</code>, and why you rarely write it</h2>
 <p>A <code>siteUrl</code> with a sub-path already gives it: <code>https://example.com/my-project</code>
 produces <code>baseUrl: &#x27;/my-project/&#x27;</code>. Writing it is only useful to depart from
@@ -212,10 +249,16 @@ starts to matter from the second version on.</p></article>
             <a href="#images">Images</a>
           </li>
           <li class="dp-toc-item">
+            <a href="#sitemap-and-feed">Sitemap and feed</a>
+          </li>
+          <li class="dp-toc-item">
             <a href="#versions">versions</a>
           </li>
           <li class="dp-toc-item">
             <a href="#theme">theme</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#sidebar">sidebar</a>
           </li>
           <li class="dp-toc-item">
             <a href="#baseurl-and-why-you-rarely-write-it">baseUrl, and why you rarely write it</a>

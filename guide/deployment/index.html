@@ -27,7 +27,7 @@
         <summary aria-label="Version 0.2 (beta), switch version">0.2 (beta)</summary>
         <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
           <li><a href="/docpensieve/versions/v0.2/" aria-current="true">0.2 (beta)</a></li>
-          <li><a href="/docpensieve/versions/v0.1/">0.1</a></li>
+          <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
     </header>
@@ -110,13 +110,16 @@
           <li class="dp-nav-item">
             <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/architecture/">Architecture</a>
           </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/whats-new/">What&#x27;s new in 0.2</a>
+          </li>
         </ul>
       </nav>
 
       <main class="dp-main" id="content" tabindex="-1">
         <aside class="dp-notice" role="note">
           This version is in preparation and may change.
-          The current version is <a href="/docpensieve/versions/v0.1/">0.1</a>.
+          The current version is <a href="/docpensieve/versions/v0.1/">0.1.5</a>.
         </aside>
         <article class="dp-article"><h1 id="deployment">Deployment</h1>
 <h2 id="the-deployment-prefix">The deployment prefix</h2>
@@ -195,7 +198,15 @@ rebuilt.</p>
 produced at the time, and nothing would guarantee that a rebuild gives the same
 result years later.</p>
 <p>The branch model answers this — each compiled version on its own orphan branch,
-with its history. See <a href="/docpensieve/versions/v0.2/guide/versions/">Versions</a>.</p></article>
+with its history. See <a href="/docpensieve/versions/v0.2/guide/versions/">Versions</a>.</p>
+<h2 id="search-engines-and-feed-readers">Search engines and feed readers</h2>
+<p>With <code>siteUrl</code> set, the build writes <code>sitemap.xml</code> at the root of the site —
+every published version, a version in preparation excepted. Give its address
+to the search engines you care about; <code>robots.txt</code> names it for them when the
+site sits at the root of its domain.</p>
+<p>For pages that are news rather than reference — release notes, a changelog —
+give them a <code>date</code> and set <code>feed: true</code>: <code>feed.xml</code> then lists them, newest
+first. The fields are in the <a href="/docpensieve/versions/v0.2/reference/configuration/">configuration reference</a>.</p></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -218,6 +229,9 @@ with its history. See <a href="/docpensieve/versions/v0.2/guide/versions/">Versi
           </li>
           <li class="dp-toc-item">
             <a href="#keeping-past-versions">Keeping past versions</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#search-engines-and-feed-readers">Search engines and feed readers</a>
           </li>
         </ul>
       </nav>
