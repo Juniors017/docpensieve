@@ -1,6 +1,6 @@
 {
   "name": "docpensieve-monorepo",
-  "version": "0.1.5",
+  "version": "0.2.0-beta.1",
   "private": true,
   "type": "module",
   "description": "Static documentation site generator — MDX, versions on orphan branches, extensible themes, JSON-LD",

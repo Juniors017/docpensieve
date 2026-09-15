@@ -8,10 +8,9 @@ import { readFileSync } from 'node:fs';
 
 import { defineConfig } from '@docpensieve/core';
 
-// The label of the current version is the version published on npm: a
-// documentation version covers a whole 0.x series, but readers compare what
-// they installed with what they read. `npm run version:all` bumps it along
-// with the packages.
+// The version main carries — the beta of the 0.2, until it is released — is
+// the label of the version being written: readers compare what they installed
+// with what they read. `npm run version:all` bumps it along with the packages.
 const { version: published } = JSON.parse(
   readFileSync(new URL('./packages/cli/package.json', import.meta.url), 'utf8'),
 );
@@ -42,14 +41,16 @@ export default defineConfig({
   versions: [
     {
       slug: 'v0.2',
-      name: '0.2 (beta)',
+      name: published,
       folder: 'docs/v0.2',
       prerelease: true,
       // The beta is told apart at a glance: its bowl is on fire.
       logo: 'branding/mark-beta.png',
       favicon: 'branding/favicon-beta.png',
     },
-    { slug: 'v0.1', name: published, folder: 'docs/v0.1', current: true },
+    // Frozen at the last 0.1 published: main carries the 0.2 now. A fix
+    // released from release/0.1 updates this label by hand.
+    { slug: 'v0.1', name: '0.1.5', folder: 'docs/v0.1', current: true },
   ],
 
   outDir: 'dist',
