@@ -1,0 +1,22 @@
+/*
+ * The DocPensieve site: always dark (theme.darkMode: 'dark'), on the ground
+ * of its logo. Every colour is a token, so that the components and the
+ * search follow; the header, dressed with utilities, is brought onto the
+ * same ground.
+ */
+:root.dark {
+  --dp-bg: #060814;
+  --dp-bg-soft: #0c1124;
+  --dp-text: #e8eaf2;
+  --dp-text-soft: #9ea6bd;
+  --dp-border: #1c2440;
+  --dp-rule: #1c2440;
+  --dp-accent: #d8b46a;
+  --dp-accent-soft: rgba(216, 180, 106, 0.14);
+  --dp-shadow: rgba(0, 0, 0, 0.6);
+}
+
+.dp-header {
+  background: color-mix(in oklab, var(--dp-bg) 92%, transparent);
+  border-color: var(--dp-border);
+}

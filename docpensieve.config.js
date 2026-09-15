@@ -46,7 +46,8 @@ export default defineConfig({
 
   theme: {
     framework: 'tailwind',
-    darkMode: 'class',
+    // Always dark, on the ground of the logo: the palette is in theme/site.css.
+    darkMode: 'dark',
 
     // Styling specific to this site: the entrance hall and its two buttons.
     // Written here rather than as utilities in the page, for a practical
