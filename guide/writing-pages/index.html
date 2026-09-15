@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,9 @@
           <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.2/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -190,6 +193,11 @@ They are therefore rewritten at build time.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">![</span><span style="color:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline">Pipeline diagram</span><span style="color:#24292E;--shiki-dark:#E1E4E8">](</span><span style="color:#24292E;--shiki-light-text-decoration:underline;--shiki-dark:#E1E4E8;--shiki-dark-text-decoration:underline">./diagram.png</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span></code></pre>
 <p>Files that are not pages are copied as is into the output, at the same
 relative place. The path is rewritten like a link.</p>
+<p>The build reads the width and height of each image from its file — PNG, JPEG,
+GIF, WebP or SVG — and writes them on the page: the browser keeps the room
+before the image arrives, instead of shifting the text when it does. Every
+image but the first loads lazily, when the reader nears it; the first, often in
+view, keeps its normal loading.</p>
 <h2 id="components">Components</h2>
 <p>In an <code>.mdx</code> page, the shipped components are used <strong>without an import</strong>:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Columns</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>

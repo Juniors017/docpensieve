@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,9 @@
           <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.2/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -157,7 +160,7 @@ flow would take a script on every page.</p>
 <p>The shipped components avoid that clipping wherever they can — a <code>Card</code> rounds
 the corners of its image one by one rather than clipping its content.</p>
 <p>The bubble does not close with the Escape key: listening for it would take a
-script, and the site loads none. It disappears when the pointer or the focus
+script, and content pages load none. It disappears when the pointer or the focus
 leaves the term.</p>
 <p>A <code>Tooltip</code> without text stops the build: a hover with no effect goes
 unnoticed for a long time. So does an unknown side.</p></article>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,9 @@
           <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.2/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -203,8 +206,8 @@ carries the meaning, and announcing it twice would tell nothing.</p>
 folder: each one stops the build, naming the expected path. A missing icon
 would otherwise leave an empty box that nobody notices.</p>
 <p>The scripts and event handlers present in a file are removed before inlining.
-The produced site loads no JavaScript, and a component is not going to
-introduce any.</p></article>
+Content pages load no JavaScript, and a component is not going to introduce
+any.</p></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">

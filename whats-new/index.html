@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,9 @@
           <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.2/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -140,8 +143,24 @@ section stays whole without listing its pages.</p>
 <code>robots.txt</code> when the site sits at the root of its domain. <code>feed: true</code> adds an
 RSS feed of the dated pages. See <a href="/docpensieve/versions/v0.2/reference/configuration/">Sitemap and feed</a>
 in the reference.</p>
+<h3 id="search">Search</h3>
+<p>A search field in the header, and a search page in each version. The index is
+built with the site; content pages still load no script — the search page
+alone does, and without it the page stays the list of every page. See
+<a href="/docpensieve/versions/v0.2/reference/configuration/">Search</a> in the reference.</p>
+<h3 id="a-colour-scheme-of-your-choosing-and-a-logo-per-version">A colour scheme of your choosing, and a logo per version</h3>
+<p><code>theme.darkMode: &#x27;dark&#x27;</code> keeps the site dark whatever the reader&#x27;s system —
+<code>&#x27;light&#x27;</code> keeps it light; <code>&#x27;class&#x27;</code>, the default, still follows the system.
+Until now the field was accepted and did nothing. A version can also carry its
+own <code>logo</code> and <code>favicon</code>, to tell a beta apart at a glance. See the
+<a href="/docpensieve/versions/v0.2/reference/configuration/">configuration reference</a>.</p>
+<h3 id="lighter-pages">Lighter pages</h3>
+<p>The stylesheet reaches the reader minified. Every image of a page gets its
+width and height, read from its file, so that the text no longer jumps when it
+arrives; all but the first load lazily, and are no longer preloaded — the
+first, often in view, keeps its normal loading. <code>CardImage</code> loads lazily too.</p>
 <h2 id="still-to-come">Still to come</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Piece</th><th>What it brings</th></tr></thead><tbody><tr><td>Search</td><td>A search field, over an index of each version built with the site</td></tr><tr><td>Optimisation</td><td>A minified stylesheet, lighter images</td></tr><tr><td>API and examples</td><td>The reference of each package, complete example projects</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Piece</th><th>What it brings</th></tr></thead><tbody><tr><td>API and examples</td><td>The reference of each package, complete example projects</td></tr></tbody></table></div>
 <h2 id="for-a-0-1-project">For a 0.1 project</h2>
 <p>Nothing to change: a 0.1 configuration builds as it is. <code>sidebar: &#x27;auto&#x27;</code>
 stays the default, and every new field is optional. A guide to moving from
@@ -159,6 +178,15 @@ stays the default, and every new field is optional. A guide to moving from
               </li>
               <li class="dp-toc-item">
                 <a href="#search-engines-and-feed-readers">Search engines and feed readers</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#search">Search</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#a-colour-scheme-of-your-choosing-and-a-logo-per-version">A colour scheme of your choosing, and a logo per version</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#lighter-pages">Lighter pages</a>
               </li>
             </ul>
           </li>

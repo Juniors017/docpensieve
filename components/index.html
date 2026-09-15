@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,6 +30,9 @@
           <li><a href="/docpensieve/versions/v0.1/">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.2/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -147,7 +150,8 @@ changes the examples too.</p>
 <li><a href="/docpensieve/versions/v0.2/components/for-theme/">ForTheme</a> — content kept for one theme only</li>
 </ul>
 <h2 id="without-javascript">Without JavaScript</h2>
-<p>The produced site loads no script. Whatever needs interaction therefore goes
+<p>Content pages load no script — the search page alone does. Whatever needs
+interaction therefore goes
 through native elements or through CSS: <code>details</code> for expanding, a link for
 moving, <code>animation-timeline</code> for appearing on scroll.</p>
 <p>When the browser does not know one of these properties yet, the component stays

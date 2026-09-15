@@ -3,20 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Architecture · DocPensieve</title>
-    <meta name="description" content="How a page becomes HTML, and why it works that way." />
+    <title>Search · DocPensieve</title>
+    <meta name="description" content="Search the pages of DocPensieve 0.2 (beta)." />
     <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href="https://juniors017.github.io/docpensieve/versions/v0.2/architecture/" />
     <link rel="icon" href="/docpensieve/versions/v0.2/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
-    <meta property="og:title" content="Architecture · DocPensieve" />
-    <meta property="og:description" content="How a page becomes HTML, and why it works that way." />
-    <meta property="og:url" content="https://juniors017.github.io/docpensieve/versions/v0.2/architecture/" />
+    <meta property="og:title" content="Search · DocPensieve" />
+    <meta property="og:description" content="Search the pages of DocPensieve 0.2 (beta)." />
+    <meta property="og:url" content="" />
     <meta property="og:image" content="https://juniors017.github.io/docpensieve/versions/v0.2/assets/social-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/docpensieve/versions/v0.2/assets/docpensieve.css" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://juniors017.github.io/docpensieve/#organization","name":"DocPensieve","url":"https://juniors017.github.io/docpensieve","logo":"https://juniors017.github.io/docpensieve/versions/v0.2/assets/logo.png"},{"@type":"TechArticle","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/architecture/#article","headline":"Architecture","mainEntityOfPage":{"@type":"WebPage","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/architecture/"},"publisher":{"@id":"https://juniors017.github.io/docpensieve/#organization"},"description":"How a page becomes HTML, and why it works that way.","keywords":["architecture"]},{"@type":"BreadcrumbList","@id":"https://juniors017.github.io/docpensieve/versions/v0.2/architecture/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://juniors017.github.io/docpensieve/versions/v0.2/"},{"@type":"ListItem","position":2,"name":"Architecture","item":"https://juniors017.github.io/docpensieve/versions/v0.2/architecture/"}]}]}</script>
+    <script type="module" src="/docpensieve/versions/v0.2/assets/search.js"></script>
+    
   </head>
   <body>
     <a class="dp-skip" href="#content">Skip to content</a>
@@ -111,7 +111,7 @@
             </ul>
           </li>
           <li class="dp-nav-item">
-            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/architecture/" aria-current="page">Architecture</a>
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/architecture/">Architecture</a>
           </li>
           <li class="dp-nav-item">
             <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/docpensieve/versions/v0.2/whats-new/">What&#x27;s new in 0.2</a>
@@ -124,107 +124,9 @@
           This version is in preparation and may change.
           The current version is <a href="/docpensieve/versions/v0.1/">0.1.5</a>.
         </aside>
-        <article class="dp-article"><h1 id="architecture">Architecture</h1>
-<h2 id="the-journey-of-a-page">The journey of a page</h2>
-<pre><code>.md / .mdx file
-      │
-      ▼
-  loading             frontmatter detached, slug derived from the path
-      │
-      ▼
-  compilation         MDX → React component
-      │
-      ▼
-  rendering           React → HTML string, once and for all
-      │
-      ▼
-  shell               header, menu, table of contents, footer
-      │
-      ▼
-  page written        a folder, an index.html
-</code></pre>
-<p>Once every page is written, and <strong>only then</strong>, the stylesheet is compiled: a
-utility theme needs to know which classes were actually used.</p>
-<h2 id="react-does-not-leave-the-build">React does not leave the build</h2>
-<p>Components are rendered to HTML during the build. Content pages load no
-runtime: what reaches the reader is markup and a stylesheet. The search page
-alone adds a script, of a few kilobytes, to filter its list.</p>
-<p>That explains the shape of the shipped components. None of them has state or
-an event listener, because there would be nothing to bring them to life.
-Whatever needs interaction goes through a native element — <code>details</code> for
-expanding, a link for moving — or through CSS.</p>
-<p>This constraint is also what guarantees that a page stays readable in ten
-years: there is nothing that can stop working.</p>
-<h2 id="templates-do-not-render-content">Templates do not render content</h2>
-<p>A template engine builds the shell: header, menu, table of contents, version
-switcher, footer. The content comes from the MDX compilation.</p>
-<p>The two do not mix, and that is deliberate. The content is written by the
-author and can contain anything; the shell is written once and must never
-depend on what a page contains.</p>
-<h2 id="the-packages">The packages</h2>
-<pre><code>shared        constants, errors, slugs — depends on nothing
-core          configuration, loading, compilation, JSON-LD, generation
-theme         stylings, each answering the same contract
-components    components available in pages
-cli           the commands
-</code></pre>
-<p><strong>The graph never goes up.</strong> The engine imports neither the stylings nor the
-components: the commands hand them over. That is what lets it be tested
-without React or CSS, and what keeps a circular dependency from settling in
-unnoticed.</p>
-<h2 id="theme-slots">Theme slots</h2>
-<p>The templates contain no class. They ask the theme for the class of each slot,
-and the theme answers — a simple class, or a handful of utilities.</p>
-<p>Two practical consequences:</p>
-<ul>
-<li>changing styling requires touching no template;</li>
-<li>a styling only needs to redefine what it changes.</li>
-</ul>
-<p>Components follow the same rule, with a fallback: when there is no answer, they
-take a <code>dp-*</code> class that their own stylesheet styles from the theme tokens.
-They therefore follow the active palette without knowing anything about it.</p>
-<h2 id="urls">URLs</h2>
-<p>A relative target resolves against the folder of the page&#x27;s file. An absolute
-target starts from the <strong>version root</strong>, not from the domain: a documentation
-does not know it may be served under a sub-path.</p>
-<p>That rewrite happens on the tree built from the Markdown — hence <strong>before</strong> the
-components are rendered. A component that produces a URL must therefore resolve
-it itself, following the same rules. That is why every rendered page is
-announced to the components, just as the class table is announced to them.</p>
-<h2 id="nothing-fails-silently">Nothing fails silently</h2>
-<p>It is the rule that runs through everything else. An unknown value, a missing
-parent, a file not found: each one stops the build with a message and a hint.</p>
-<p>The alternative — rendering an empty element, ignoring a prop, falling back on
-a default value — produces pages that look right and are not. Those faults are
-only discovered in production, long afterwards.</p></article>
+        <article class="dp-article"><h1 id="search">Search</h1><form class="dp-search-page" role="search" data-search-page data-index="/docpensieve/versions/v0.2/assets/search-index.json"><label for="dp-search-query">Search the documentation</label><input id="dp-search-query" type="search" name="q" autocomplete="off" /></form><p class="dp-search-status" data-search-status aria-live="polite">25 pages.</p><ol class="dp-search-results" data-search-results><li data-url="/docpensieve/versions/v0.2/"><a href="/docpensieve/versions/v0.2/">DocPensieve</a><p>Static documentation site generator — Markdown and MDX in, runtime-free HTML out, one version per branch.</p></li><li data-url="/docpensieve/versions/v0.2/guide/"><a href="/docpensieve/versions/v0.2/guide/">Guide</a><p>From installation to deployment, in order.</p></li><li data-url="/docpensieve/versions/v0.2/guide/installation/"><a href="/docpensieve/versions/v0.2/guide/installation/">Installation</a><p>What you need, and how to set up a documentation project.</p></li><li data-url="/docpensieve/versions/v0.2/guide/first-site/"><a href="/docpensieve/versions/v0.2/guide/first-site/">First site</a><p>Build, serve, and understand what was produced.</p></li><li data-url="/docpensieve/versions/v0.2/guide/writing-pages/"><a href="/docpensieve/versions/v0.2/guide/writing-pages/">Writing pages</a><p>Frontmatter, URLs, menu order, links and images.</p></li><li data-url="/docpensieve/versions/v0.2/guide/versions/"><a href="/docpensieve/versions/v0.2/guide/versions/">Versions</a><p>Keep the current version and the one being prepared side by side.</p></li><li data-url="/docpensieve/versions/v0.2/guide/themes/"><a href="/docpensieve/versions/v0.2/guide/themes/">Themes</a><p>Style the site, and change the classes without touching the HTML.</p></li><li data-url="/docpensieve/versions/v0.2/guide/deployment/"><a href="/docpensieve/versions/v0.2/guide/deployment/">Deployment</a><p>Publish the site, and keep past versions online.</p></li><li data-url="/docpensieve/versions/v0.2/components/"><a href="/docpensieve/versions/v0.2/components/">Components</a><p>The components available in every page, without an import.</p></li><li data-url="/docpensieve/versions/v0.2/components/card/"><a href="/docpensieve/versions/v0.2/components/card/">Card</a><p>Structured card, with header, body, footer and image.</p></li><li data-url="/docpensieve/versions/v0.2/components/columns/"><a href="/docpensieve/versions/v0.2/components/columns/">Columns</a><p>Column grid, equal or in twelfths.</p></li><li data-url="/docpensieve/versions/v0.2/components/time-timer/"><a href="/docpensieve/versions/v0.2/components/time-timer/">TimeTimer</a><p>Show content during a period, with fallbacks before and after.</p></li><li data-url="/docpensieve/versions/v0.2/components/tooltip/"><a href="/docpensieve/versions/v0.2/components/tooltip/">Tooltip</a><p>Tooltip on hover and from the keyboard, without JavaScript.</p></li><li data-url="/docpensieve/versions/v0.2/components/tree/"><a href="/docpensieve/versions/v0.2/components/tree/">Tree</a><p>Collapsible tree, built on native elements.</p></li><li data-url="/docpensieve/versions/v0.2/components/scroll-to-top/"><a href="/docpensieve/versions/v0.2/components/scroll-to-top/">ScrollToTop</a><p>Back to the top of the page, set by the shell or by hand.</p></li><li data-url="/docpensieve/versions/v0.2/components/skill/"><a href="/docpensieve/versions/v0.2/components/skill/">Skill</a><p>Level gauge, filled in CSS.</p></li><li data-url="/docpensieve/versions/v0.2/components/logo-icon/"><a href="/docpensieve/versions/v0.2/components/logo-icon/">LogoIcon</a><p>SVG icon inlined in the page at build time.</p></li><li data-url="/docpensieve/versions/v0.2/components/for-theme/"><a href="/docpensieve/versions/v0.2/components/for-theme/">ForTheme</a><p>Content kept for one theme only.</p></li><li data-url="/docpensieve/versions/v0.2/reference/"><a href="/docpensieve/versions/v0.2/reference/">Reference</a><p>Commands, configuration and frontmatter, field by field.</p></li><li data-url="/docpensieve/versions/v0.2/reference/cli/"><a href="/docpensieve/versions/v0.2/reference/cli/">Commands</a><p>init, build, check, dev and serve, with their arguments and options.</p></li><li data-url="/docpensieve/versions/v0.2/reference/configuration/"><a href="/docpensieve/versions/v0.2/reference/configuration/">Configuration</a><p>Every field of docpensieve.config.mjs, its default value and its effect.</p></li><li data-url="/docpensieve/versions/v0.2/reference/frontmatter/"><a href="/docpensieve/versions/v0.2/reference/frontmatter/">Frontmatter</a><p>The fields recognised at the top of a page, and what they produce.</p></li><li data-url="/docpensieve/versions/v0.2/reference/theme/"><a href="/docpensieve/versions/v0.2/reference/theme/">Theme</a><p>Slots, tokens and styling options, one by one.</p></li><li data-url="/docpensieve/versions/v0.2/architecture/"><a href="/docpensieve/versions/v0.2/architecture/">Architecture</a><p>How a page becomes HTML, and why it works that way.</p></li><li data-url="/docpensieve/versions/v0.2/whats-new/"><a href="/docpensieve/versions/v0.2/whats-new/">What's new in 0.2</a><p>What the 0.2 brings, what it is still to bring, and what it changes for a 0.1 project.</p></li></ol></article>
       </main>
 
-      <nav class="dp-toc text-sm" aria-label="On this page">
-        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">On this page</p>
-        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
-          <li class="dp-toc-item">
-            <a href="#the-journey-of-a-page">The journey of a page</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#react-does-not-leave-the-build">React does not leave the build</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#templates-do-not-render-content">Templates do not render content</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#the-packages">The packages</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#theme-slots">Theme slots</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#urls">URLs</a>
-          </li>
-          <li class="dp-toc-item">
-            <a href="#nothing-fails-silently">Nothing fails silently</a>
-          </li>
-        </ul>
-      </nav>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
