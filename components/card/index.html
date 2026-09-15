@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,7 +14,6 @@
     <meta property="og:url" content="https://juniors017.github.io/docpensieve/versions/v0.1/components/card/" />
     <meta property="og:image" content="https://juniors017.github.io/docpensieve/versions/v0.1/assets/social-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" as="image" href="/docpensieve/versions/v0.1/components/icons/banner.svg" />
     <link rel="stylesheet" href="/docpensieve/versions/v0.1/assets/docpensieve.css" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://juniors017.github.io/docpensieve/#organization","name":"DocPensieve","url":"https://juniors017.github.io/docpensieve","logo":"https://juniors017.github.io/docpensieve/versions/v0.1/assets/logo.png"},{"@type":"Article","@id":"https://juniors017.github.io/docpensieve/versions/v0.1/components/card/#article","headline":"Card","mainEntityOfPage":{"@type":"WebPage","@id":"https://juniors017.github.io/docpensieve/versions/v0.1/components/card/"},"publisher":{"@id":"https://juniors017.github.io/docpensieve/#organization"},"description":"Structured card, with header, body, footer and image."},{"@type":"BreadcrumbList","@id":"https://juniors017.github.io/docpensieve/versions/v0.1/components/card/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://juniors017.github.io/docpensieve/versions/v0.1/"},{"@type":"ListItem","position":2,"name":"Components","item":"https://juniors017.github.io/docpensieve/versions/v0.1/components/"},{"@type":"ListItem","position":3,"name":"Card","item":"https://juniors017.github.io/docpensieve/versions/v0.1/components/card/"}]}]}</script>
   </head>
@@ -30,6 +29,9 @@
           <li><a href="/docpensieve/versions/v0.1/" aria-current="true">0.1.5</a></li>
         </ul>
       </details>
+      <form class="dp-search" role="search" action="/docpensieve/versions/v0.1/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
     </header>
 
     <div class="dp-shell">
@@ -127,7 +129,7 @@ understands; the look proper comes further down.</p>
 <h2 id="with-an-image">With an image</h2>
 <p><code>CardImage</code> goes wherever you want in the card. At the top or at the bottom, it
 follows the corners; between two blocks, it stays square.</p>
-<div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card"><img class="dp-card-image" src="/docpensieve/versions/v0.1/components/icons/banner.svg" alt=""/><div class="dp-card-header">Image at the top</div><div class="dp-card-body">The top corners follow those of the card.</div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card"><div class="dp-card-header">Image at the bottom</div><div class="dp-card-body">The bottom corners follow those of the card.</div><img class="dp-card-image" src="/docpensieve/versions/v0.1/components/icons/banner.svg" alt=""/></div></div></div>
+<div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card"><img class="dp-card-image" src="/docpensieve/versions/v0.1/components/icons/banner.svg" alt="" loading="lazy" decoding="async"/><div class="dp-card-header">Image at the top</div><div class="dp-card-body">The top corners follow those of the card.</div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card"><div class="dp-card-header">Image at the bottom</div><div class="dp-card-body">The bottom corners follow those of the card.</div><img class="dp-card-image" src="/docpensieve/versions/v0.1/components/icons/banner.svg" alt="" loading="lazy" decoding="async"/></div></div></div>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Card</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">CardImage</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> src</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;./icons/banner.svg&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> alt</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">CardBody</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;…&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">CardBody</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
