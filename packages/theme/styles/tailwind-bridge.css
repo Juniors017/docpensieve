@@ -93,6 +93,10 @@ a {
 /* --- Version switcher ---------------------------------------------------- */
 
 .dp-versions > summary::after {
+  /* Its size only holds on a box: inline, only one border stroke was left. */
+  display: inline-block;
+  margin-inline-start: 0.35rem;
+  vertical-align: middle;
   content: '';
   width: 0.4rem;
   height: 0.4rem;
