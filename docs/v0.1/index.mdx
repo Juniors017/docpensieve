@@ -14,7 +14,7 @@ jsonld:
 
 <div className="dp-hero">
 
-<div className="inline-block w-56 mb-2">
+<div className="inline-block w-80 max-w-full mb-2">
 
 ![DocPensieve — Documentation & Magical Memory](./icons/logo.jpg)
 
@@ -36,7 +36,7 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
   <Column>
     <Card className="h-full" href="/guide/">
       <CardBody className="text-sm text-slate-600 dark:text-slate-400">
-        <LogoIcon src="./icons/compass.svg" size="1.75rem" className="text-indigo-600" />
+        <LogoIcon src="./icons/compass.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
         <strong className="block mt-3 mb-1 text-base font-semibold">Guide</strong>
 
         From installation to deployment, in order.
@@ -47,7 +47,7 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
   <Column>
     <Card className="h-full" href="/components/">
       <CardBody className="text-sm text-slate-600 dark:text-slate-400">
-        <LogoIcon src="./icons/blocks.svg" size="1.75rem" className="text-indigo-600" />
+        <LogoIcon src="./icons/blocks.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
         <strong className="block mt-3 mb-1 text-base font-semibold">Components</strong>
 
         Nine components usable without an import, none of them with JavaScript.
@@ -58,7 +58,7 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
   <Column>
     <Card className="h-full" href="/reference/">
       <CardBody className="text-sm text-slate-600 dark:text-slate-400">
-        <LogoIcon src="./icons/list.svg" size="1.75rem" className="text-indigo-600" />
+        <LogoIcon src="./icons/list.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
         <strong className="block mt-3 mb-1 text-base font-semibold">Reference</strong>
 
         Commands, configuration, frontmatter and theme.
@@ -69,7 +69,7 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
   <Column>
     <Card className="h-full" href="/architecture/">
       <CardBody className="text-sm text-slate-600 dark:text-slate-400">
-        <LogoIcon src="./icons/branch.svg" size="1.75rem" className="text-indigo-600" />
+        <LogoIcon src="./icons/branch.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
         <strong className="block mt-3 mb-1 text-base font-semibold">Architecture</strong>
 
         How a page becomes HTML, and why it works that way.
@@ -189,14 +189,14 @@ options and the defaults.
     name="HTML served as is"
     level={100}
     shape="circle"
-    color="#6366f1"
+    color="var(--dp-accent)"
     icon={<LogoIcon src="./icons/shield.svg" />}
   />
   <Skill
     name="One stylesheet per version"
     level={100}
     shape="circle"
-    color="#6366f1"
+    color="var(--dp-accent)"
     icon={<LogoIcon src="./icons/book.svg" />}
   />
 </div>
@@ -260,7 +260,7 @@ degrades.
   <Column span={5}>
     <Skill name="Line coverage" level={97} color="#10b981" icon={<LogoIcon src="./icons/shield.svg" />} />
     <Skill name="Branch coverage" level={87} color="#f59e0b" icon={<LogoIcon src="./icons/shield.svg" />} />
-    <Skill name="Typing of code and tests" level={100} color="#6366f1" icon={<LogoIcon src="./icons/star.svg" />} />
+    <Skill name="Typing of code and tests" level={100} color="var(--dp-accent)" icon={<LogoIcon src="./icons/star.svg" />} />
   </Column>
 </Columns>
 
