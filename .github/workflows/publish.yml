@@ -35,9 +35,24 @@ jobs:
 
       - run: npm run check
 
-      # The five packages leave together, at the same version: they reference
-      # each other as ^x.y.z, and publishing one without the others would break
-      # their internal dependencies. Each one must declare this repository and
-      # this workflow as its trusted publisher on npmjs.com.
+      # A pre-release version, 0.2.0-beta.1, goes out under the tag its
+      # identifier names — beta — so that `npm install docpensieve` keeps giving
+      # the stable one; a stable version goes out as latest. npm refuses to
+      # publish a pre-release without an explicit tag.
+      - name: Choose the npm tag
+        id: tag
+        run: |
+          version=$(node -p "require('./packages/cli/package.json').version")
+          case "$version" in
+            *-*) pre=${version#*-}; tag=${pre%%.*} ;;
+            *) tag=latest ;;
+          esac
+          echo "Publishing $version under the tag $tag"
+          echo "name=$tag" >> "$GITHUB_OUTPUT"
+
+      # The five packages leave together, at the same version: they pin each
+      # other exactly, and publishing one without the others would break their
+      # internal dependencies. Each one must declare this repository and this
+      # workflow as its trusted publisher on npmjs.com.
       - name: Publish the five packages
-        run: npm publish --workspaces --access public
+        run: npm publish --workspaces --access public --tag "${{ steps.tag.outputs.name }}"
