@@ -4,6 +4,9 @@
  * No JavaScript: a link to the `top` fragment, which the HTML specification
  * reserves for the top of the document when no element carries that
  * identifier. The button therefore works without adding anything to the page.
+ * The generated shell does declare a target, to bring the focus back and not
+ * only the view — placed above the sticky header, which being always in view
+ * would leave the browser nothing to scroll.
  *
  * It only shows once the page has scrolled, through `animation-timeline`.
  * Where the browser ignores it, it simply stays visible: a button always there

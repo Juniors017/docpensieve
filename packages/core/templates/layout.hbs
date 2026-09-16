@@ -50,8 +50,13 @@
   <body>
     <a class="{{{cls.skip}}}" href="#content">Skip to content</a>
 
-    {{!-- Target of the back-to-top link: bring the focus back, not only the view. --}}
-    <header class="{{{cls.header}}}" id="top" tabindex="-1">
+    {{!-- Target of the back-to-top link: it brings the focus back, not only the
+    view. It stays out of the header on purpose — the header is sticky, so it
+    is already in view at any scroll position, and a browser asked to bring it
+    into view scrolled nowhere. --}}
+    <div id="top" tabindex="-1"></div>
+
+    <header class="{{{cls.header}}}">
       {{!-- The logo's alt stays empty: the name that follows already says it. --}}
       <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{#if logoUrl}}<img class="{{{cls.brandLogo}}}" src="{{logoUrl}}" alt="" />{{/if}}{{projectName}}</a>
       {{#if showVersions}}

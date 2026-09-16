@@ -1137,7 +1137,7 @@ draft: true
 });
 
 describe('shell accessibility', () => {
-  it('makes the main area and the header focusable by in-page jumps', async () => {
+  it('makes the main area and the top of the page focusable by in-page jumps', async () => {
     // Without tabindex, the skip link and the back-to-top link moved the view
     // but left the focus where it was.
     const config = project({ 'index.md': page('Home') });
@@ -1146,7 +1146,21 @@ describe('shell accessibility', () => {
 
     const html = read(out, 'index.html');
     expect(html).toMatch(/<main[^>]*id="content"[^>]*tabindex="-1"/);
-    expect(html).toMatch(/<header[^>]*id="top"[^>]*tabindex="-1"/);
+    expect(html).toMatch(/<div id="top" tabindex="-1"><\/div>/);
+  });
+
+  it('keeps the back-to-top target off the sticky header', async () => {
+    // The header carried the identifier, and the button did nothing: pinned to
+    // the top of the viewport, a sticky header is already in view, so there
+    // was never anything to scroll. The target belongs above it, in the flow.
+    const config = project({ 'index.md': page('Home') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toContain('href="#top"');
+    expect(html).not.toMatch(/<header[^>]*id="top"/);
+    expect(html.indexOf('id="top"')).toBeLessThan(html.indexOf('<header'));
   });
 
   it('keeps the visible label in the name of the version switcher', async () => {
