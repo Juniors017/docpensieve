@@ -322,6 +322,15 @@ describe('registry and stylesheet', () => {
     expect(css).toContain('var(--dp-border)');
   });
 
+  it('ends the fill of a gauge once it is wholly in view', async () => {
+    // Ended further up the screen, a gauge low on a short page — which can
+    // never scroll higher — stayed short of its level: a full gauge read as
+    // anything but full. The bar and the circle share the same range.
+    const css = await componentsCss();
+    expect(css.match(/animation-range: entry 0% entry 100%;/g)).toHaveLength(2);
+    expect(css).not.toContain('cover 60%');
+  });
+
   it('puts its rules in the components layer', async () => {
     // Outside a layer, they beat the utilities and the className set at use
     // was silently ignored.

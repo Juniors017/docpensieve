@@ -489,13 +489,16 @@
   }
 
   /* The fill plays as it enters the viewport, where that is possible.
-     Elsewhere the bar is full from the start: the value is still read. */
+     Elsewhere the bar is full from the start: the value is still read.
+     It ends once the gauge is wholly in view, not further up the screen: a
+     gauge low on a short page can never scroll higher, and a full gauge
+     stopped short of the end reads as a wrong value. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .dp-skill-fill {
         animation: dp-skill-grow linear both;
         animation-timeline: view();
-        animation-range: entry 10% cover 60%;
+        animation-range: entry 0% entry 100%;
       }
     }
   }
@@ -608,7 +611,7 @@
       .dp-skill-dial-fill {
         animation: dp-skill-draw linear both;
         animation-timeline: view();
-        animation-range: entry 10% cover 60%;
+        animation-range: entry 0% entry 100%;
       }
     }
   }
