@@ -120,8 +120,8 @@ search page in each version, at `/search/`. The build writes the index of the
 version — the plain text of every page — and the search page already lists
 every page with its description.
 
-The field is a plain form that leads to that page: **content pages load no
-script**. The search page alone loads one, of a few kilobytes, which filters
+The field is a plain form that leads to that page: it needs no script. The
+search page loads one of its own, of a few kilobytes, which filters
 the list as you type, best matches first, with an excerpt of each. Without
 JavaScript, the page stays the full list of pages.
 
@@ -161,13 +161,14 @@ theme: {
 },
 ```
 
-| Field       | Effect                                                                        |
-| ----------- | ----------------------------------------------------------------------------- |
-| `framework` | `'tailwind'` or `'custom'`                                                    |
-| `darkMode`  | `'class'` follows the reader's system; `'dark'` or `'light'` keeps one scheme |
-| `tokens`    | Redefined `--dp-*` tokens                                                     |
-| `css`       | CSS appended to the produced stylesheet                                       |
-| `source`    | Stylesheet handed to the utility compiler                                     |
+| Field       | Effect                                                                                                                              |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `framework` | `'tailwind'` or `'custom'`                                                                                                          |
+| `darkMode`  | `'class'` follows the reader's system; `'dark'` or `'light'` keeps one scheme                                                       |
+| `toggle`    | On by default: a light / dark button in the header, remembered from page to page — a few lines of inline script. `false` removes it |
+| `tokens`    | Redefined `--dp-*` tokens                                                                                                           |
+| `css`       | CSS appended to the produced stylesheet                                                                                             |
+| `source`    | Stylesheet handed to the utility compiler                                                                                           |
 
 The available tokens are listed in [Themes](../guide/themes/).
 

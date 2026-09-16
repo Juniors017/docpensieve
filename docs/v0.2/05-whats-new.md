@@ -40,8 +40,8 @@ in the reference.
 ### Search
 
 A search field in the header, and a search page in each version. The index is
-built with the site; content pages still load no script — the search page
-alone does, and without it the page stays the list of every page. See
+built with the site, and the field is a plain form: only the search page loads
+a script of its own, and without it the page stays the list of every page. See
 [Search](./reference/configuration/) in the reference.
 
 ### A colour scheme of your choosing, and a logo per version
@@ -51,6 +51,12 @@ alone does, and without it the page stays the list of every page. See
 Until now the field was accepted and did nothing. A version can also carry its
 own `logo` and `favicon`, to tell a beta apart at a glance. See the
 [configuration reference](./reference/configuration/).
+
+### A light / dark switch
+
+A button in the header switches between light and dark, and remembers the
+choice from page to page. It is on by default — a few lines of inline script
+in every page; `theme.toggle: false` removes it, and pages then load no script.
 
 ### Lighter pages
 

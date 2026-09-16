@@ -87,6 +87,11 @@ The content of `css` is appended to the produced stylesheet.
 follows the reader's system; `'dark'` or `'light'` keeps one whatever the
 system — the build sets it as a class on `<html>`.
 
+The header also carries a button that switches between light and dark, and
+remembers the reader's choice from page to page — a few hundred bytes of inline
+script, the only one content pages carry. `theme.toggle: false` removes it.
+Without JavaScript, the button does not show.
+
 The dark palette is a set of tokens, the same under both themes. To change it,
 redefine them in the `theme/` folder, for both ways of being dark — the
 system's scheme, and the class that `darkMode: 'dark'` sets:

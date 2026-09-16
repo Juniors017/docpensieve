@@ -29,6 +29,7 @@ theme: {
 | ----------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
 | `framework` | `'tailwind'`             | `'tailwind'` or `'custom'`                                                                                |
 | `darkMode`  | `'class'`                | `'class'`: the reader's system, unless a class on `<html>` decides. `'dark'` or `'light'` sets that class |
+| `toggle`    | `true`                   | A light / dark button in the header, remembered from page to page                                         |
 | `tokens`    | —                        | Redefined `--dp-*` tokens, merged with the provider's                                                     |
 | `css`       | `''`                     | CSS appended to the produced stylesheet                                                                   |
 | `source`    | `@import "tailwindcss";` | Stylesheet handed to the utility compiler                                                                 |
@@ -99,6 +100,7 @@ the `dp-*` class below.
 | `scrollTop`     | `dp-scroll-top`           | Back-to-top button                              |
 | `scrollTopIcon` | `dp-scroll-top-icon`      | Arrow of that button                            |
 | `search`        | `dp-search`               | Search field of the header                      |
+| `schemeToggle`  | `dp-scheme-toggle`        | Light / dark button of the header               |
 
 A slot can carry **variants**, suffixed `--variant`: `column` gives
 `dp-column--span-8`, `skill` gives `dp-skill--circle`.

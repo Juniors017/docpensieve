@@ -59,6 +59,8 @@ export default defineConfig({
     framework: 'tailwind',
     // Always dark, on the ground of the logo: the palette is in theme/site.css.
     darkMode: 'dark',
+    // A light / dark button, dark by default: the one script of the pages.
+    toggle: true,
 
     // Styling specific to this site: the entrance hall and its two buttons.
     // Written here rather than as utilities in the page, for a practical

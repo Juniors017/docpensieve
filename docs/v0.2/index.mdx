@@ -81,11 +81,12 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
 
 ## New in this beta
 
-- **Search** — a field in every header; content pages still load no script.
+- **Search** — a field in every header, a plain form that needs no script.
 - **Sitemap, `robots.txt` and RSS** — for search engines and feed readers.
 - **A menu written by hand** — `sidebar.json`, in each version's folder.
 - **A fixed colour scheme, a logo per version** — `darkMode: 'dark'`,
   `versions[].logo`.
+- **A light / dark switch** — on by default, remembered from page to page.
 - **Lighter pages** — a minified stylesheet, sized and lazy-loaded images.
 - **An API reference**, and two complete example projects.
 
@@ -185,7 +186,7 @@ options and the defaults.
 
 <div className="flex flex-wrap justify-center gap-6 my-8">
   <Skill
-    name="JavaScript"
+    name="JavaScript runtime"
     level={0}
     shape="circle"
     color="#10b981"
@@ -215,7 +216,8 @@ options and the defaults.
 </div>
 
 Two dials at zero, and that is on purpose: React serves the **build**, not the
-display. What reaches the reader is markup and a stylesheet.
+display. What reaches the reader is markup and a stylesheet — and, on this
+site, the few lines of its light / dark switch.
 
 ## What sets the tool apart
 

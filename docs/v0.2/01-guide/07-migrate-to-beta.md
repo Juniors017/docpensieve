@@ -21,16 +21,18 @@ Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
 
 ## What changes on its own
 
-| What             | In 0.2                                                                         |
-| ---------------- | ------------------------------------------------------------------------------ |
-| Search           | A field in the header, and a page at `/search/` in each version                |
-| `sitemap.xml`    | Written at the root of the site as soon as `siteUrl` is set                    |
-| `robots.txt`     | Written with it, when the site is served at the root of its domain             |
-| The stylesheet   | Minified                                                                       |
-| Images           | Their width and height are written; all but the first of a page load lazily    |
-| `theme.darkMode` | Now read: `'dark'` and `'light'` keep one scheme, `'class'` follows the system |
+| What                | In 0.2                                                                              |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| Search              | A field in the header, and a page at `/search/` in each version                     |
+| `sitemap.xml`       | Written at the root of the site as soon as `siteUrl` is set                         |
+| `robots.txt`        | Written with it, when the site is served at the root of its domain                  |
+| The stylesheet      | Minified                                                                            |
+| Images              | Their width and height are written; all but the first of a page load lazily         |
+| Light / dark switch | A button in the header, remembered from page to page — a few lines of inline script |
+| `theme.darkMode`    | Now read: `'dark'` and `'light'` keep one scheme, `'class'` follows the system      |
 
-Content pages still load no script: the search page alone does.
+Every page now carries the few lines of the light / dark switch —
+`theme.toggle: false` removes them — and the search page loads its own script.
 
 ## What to check
 
@@ -38,6 +40,8 @@ Content pages still load no script: the search page alone does.
   search page's. Rename your page, or set `search: false`.
 - **`theme.darkMode`** was accepted and ignored in 0.1. A value other than
   `'class'` now takes effect — and an unknown one stops the build.
+- **The light / dark switch** is on by default. `theme.toggle: false` removes
+  it, and with it the only script content pages carry.
 - **Your own `robots.txt`**, if you published one next to the site, is now
   written by the build when the site sits at the root of its domain. Set
   `sitemap: false` to keep yours.
