@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tooltip · DocPensieve</title>
+    <meta name="description" content="Tooltip on hover and from the keyboard, without JavaScript." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://docpensieve.com/versions/beta/components/tooltip/" />
+    <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="Tooltip · DocPensieve" />
+    <meta property="og:description" content="Tooltip on hover and from the keyboard, without JavaScript." />
+    <meta property="og:url" content="https://docpensieve.com/versions/beta/components/tooltip/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/beta/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/beta/components/tooltip/#article","headline":"Tooltip","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/components/tooltip/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Tooltip on hover and from the keyboard, without JavaScript."},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/components/tooltip/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/"},{"@type":"ListItem","position":2,"name":"Components","item":"https://docpensieve.com/versions/beta/components/"},{"@type":"ListItem","position":3,"name":"Tooltip","item":"https://docpensieve.com/versions/beta/components/tooltip/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Skip to content</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
+      <details class="dp-versions">
+        <summary aria-label="Version 0.3.0-beta.1, switch version">0.3.0-beta.1</summary>
+        <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+          <li><a href="/versions/beta/" aria-current="true">0.3.0-beta.1</a></li>
+          <li><a href="/versions/latest/">0.2.0</a></li>
+          <li><a href="/versions/v0.1/">0.1.5</a></li>
+        </ul>
+      </details>
+      <form class="dp-search" role="search" action="/versions/beta/search/">
+        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+      </form>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Switch the colour scheme">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Documentation navigation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/">Guide</a>
+            <ul class="dp-nav">
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/installation/">Installation</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/first-site/">First site</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/writing-pages/">Writing pages</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/versions/">Versions</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/themes/">Themes</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/deployment/">Deployment</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/">Components</a>
+            <ul class="dp-nav">
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/card/">Card</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/columns/">Columns</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/time-timer/">TimeTimer</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/tooltip/" aria-current="page">Tooltip</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/tree/">Tree</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/scroll-to-top/">ScrollToTop</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/skill/">Skill</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/logo-icon/">LogoIcon</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/for-theme/">ForTheme</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/">Reference</a>
+            <ul class="dp-nav">
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/cli/">Commands</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/configuration/">Configuration</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/frontmatter/">Frontmatter</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/theme/">Theme</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/reference/api/">API</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/architecture/">Architecture</a>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/whats-new/">What&#x27;s new in 0.3</a>
+          </li>
+        </ul>
+      </nav>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <aside class="dp-notice" role="note">
+          This version is in preparation and may change.
+          The current version is <a href="/versions/latest/">0.2.0</a>.
+        </aside>
+        <article class="dp-article"><h1 id="tooltip">Tooltip</h1>
+<p>The bubble is a real element that CSS reveals. It therefore appears on hover
+<strong>and on keyboard focus</strong>, and it is linked to the term through
+<code>aria-describedby</code>: a screen reader announces it instead of ignoring it.</p>
+<h2 id="on-hover-from-the-keyboard">On hover, from the keyboard</h2>
+<p>Hover the term with the mouse, or reach it with the Tab key.</p>
+<p>The <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_49_">build</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_49_" role="tooltip">Turning the sources into HTML pages ready to serve.</span></span> produces a complete folder, and the <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_89_">version</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_89_" role="tooltip">All the pages of one version of the documentation.</span></span> is its root.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">The &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> text</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Turning the sources…&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;build&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt; produces a folder.</span></span></code></pre>
+<h2 id="the-four-sides">The four sides</h2>
+<p>Hover each one: <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4f_">top</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4f_" role="tooltip">Above</span></span>, <span class="dp-tooltip dp-tooltip--bottom"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_8f_">bottom</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_8f_" role="tooltip">Below</span></span>, <span class="dp-tooltip dp-tooltip--left"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_cf_">left</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_cf_" role="tooltip">On the left</span></span> and <span class="dp-tooltip dp-tooltip--right"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_gf_">right</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_gf_" role="tooltip">On the right</span></span>.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> text</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;On the right&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> placement</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;right&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  term</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>The side is chosen according to the available space: <code>top</code> by default,
+<code>bottom</code> when the term is at the top of the page, <code>left</code> or <code>right</code> in a narrow
+column.</p>
+<h2 id="on-a-technical-term">On a technical term</h2>
+<p>Useful to explain an identifier without weighing down the sentence.</p>
+<p>The <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4p_"><code>baseUrl</code></span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4p_" role="tooltip">Deployment prefix, derived from the sub-path of siteUrl when it is not written.</span></span> field prefixes every internal link, and <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_8p_"><code>current</code></span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_8p_" role="tooltip">Version served by default. At most one.</span></span> designates the one the root serves.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">The &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> text</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Deployment prefix.&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;&lt;</span><span style="color:#22863A;--shiki-dark:#85E89D">code</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;baseUrl&lt;/</span><span style="color:#22863A;--shiki-dark:#85E89D">code</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt; field prefixes the links.</span></span></code></pre>
+<h2 id="in-a-table">In a table</h2>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Role</th></tr></thead><tbody><tr><td><code>slug</code></td><td><span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2cv_">Identifier</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2cv_" role="tooltip">It shows up in /versions/&lt;slug&gt;/ and gives the branch its name.</span></span></td></tr><tr><td><code>current</code></td><td><span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2kv_">Version served by default</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2kv_" role="tooltip">The site root redirects to it.</span></span></td></tr><tr><td><code>prerelease</code></td><td><span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2sv_">Version in preparation</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2sv_" role="tooltip">Banner on every page, and noindex in the head.</span></span></td></tr></tbody></table></div>
+<h2 id="in-a-card">In a card</h2>
+<p>A card does not clip what sticks out: the bubble comes out of it.</p>
+<div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card"><div class="dp-card-body"><p>A <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_j5_">term</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_j5_" role="tooltip">The bubble comes out of the card, it is not cut.</span></span> in a card.</p></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card"><div class="dp-card-body"><p>And </p><span class="dp-tooltip dp-tooltip--bottom"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_l5_">another</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_l5_" role="tooltip">Opened downwards.</span></span> <p>below.</p></div></div></div></div>
+<h2 id="a-long-text">A long text</h2>
+<p>The bubble is capped at about sixteen rem wide, then wraps.</p>
+<p>See the <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_5b_">reason for version branches</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_5b_" role="tooltip">A published version stays in the state in which it was produced. Rebuilding it is never necessary, and nothing would guarantee it gives the same result years later.</span></span> for the details.</p>
+<h2 id="what-it-cannot-do">What it cannot do</h2>
+<p>The bubble is positioned absolutely: inside a container that <strong>clips its
+overflow</strong> — an <code>overflow: hidden</code> — it will be cut. That is the limit of a
+tooltip without JavaScript, and it is accepted: placing the bubble outside the
+flow would take a script on every page.</p>
+<p>The shipped components avoid that clipping wherever they can — a <code>Card</code> rounds
+the corners of its image one by one rather than clipping its content.</p>
+<p>The bubble does not close with the Escape key: listening for it would take a
+script, and components load none. It disappears when the pointer or the focus
+leaves the term.</p>
+<p>A <code>Tooltip</code> without text stops the build: a hover with no effect goes
+unnoticed for a long time. So does an unknown side.</p></article>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="On this page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">On this page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#on-hover-from-the-keyboard">On hover, from the keyboard</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#the-four-sides">The four sides</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#on-a-technical-term">On a technical term</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#in-a-table">In a table</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#in-a-card">In a card</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#a-long-text">A long text</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-it-cannot-do">What it cannot do</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.3.0-beta.1</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Back to top">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>
