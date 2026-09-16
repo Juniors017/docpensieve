@@ -32,8 +32,8 @@ export default defineConfig({
   // One entry per version. `folder` points to the Markdown/MDX sources; the
   // compiled output then goes to an orphan branch with the same slug.
   //
-  // Three tracks: the 0.3 is being written, the 0.2 is the current one, and
-  // the 0.1 is archived and only receives fixes.
+  // Two tracks: the 0.3 is the current one, the 0.2 is archived and only
+  // receives fixes. The 0.1 has left the site; its orphan branch keeps it.
   //
   // The slugs name the channel, not the number: a link to /versions/latest/
   // always leads to the documentation that counts, and /versions/beta/ to the
@@ -45,21 +45,11 @@ export default defineConfig({
   // The numbers follow those of the packages: in 0.x, a breaking change needs
   // no ceremony, which suits an API that is still moving.
   versions: [
-    {
-      slug: 'beta',
-      name: published,
-      folder: 'docs/v0.3',
-      prerelease: true,
-      // The beta is told apart at a glance: its bowl is on fire.
-      logo: 'branding/mark-beta.png',
-      favicon: 'branding/favicon-beta.png',
-    },
-    // Frozen at the 0.2 published on npm: main carries the 0.3 now.
-    { slug: 'latest', name: '0.2.0', folder: 'docs/v0.2', current: true },
+    { slug: 'latest', name: published, folder: 'docs/v0.3', current: true },
     // Archived: its content is frozen, so its address freezes with it — a
-    // numbered slug. A fix released from release/0.1 updates this label by
+    // numbered slug. A fix released from release/0.2 updates this label by
     // hand.
-    { slug: 'v0.1', name: '0.1.5', folder: 'docs/v0.1', archived: true },
+    { slug: 'v0.2', name: '0.2.0', folder: 'docs/v0.2', archived: true },
   ],
 
   outDir: 'dist',
@@ -96,10 +86,9 @@ export default defineConfig({
   // such file and show the names alone: the file is optional per version.
   authors: 'authors.json',
 
-  // The examples exist in the beta only, while readers land on latest: the
-  // link names its version, so that every version leads there. On the release
-  // of the 0.3, the examples move to latest along with it.
-  headerLinks: [{ label: 'Examples', href: '/examples/', version: 'beta' }],
+  // The examples live in the current version: the link names it, so that the
+  // archived version and the beta lead there too.
+  headerLinks: [{ label: 'Examples', href: '/examples/', version: 'latest' }],
 
   globalComponents: true,
 

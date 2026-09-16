@@ -6,15 +6,14 @@ tags: [release]
 
 # What's new in 0.3
 
-This version is **in preparation**. Its betas go out under the npm tag `beta`,
-while the version installed by default stays the 0.2, documented in the
-`latest` pages of this site:
+This version is **out**. It is what `npx docpensieve init my-site` installs,
+and what the `latest` pages of this site document:
 
 ```bash
-npx docpensieve@beta init my-site
+npm install docpensieve@latest
 ```
 
-## Already there
+## What it brings
 
 ### Authors at the head of a page
 
@@ -58,5 +57,5 @@ search field move behind a menu button, which opens without a script. See the
 ## For a 0.2 project
 
 Nothing to change: a 0.2 configuration builds as it is.
-[Migrate from latest to beta](./guide/migrate-to-beta/) lists what changes on
+[Migrate from 0.2 to 0.3](./guide/migrate-from-0-2/) lists what changes on
 its own, what to check, and what is worth turning on.

@@ -99,9 +99,8 @@ the project's own documentation.
 
 ```
 docpensieve/
-├── docs/v0.1/                archived version
-├── docs/v0.2/                current version
-├── docs/v0.3/                version in preparation
+├── docs/v0.2/                archived version
+├── docs/v0.3/                current version
 ├── packages/
 │   ├── shared/               constants, errors, slugs
 │   ├── core/                 config, loader, compiler, JSON-LD, generator

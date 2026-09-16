@@ -1,22 +1,21 @@
 ---
-title: Migrate from latest to beta
-description: Move a project from the latest version, the 0.2, to the 0.3 beta — what changes on its own, and what to check.
+title: Migrate from 0.2 to 0.3
+description: Move a project from the 0.2 to the 0.3 — what changes on its own, and what to turn on.
 tags: [guide, migration]
 ---
 
-# Migrate from latest to beta
+# Migrate from 0.2 to 0.3
 
-A project on the latest version — the 0.2 — builds with the 0.3 beta as it is:
-every new field is optional.
+A project on the 0.2 builds with the 0.3 as it is: every new field is optional.
 
 ## Update
 
 ```bash
-npm install docpensieve@beta
+npm install docpensieve@latest
 ```
 
-Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
-`npm install docpensieve@latest`.
+Through `npx` alone, `npx docpensieve` fetches the 0.3 by itself. Going back is
+`npm install docpensieve@0.2.0`.
 
 ## What changes on its own
 
