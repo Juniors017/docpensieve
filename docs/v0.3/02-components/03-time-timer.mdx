@@ -1,0 +1,120 @@
+---
+title: TimeTimer
+description: Show content during a period, with fallbacks before and after.
+---
+
+# TimeTimer
+
+`TimeTimer` chooses what to show depending on the date. On a static site,
+“right now” means the moment of the **build**, not of reading — a scheduled
+build is enough to keep it right.
+
+## A past date
+
+<TimeTimer date="01/01/2020">
+  During the day of 1 January 2020.
+  <FallbackBefore>Before that date.</FallbackBefore>
+  <FallbackAfter>That date has passed — the “after” fallback is what shows.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer date="01/01/2020">
+  During the day of 1 January 2020.
+  <FallbackBefore>Before that date.</FallbackBefore>
+  <FallbackAfter>That date has passed.</FallbackAfter>
+</TimeTimer>
+```
+
+A date alone covers the **whole day**.
+
+## A future date
+
+<TimeTimer date="01/01/2090">
+  During the day of 1 January 2090.
+  <FallbackBefore>That date is still to come — the “before” fallback is what shows.</FallbackBefore>
+  <FallbackAfter>After that date.</FallbackAfter>
+</TimeTimer>
+
+## An ongoing period
+
+<TimeTimer start="01/01/2020" duration="36500d">
+  This period is ongoing: the main content is what shows.
+  <FallbackBefore>Not started yet.</FallbackBefore>
+  <FallbackAfter>Already over.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/01/2020" duration="36500d">
+  …
+</TimeTimer>
+```
+
+`duration` is written `30d` (days), `2h` (hours) or `45m` (minutes). A
+misspelt duration **stops the build**: a typo that silently makes a block
+disappear is exactly what must be avoided.
+
+## With a time
+
+The full format is `DD/MM/YYYY HH:mm`. Without a year, the current year is
+used.
+
+<TimeTimer start="01/01/2020 08:30" duration="36500d">
+  A period that started at 8:30.
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/01/2020 08:30" duration="2h">
+  …
+</TimeTimer>
+```
+
+## Without a fallback
+
+Outside the period and without a fallback, the component shows **nothing**.
+The next line is empty, and that is on purpose:
+
+<TimeTimer date="01/01/2020">This content does not show.</TimeTimer>
+
+## Bounding a fallback
+
+`FallbackBefore` accepts `start`, `FallbackAfter` accepts `end`: the fallback
+then only shows within that window, and nothing outside it. That is what lets
+you announce an event a few days ahead, without the announcement lingering for
+months.
+
+```mdx
+<TimeTimer date="24/12/2090">
+  It is today.
+  <FallbackBefore start="17/12/2090">In less than a week.</FallbackBefore>
+</TimeTimer>
+```
+
+## A real use
+
+An announcement banner that removes itself:
+
+<Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+  <CardBody>
+    <TimeTimer start="01/01/2020" duration="36500d">
+      **Version 1.1 in preparation.** New features are written in this version.
+      <FallbackAfter>Version 1.1 is out.</FallbackAfter>
+    </TimeTimer>
+  </CardBody>
+</Card>
+
+## Local time or UTC
+
+By default, dates are read in the time zone of the machine that builds.
+`strict` reads them in UTC — useful when the build runs in continuous
+integration, whose time zone is not yours.
+
+```mdx
+<TimeTimer date="24/12/2090" strict>
+  …
+</TimeTimer>
+```
+
+## What it refuses
+
+A misspelt duration stops the build, and so does an invalid date. The message
+names the faulty value and recalls the expected format.

@@ -1,6 +1,6 @@
 {
   "name": "@docpensieve/shared",
-  "version": "0.2.0",
+  "version": "0.3.0-beta.1",
   "description": "Utilities, constants and errors shared by the DocPensieve packages",
   "type": "module",
   "license": "MIT",

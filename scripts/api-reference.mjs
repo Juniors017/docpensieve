@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 /** Where the page is written: the reference of the version being prepared. */
-export const API_PAGE = path.join(ROOT, 'docs', 'v0.2', '03-reference', '05-api.md');
+export const API_PAGE = path.join(ROOT, 'docs', 'v0.3', '03-reference', '05-api.md');
 
 /** The packages, in the order of their dependency graph. */
 const PACKAGES = [

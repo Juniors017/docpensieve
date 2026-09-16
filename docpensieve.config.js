@@ -32,8 +32,8 @@ export default defineConfig({
   // One entry per version. `folder` points to the Markdown/MDX sources; the
   // compiled output then goes to an orphan branch with the same slug.
   //
-  // Two tracks: the 0.2 is the current one, the 0.1 is archived and only
-  // receives fixes.
+  // Three tracks: the 0.3 is being written, the 0.2 is the current one, and
+  // the 0.1 is archived and only receives fixes.
   //
   // The slugs name the channel, not the number: a link to /versions/latest/
   // always leads to the documentation that counts, and /versions/beta/ to the
@@ -45,7 +45,17 @@ export default defineConfig({
   // The numbers follow those of the packages: in 0.x, a breaking change needs
   // no ceremony, which suits an API that is still moving.
   versions: [
-    { slug: 'latest', name: published, folder: 'docs/v0.2', current: true },
+    {
+      slug: 'beta',
+      name: published,
+      folder: 'docs/v0.3',
+      prerelease: true,
+      // The beta is told apart at a glance: its bowl is on fire.
+      logo: 'branding/mark-beta.png',
+      favicon: 'branding/favicon-beta.png',
+    },
+    // Frozen at the 0.2 published on npm: main carries the 0.3 now.
+    { slug: 'latest', name: '0.2.0', folder: 'docs/v0.2', current: true },
     // Archived: its content is frozen, so its address freezes with it — a
     // numbered slug. A fix released from release/0.1 updates this label by
     // hand.
