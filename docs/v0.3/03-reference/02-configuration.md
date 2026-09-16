@@ -187,8 +187,10 @@ Names a JSON file **read in each version folder**, describing the authors a
 page names in its frontmatter: a name, a biography, an avatar, a link.
 
 Empty by default, and then a page still shows the names it gives, without the
-rest: the file enriches, it does not command. Named but missing, it stops the
-build — leaving every biography out without a word would be worse.
+rest: the file enriches, it does not command. A version without the file shows
+the names alone, so describing the authors of a new version does not force a
+copy into the older ones. A file present but unreadable, or wrongly written,
+stops the build.
 
 The file is not published. The avatars are, their path starting at the version
 folder so that they travel with it.
@@ -203,8 +205,9 @@ sidebar: 'sidebar.json',
 ```
 
 It is read from **each version's folder** — `docs/v1.0/sidebar.json` — since
-each version has its own pages. It holds an array of entries, kept in the order
-written:
+each version has its own pages. A version without the file keeps the menu of
+its folders, so a menu written for a new version needs no copy in the older
+ones. The file holds an array of entries, kept in the order written:
 
 ```json
 [

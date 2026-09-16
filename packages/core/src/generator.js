@@ -53,6 +53,19 @@ const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.u
 const EXTERNAL_PREVIEW = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
 
 /**
+ * Tags of a page, as the reader sees them: in the order written, blanks and
+ * repeats dropped. A single tag may be written without brackets, as a single
+ * author may — accepting only a list lost the value without a word.
+ *
+ * @param {unknown} value `tags` from the frontmatter.
+ * @returns {string[]}
+ */
+function pageTags(value) {
+  const list = Array.isArray(value) ? value : value === undefined || value === null ? [] : [value];
+  return [...new Set(list.map((tag) => String(tag).trim()).filter(Boolean))];
+}
+
+/**
  * Where each project image is written in a version, before its extension.
  * @type {Record<'logo' | 'favicon' | 'socialImage', string>}
  */
@@ -227,10 +240,11 @@ export class SiteGenerator {
 
     // 'auto' follows the file tree; otherwise each version describes its menu
     // in a file of its own, since each has its own pages.
-    const sidebar =
+    const described =
       this.config.sidebar && this.config.sidebar !== 'auto'
         ? await this.#describedSidebar(sourceDir, docs, pageUrl, version.folder)
-        : buildSidebar(docs, pageUrl, { brand: this.config.projectName });
+        : null;
+    const sidebar = described ?? buildSidebar(docs, pageUrl, { brand: this.config.projectName });
     const breadcrumbTitles = collectSectionTitles(docs);
     const layout = await this.#loadLayout();
     const classes = this.#classes();
@@ -407,6 +421,7 @@ export class SiteGenerator {
         // still lets its links be followed.
         noindex: version.prerelease === true,
         byline,
+        tags: wide ? [] : pageTags(doc.frontmatter.tags),
         sidebar: wide ? [] : sidebar,
         toc: wide ? [] : toc,
         preloads,
@@ -494,7 +509,7 @@ export class SiteGenerator {
    * @param {string} versionBase URL of the version.
    * @returns {Promise<Map<string, import('./authors.js').Author>>} Authors by
    *   key, their avatars resolved to a URL and measured.
-   * @throws {ConfigError} Missing file, invalid JSON, wrong author, missing avatar.
+   * @throws {ConfigError} Unreadable file, invalid JSON, wrong author, missing avatar.
    */
   async #readAuthors(sourceDir, folder, versionBase) {
     const name = this.config.authors;
@@ -506,9 +521,12 @@ export class SiteGenerator {
     try {
       text = await readFile(path.join(sourceDir, ...name.split('/')), 'utf8');
     } catch (cause) {
-      throw new ConfigError(`No author description at ${source}.`, {
+      // Absent, the file has nothing to add: this version shows the names its
+      // pages give (ADR-017). Present but unreadable, it is a fault.
+      if (/** @type {{ code?: string }} */ (cause).code === 'ENOENT') return new Map();
+      throw new ConfigError(`Could not read the author description at ${source}.`, {
         cause,
-        hint: `Each version describes its own authors: create ${source}, or drop the authors field.`,
+        hint: 'Check that it is a file, and that nothing holds it open.',
       });
     }
 
@@ -569,9 +587,10 @@ export class SiteGenerator {
    * @param {import('./loader.js').Doc[]} docs Documents of the version.
    * @param {(doc: import('./loader.js').Doc) => string} pageUrl
    * @param {string} folder The version's folder, as the configuration names it.
-   * @returns {Promise<import('./sidebar.js').SidebarNode[]>}
-   * @throws {ConfigError} When the file is missing, is not JSON, or describes
-   *   the menu wrongly.
+   * @returns {Promise<import('./sidebar.js').SidebarNode[] | null>} `null`
+   *   when this version has no description, which then keeps the automatic menu.
+   * @throws {ConfigError} When the file cannot be read, is not JSON, or
+   *   describes the menu wrongly.
    */
   async #describedSidebar(sourceDir, docs, pageUrl, folder) {
     const name = this.config.sidebar;
@@ -581,9 +600,12 @@ export class SiteGenerator {
     try {
       text = await readFile(path.join(sourceDir, ...name.split('/')), 'utf8');
     } catch (cause) {
-      throw new ConfigError(`No sidebar description at ${source}.`, {
+      // Absent, the version keeps the menu of its folders (ADR-017): a project
+      // can describe the menu of its new version without touching the others.
+      if (/** @type {{ code?: string }} */ (cause).code === 'ENOENT') return null;
+      throw new ConfigError(`Could not read the sidebar description at ${source}.`, {
         cause,
-        hint: `Each version describes its own menu, since each has its own pages: create ${source}, or set sidebar: 'auto'.`,
+        hint: 'Check that it is a file, and that nothing holds it open.',
       });
     }
 

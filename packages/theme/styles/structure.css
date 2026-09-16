@@ -383,3 +383,21 @@ body {
   gap: 0.25rem 1rem;
   margin: 0;
 }
+
+/*
+ * The tags of a page, below the article. Layout only — their look is in
+ * prose.css.
+ */
+.dp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dp-tag {
+  display: inline-flex;
+  align-items: center;
+}

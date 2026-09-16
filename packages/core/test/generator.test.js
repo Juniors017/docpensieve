@@ -778,11 +778,26 @@ describe('a sidebar described by a file', () => {
     expect(existsSync(path.join(out, 'sidebar.json'))).toBe(false);
   });
 
-  it('names the version whose description is missing', async () => {
+  it('keeps the menu of the folders in a version without a description', async () => {
+    // The field names a file where a version has one: describing the menu of
+    // a new version must not force a file into every older one (ADR-017).
+    const config = project(
+      { 'index.md': page('Home'), 'a.md': page('A') },
+      { sidebar: 'sidebar.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(navOf(read(out, 'a', 'index.html'))).toContain('/versions/v1.0/a/');
+  });
+
+  it('still reports a description it cannot read', async () => {
+    // Only an absent file is optional: a folder in its place is a mistake.
     const config = project({ 'index.md': page('Home') }, { sidebar: 'sidebar.json' });
+    mkdirSync(path.join(config.rootDir, 'docs', 'v1.0', 'sidebar.json'));
     const out = path.join(config.rootDir, 'out');
     await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(
-      'No sidebar description at docs/v1.0/sidebar.json',
+      'Could not read the sidebar description at docs/v1.0/sidebar.json',
     );
   });
 
@@ -1258,8 +1273,23 @@ describe('the byline of a page', () => {
     expect(read(out, 'index.html')).not.toContain('dp-byline');
   });
 
-  it('reports an author description it cannot find', async () => {
+  it('shows the names alone in a version without a description', async () => {
+    // Describing the authors of a new version must not force a file into
+    // every older one (ADR-017).
+    const config = project(
+      { 'index.md': authored('Install', 'authors: [Ada Lovelace]') },
+      { authors: 'authors.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('Ada Lovelace');
+  });
+
+  it('still reports a description it cannot read', async () => {
+    // Only an absent file is optional: a folder in its place is a mistake.
     const config = project({ 'index.md': page('Install') }, { authors: 'authors.json' });
+    mkdirSync(path.join(config.rootDir, 'docs', 'v1.0', 'authors.json'));
     const out = path.join(config.rootDir, 'out');
 
     let failure;
@@ -1268,8 +1298,9 @@ describe('the byline of a page', () => {
     } catch (error) {
       failure = /** @type {import('@docpensieve/shared').DocPensieveError} */ (error);
     }
+    expect(failure?.message).toContain('Could not read the author description');
     expect(failure?.message).toContain('docs/v1.0/authors.json');
-    expect(failure?.hint).toContain('create docs/v1.0/authors.json');
+    expect(failure?.hint).toContain('file');
   });
 
   it('reports an avatar it cannot find, rather than a broken image', async () => {
@@ -1290,6 +1321,47 @@ describe('the byline of a page', () => {
     }
     expect(failure?.message).toContain('authors/gone.png');
     expect(failure?.hint).toContain('version folder');
+  });
+});
+
+describe('the tags of a page', () => {
+  /** @param {string} title @param {string} frontmatter */
+  const tagged = (title, frontmatter) => `---\ntitle: ${title}\n${frontmatter}\n---\n\nContent.\n`;
+
+  it('shows them at the bottom, after the article', async () => {
+    const config = project({ 'index.md': tagged('Install', 'tags: [guide, installation]') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toContain('<li class="dp-tag">guide</li>');
+    expect(html).toContain('<li class="dp-tag">installation</li>');
+    // Read after the text, they say what it was about.
+    expect(html.indexOf('dp-tags')).toBeGreaterThan(html.indexOf('</article>'));
+  });
+
+  it('reads a single tag, and drops blanks and repeats', async () => {
+    const config = project({ 'index.md': tagged('Install', "tags: [guide, guide, '', ' ']") });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    expect(read(out, 'index.html').match(/class="dp-tag"/g)).toHaveLength(1);
+
+    const single = project({ 'index.md': tagged('Install', 'tags: guide') });
+    const singleOut = path.join(single.rootDir, 'out');
+    await generatorFor(single).buildVersion('v1.0', singleOut);
+    expect(read(singleOut, 'index.html')).toContain('<li class="dp-tag">guide</li>');
+  });
+
+  it('adds nothing to a page without tags, or to a home page', async () => {
+    const plain = project({ 'index.md': page('Install') });
+    const plainOut = path.join(plain.rootDir, 'out');
+    await generatorFor(plain).buildVersion('v1.0', plainOut);
+    expect(read(plainOut, 'index.html')).not.toContain('dp-tags');
+
+    const home = project({ 'index.md': tagged('Home', 'layout: home\ntags: [home]') });
+    const homeOut = path.join(home.rootDir, 'out');
+    await generatorFor(home).buildVersion('v1.0', homeOut);
+    expect(read(homeOut, 'index.html')).not.toContain('dp-tags');
   });
 });
 

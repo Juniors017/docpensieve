@@ -26,8 +26,9 @@ tags: [guide, installation]
 ```
 
 `title` becomes the `<title>` tag, the menu entry and the breadcrumb.
-`description` feeds the metadata and the JSON-LD. Everything is optional:
-without `title`, the project name stands in.
+`description` feeds the metadata and the JSON-LD. `tags` show at the bottom of
+the page, below the text they describe — one tag may be written without
+brackets. Everything is optional: without `title`, the project name stands in.
 
 The fields are detailed in the [reference](../reference/frontmatter/).
 
@@ -62,7 +63,8 @@ Then name that file in the configuration: `authors: 'authors.json'`. It is
 read **in each version folder**, as the menu is — a biography corrected in
 the version being written leaves the published one alone. The file itself is
 not published; the avatars are, and are measured at the build so that the
-text does not jump when they arrive.
+text does not jump when they arrive. A version without the file shows the
+names alone: an older version needs no copy of it.
 
 A key nobody describes is shown as written, which is what lets a project name
 its authors before describing them. The description also feeds the page data:
@@ -126,8 +128,10 @@ sidebar: 'sidebar.json',
 
 A page is named by its path, as in its URL. `{ "auto": "components" }` keeps
 the automatic menu of a folder — the DocPensieve section stays whole that way.
-A page the file leaves out is still published, only off the menu. Every kind
-of entry is in the [`sidebar` reference](../reference/configuration/).
+A page the file leaves out is still published, only off the menu, and a
+version without the file keeps the menu of its folders — an older version
+needs no copy of it. Every kind of entry is in the
+[`sidebar` reference](../reference/configuration/).
 
 ## Internal links
 

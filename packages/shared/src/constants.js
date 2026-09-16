@@ -103,4 +103,6 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   bylineName: 'dp-byline-name',
   bylineBio: 'dp-byline-bio',
   bylineDates: 'dp-byline-dates',
+  tags: 'dp-tags',
+  tag: 'dp-tag',
 });

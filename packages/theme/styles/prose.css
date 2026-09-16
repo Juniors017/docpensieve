@@ -188,3 +188,18 @@
 .dp-byline-avatar {
   border: 1px solid var(--dp-border);
 }
+
+/* The tags at the bottom of a page: quiet labels, set apart from the text. */
+.dp-tags {
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid var(--dp-border);
+}
+
+.dp-tag {
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--dp-border);
+  border-radius: 999px;
+  background: var(--dp-accent-soft);
+  color: var(--dp-text-soft);
+  font-size: 0.8rem;
+}

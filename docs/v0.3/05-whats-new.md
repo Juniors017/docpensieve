@@ -33,6 +33,20 @@ into a grid of clickable cards — title, description, image, number of pages,
 update date — instead of an index list written by hand, which goes stale at
 the first page renamed. See [Cards](./components/cards/).
 
+### Tags at the bottom of a page
+
+The `tags` of a page, read until now only by its structured data, show at the
+bottom of the page, below the text they describe. See
+[The frontmatter](./guide/writing-pages/) in the guide.
+
+### Description files, optional per version
+
+A `sidebar` or `authors` file named in the configuration no longer has to
+exist in every version folder. A version without it keeps the menu of its
+folders, or shows the names its pages give: describing the menu or the authors
+of a new version no longer forces a copy into the older ones. A file present
+but unreadable, or wrongly written, still stops the build.
+
 ## For a 0.2 project
 
 Nothing to change: a 0.2 configuration builds as it is.

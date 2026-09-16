@@ -29,6 +29,13 @@ read by the sitemap and the page data without ever being shown. They are now
 shown, so a page that carries them gains a block it did not have. A page that
 carries none of them looks exactly as before.
 
+`tags` follows the same path: read until now only by the page data, it now
+shows at the bottom of every page that carries it.
+
+One constraint is gone, too. A `sidebar` or `authors` file named in the
+configuration no longer has to exist in every version folder: a version
+without it keeps the menu of its folders, or shows the names alone.
+
 ## What to turn on
 
 | Field                        | Gives                                                 |

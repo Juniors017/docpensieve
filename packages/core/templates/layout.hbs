@@ -128,6 +128,14 @@
         </div>
         {{/if}}
         <article class="{{{cls.article}}}">{{{content}}}</article>
+        {{!-- The tags of the page, below what they describe: read after the
+        text, they say what it was about. Labels, not links — there is no page
+        per tag. None on a home page. --}}
+        {{#if tags.length}}
+        <ul class="{{{cls.tags}}}" aria-label="Tags">
+          {{#each tags}}<li class="{{{@root.cls.tag}}}">{{this}}</li>{{/each}}
+        </ul>
+        {{/if}}
       </main>
 
       {{#if toc.length}}
