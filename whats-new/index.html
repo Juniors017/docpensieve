@@ -102,6 +102,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/for-theme/">ForTheme</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/cards/">Cards</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -151,6 +154,12 @@ named by <code>authors: &#x27;authors.json&#x27;</code>, adds a biography, an av
 and feeds the page data with them. See
 <a href="/versions/beta/guide/writing-pages/">Who wrote the page</a> in the guide, and the
 <a href="/versions/beta/reference/configuration/"><code>authors</code> field</a> in the reference.</p>
+<h3 id="series-and-cards">Series and cards</h3>
+<p>A folder is a series: its <code>index</code> page introduces it, and the pages beside
+that index are its instalments. The <code>Cards</code> component turns that structure
+into a grid of clickable cards — title, description, image, number of pages,
+update date — instead of an index list written by hand, which goes stale at
+the first page renamed. See <a href="/versions/beta/components/cards/">Cards</a>.</p>
 <h2 id="for-a-0-2-project">For a 0.2 project</h2>
 <p>Nothing to change: a 0.2 configuration builds as it is.
 <a href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a> lists what changes on
@@ -165,6 +174,9 @@ its own, what to check, and what is worth turning on.</p></article>
             <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
               <li class="dp-toc-item">
                 <a href="#authors-at-the-head-of-a-page">Authors at the head of a page</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#series-and-cards">Series and cards</a>
               </li>
             </ul>
           </li>

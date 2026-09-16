@@ -102,6 +102,9 @@
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/for-theme/">ForTheme</a>
               </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/cards/">Cards</a>
+              </li>
             </ul>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
@@ -487,6 +490,11 @@ version root. The compiler plugins cannot handle it: they work on the
 Markdown tree, before React renders anything. So the component does it
 itself (ADR-006).</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, src?: string, alt?: string, title?: string, srcSet?: string, sizes?: string, loading?: &#x27;lazy&#x27; | &#x27;eager&#x27;, }</code></td><td><code>alt</code> defaults to the empty string: without that attribute, a screen reader would announce the file URL.</td></tr></tbody></table></div>
+<h3 id="cards"><code>Cards</code></h3>
+<p><code>Cards(props)</code></p>
+<p>Grid of cards for the children of a folder.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, of?: &#x27;all&#x27; | &#x27;series&#x27; | &#x27;pages&#x27;, from?: string, }</code></td><td><code>of</code> narrows the grid to the sub-folders (<code>&#x27;series&#x27;</code>) or to the pages beside the index (<code>&#x27;pages&#x27;</code>); <code>from</code> reads another folder, named by its slug, instead of the one holding the page.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>Error</code> — When the page list is missing, or <code>from</code> names nothing.</p>
 <h3 id="column"><code>Column</code></h3>
 <p><code>Column(props)</code></p>
 <p>Column of a row.</p>
@@ -869,6 +877,9 @@ one, which makes it usable elsewhere and testable on its own.</p>
               </li>
               <li class="dp-toc-item">
                 <a href="#cardimage">CardImage</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cards">Cards</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#column">Column</a>
