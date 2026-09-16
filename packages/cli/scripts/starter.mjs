@@ -12,11 +12,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /**
- * Entries that only the home page of DocPensieve's own site uses. `init`
- * never installs them (NOT_INSTALLED, in src/commands/init.js): shipped, they
- * would weigh on every install for nothing — the logo alone is 200 kB.
+ * Entries that only DocPensieve's own site uses: its home page and icons, the
+ * example site and the author descriptions. `init` never installs them
+ * (NOT_INSTALLED, in src/commands/init.js): shipped, they would weigh on every
+ * install for nothing — the logo alone is 200 kB, the example covers more.
  */
-const HOME_ONLY = new Set(['index.md', 'index.mdx', 'icons']);
+const HOME_ONLY = new Set(['index.md', 'index.mdx', 'icons', '06-examples', 'authors.json']);
 
 const target = fileURLToPath(new URL('../starter/', import.meta.url));
 rmSync(target, { recursive: true, force: true });

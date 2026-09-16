@@ -1,0 +1,59 @@
+---
+title: Series
+description: A folder is a series — its index introduces it, its cards build themselves.
+authors: [valentin]
+date: 2026-09-05
+modified: 2026-09-14
+tags: [course, intermediate, structure]
+---
+
+# Series
+
+<Skill name="Module progress" level={50}>
+  Lesson 1 of 2.
+</Skill>
+
+## One folder, one series
+
+This course is itself built this way:
+
+<Tree>
+  <TreeItem label="examples" open>
+    <TreeItem label="index.mdx — the grid of modules" />
+    <TreeItem label="first-steps" open>
+      <TreeItem label="index.mdx — its cover, and the grid of its lessons" />
+      <TreeItem label="01-install.mdx" />
+      <TreeItem label="02-first-page.mdx" />
+    </TreeItem>
+    <TreeItem label="writing — this module" />
+  </TreeItem>
+</Tree>
+
+The index page of a folder writes a single line, and the grid follows every
+page added, renamed or removed:
+
+```mdx
+<Cards />
+```
+
+## What a card shows
+
+Everything comes from the pages. The cover of **First steps** is the `preview`
+of its index; the number of lessons is counted; the update date is its
+`modified`. Here are the three modules of this course, as the examples page
+shows them:
+
+<Cards from="examples" of="series" />
+
+## Check yourself
+
+<details>
+<summary>What happens when a lesson is renamed?</summary>
+
+Its card follows on the next build. No list to correct anywhere.
+
+</details>
+
+<Card href="/components/cards/">
+  <CardBody>This lesson uses **Cards**, **Tree** and **Skill**.</CardBody>
+</Card>

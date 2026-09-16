@@ -1,0 +1,57 @@
+---
+title: Install
+description: One command sets up a project, with its configuration and a first page.
+authors: [pensy]
+date: 2026-09-01
+tags: [course, beginner, installation]
+---
+
+# Install
+
+<Skill name="Module progress" level={33}>
+  Lesson 1 of 3.
+</Skill>
+
+## Before you start
+
+You need <Tooltip text="The JavaScript runtime DocPensieve runs on — version 22 or later.">Node.js</Tooltip> and a terminal. Nothing else: the theme ships with the tool.
+
+## Your turn
+
+```bash
+npx docpensieve init my-course
+```
+
+The command asks a few questions, then writes the project.
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>What you get</CardHeader>
+      <CardBody>
+        A configuration file, a documentation folder and a first page — ready to build.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>What you do not need</CardHeader>
+      <CardBody>
+        No framework to add, no build tool to configure, no server to run in production.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Check yourself
+
+<details>
+<summary>Which file holds the settings of the project?</summary>
+
+`docpensieve.config.mjs`, at the root of the project.
+
+</details>
+
+<Card href="/components/skill/">
+  <CardBody>This lesson uses **Skill**, **Tooltip**, **Columns** and **Card**.</CardBody>
+</Card>

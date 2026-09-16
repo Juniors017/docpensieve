@@ -1,0 +1,60 @@
+---
+title: Versions
+description: The current version and the one being prepared, side by side.
+authors: [valentin]
+date: 2026-09-10
+modified: 2026-09-16
+tags: [course, advanced, versions]
+---
+
+# Versions
+
+<Skill name="Module progress" level={50}>
+  Lesson 1 of 2.
+</Skill>
+
+## Two tracks
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>latest</CardHeader>
+      <CardBody>The version readers get by default. It only receives fixes.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>beta</CardHeader>
+      <CardBody>
+        The version being written. Its pages carry a banner, and stay out of search engines.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+The address names the <Tooltip text="latest or beta: the role of the version, not its number — so a shared link stays right.">channel</Tooltip>, the menu shows the exact number.
+
+## A banner that follows the calendar
+
+A notice can announce a release and remove itself once it is out:
+
+<TimeTimer start="01/09/2026" duration="60d">
+  <Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+    <CardBody>**A new version is in preparation.** Try it on the beta channel.</CardBody>
+  </Card>
+  <FallbackAfter>The new version is out.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/09/2026" duration="60d">
+  A new version is in preparation.
+  <FallbackAfter>The new version is out.</FallbackAfter>
+</TimeTimer>
+```
+
+<Card href="/guide/versions/">
+  <CardBody>
+    This lesson uses **TimeTimer**, **Tooltip**, **Columns** and **Card** — and the versions guide
+    goes further.
+  </CardBody>
+</Card>

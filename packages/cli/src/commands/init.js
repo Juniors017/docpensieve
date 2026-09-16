@@ -47,10 +47,19 @@ const EXAMPLES_CSS = 'examples.css';
 
 /**
  * Entries of DocPensieve's documentation that are not installed with the
- * pages: its home page and the icons only that page uses belong to
- * DocPensieve's own site, and the examples' stylesheet has a place of its own.
+ * pages: its home page and the icons only that page uses, the example site
+ * and the author descriptions belong to DocPensieve's own site, and the
+ * examples' stylesheet has a place of its own. Installed, the author file
+ * would even be published as a plain file on every user's site.
  */
-const NOT_INSTALLED = new Set(['index.md', 'index.mdx', 'icons', EXAMPLES_CSS]);
+const NOT_INSTALLED = new Set([
+  'index.md',
+  'index.mdx',
+  'icons',
+  '06-examples',
+  'authors.json',
+  EXAMPLES_CSS,
+]);
 
 /** Starting point of the project's own stylesheet, under the custom theme. */
 const CUSTOM_CSS = fileURLToPath(new URL('../templates/custom.css', import.meta.url));

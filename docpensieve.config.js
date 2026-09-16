@@ -92,6 +92,10 @@ export default defineConfig({
   // prefixes. It is the only value available today.
   sidebar: 'auto',
 
+  // Authors described in docs/v0.3/authors.json. The older versions have no
+  // such file and show the names alone: the file is optional per version.
+  authors: 'authors.json',
+
   globalComponents: true,
 
   jsonld: { enabled: true },

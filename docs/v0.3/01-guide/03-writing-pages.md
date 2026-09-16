@@ -107,6 +107,23 @@ docs/v1.0/
     └── 01-card.mdx
 ```
 
+## Series of pages
+
+A folder is a **series**: its `index` page introduces it, and the pages beside
+that index are its instalments. Written in that index, one line builds the grid
+of its pages, as clickable cards:
+
+```mdx
+<Cards />
+```
+
+Each card takes the `title` and `description` of its page, its `preview` as an
+image, and its `modified` date. On the index of a folder that holds other
+folders, the cards of those series also count their pages. Nothing is listed
+by hand, so nothing goes stale when a page is added or renamed.
+
+The [Cards](../components/cards/) page details every option.
+
 ## Writing the menu by hand
 
 When the file tree does not give the menu you want, describe it in a JSON file

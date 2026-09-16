@@ -275,6 +275,11 @@ describe('init — DocPensieve documentation', () => {
     // DocPensieve's own site.
     expect(existsSync(path.join(section(dir), 'index.mdx'))).toBe(false);
     expect(existsSync(path.join(section(dir), 'icons'))).toBe(false);
+    // So do the example site and the author descriptions. Installed, the
+    // author file would be published as a plain file on the user's site —
+    // a leak no dead link would ever reveal.
+    expect(existsSync(path.join(section(dir), '06-examples'))).toBe(false);
+    expect(existsSync(path.join(section(dir), 'authors.json'))).toBe(false);
     // The project's home page points to it.
     expect(read(dir, 'docs', 'v1.0', 'index.md')).toContain('(/docpensieve/)');
   });
