@@ -70,15 +70,29 @@ function toList(value) {
 /**
  * Lists the authors as `Person` nodes.
  *
- * @param {unknown} authors Single string or array of names.
- * @returns {{ '@type': string, name: string }[]}
+ * @param {unknown} authors Single string or array of names, or of keys.
+ * @param {{ key: string, name: string, bio?: string, url?: string }[]} [described]
+ *   Authors the version describes, which carry what a bare name cannot.
+ * @returns {Record<string, any>[]}
  */
-function toPersons(authors) {
+function toPersons(authors, described = []) {
+  const byKey = new Map(described.map((author) => [author.key, author]));
   const list = Array.isArray(authors) ? authors : authors ? [authors] : [];
   return list
     .map((name) => String(name).trim())
     .filter(Boolean)
-    .map((name) => ({ '@type': 'Person', name }));
+    .map((name) => {
+      const found = byKey.get(name);
+      // Undescribed, the frontmatter entry is the name itself: that is what
+      // keeps a page written before the description file working.
+      if (!found) return { '@type': 'Person', name };
+
+      /** @type {Record<string, any>} */
+      const person = { '@type': 'Person', name: found.name };
+      if (found.bio) person.description = found.bio;
+      if (found.url) person.url = found.url;
+      return person;
+    });
 }
 
 /** Assembles a schema.org graph for a page. */
@@ -87,7 +101,7 @@ export class StructuredDataBuilder {
    * @param {Record<string, any>} frontmatter Page frontmatter.
    * @param {string} url Page URL on the site (`'/guide/install/'`).
    * @param {Record<string, any>} config Normalised project config.
-   * @param {{ breadcrumbTitles?: Record<string, string>, basePath?: string, dirUrl?: string, logo?: string }} [options]
+   * @param {{ breadcrumbTitles?: Record<string, string>, basePath?: string, dirUrl?: string, logo?: string, authors?: { key: string, name: string, bio?: string, url?: string }[] }} [options]
    *   `breadcrumbTitles` maps a folder slug to its real title, so that the
    *   breadcrumb shows “Café Guide” rather than “Cafe guide”. `basePath` is
    *   the site root from which crumbs are counted: the generator sets
@@ -242,7 +256,7 @@ export class StructuredDataBuilder {
     }
     if (modified) node.dateModified = modified;
 
-    const authors = toPersons(this.frontmatter.authors);
+    const authors = toPersons(this.frontmatter.authors, this.options?.authors ?? []);
     if (authors.length > 0) node.author = authors;
 
     // A single tag is written without brackets, like a single author.

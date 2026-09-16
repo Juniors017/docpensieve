@@ -104,6 +104,29 @@
           The current version is <a href="{{notice.url}}">{{notice.name}}</a>.
         </aside>
         {{/if}}
+        {{!-- Who wrote the page, and when. Absent when the page says neither,
+        and on a home page, where a byline under an entrance hall means
+        nothing. --}}
+        {{#if byline}}
+        <div class="{{{cls.byline}}}">
+          {{#if byline.authors.length}}
+          <ul class="{{{cls.bylineAuthors}}}">
+            {{#each byline.authors}}
+            <li class="{{{@root.cls.bylineAuthor}}}">
+              {{#if avatarUrl}}<img class="{{{@root.cls.bylineAvatar}}}" src="{{avatarUrl}}" alt="" {{#if avatarWidth}}width="{{avatarWidth}}" height="{{avatarHeight}}" {{/if}}loading="lazy" decoding="async" />{{/if}}
+              <span class="{{{@root.cls.bylineName}}}">{{#if url}}<a href="{{url}}">{{name}}</a>{{else}}{{name}}{{/if}}</span>
+              {{#if bio}}<span class="{{{@root.cls.bylineBio}}}">{{bio}}</span>{{/if}}
+            </li>
+            {{/each}}
+          </ul>
+          {{/if}}
+          {{#if byline.dates.length}}
+          <p class="{{{cls.bylineDates}}}">
+            {{#each byline.dates}}<span>{{prefix}} <time datetime="{{iso}}">{{label}}</time></span>{{/each}}
+          </p>
+          {{/if}}
+        </div>
+        {{/if}}
         <article class="{{{cls.article}}}">{{{content}}}</article>
       </main>
 

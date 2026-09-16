@@ -1136,6 +1136,163 @@ draft: true
   });
 });
 
+describe('the byline of a page', () => {
+  /** The first bytes of a PNG: signature, then the IHDR chunk. */
+  const pngHeader = (/** @type {number} */ width, /** @type {number} */ height) => {
+    const bytes = Buffer.alloc(24);
+    bytes.writeUInt32BE(0x89504e47, 0);
+    bytes.writeUInt32BE(0x0d0a1a0a, 4);
+    bytes.writeUInt32BE(13, 8);
+    bytes.write('IHDR', 12, 'ascii');
+    bytes.writeUInt32BE(width, 16);
+    bytes.writeUInt32BE(height, 20);
+    return bytes;
+  };
+
+  /** @param {string} title @param {string} frontmatter */
+  const authored = (title, frontmatter) =>
+    `---\ntitle: ${title}\n${frontmatter}\n---\n\nContent.\n`;
+
+  it('shows the names and the dates the page gives, without any file', async () => {
+    const config = project({
+      'index.md': authored('Install', 'authors: [Ada Lovelace]\ndate: 2026-01-02'),
+    });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toContain('dp-byline');
+    expect(html).toContain('Ada Lovelace');
+    expect(html).toContain('<time datetime="2026-01-02">2 January 2026</time>');
+    expect(html).toContain('Written');
+  });
+
+  it('adds the biography, the link and the avatar the version describes', async () => {
+    const config = project(
+      {
+        'index.md': authored('Install', 'authors: [ada]\ndate: 2026-01-02\nmodified: 2026-03-04'),
+        'authors.json': JSON.stringify({
+          ada: {
+            name: 'Ada Lovelace',
+            bio: 'Wrote the first algorithm meant for a machine.',
+            avatar: 'authors/ada.png',
+            url: 'https://example.com/ada',
+          },
+        }),
+      },
+      { authors: 'authors.json' },
+    );
+    mkdirSync(path.join(config.rootDir, 'docs', 'v1.0', 'authors'), { recursive: true });
+    writeFileSync(
+      path.join(config.rootDir, 'docs', 'v1.0', 'authors', 'ada.png'),
+      pngHeader(64, 64),
+    );
+
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    const html = read(out, 'index.html');
+
+    expect(html).toContain('Ada Lovelace');
+    expect(html).toContain('Wrote the first algorithm meant for a machine.');
+    expect(html).toContain('href="https://example.com/ada"');
+    // Measured at the build, so that the text does not jump when it arrives.
+    expect(html).toContain('width="64"');
+    expect(html).toContain('height="64"');
+    expect(html).toContain('Updated');
+
+    // The description feeds the pages; it is not a page.
+    expect(existsSync(path.join(out, 'authors.json'))).toBe(false);
+    // The avatar, itself, travels with the version.
+    expect(existsSync(path.join(out, 'authors', 'ada.png'))).toBe(true);
+  });
+
+  it('enriches the structured data with the same description', async () => {
+    // The page and its metadata must not disagree about an author.
+    const config = project(
+      {
+        'index.md': authored('Install', 'authors: [ada]'),
+        'authors.json': JSON.stringify({
+          ada: { name: 'Ada Lovelace', bio: 'A biography.', url: 'https://example.com/ada' },
+        }),
+      },
+      { authors: 'authors.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toContain('"description":"A biography."');
+    expect(html).toContain('"url":"https://example.com/ada"');
+  });
+
+  it('shows a key nobody describes as it is written', async () => {
+    const config = project(
+      {
+        'index.md': authored('Install', 'authors: [Grace Hopper]'),
+        'authors.json': JSON.stringify({ ada: { name: 'Ada Lovelace' } }),
+      },
+      { authors: 'authors.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('Grace Hopper');
+  });
+
+  it('adds nothing to a page that says neither author nor date', async () => {
+    const config = project({ 'index.md': page('Install') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).not.toContain('dp-byline');
+  });
+
+  it('adds nothing to a home page, whatever it declares', async () => {
+    // A byline under an entrance hall designates nothing.
+    const config = project({
+      'index.md': authored('Home', 'layout: home\nauthors: [Ada Lovelace]\ndate: 2026-01-02'),
+    });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).not.toContain('dp-byline');
+  });
+
+  it('reports an author description it cannot find', async () => {
+    const config = project({ 'index.md': page('Install') }, { authors: 'authors.json' });
+    const out = path.join(config.rootDir, 'out');
+
+    let failure;
+    try {
+      await generatorFor(config).buildVersion('v1.0', out);
+    } catch (error) {
+      failure = /** @type {import('@docpensieve/shared').DocPensieveError} */ (error);
+    }
+    expect(failure?.message).toContain('docs/v1.0/authors.json');
+    expect(failure?.hint).toContain('create docs/v1.0/authors.json');
+  });
+
+  it('reports an avatar it cannot find, rather than a broken image', async () => {
+    const config = project(
+      {
+        'index.md': authored('Install', 'authors: [ada]'),
+        'authors.json': JSON.stringify({ ada: { name: 'Ada', avatar: 'authors/gone.png' } }),
+      },
+      { authors: 'authors.json' },
+    );
+    const out = path.join(config.rootDir, 'out');
+
+    let failure;
+    try {
+      await generatorFor(config).buildVersion('v1.0', out);
+    } catch (error) {
+      failure = /** @type {import('@docpensieve/shared').DocPensieveError} */ (error);
+    }
+    expect(failure?.message).toContain('authors/gone.png');
+    expect(failure?.hint).toContain('version folder');
+  });
+});
+
 describe('shell accessibility', () => {
   it('makes the main area and the top of the page focusable by in-page jumps', async () => {
     // Without tabindex, the skip link and the back-to-top link moved the view

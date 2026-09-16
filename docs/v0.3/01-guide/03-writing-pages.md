@@ -31,6 +31,46 @@ without `title`, the project name stands in.
 
 The fields are detailed in the [reference](../reference/frontmatter/).
 
+## Who wrote the page
+
+A page that names its authors, or carries a date, opens with a byline:
+
+```yaml
+---
+title: Installation
+authors: [ada, grace]
+date: 2026-09-09
+modified: 2026-09-16
+---
+```
+
+The names show as written. To give them a biography, an avatar and a link,
+describe them in a JSON file of the version folder:
+
+```json
+{
+  "ada": {
+    "name": "Ada Lovelace",
+    "bio": "Wrote the first algorithm meant for a machine.",
+    "avatar": "authors/ada.png",
+    "url": "https://example.com/ada"
+  }
+}
+```
+
+Then name that file in the configuration: `authors: 'authors.json'`. It is
+read **in each version folder**, as the menu is — a biography corrected in
+the version being written leaves the published one alone. The file itself is
+not published; the avatars are, and are measured at the build so that the
+text does not jump when they arrive.
+
+A key nobody describes is shown as written, which is what lets a project name
+its authors before describing them. The description also feeds the page data:
+a biography becomes the `description` of its `Person`, a link its `url`.
+
+A date written the day the page was is not repeated as an update, and a home
+page carries no byline at all: it is an entrance hall, not a document.
+
 ## What the URL depends on
 
 The file path gives the URL path, stripped of its extension and of its sorting

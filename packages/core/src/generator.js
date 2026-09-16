@@ -20,10 +20,12 @@ import {
 } from '@docpensieve/shared';
 import Handlebars from 'handlebars';
 
+import { buildAuthorTable, buildByline } from './authors.js';
 import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
 import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
+import { imageSize } from './image-size.js';
 import { minifyCss } from './minify-css.js';
 import { SEARCH_SLUG, htmlToText, searchPageContent } from './search-index.js';
 import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
@@ -245,6 +247,10 @@ export class SiteGenerator {
 
     // What every page of the version shares, the search page included.
     const searchUrl = this.config.search !== false ? joinUrl(versionBase, SEARCH_SLUG) : '';
+    // Described once per version, like the menu: the same authors serve every
+    // page, and a biography corrected in one version leaves the others alone.
+    const authors = await this.#readAuthors(sourceDir, version.folder, versionBase);
+
     const shell = {
       lang: this.config.lang ?? 'en',
       // A fixed scheme is a class on <html>, which the skins and the dark
@@ -303,11 +309,19 @@ export class SiteGenerator {
         sourceDir,
       });
 
+      // Who wrote the page, and when. Read before the structured data, which
+      // describes the same people: the page and its metadata must not
+      // disagree about an author.
+      const credits = buildByline(doc.frontmatter, authors, doc.slug || 'the home page');
+
       const jsonld = new StructuredDataBuilder(doc.frontmatter, url, this.config, {
         breadcrumbTitles,
         basePath: versionBase,
         dirUrl,
         logo: images.logo,
+        // A described author carries a biography and a link, which a bare
+        // name in the frontmatter cannot.
+        authors: credits?.authors ?? [],
       }).toScriptTag();
 
       // A home page has neither menu nor table of contents: those are reading
@@ -321,6 +335,17 @@ export class SiteGenerator {
         text: htmlToText(html),
       });
 
+      const byline =
+        wide || !credits
+          ? null
+          : {
+              authors: credits.authors,
+              dates: [
+                credits.created && { prefix: 'Written', ...credits.created },
+                credits.updated && { prefix: 'Updated', ...credits.updated },
+              ].filter(Boolean),
+            };
+
       const page = layout({
         ...shell,
         title: documentTitle(doc.frontmatter.title, this.config.projectName),
@@ -332,6 +357,7 @@ export class SiteGenerator {
         // same content, two addresses, and the wrong one comes up. "follow"
         // still lets its links be followed.
         noindex: version.prerelease === true,
+        byline,
         sidebar: wide ? [] : sidebar,
         toc: wide ? [] : toc,
         preloads,
@@ -405,6 +431,86 @@ export class SiteGenerator {
       outDir: target,
       published: docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })),
     };
+  }
+
+  /**
+   * Reads the authors a version describes, their avatars resolved.
+   *
+   * The file is optional: without it, a page still shows the names its
+   * frontmatter gives. Named in the configuration but missing, it is an
+   * error — leaving every biography out without a word would be worse.
+   *
+   * @param {string} sourceDir Source folder of the version.
+   * @param {string} folder The version's folder, as the configuration names it.
+   * @param {string} versionBase URL of the version.
+   * @returns {Promise<Map<string, import('./authors.js').Author>>} Authors by
+   *   key, their avatars resolved to a URL and measured.
+   * @throws {ConfigError} Missing file, invalid JSON, wrong author, missing avatar.
+   */
+  async #readAuthors(sourceDir, folder, versionBase) {
+    const name = this.config.authors;
+    if (!name) return new Map();
+
+    const source = `${folder}/${name}`;
+
+    let text;
+    try {
+      text = await readFile(path.join(sourceDir, ...name.split('/')), 'utf8');
+    } catch (cause) {
+      throw new ConfigError(`No author description at ${source}.`, {
+        cause,
+        hint: `Each version describes its own authors: create ${source}, or drop the authors field.`,
+      });
+    }
+
+    let description;
+    try {
+      description = JSON.parse(text);
+    } catch (cause) {
+      throw new ConfigError(
+        `${source} is not valid JSON: ${/** @type {Error} */ (cause).message}`,
+        {
+          cause,
+          hint: 'A trailing comma or a missing quote is enough: open it in an editor that checks JSON.',
+        },
+      );
+    }
+
+    const table = buildAuthorTable(description, { source });
+
+    // Resolved once per version, not once per page: the same handful of
+    // images would otherwise be read and measured on every page.
+    for (const author of table.values()) {
+      if (!author.avatar) continue;
+      const segments = author.avatar.split('/').filter(Boolean);
+
+      let bytes;
+      try {
+        bytes = await readFile(path.join(sourceDir, ...segments));
+      } catch (cause) {
+        throw new ConfigError(
+          `No avatar at ${folder}/${author.avatar}, declared by author "${author.key}".`,
+          {
+            cause,
+            hint: 'The path starts at the version folder, so that the image travels with the version.',
+          },
+        );
+      }
+
+      const entry = /** @type {Record<string, any>} */ (author);
+      entry.avatarUrl =
+        joinUrl(versionBase, segments.slice(0, -1).join('/')) + segments[segments.length - 1];
+
+      // Dimensions spare the reader a jump when the image arrives, as for
+      // every other image of a page.
+      const size = imageSize(bytes, path.extname(author.avatar));
+      if (size) {
+        entry.avatarWidth = size.width;
+        entry.avatarHeight = size.height;
+      }
+    }
+
+    return table;
   }
 
   /**
@@ -762,6 +868,8 @@ export class SiteGenerator {
 
       // The sidebar description is read by the build, not published.
       if (this.config.sidebar !== 'auto' && readable === this.config.sidebar) continue;
+      // The author descriptions too: they feed the pages, they are not pages.
+      if (this.config.authors && readable === this.config.authors) continue;
       if (DOC_EXTENSIONS.includes(path.extname(entry.name).toLowerCase())) continue;
 
       const destination = path.join(target, ...assetPathToSlug(next).split('/'));

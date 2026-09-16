@@ -96,4 +96,11 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   scrollTopIcon: 'dp-scroll-top-icon',
   search: 'dp-search',
   schemeToggle: 'dp-scheme-toggle',
+  byline: 'dp-byline',
+  bylineAuthors: 'dp-byline-authors',
+  bylineAuthor: 'dp-byline-author',
+  bylineAvatar: 'dp-byline-avatar',
+  bylineName: 'dp-byline-name',
+  bylineBio: 'dp-byline-bio',
+  bylineDates: 'dp-byline-dates',
 });

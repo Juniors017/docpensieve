@@ -20,5 +20,17 @@ Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
 
 ## What changes on its own
 
-Nothing yet: the 0.3 has just opened. Each change is listed here as it lands,
-beside what it asks of a project already built on the 0.2.
+| What                                       | In 0.3                                          |
+| ------------------------------------------ | ----------------------------------------------- |
+| Pages with `authors`, `date` or `modified` | Open with a byline naming the authors and dates |
+
+Nothing to change, but something to know: those three fields already existed,
+read by the sitemap and the page data without ever being shown. They are now
+shown, so a page that carries them gains a block it did not have. A page that
+carries none of them looks exactly as before.
+
+## What to turn on
+
+| Field                     | Gives                                                 |
+| ------------------------- | ----------------------------------------------------- |
+| `authors: 'authors.json'` | Biographies, avatars and links, described per version |

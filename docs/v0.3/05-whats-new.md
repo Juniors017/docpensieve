@@ -16,10 +16,14 @@ npx docpensieve@beta init my-site
 
 ## Already there
 
-Nothing yet: the 0.3 has just opened, and its pages are still those of the 0.2.
-Each feature is announced here as it lands, with a link to the guide and to the
-reference — this page announces, it is never the only place something is
-written.
+### Authors at the head of a page
+
+A page carrying `authors`, `date` or `modified` now opens with a byline: who
+wrote it, and when. The names show as written; a JSON file of the version,
+named by `authors: 'authors.json'`, adds a biography, an avatar and a link —
+and feeds the page data with them. See
+[Who wrote the page](./guide/writing-pages/) in the guide, and the
+[`authors` field](./reference/configuration/) in the reference.
 
 ## For a 0.2 project
 

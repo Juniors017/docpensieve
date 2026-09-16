@@ -38,6 +38,7 @@ import {
  * @property {Version[]} versions At least one.
  * @property {{ framework: string, darkMode?: string, toggle?: boolean, tokens?: Record<string, string>, css?: string, source?: string }} theme
  * @property {string} sidebar     `'auto'`, or the path of a description.
+ * @property {string} [authors]   Path of a JSON describing the authors, read in each version folder.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {{ enabled: boolean }} jsonld
@@ -70,6 +71,10 @@ export const DEFAULT_CONFIG = Object.freeze({
   // The light / dark switch is on unless the project turns it off (ADR-014).
   theme: { framework: 'tailwind', darkMode: 'class', toggle: true },
   sidebar: 'auto',
+  // No author file by default: a page still shows the names its frontmatter
+  // gives. The file only adds what a name cannot carry — a biography, an
+  // avatar, a link.
+  authors: '',
   globalComponents: true,
   scrollToTop: true,
   jsonld: { enabled: true },
@@ -235,6 +240,24 @@ export function normalizeConfig(userConfig) {
         `sidebar must be 'auto' or a .json file within each version folder: "${String(config.sidebar)}".`,
         {
           hint: "For instance sidebar: 'sidebar.json', read as docs/v1.0/sidebar.json for that version.",
+        },
+      );
+    }
+  }
+
+  // Like the menu, the authors are described in each version's folder: a
+  // biography corrected in the beta must not rewrite a published version.
+  if (config.authors) {
+    const file = typeof config.authors === 'string' ? config.authors : '';
+    if (
+      !file.toLowerCase().endsWith('.json') ||
+      path.isAbsolute(file) ||
+      file.split('/').includes('..')
+    ) {
+      throw new ConfigError(
+        `authors must be a .json file within each version folder: "${String(config.authors)}".`,
+        {
+          hint: "For instance authors: 'authors.json', read as docs/v1.0/authors.json for that version.",
         },
       );
     }

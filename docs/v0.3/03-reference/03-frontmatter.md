@@ -38,18 +38,18 @@ jsonld:
 
 ## The fields
 
-| Field         | Effect                                                    |
-| ------------- | --------------------------------------------------------- |
-| `title`       | `<title>` tag, menu entry, breadcrumb, JSON-LD `headline` |
-| `description` | `description` metadata and JSON-LD `description`          |
-| `date`        | Publication date                                          |
-| `modified`    | Last modification date. Default: the publication date     |
-| `authors`     | List of authors                                           |
-| `tags`        | Keywords, carried over as `keywords`                      |
-| `preview`     | Image of the page. The path is resolved like a link       |
-| `draft`       | `true` keeps the page out of the output                   |
-| `layout`      | `doc` (default) or `home`                                 |
-| `jsonld`      | Structured data settings                                  |
+| Field         | Effect                                                                     |
+| ------------- | -------------------------------------------------------------------------- |
+| `title`       | `<title>` tag, menu entry, breadcrumb, JSON-LD `headline`                  |
+| `description` | `description` metadata and JSON-LD `description`                           |
+| `date`        | Publication date                                                           |
+| `modified`    | Last modification date. Default: the publication date. Shown in the byline |
+| `authors`     | Authors of the page, by name or by key of the version's author file        |
+| `tags`        | Keywords, carried over as `keywords`                                       |
+| `preview`     | Image of the page. The path is resolved like a link                        |
+| `draft`       | `true` keeps the page out of the output                                    |
+| `layout`      | `doc` (default) or `home`                                                  |
+| `jsonld`      | Structured data settings                                                   |
 
 ## `layout`
 

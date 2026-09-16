@@ -177,6 +177,22 @@ Longer rules go in the `theme/` folder, at the root of the project: every
 `docpensieve dev` picks up every change. Under the `custom` theme, `init`
 starts it with `theme/custom.css`.
 
+## `authors`
+
+```js
+authors: 'authors.json',
+```
+
+Names a JSON file **read in each version folder**, describing the authors a
+page names in its frontmatter: a name, a biography, an avatar, a link.
+
+Empty by default, and then a page still shows the names it gives, without the
+rest: the file enriches, it does not command. Named but missing, it stops the
+build — leaving every biography out without a word would be worse.
+
+The file is not published. The avatars are, their path starting at the version
+folder so that they travel with it.
+
 ## `sidebar`
 
 `'auto'` builds the menu from the file tree: folders become categories, and the

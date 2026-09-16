@@ -488,6 +488,75 @@ that carries neither is listed without one rather than with a made-up date.
 
 **Returns** `string`
 
+### `buildAuthorTable`
+
+`buildAuthorTable(description, options)`
+
+Turns the JSON description of a version into a table of authors.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `description` | `unknown` | Parsed content of the file. |
+| `options` | `{ source: string }` | `source` names the file in errors. |
+
+**Returns** `Map<string, Author>`
+
+**Throws** `ConfigError` — When the shape is wrong, naming the offending entry.
+
+### `buildByline`
+
+`buildByline(frontmatter, [table], [where])`
+
+Assembles what the head of a page shows, or nothing when it has none of it.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `frontmatter` | `Record<string, any>` |  |
+| `[table]` | `Map<string, Author>` |  |
+| `[where]` | `string` | Page named in a date error. |
+
+**Returns** `Byline \| null`
+
+**Throws** `ConfigError` — When a date cannot be read.
+
+### `readDate`
+
+`readDate(value, field, where)`
+
+Reads a date of the frontmatter, and gives it in both forms: the machine one
+for `<time datetime>`, the readable one for the reader.
+
+A date is often written unquoted in YAML, which parses it as a Date; quoted,
+it arrives as text. Both are accepted, anything unreadable is refused rather
+than shown as `Invalid Date`.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `value` | `unknown` |  |
+| `field` | `string` | Name of the field, for the error message. |
+| `where` | `string` | Page the date comes from. |
+
+**Returns** `{ iso: string, label: string } \| null` — `null` when absent.
+
+**Throws** `ConfigError` — When the value is not a date.
+
+### `resolvePageAuthors`
+
+`resolvePageAuthors(value, [table])`
+
+The authors of a page, in the order the frontmatter names them.
+
+A key the table does not describe is not an error: the name is shown as
+written. It is what lets a project name its authors before describing them,
+and what keeps pages written before the file working.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `value` | `unknown` | `authors` from the frontmatter: one name or a list. |
+| `[table]` | `Map<string, Author>` |  |
+
+**Returns** `Author[]`
+
 ## `@docpensieve/theme`
 
 The theme providers and the engine that composes them.
