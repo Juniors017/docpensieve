@@ -33,14 +33,20 @@ export default defineConfig({
   // compiled output then goes to an orphan branch with the same slug.
   //
   // Two tracks: 0.1 is the current one and only receives fixes, 0.2 is the
-  // one being written. The beta's slug is already its final slug — only the
-  // label will change at release, so no link will break.
+  // one being written.
+  //
+  // The slugs name the channel, not the number: a link to /versions/latest/
+  // always leads to the documentation that counts, and /versions/beta/ to the
+  // one being prepared. A number in the URL could only ever be a truncated
+  // one — "v0.1" while the label reads 0.1.5 — and would move at every
+  // release. A version takes a numbered slug when it is archived: its content
+  // freezes, so its address can freeze with it.
   //
   // The numbers follow those of the packages: in 0.x, a breaking change needs
   // no ceremony, which suits an API that is still moving.
   versions: [
     {
-      slug: 'v0.2',
+      slug: 'beta',
       name: published,
       folder: 'docs/v0.2',
       prerelease: true,
@@ -50,7 +56,7 @@ export default defineConfig({
     },
     // Frozen at the last 0.1 published: main carries the 0.2 now. A fix
     // released from release/0.1 updates this label by hand.
-    { slug: 'v0.1', name: '0.1.5', folder: 'docs/v0.1', current: true },
+    { slug: 'latest', name: '0.1.5', folder: 'docs/v0.1', current: true },
   ],
 
   outDir: 'dist',

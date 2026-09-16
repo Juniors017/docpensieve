@@ -83,7 +83,7 @@ export default {
 };
 ```
 
-Every field is described in the [configuration reference](https://docpensieve.com/versions/v0.1/reference/configuration/).
+Every field is described in the [configuration reference](https://docpensieve.com/versions/latest/reference/configuration/).
 
 ## Contributing
 

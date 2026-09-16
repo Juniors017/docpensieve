@@ -54,6 +54,27 @@ Two rules to remember:
 The switcher only appears in the header from **two** versions on: a single
 choice is not a choice.
 
+### Naming a version: the number or the channel
+
+The `slug` is the address. Two conventions, and the choice is not neutral.
+
+**The number** — `v1.0`, `v1.1` — gives each version an address that never
+moves: a link captured today leads to the same pages in two years. But the
+address can only carry what stays true for a whole series. `v1.0` still names
+the documentation once `1.0.7` is out, so the URL says less than the switcher,
+which reads the exact version.
+
+**The channel** — `latest`, `beta` — names the role instead. The address a
+reader shares stays right for ever: `/versions/latest/` always leads to the
+documentation that counts, `/versions/beta/` to the one being prepared. What
+moves is what sits behind it — on release day, `latest` becomes the new
+version, and the one it replaces takes a numbered slug as it is archived: its
+content freezes, so its address can freeze with it.
+
+Neither is better. Take the number if your readers link to a precise version,
+the channel if they link to "the documentation". DocPensieve's own
+documentation takes the channel: its versions are `latest` and `beta`.
+
 ## 2. Opening the beta
 
 Start from the current version, and give it its own folder:
@@ -131,9 +152,10 @@ those who use it.
 
 > **The `slug` changes along with the folder, and so does the URL.**
 > `/versions/v1.1-beta/` disappears in favour of `/versions/v1.1/`, and the
-> external links that pointed to the beta lead nowhere any more. To avoid this,
+> external links that pointed to the beta lead nowhere any more. Two ways out:
 > keep the same slug from start to finish — `v1.1` from the start, with only
-> the label mentioning the beta.
+> the label mentioning the beta — or name the channel rather than the number,
+> `beta` then `latest`, which never moves. See _Naming a version_ above.
 
 ## What the build produces
 

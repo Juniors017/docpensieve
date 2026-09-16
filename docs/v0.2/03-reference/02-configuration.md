@@ -138,16 +138,16 @@ versions: [
 ],
 ```
 
-| Field        | Role                                                                          |
-| ------------ | ----------------------------------------------------------------------------- |
-| `slug`       | URL and branch identifier                                                     |
-| `name`       | Label shown in the switcher                                                   |
-| `folder`     | Source folder, relative to the root                                           |
-| `current`    | Version served by default. At most one                                        |
-| `archived`   | Version kept but no longer maintained. Banner, but stays indexed              |
-| `prerelease` | Version in preparation. Banner **and** `noindex`                              |
-| `logo`       | This version's logo, instead of the project's — a beta told apart at a glance |
-| `favicon`    | This version's favicon, instead of the project's                              |
+| Field        | Role                                                                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `slug`       | URL and branch identifier. A number (`v1.0`) freezes the address; a channel (`latest`, `beta`) keeps it right as versions move |
+| `name`       | Label shown in the switcher                                                                                                    |
+| `folder`     | Source folder, relative to the root                                                                                            |
+| `current`    | Version served by default. At most one                                                                                         |
+| `archived`   | Version kept but no longer maintained. Banner, but stays indexed                                                               |
+| `prerelease` | Version in preparation. Banner **and** `noindex`                                                                               |
+| `logo`       | This version's logo, instead of the project's — a beta told apart at a glance                                                  |
+| `favicon`    | This version's favicon, instead of the project's                                                                               |
 
 ## `theme`
 
