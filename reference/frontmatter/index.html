@@ -160,7 +160,7 @@ Everything in it is optional.</p>
 <span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  breadcrumbs</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span></code></pre>
 <h2 id="the-fields">The fields</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Effect</th></tr></thead><tbody><tr><td><code>title</code></td><td><code>&lt;title&gt;</code> tag, menu entry, breadcrumb, JSON-LD <code>headline</code></td></tr><tr><td><code>description</code></td><td><code>description</code> metadata and JSON-LD <code>description</code></td></tr><tr><td><code>date</code></td><td>Publication date</td></tr><tr><td><code>modified</code></td><td>Last modification date. Default: the publication date. Shown in the byline</td></tr><tr><td><code>authors</code></td><td>Authors of the page, by name or by key of the version&#x27;s author file</td></tr><tr><td><code>tags</code></td><td>Keywords, carried over as <code>keywords</code></td></tr><tr><td><code>preview</code></td><td>Image of the page. The path is resolved like a link</td></tr><tr><td><code>draft</code></td><td><code>true</code> keeps the page out of the output</td></tr><tr><td><code>layout</code></td><td><code>doc</code> (default) or <code>home</code></td></tr><tr><td><code>jsonld</code></td><td>Structured data settings</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Effect</th></tr></thead><tbody><tr><td><code>title</code></td><td><code>&lt;title&gt;</code> tag, menu entry, breadcrumb, JSON-LD <code>headline</code></td></tr><tr><td><code>description</code></td><td><code>description</code> metadata and JSON-LD <code>description</code></td></tr><tr><td><code>date</code></td><td>Publication date</td></tr><tr><td><code>modified</code></td><td>Last modification date. Default: the publication date. Shown in the byline</td></tr><tr><td><code>authors</code></td><td>Authors of the page, by name or by key of the version&#x27;s author file</td></tr><tr><td><code>tags</code></td><td>Shown at the bottom of the page, and carried over as JSON-LD <code>keywords</code></td></tr><tr><td><code>preview</code></td><td>Image of the page. The path is resolved like a link</td></tr><tr><td><code>draft</code></td><td><code>true</code> keeps the page out of the output</td></tr><tr><td><code>layout</code></td><td><code>doc</code> (default) or <code>home</code></td></tr><tr><td><code>jsonld</code></td><td>Structured data settings</td></tr></tbody></table></div>
 <h2 id="layout"><code>layout</code></h2>
 <p><code>doc</code> is the documentation layout: menu on the left, table of contents on the
 right, content held to reading width.</p>
@@ -193,6 +193,9 @@ frontmatter, and nothing to keep up to date when a file is moved.</p>
 <p>No. Without a title, the project name stands in; without a date, no date is published.</p>
 <h3 id="how-do-i-keep-a-page-offline">How do I keep a page offline?</h3>
 <p>Set <code>draft: true</code> in its frontmatter. It stays in the repository, absent from the output.</p></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">reference</li><li class="dp-tag">frontmatter</li>
+        </ul>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">

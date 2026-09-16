@@ -160,10 +160,23 @@ that index are its instalments. The <code>Cards</code> component turns that stru
 into a grid of clickable cards — title, description, image, number of pages,
 update date — instead of an index list written by hand, which goes stale at
 the first page renamed. See <a href="/versions/beta/components/cards/">Cards</a>.</p>
+<h3 id="tags-at-the-bottom-of-a-page">Tags at the bottom of a page</h3>
+<p>The <code>tags</code> of a page, read until now only by its structured data, show at the
+bottom of the page, below the text they describe. See
+<a href="/versions/beta/guide/writing-pages/">The frontmatter</a> in the guide.</p>
+<h3 id="description-files-optional-per-version">Description files, optional per version</h3>
+<p>A <code>sidebar</code> or <code>authors</code> file named in the configuration no longer has to
+exist in every version folder. A version without it keeps the menu of its
+folders, or shows the names its pages give: describing the menu or the authors
+of a new version no longer forces a copy into the older ones. A file present
+but unreadable, or wrongly written, still stops the build.</p>
 <h2 id="for-a-0-2-project">For a 0.2 project</h2>
 <p>Nothing to change: a 0.2 configuration builds as it is.
 <a href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a> lists what changes on
 its own, what to check, and what is worth turning on.</p></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">release</li>
+        </ul>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -177,6 +190,12 @@ its own, what to check, and what is worth turning on.</p></article>
               </li>
               <li class="dp-toc-item">
                 <a href="#series-and-cards">Series and cards</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#tags-at-the-bottom-of-a-page">Tags at the bottom of a page</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#description-files-optional-per-version">Description files, optional per version</a>
               </li>
             </ul>
           </li>

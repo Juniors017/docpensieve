@@ -154,8 +154,16 @@ every new field is optional.</p>
 read by the sitemap and the page data without ever being shown. They are now
 shown, so a page that carries them gains a block it did not have. A page that
 carries none of them looks exactly as before.</p>
+<p><code>tags</code> follows the same path: read until now only by the page data, it now
+shows at the bottom of every page that carries it.</p>
+<p>One constraint is gone, too. A <code>sidebar</code> or <code>authors</code> file named in the
+configuration no longer has to exist in every version folder: a version
+without it keeps the menu of its folders, or shows the names alone.</p>
 <h2 id="what-to-turn-on">What to turn on</h2>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Gives</th></tr></thead><tbody><tr><td><code>authors: &#x27;authors.json&#x27;</code></td><td>Biographies, avatars and links, described per version</td></tr><tr><td><code>&lt;Cards /&gt;</code> in an index page</td><td>A grid of cards built from the pages of the folder</td></tr></tbody></table></div></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">guide</li><li class="dp-tag">migration</li>
+        </ul>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">

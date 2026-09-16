@@ -153,8 +153,9 @@ intent.</p>
 <span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">tags</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">guide</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">installation</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span></code></pre>
 <p><code>title</code> becomes the <code>&lt;title&gt;</code> tag, the menu entry and the breadcrumb.
-<code>description</code> feeds the metadata and the JSON-LD. Everything is optional:
-without <code>title</code>, the project name stands in.</p>
+<code>description</code> feeds the metadata and the JSON-LD. <code>tags</code> show at the bottom of
+the page, below the text they describe — one tag may be written without
+brackets. Everything is optional: without <code>title</code>, the project name stands in.</p>
 <p>The fields are detailed in the <a href="/versions/beta/reference/frontmatter/">reference</a>.</p>
 <h2 id="who-wrote-the-page">Who wrote the page</h2>
 <p>A page that names its authors, or carries a date, opens with a byline:</p>
@@ -178,7 +179,8 @@ describe them in a JSON file of the version folder:</p>
 read <strong>in each version folder</strong>, as the menu is — a biography corrected in
 the version being written leaves the published one alone. The file itself is
 not published; the avatars are, and are measured at the build so that the
-text does not jump when they arrive.</p>
+text does not jump when they arrive. A version without the file shows the
+names alone: an older version needs no copy of it.</p>
 <p>A key nobody describes is shown as written, which is what lets a project name
 its authors before describing them. The description also feeds the page data:
 a biography becomes the <code>description</code> of its <code>Person</code>, a link its <code>url</code>.</p>
@@ -218,8 +220,10 @@ of the version&#x27;s folder, and name it in the configuration:</p>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span></code></pre>
 <p>A page is named by its path, as in its URL. <code>{ &quot;auto&quot;: &quot;components&quot; }</code> keeps
 the automatic menu of a folder — the DocPensieve section stays whole that way.
-A page the file leaves out is still published, only off the menu. Every kind
-of entry is in the <a href="/versions/beta/reference/configuration/"><code>sidebar</code> reference</a>.</p>
+A page the file leaves out is still published, only off the menu, and a
+version without the file keeps the menu of its folders — an older version
+needs no copy of it. Every kind of entry is in the
+<a href="/versions/beta/reference/configuration/"><code>sidebar</code> reference</a>.</p>
 <h2 id="internal-links">Internal links</h2>
 <p>Two spellings, two meanings:</p>
 <ul>
@@ -272,6 +276,9 @@ string of utilities, so that the line stays short.</li>
 <p>A page whose frontmatter carries <code>draft: true</code> is loaded but kept out of the
 output. That is what lets a work-in-progress page stay in the repository
 without being published.</p></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">guide</li><li class="dp-tag">content</li>
+        </ul>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
