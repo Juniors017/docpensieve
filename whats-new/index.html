@@ -4,35 +4,68 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>What&#x27;s new in 0.2 · DocPensieve</title>
-    <meta name="description" content="What the 0.2 brings, what it is still to bring, and what it changes for a 0.1 project." />
-    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="What the 0.2 brings, and what it changes for a 0.1 project." />
     <link rel="canonical" href="https://docpensieve.com/versions/v0.2/whats-new/" />
     <link rel="icon" href="/versions/v0.2/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
     <meta property="og:title" content="What&#x27;s new in 0.2 · DocPensieve" />
-    <meta property="og:description" content="What the 0.2 brings, what it is still to bring, and what it changes for a 0.1 project." />
+    <meta property="og:description" content="What the 0.2 brings, and what it changes for a 0.1 project." />
     <meta property="og:url" content="https://docpensieve.com/versions/v0.2/whats-new/" />
     <meta property="og:image" content="https://docpensieve.com/versions/v0.2/assets/social-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/v0.2/assets/docpensieve.css" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/v0.2/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/v0.2/whats-new/#article","headline":"What's new in 0.2","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/v0.2/whats-new/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"What the 0.2 brings, what it is still to bring, and what it changes for a 0.1 project.","keywords":["release"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/v0.2/whats-new/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/v0.2/"},{"@type":"ListItem","position":2,"name":"What's new in 0.2","item":"https://docpensieve.com/versions/v0.2/whats-new/"}]}]}</script>
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/v0.2/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/v0.2/whats-new/#article","headline":"What's new in 0.2","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/v0.2/whats-new/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"What the 0.2 brings, and what it changes for a 0.1 project.","keywords":["release"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/v0.2/whats-new/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/v0.2/"},{"@type":"ListItem","position":2,"name":"What's new in 0.2","item":"https://docpensieve.com/versions/v0.2/whats-new/"}]}]}</script>
   </head>
   <body>
     <a class="dp-skip" href="#content">Skip to content</a>
 
-    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90" id="top" tabindex="-1">
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/v0.2/"><img class="dp-brand-logo" src="/versions/v0.2/assets/logo.png" alt="" />DocPensieve</a>
-      <details class="dp-versions">
-        <summary aria-label="Version 0.2.0-beta.1, switch version">0.2.0-beta.1</summary>
-        <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-          <li><a href="/versions/v0.2/" aria-current="true">0.2.0-beta.1</a></li>
-          <li><a href="/versions/v0.1/">0.1.5</a></li>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.2.0, switch version">0.2.0</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/">0.4.0-beta.1</a></li>
+            <li><a href="/versions/latest/">0.3.0</a></li>
+            <li><a href="/versions/v0.2/" aria-current="true">0.2.0</a></li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li><a href="/versions/latest/examples/">Examples</a></li>
         </ul>
+        <form class="dp-search" role="search" action="/versions/v0.2/search/">
+          <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.2.0, switch version">0.2.0</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/">0.4.0-beta.1</a></li>
+              <li><a href="/versions/latest/">0.3.0</a></li>
+              <li><a href="/versions/v0.2/" aria-current="true">0.2.0</a></li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li><a href="/versions/latest/examples/">Examples</a></li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/v0.2/search/">
+            <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+          </form>
+        </nav>
       </details>
-      <form class="dp-search" role="search" action="/versions/v0.2/search/">
-        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
-      </form>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Switch the colour scheme">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
     </header>
 
     <div class="dp-shell">
@@ -58,6 +91,9 @@
               </li>
               <li class="dp-nav-item">
                 <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.2/guide/deployment/">Deployment</a>
+              </li>
+              <li class="dp-nav-item">
+                <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.2/guide/migrate-from-0-1/">Migrate from 0.1 to 0.2</a>
               </li>
             </ul>
           </li>
@@ -119,24 +155,21 @@
           <li class="dp-nav-item">
             <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.2/whats-new/" aria-current="page">What&#x27;s new in 0.2</a>
           </li>
-          <li class="dp-nav-item">
-            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.2/migrating/">Moving from 0.1 to 0.2</a>
-          </li>
         </ul>
       </nav>
 
       <main class="dp-main" id="content" tabindex="-1">
         <aside class="dp-notice" role="note">
-          This version is in preparation and may change.
-          The current version is <a href="/versions/v0.1/">0.1.5</a>.
+          This version is no longer maintained.
+          The current version is <a href="/versions/latest/">0.3.0</a>.
         </aside>
         <article class="dp-article"><h1 id="whats-new-in-0-2">What&#x27;s new in 0.2</h1>
-<p>This version is <strong>in preparation</strong>. Its betas go out under the npm tag <code>beta</code>,
-while the version installed by default stays the 0.1, documented in the 0.1
-pages of this site:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@beta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-site</span></span></code></pre>
-<p>What follows describes the 0.2 as it stands, and
-<a href="/versions/v0.2/migrating/">Moving from 0.1 to 0.2</a> says what to check in a 0.1 project.</p>
+<p>This version is <strong>out</strong>. It is what <code>npx docpensieve init my-site</code> installs,
+and what the <code>latest</code> pages of this site document:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@latest</span></span></code></pre>
+<p>What follows describes everything it brings, and
+<a href="/versions/v0.2/guide/migrate-from-0-1/">Migrate from 0.1 to 0.2</a> says what to check in a
+0.1 project.</p>
 <h2 id="already-there">Already there</h2>
 <h3 id="a-menu-written-by-hand">A menu written by hand</h3>
 <p><code>sidebar: &#x27;sidebar.json&#x27;</code> replaces the menu derived from the file tree with
@@ -153,8 +186,8 @@ RSS feed of the dated pages. See <a href="/versions/v0.2/reference/configuration
 in the reference.</p>
 <h3 id="search">Search</h3>
 <p>A search field in the header, and a search page in each version. The index is
-built with the site; content pages still load no script — the search page
-alone does, and without it the page stays the list of every page. See
+built with the site, and the field is a plain form: only the search page loads
+a script of its own, and without it the page stays the list of every page. See
 <a href="/versions/v0.2/reference/configuration/">Search</a> in the reference.</p>
 <h3 id="a-colour-scheme-of-your-choosing-and-a-logo-per-version">A colour scheme of your choosing, and a logo per version</h3>
 <p><code>theme.darkMode: &#x27;dark&#x27;</code> keeps the site dark whatever the reader&#x27;s system —
@@ -162,6 +195,10 @@ alone does, and without it the page stays the list of every page. See
 Until now the field was accepted and did nothing. A version can also carry its
 own <code>logo</code> and <code>favicon</code>, to tell a beta apart at a glance. See the
 <a href="/versions/v0.2/reference/configuration/">configuration reference</a>.</p>
+<h3 id="a-light-dark-switch">A light / dark switch</h3>
+<p>A button in the header switches between light and dark, and remembers the
+choice from page to page. It is on by default — a few lines of inline script
+in every page; <code>theme.toggle: false</code> removes it, and pages then load no script.</p>
 <h3 id="lighter-pages">Lighter pages</h3>
 <p>The stylesheet reaches the reader minified. Every image of a page gets its
 width and height, read from its file, so that the text no longer jumps when it
@@ -174,8 +211,12 @@ The repository also holds two complete example projects, one per theme, built
 and checked on every run of its tests.</p>
 <h2 id="for-a-0-1-project">For a 0.1 project</h2>
 <p>Nothing to change: a 0.1 configuration builds as it is. <code>sidebar: &#x27;auto&#x27;</code>
-stays the default, and every new field is optional. A guide to moving from
-0.1 to 0.2 will come with the release.</p></article>
+stays the default, and every new field is optional.
+<a href="/versions/v0.2/guide/migrate-from-0-1/">Migrate from 0.1 to 0.2</a> goes through what changes
+on its own, what to check, and what is worth turning on.</p></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">release</li>
+        </ul>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -197,6 +238,9 @@ stays the default, and every new field is optional. A guide to moving from
                 <a href="#a-colour-scheme-of-your-choosing-and-a-logo-per-version">A colour scheme of your choosing, and a logo per version</a>
               </li>
               <li class="dp-toc-item">
+                <a href="#a-light-dark-switch">A light / dark switch</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#lighter-pages">Lighter pages</a>
               </li>
               <li class="dp-toc-item">
@@ -212,7 +256,7 @@ stays the default, and every new field is optional. A guide to moving from
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.2.0-beta.1</p>
+      <p>DocPensieve — version 0.2.0</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">
@@ -231,5 +275,6 @@ stays the default, and every new field is optional. A guide to moving from
         <path d="m5 12 7-7 7 7" />
       </svg>
     </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
   </body>
 </html>
