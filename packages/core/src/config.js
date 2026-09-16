@@ -39,6 +39,8 @@ import {
  * @property {{ framework: string, darkMode?: string, toggle?: boolean, tokens?: Record<string, string>, css?: string, source?: string }} theme
  * @property {string} sidebar     `'auto'`, or the path of a description.
  * @property {string} [authors]   Path of a JSON describing the authors, read in each version folder.
+ * @property {{ label: string, href: string, version?: string }[]} [headerLinks]
+ *   Links of the header, beside the version switcher.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {{ enabled: boolean }} jsonld
@@ -75,6 +77,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   // gives. The file only adds what a name cannot carry — a biography, an
   // avatar, a link.
   authors: '',
+  // No link in the header by default: the version switcher and the search
+  // field are there already.
+  headerLinks: [],
   globalComponents: true,
   scrollToTop: true,
   jsonld: { enabled: true },
@@ -260,6 +265,43 @@ export function normalizeConfig(userConfig) {
           hint: "For instance authors: 'authors.json', read as docs/v1.0/authors.json for that version.",
         },
       );
+    }
+  }
+
+  // Links of the header: site navigation, not page content. A target starts
+  // from the root of a version, or names another site; a relative one would
+  // change meaning from page to page. A link may name the version it lives in,
+  // so that a section written in one version is reachable from all of them.
+  if (config.headerLinks !== undefined) {
+    if (!Array.isArray(config.headerLinks)) {
+      throw new ConfigError('headerLinks must be a list of links.', {
+        hint: "For instance headerLinks: [{ label: 'Examples', href: '/examples/' }].",
+      });
+    }
+    const slugs = new Set(config.versions.map((version) => version.slug));
+    for (const link of config.headerLinks) {
+      if (!link || typeof link.label !== 'string' || link.label.trim() === '') {
+        throw new ConfigError(`A header link has no label: ${JSON.stringify(link)}.`, {
+          hint: "Write { label: 'Examples', href: '/examples/' }.",
+        });
+      }
+      if (
+        typeof link.href !== 'string' ||
+        !(link.href.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(link.href))
+      ) {
+        throw new ConfigError(
+          `The header link "${link.label}" needs an absolute target: "${String(link.href)}".`,
+          {
+            hint: "Start from the root of the version — '/examples/' — or give a full address.",
+          },
+        );
+      }
+      if (link.version !== undefined && !slugs.has(link.version)) {
+        throw new ConfigError(
+          `The header link "${link.label}" names an unknown version: "${String(link.version)}".`,
+          { hint: `Declared versions: ${[...slugs].join(', ')}.` },
+        );
+      }
     }
   }
 

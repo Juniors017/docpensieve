@@ -273,6 +273,17 @@ export class SiteGenerator {
     // page, and a biography corrected in one version leaves the others alone.
     const authors = await this.#readAuthors(sourceDir, version.folder, versionBase);
 
+    // Links of the header, resolved once per version. A link naming a version
+    // leads there from every version: a section written in one version only
+    // stays reachable from the others.
+    const headerLinks = (this.config.headerLinks ?? []).map((link) => ({
+      label: link.label,
+      href: EXTERNAL_PREVIEW.test(link.href)
+        ? link.href
+        : joinUrl(this.config.baseUrl, 'versions', link.version ?? version.slug) +
+          link.href.replace(/^\/+/, ''),
+    }));
+
     const shell = {
       lang: this.config.lang ?? 'en',
       // A fixed scheme is a class on <html>, which the skins and the dark
@@ -296,6 +307,9 @@ export class SiteGenerator {
           ? new URL(images.socialImage, this.config.siteUrl).href
           : '',
       searchUrl,
+      headerLinks,
+      // A menu with nothing in it would be a button that opens onto nothing.
+      headerMenu: this.config.versions.length > 1 || headerLinks.length > 0 || searchUrl !== '',
       // The light / dark switch: a button, and the few lines of script it needs.
       schemeToggle: this.config.theme?.toggle !== false,
       cls: classes,
@@ -849,8 +863,8 @@ export class SiteGenerator {
   async #loadLayout() {
     if (this.#layout) return this.#layout;
 
-    const [layout, navItems, tocItems] = await Promise.all(
-      ['layout.hbs', 'nav-items.hbs', 'toc-items.hbs'].map((file) =>
+    const [layout, navItems, tocItems, headerMenu] = await Promise.all(
+      ['layout.hbs', 'nav-items.hbs', 'toc-items.hbs', 'header-menu.hbs'].map((file) =>
         readFile(path.join(TEMPLATE_DIR, file), 'utf8'),
       ),
     );
@@ -859,6 +873,7 @@ export class SiteGenerator {
     handlebars.registerHelper('eq', (a, b) => a === b);
     handlebars.registerPartial('navItems', navItems);
     handlebars.registerPartial('tocItems', tocItems);
+    handlebars.registerPartial('headerMenu', headerMenu);
 
     this.#layout = handlebars.compile(layout);
     return this.#layout;

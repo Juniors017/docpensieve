@@ -357,6 +357,59 @@ describe('the light / dark switch', () => {
   });
 });
 
+describe('header links', () => {
+  const beta = { slug: 'beta', name: '2.0', folder: 'docs/v2.0', prerelease: true };
+
+  it('is empty by default, and takes links with a label and a target', () => {
+    expect(normalizeConfig({ versions: [v1] }).headerLinks).toEqual([]);
+    const links = [
+      { label: 'Examples', href: '/examples/', version: 'beta' },
+      { label: 'Repository', href: 'https://example.com/repo' },
+    ];
+    expect(normalizeConfig({ versions: [v1, beta], headerLinks: links }).headerLinks).toEqual(
+      links,
+    );
+  });
+
+  it('refuses a link without a label', () => {
+    let failure;
+    try {
+      normalizeConfig({ versions: [v1], headerLinks: [{ href: '/examples/' }] });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure?.hint).toContain('label');
+  });
+
+  it('refuses a relative target, which would change meaning from page to page', () => {
+    let failure;
+    try {
+      normalizeConfig({ versions: [v1], headerLinks: [{ label: 'Blog', href: 'blog/' }] });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure?.message).toContain('"Blog"');
+    expect(failure?.hint).toContain("'/examples/'");
+  });
+
+  it('refuses a version nobody declared', () => {
+    let failure;
+    try {
+      normalizeConfig({
+        versions: [v1],
+        headerLinks: [{ label: 'Examples', href: '/examples/', version: 'beat' }],
+      });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure?.message).toContain('"beat"');
+    expect(failure?.hint).toContain('v1.0');
+  });
+});
+
 describe('dangerous values', () => {
   it('refuses a version slug that is not a safe path segment', () => {
     // The slug becomes an output folder: "../../elsewhere" wrote outside the

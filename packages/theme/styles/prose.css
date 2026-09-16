@@ -161,6 +161,36 @@
   color: var(--dp-text);
 }
 
+/* The links of the header, and the menu that holds them on a narrow screen. */
+.dp-header-links a {
+  color: var(--dp-text-soft);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dp-header-links a:hover {
+  color: var(--dp-text);
+}
+
+.dp-menu > summary {
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  color: var(--dp-text-soft);
+}
+
+.dp-menu > summary:hover,
+.dp-menu[open] > summary {
+  border-color: var(--dp-text-soft);
+  color: var(--dp-text);
+}
+
+.dp-menu-panel {
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg);
+  box-shadow: 0 8px 24px var(--dp-shadow);
+}
+
 /* The byline of a page: quieter than the text it introduces. */
 .dp-byline {
   border-block-end: 1px solid var(--dp-border);

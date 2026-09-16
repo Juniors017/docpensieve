@@ -36,6 +36,10 @@ One constraint is gone, too. A `sidebar` or `authors` file named in the
 configuration no longer has to exist in every version folder: a version
 without it keeps the menu of its folders, or shows the names alone.
 
+On a narrow screen, the header changes for every site: the version switcher and
+the search field move behind a menu button. Nothing to configure — `headerLinks`
+only adds links to that menu.
+
 ## What to turn on
 
 | Field                        | Gives                                                 |

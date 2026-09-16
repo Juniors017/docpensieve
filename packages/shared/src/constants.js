@@ -105,4 +105,8 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   bylineDates: 'dp-byline-dates',
   tags: 'dp-tags',
   tag: 'dp-tag',
+  headerNav: 'dp-header-nav',
+  headerLinks: 'dp-header-links',
+  menu: 'dp-menu',
+  menuPanel: 'dp-menu-panel',
 });

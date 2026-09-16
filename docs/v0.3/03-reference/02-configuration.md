@@ -58,6 +58,8 @@ can change.
 | `versions`         | `[]`                | At least one entry                                                                 |
 | `theme`            | see below           | Styling                                                                            |
 | `sidebar`          | `'auto'`            | `'auto'`: the menu follows the file tree. Or a `.json` file of each version folder |
+| `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one         |
+| `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                   |
 | `globalComponents` | `true`              | Shipped components available without an import                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                                    |
@@ -194,6 +196,29 @@ stops the build.
 
 The file is not published. The avatars are, their path starting at the version
 folder so that they travel with it.
+
+## `headerLinks`
+
+```js
+headerLinks: [
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Examples', href: '/examples/', version: 'beta' },
+  { label: 'Repository', href: 'https://github.com/me/my-project' },
+],
+```
+
+Links of the header, beside the version switcher. A target starts from the root
+of the version — `/blog/` — or is a full address. A relative target is refused:
+the header is on every page, and `blog/` would mean something else on each.
+
+`version` names the version a link leads to. Without it, each version links to
+its own page; with it, every version leads to that one — which is how a section
+written in one version only stays reachable from all of them. A version nobody
+declared stops the build.
+
+On a narrow screen, the version switcher, the links and the search field move
+behind a menu button. It is a native element that opens without a script, like
+the version switcher itself.
 
 ## `sidebar`
 

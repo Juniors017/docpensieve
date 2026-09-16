@@ -101,6 +101,19 @@ the `dp-*` class below.
 | `scrollTopIcon` | `dp-scroll-top-icon`      | Arrow of that button                            |
 | `search`        | `dp-search`               | Search field of the header                      |
 | `schemeToggle`  | `dp-scheme-toggle`        | Light / dark button of the header               |
+| `headerNav`     | `dp-header-nav`           | Versions, links and search, in a row            |
+| `headerLinks`   | `dp-header-links`         | Links of the header                             |
+| `menu`          | `dp-menu`                 | Menu button, on a narrow screen                 |
+| `menuPanel`     | `dp-menu-panel`           | What that button opens                          |
+| `byline`        | `dp-byline`               | Authors and dates at the head of a page         |
+| `bylineAuthors` | `dp-byline-authors`       | List of the authors                             |
+| `bylineAuthor`  | `dp-byline-author`        | One author                                      |
+| `bylineAvatar`  | `dp-byline-avatar`        | Avatar of an author                             |
+| `bylineName`    | `dp-byline-name`          | Name of an author                               |
+| `bylineBio`     | `dp-byline-bio`           | Biography of an author                          |
+| `bylineDates`   | `dp-byline-dates`         | Writing and update dates                        |
+| `tags`          | `dp-tags`                 | Tags at the bottom of a page                    |
+| `tag`           | `dp-tag`                  | One tag                                         |
 
 A slot can carry **variants**, suffixed `--variant`: `column` gives
 `dp-column--span-8`, `skill` gives `dp-skill--circle`.

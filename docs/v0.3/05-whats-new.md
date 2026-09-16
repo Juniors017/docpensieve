@@ -47,6 +47,14 @@ folders, or shows the names its pages give: describing the menu or the authors
 of a new version no longer forces a copy into the older ones. A file present
 but unreadable, or wrongly written, still stops the build.
 
+### Header links, and a menu on narrow screens
+
+`headerLinks` adds links to the header, beside the version switcher — each may
+name the version it leads to, so that a section written in one version is
+reachable from all of them. On a narrow screen, the switcher, the links and the
+search field move behind a menu button, which opens without a script. See the
+[`headerLinks` field](./reference/configuration/).
+
 ## For a 0.2 project
 
 Nothing to change: a 0.2 configuration builds as it is.

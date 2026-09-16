@@ -161,6 +161,99 @@ body {
 }
 
 /*
+ * What the header offers beyond the brand — versions, links, search — is
+ * written twice, and shown once: in a row on a wide screen, behind a menu
+ * button on a narrow one. Its look is in prose.css.
+ */
+.dp-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-inline-start: auto;
+}
+
+.dp-header-links {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dp-header-nav .dp-search {
+  margin-inline-start: 0;
+}
+
+.dp-menu {
+  display: none;
+  position: relative;
+  margin-inline-start: auto;
+}
+
+.dp-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.dp-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.dp-menu > summary svg {
+  inline-size: 1.2rem;
+  block-size: 1.2rem;
+}
+
+.dp-menu-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.9rem;
+  min-inline-size: 15rem;
+  padding: 1rem;
+}
+
+.dp-menu-panel .dp-header-links {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* In the panel, the version list unfolds in place rather than over it. */
+.dp-menu-panel .dp-versions-list {
+  position: static;
+  margin-block-start: 0.4rem;
+}
+
+.dp-menu-panel .dp-search input {
+  max-inline-size: none;
+}
+
+/* Beside a menu, the light / dark switch no longer pushes itself right. */
+.dp-header-nav ~ .dp-scheme-toggle,
+.dp-menu ~ .dp-scheme-toggle {
+  margin-inline-start: 0;
+}
+
+@media (max-width: 48rem) {
+  .dp-header-nav {
+    display: none;
+  }
+
+  .dp-menu {
+    display: block;
+  }
+}
+
+/*
  * A documentation page takes the whole available width, 25 pixels short of
  * each edge. Three columns share the space — menu, content, table of
  * contents — and capping it would shrink the content for no gain.

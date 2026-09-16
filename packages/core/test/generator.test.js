@@ -753,8 +753,12 @@ describe('project images', () => {
 
 describe('a sidebar described by a file', () => {
   /** @param {string} html @returns {string} The navigation part of a page. */
-  const navOf = (html) =>
-    html.slice(html.indexOf('<nav class="dp-sidebar"'), html.indexOf('</nav>'));
+  const navOf = (html) => {
+    // The closing tag after the sidebar's own: the header holds navs too, and
+    // the first closing tag of the page is no longer this one.
+    const start = html.indexOf('<nav class="dp-sidebar"');
+    return html.slice(start, html.indexOf('</nav>', start));
+  };
 
   it('follows the file, and does not publish it', async () => {
     const config = project(
@@ -1341,6 +1345,59 @@ describe('the byline of a page', () => {
     }
     expect(failure?.message).toContain('authors/gone.png');
     expect(failure?.hint).toContain('version folder');
+  });
+});
+
+describe('the header menu', () => {
+  it('shows the links twice, in a row and behind the menu button', async () => {
+    // One of the two is displayed at a time: in a row on a wide screen, behind
+    // the button on a narrow one.
+    const config = project(
+      { 'index.md': page('Home') },
+      { headerLinks: [{ label: 'Blog', href: '/blog/' }] },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html.match(/<a href="\/versions\/v1\.0\/blog\/">Blog<\/a>/g)).toHaveLength(2);
+    expect(html).toContain('<nav class="dp-header-nav" aria-label="Site">');
+    expect(html).toMatch(/<details class="dp-menu">\s*<summary aria-label="Menu">/);
+  });
+
+  it('leads to the version a link names, and leaves another site alone', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      {
+        versions: [
+          { slug: 'v1.0', name: '1.0', folder: 'docs/v1.0', current: true },
+          { slug: 'beta', name: '2.0', folder: 'docs/v1.0', prerelease: true },
+        ],
+        headerLinks: [
+          { label: 'Examples', href: '/examples/', version: 'beta' },
+          { label: 'Repository', href: 'https://example.com/repo' },
+        ],
+      },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    // Built for v1.0, the link still leads to the beta, where the section is.
+    expect(html).toContain('href="/versions/beta/examples/"');
+    expect(html).toContain('href="https://example.com/repo"');
+  });
+
+  it('writes no menu with nothing to put in it', async () => {
+    // A single version, no search, no link: a button that opens onto nothing
+    // would be worse than no button.
+    const config = project({ 'index.md': page('Home') }, { search: false });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).not.toContain('dp-menu');
+    expect(html).not.toContain('dp-header-nav');
   });
 });
 

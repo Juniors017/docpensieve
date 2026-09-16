@@ -1,0 +1,26 @@
+{{!-- What the header offers beyond the brand: the version switcher, the links of
+the site and the search field. Written once here, shown twice by the layout — in
+a row on a wide screen, behind a menu button on a narrow one. --}}
+{{#if showVersions}}
+<details class="{{{cls.versions}}}">
+  {{!-- The accessible name contains the visible label: when dictated by voice,
+  what is read on screen must find this button. --}}
+  <summary aria-label="Version {{versionName}}, switch version">{{versionName}}</summary>
+  <ul class="{{{cls.versionsList}}}">
+    {{#each versions}}
+    <li><a href="{{url}}"{{#if current}} aria-current="true"{{/if}}>{{name}}</a></li>
+    {{/each}}
+  </ul>
+</details>
+{{/if}}
+{{#if headerLinks.length}}
+<ul class="{{{cls.headerLinks}}}">
+  {{#each headerLinks}}<li><a href="{{href}}">{{label}}</a></li>{{/each}}
+</ul>
+{{/if}}
+{{!-- A plain form: it leads to the search page, and needs no script. --}}
+{{#if searchUrl}}
+<form class="{{{cls.search}}}" role="search" action="{{searchUrl}}">
+  <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+</form>
+{{/if}}

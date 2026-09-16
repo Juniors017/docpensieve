@@ -96,6 +96,11 @@ export default defineConfig({
   // such file and show the names alone: the file is optional per version.
   authors: 'authors.json',
 
+  // The examples exist in the beta only, while readers land on latest: the
+  // link names its version, so that every version leads there. On the release
+  // of the 0.3, the examples move to latest along with it.
+  headerLinks: [{ label: 'Examples', href: '/examples/', version: 'beta' }],
+
   globalComponents: true,
 
   jsonld: { enabled: true },

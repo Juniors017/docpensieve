@@ -59,23 +59,21 @@
     <header class="{{{cls.header}}}">
       {{!-- The logo's alt stays empty: the name that follows already says it. --}}
       <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{#if logoUrl}}<img class="{{{cls.brandLogo}}}" src="{{logoUrl}}" alt="" />{{/if}}{{projectName}}</a>
-      {{#if showVersions}}
-      <details class="{{{cls.versions}}}">
-        {{!-- The accessible name contains the visible label: when dictated by
-        voice, what is read on screen must find this button. --}}
-        <summary aria-label="Version {{versionName}}, switch version">{{versionName}}</summary>
-        <ul class="{{{cls.versionsList}}}">
-          {{#each versions}}
-          <li><a href="{{url}}"{{#if current}} aria-current="true"{{/if}}>{{name}}</a></li>
-          {{/each}}
-        </ul>
+      {{!-- Shown twice, one at a time: in a row on a wide screen, behind a button
+      on a narrow one. The button is a details element, so that the menu opens
+      without a script — as the version switcher does. --}}
+      {{#if headerMenu}}
+      <nav class="{{{cls.headerNav}}}" aria-label="Site">
+        {{> headerMenu}}
+      </nav>
+      <details class="{{{cls.menu}}}">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="{{{cls.menuPanel}}}" aria-label="Site">
+          {{> headerMenu}}
+        </nav>
       </details>
-      {{/if}}
-      {{!-- A plain form: it leads to the search page, and needs no script. --}}
-      {{#if searchUrl}}
-      <form class="{{{cls.search}}}" role="search" action="{{searchUrl}}">
-        <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
-      </form>
       {{/if}}
       {{!-- Hidden until its script runs: without JavaScript, it would do nothing. --}}
       {{#if schemeToggle}}
