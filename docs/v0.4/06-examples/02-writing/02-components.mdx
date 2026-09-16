@@ -1,0 +1,60 @@
+---
+title: Components
+description: Columns, cards, gauges and tooltips — without an import, without a script.
+authors: [pensy]
+date: 2026-09-07
+modified: 2026-09-12
+tags: [course, intermediate, components]
+---
+
+# Components
+
+<Skill name="Module progress" level={100} color="#10b981">
+  Lesson 2 of 2 — the last one of this module.
+</Skill>
+
+## A comparison, in columns
+
+A page that compares two ways of working reads better side by side:
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>A list written by hand</CardHeader>
+      <CardBody>Goes stale at the first page renamed. Nothing tells you.</CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>A grid of cards</CardHeader>
+      <CardBody>Built from the pages on every build. It cannot go stale.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## A dashboard, in gauges
+
+Where a team tracks the state of its documentation:
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Pages reviewed" level={82} shape="circle" />
+  <Skill name="Examples tested" level={95} shape="circle" color="#10b981" />
+  <Skill name="Translated" level={40} shape="circle" color="#f59e0b" />
+</div>
+
+## A term, explained in place
+
+A reader who does not know what a <Tooltip text="A version published before the stable one, to try what is coming.">beta</Tooltip> finds out without leaving the sentence — with the mouse or from the keyboard.
+
+## Check yourself
+
+<details>
+<summary>How many scripts does this page load?</summary>
+
+None. Every component here is rendered when the site is built.
+
+</details>
+
+<Card href="/components/">
+  <CardBody>This lesson uses **Columns**, **Card**, **Skill** and **Tooltip**.</CardBody>
+</Card>

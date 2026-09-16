@@ -101,6 +101,7 @@ the project's own documentation.
 docpensieve/
 ├── docs/v0.2/                archived version
 ├── docs/v0.3/                current version
+├── docs/v0.4/                version in preparation
 ├── packages/
 │   ├── shared/               constants, errors, slugs
 │   ├── core/                 config, loader, compiler, JSON-LD, generator

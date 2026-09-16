@@ -1,0 +1,47 @@
+---
+title: Examples
+description: A complete site built with DocPensieve — a training course, from first steps to going live.
+tags: [examples]
+---
+
+# Examples
+
+This section is not a manual. It is a **site built with DocPensieve**, the way a
+team would build one: a training course in three modules, each a series of
+lessons, with its authors, its dates, its tags and its components.
+
+Everything here is written in Markdown and MDX, and reaches the reader without a
+line of JavaScript.
+
+<Cards of="series" />
+
+## What to look at
+
+<Columns>
+  <Column>
+    <Card href="/components/cards/" style={{ height: '100%' }}>
+      <CardHeader>Series in cards</CardHeader>
+      <CardBody>
+        Each module is a folder. Its card — cover, description, number of lessons — is built from
+        its pages, and nothing is listed by hand.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card href="/guide/writing-pages/" style={{ height: '100%' }}>
+      <CardHeader>Authors and dates</CardHeader>
+      <CardBody>
+        Every lesson opens with its authors and its dates, described once in a JSON file of the
+        version.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card href="/components/" style={{ height: '100%' }}>
+      <CardHeader>Components in context</CardHeader>
+      <CardBody>
+        Gauges for difficulty, tooltips on terms, file trees, a banner that follows the calendar.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>

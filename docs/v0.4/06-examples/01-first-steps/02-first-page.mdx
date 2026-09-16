@@ -1,0 +1,61 @@
+---
+title: A first page
+description: Where a page lives, what its frontmatter says, and how its address follows.
+authors: [pensy]
+date: 2026-09-02
+modified: 2026-09-10
+tags: [course, beginner, writing]
+---
+
+# A first page
+
+<Skill name="Module progress" level={66}>
+  Lesson 2 of 3.
+</Skill>
+
+## Where pages live
+
+Every page is a file of the version folder. Its place gives its address:
+
+<Tree>
+  <TreeItem label="docs/v1.0" open>
+    <TreeItem label="index.mdx — the home page" />
+    <TreeItem label="guide" open>
+      <TreeItem label="index.md — /guide/" />
+      <TreeItem label="01-hello.md — /guide/hello/" />
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+The <Tooltip text="Two digits and a dash at the start of a name: they order the menu and disappear from the address.">sorting prefix</Tooltip> sets the order without showing in the URL.
+
+## Your turn
+
+Create `docs/v1.0/guide/01-hello.md`:
+
+```md
+---
+title: Hello
+description: My very first page.
+tags: [hello]
+---
+
+Welcome to my documentation.
+```
+
+The <Tooltip text="The block between the two lines of dashes, at the top of the file.">frontmatter</Tooltip> is optional, but it is what fills the title of the tab, the menu entry, and the tags below the page.
+
+## Check yourself
+
+<details>
+<summary>What is the address of 02-setup.md, in the guide folder?</summary>
+
+`/guide/setup/` — the prefix and the extension disappear.
+
+</details>
+
+<Card href="/components/tree/">
+  <CardBody>
+    This lesson uses **Tree**, **Tooltip** and **Skill**, and shows its own tags at the bottom.
+  </CardBody>
+</Card>
