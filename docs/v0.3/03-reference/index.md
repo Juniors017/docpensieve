@@ -10,13 +10,7 @@ jsonld:
 
 # Reference
 
-- **[Commands](./cli/)** — `init`, `build`, `check`, `dev`, `serve`
-  and their options.
-- **[Configuration](./configuration/)** — every field of
-  `docpensieve.config.mjs`, its default value and its effect.
-- **[Frontmatter](./frontmatter/)** — the fields recognised at the top
-  of a page.
-- **[Theme](./theme/)** — slots, tokens and styling options.
+<Cards />
 
 To learn how to use them rather than look them up, the [guide](../guide/) is the
 right starting point.

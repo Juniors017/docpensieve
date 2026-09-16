@@ -13,20 +13,7 @@ jsonld:
 These pages are read in order. Each one starts from what the previous one set
 up.
 
-1. **[Installation](./installation/)** — what you need, and how to set up
-   a project.
-2. **[First site](./first-site/)** — build, serve, look at what was
-   produced.
-3. **[Writing pages](./writing-pages/)** — frontmatter, URLs, menu, links,
-   images.
-4. **[Versions](./versions/)** — several documentation versions, one
-   branch each.
-5. **[Themes](./themes/)** — style the site, change the classes without
-   touching the HTML.
-6. **[Deployment](./deployment/)** — publish, and keep past versions
-   online.
-7. **[Migrate from latest to beta](./migrate-to-beta/)** — move a 0.2 project
-   to the 0.3 beta.
+<Cards />
 
 ## What to know first
 
