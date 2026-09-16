@@ -8,9 +8,9 @@ import { readFileSync } from 'node:fs';
 
 import { defineConfig } from '@docpensieve/core';
 
-// The version main carries — the beta of the 0.2, until it is released — is
-// the label of the version being written: readers compare what they installed
-// with what they read. `npm run version:all` bumps it along with the packages.
+// The version main carries labels the version being written: readers compare
+// what they installed with what they read. `npm run version:all` bumps it
+// along with the packages.
 const { version: published } = JSON.parse(
   readFileSync(new URL('./packages/cli/package.json', import.meta.url), 'utf8'),
 );
@@ -24,7 +24,7 @@ export default defineConfig({
   // The project's images, from the root: beside the name in the header, in
   // the browser tab, and as the preview of a shared page. The full logo,
   // branding/logo.jpg, is too detailed at the size of a header or a tab: they
-  // take the bowl alone, cut square. The beta carries its own, below.
+  // take the bowl alone, cut square. A version may carry its own instead.
   logo: 'branding/mark.png',
   favicon: 'branding/favicon.png',
   socialImage: 'branding/social.jpg',
@@ -32,8 +32,8 @@ export default defineConfig({
   // One entry per version. `folder` points to the Markdown/MDX sources; the
   // compiled output then goes to an orphan branch with the same slug.
   //
-  // Two tracks: 0.1 is the current one and only receives fixes, 0.2 is the
-  // one being written.
+  // Two tracks: the 0.2 is the current one, the 0.1 is archived and only
+  // receives fixes.
   //
   // The slugs name the channel, not the number: a link to /versions/latest/
   // always leads to the documentation that counts, and /versions/beta/ to the
@@ -45,18 +45,11 @@ export default defineConfig({
   // The numbers follow those of the packages: in 0.x, a breaking change needs
   // no ceremony, which suits an API that is still moving.
   versions: [
-    {
-      slug: 'beta',
-      name: published,
-      folder: 'docs/v0.2',
-      prerelease: true,
-      // The beta is told apart at a glance: its bowl is on fire.
-      logo: 'branding/mark-beta.png',
-      favicon: 'branding/favicon-beta.png',
-    },
-    // Frozen at the last 0.1 published: main carries the 0.2 now. A fix
-    // released from release/0.1 updates this label by hand.
-    { slug: 'latest', name: '0.1.5', folder: 'docs/v0.1', current: true },
+    { slug: 'latest', name: published, folder: 'docs/v0.2', current: true },
+    // Archived: its content is frozen, so its address freezes with it — a
+    // numbered slug. A fix released from release/0.1 updates this label by
+    // hand.
+    { slug: 'v0.1', name: '0.1.5', folder: 'docs/v0.1', archived: true },
   ],
 
   outDir: 'dist',

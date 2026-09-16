@@ -99,9 +99,9 @@ The documentation `init` installed in `99-docpensieve` stays at the version it
 came with. To refresh it, run `init` in a scratch folder and copy that folder
 over.
 
-To try the beta — the 0.2 — install `docpensieve@beta`, or run
-`npx docpensieve@beta` alone. [Migrate from latest to beta](./migrate-to-beta/)
-says what changes, and what to check first.
+Coming from the 0.1, [Migrate from 0.1 to 0.2](./migrate-from-0-1/) says what
+changes on its own and what to check first. To try the version being prepared,
+install `docpensieve@beta`, or run `npx docpensieve@beta` alone.
 
 ## Checking
 

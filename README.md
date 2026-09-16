@@ -72,8 +72,8 @@ export default {
   projectName: 'My documentation',
   siteUrl: 'https://docs.example.com',
   versions: [
-    { slug: 'v0.2', name: '0.2 (beta)', folder: 'docs/v0.2', prerelease: true },
-    { slug: 'v0.1', name: '0.1', folder: 'docs/v0.1', current: true },
+    { slug: 'beta', name: '1.1 (beta)', folder: 'docs/v1.1', prerelease: true },
+    { slug: 'latest', name: '1.0', folder: 'docs/v1.0', current: true },
   ],
   // 'tailwind' (the default, shipped with the tool) or 'custom', the custom theme.
   theme: {
@@ -99,8 +99,8 @@ the project's own documentation.
 
 ```
 docpensieve/
-├── docs/v0.1/                current version
-├── docs/v0.2/                version in preparation
+├── docs/v0.1/                archived version
+├── docs/v0.2/                current version
 ├── packages/
 │   ├── shared/               constants, errors, slugs
 │   ├── core/                 config, loader, compiler, JSON-LD, generator

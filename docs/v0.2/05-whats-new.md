@@ -1,21 +1,21 @@
 ---
 title: What's new in 0.2
-description: What the 0.2 brings, what it is still to bring, and what it changes for a 0.1 project.
+description: What the 0.2 brings, and what it changes for a 0.1 project.
 tags: [release]
 ---
 
 # What's new in 0.2
 
-This version is **in preparation**. Its betas go out under the npm tag `beta`,
-while the version installed by default stays the 0.1, documented in the 0.1
-pages of this site:
+This version is **out**. It is what `npx docpensieve init my-site` installs,
+and what the `latest` pages of this site document:
 
 ```bash
-npx docpensieve@beta init my-site
+npm install docpensieve@latest
 ```
 
-What follows describes the 0.2 as it stands, and
-[Migrate from latest to beta](./guide/migrate-to-beta/) says what to check in a 0.1 project.
+What follows describes everything it brings, and
+[Migrate from 0.1 to 0.2](./guide/migrate-from-0-1/) says what to check in a
+0.1 project.
 
 ## Already there
 
@@ -75,5 +75,6 @@ and checked on every run of its tests.
 ## For a 0.1 project
 
 Nothing to change: a 0.1 configuration builds as it is. `sidebar: 'auto'`
-stays the default, and every new field is optional. A guide to moving from
-0.1 to 0.2 will come with the release.
+stays the default, and every new field is optional.
+[Migrate from 0.1 to 0.2](./guide/migrate-from-0-1/) goes through what changes
+on its own, what to check, and what is worth turning on.
