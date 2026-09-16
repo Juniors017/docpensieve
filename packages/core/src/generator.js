@@ -564,9 +564,13 @@ export class SiteGenerator {
         );
       }
 
+      // Published where the asset copy puts it: folders lose their ordering
+      // prefix, as pages do. The raw source path pointed at a file that is
+      // never written — `06-examples/` is served as `examples/`.
+      const published = assetPathToSlug(author.avatar).split('/');
       const entry = /** @type {Record<string, any>} */ (author);
       entry.avatarUrl =
-        joinUrl(versionBase, segments.slice(0, -1).join('/')) + segments[segments.length - 1];
+        joinUrl(versionBase, published.slice(0, -1).join('/')) + published[published.length - 1];
 
       // Dimensions spare the reader a jump when the image arrives, as for
       // every other image of a page.

@@ -1221,6 +1221,26 @@ describe('the byline of a page', () => {
     expect(existsSync(path.join(out, 'authors', 'ada.png'))).toBe(true);
   });
 
+  it('points an avatar where it is published, its folder prefix dropped', async () => {
+    // A folder ordered by a prefix is served without it, like a page: the
+    // avatar URL must follow, or it names a file that is never written.
+    const config = project(
+      {
+        'index.md': authored('Install', 'authors: [ada]'),
+        'authors.json': JSON.stringify({ ada: { name: 'Ada', avatar: '02-team/ada.png' } }),
+      },
+      { authors: 'authors.json' },
+    );
+    mkdirSync(path.join(config.rootDir, 'docs', 'v1.0', '02-team'), { recursive: true });
+    writeFileSync(path.join(config.rootDir, 'docs', 'v1.0', '02-team', 'ada.png'), pngHeader(8, 8));
+
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('src="/versions/v1.0/team/ada.png"');
+    expect(existsSync(path.join(out, 'team', 'ada.png'))).toBe(true);
+  });
+
   it('enriches the structured data with the same description', async () => {
     // The page and its metadata must not disagree about an author.
     const config = project(
