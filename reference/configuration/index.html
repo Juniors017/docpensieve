@@ -234,6 +234,15 @@ refuses it, and <code>search: false</code> frees the address.</p>
 <code>.css</code> file in it is appended after <code>css</code>, in name order, and
 <code>docpensieve dev</code> picks up every change. Under the <code>custom</code> theme, <code>init</code>
 starts it with <code>theme/custom.css</code>.</p>
+<h2 id="authors"><code>authors</code></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">authors</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;authors.json&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>Names a JSON file <strong>read in each version folder</strong>, describing the authors a
+page names in its frontmatter: a name, a biography, an avatar, a link.</p>
+<p>Empty by default, and then a page still shows the names it gives, without the
+rest: the file enriches, it does not command. Named but missing, it stops the
+build — leaving every biography out without a word would be worse.</p>
+<p>The file is not published. The avatars are, their path starting at the version
+folder so that they travel with it.</p>
 <h2 id="sidebar"><code>sidebar</code></h2>
 <p><code>&#x27;auto&#x27;</code> builds the menu from the file tree: folders become categories, and the
 <code>01-</code>, <code>02-</code> prefixes set the order. To write it by hand, name a JSON file:</p>
@@ -288,6 +297,9 @@ starts to matter from the second version on.</p></article>
           </li>
           <li class="dp-toc-item">
             <a href="#theme">theme</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#authors">authors</a>
           </li>
           <li class="dp-toc-item">
             <a href="#sidebar">sidebar</a>

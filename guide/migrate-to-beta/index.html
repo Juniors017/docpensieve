@@ -146,8 +146,13 @@ every new field is optional.</p>
 <p>Through <code>npx</code> alone, <code>npx docpensieve@beta</code> runs the beta. Going back is
 <code>npm install docpensieve@latest</code>.</p>
 <h2 id="what-changes-on-its-own">What changes on its own</h2>
-<p>Nothing yet: the 0.3 has just opened. Each change is listed here as it lands,
-beside what it asks of a project already built on the 0.2.</p></article>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>What</th><th>In 0.3</th></tr></thead><tbody><tr><td>Pages with <code>authors</code>, <code>date</code> or <code>modified</code></td><td>Open with a byline naming the authors and dates</td></tr></tbody></table></div>
+<p>Nothing to change, but something to know: those three fields already existed,
+read by the sitemap and the page data without ever being shown. They are now
+shown, so a page that carries them gains a block it did not have. A page that
+carries none of them looks exactly as before.</p>
+<h2 id="what-to-turn-on">What to turn on</h2>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Gives</th></tr></thead><tbody><tr><td><code>authors: &#x27;authors.json&#x27;</code></td><td>Biographies, avatars and links, described per version</td></tr></tbody></table></div></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -158,6 +163,9 @@ beside what it asks of a project already built on the 0.2.</p></article>
           </li>
           <li class="dp-toc-item">
             <a href="#what-changes-on-its-own">What changes on its own</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-to-turn-on">What to turn on</a>
           </li>
         </ul>
       </nav>

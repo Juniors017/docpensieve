@@ -144,10 +144,13 @@ while the version installed by default stays the 0.2, documented in the
 <code>latest</code> pages of this site:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@beta</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-site</span></span></code></pre>
 <h2 id="already-there">Already there</h2>
-<p>Nothing yet: the 0.3 has just opened, and its pages are still those of the 0.2.
-Each feature is announced here as it lands, with a link to the guide and to the
-reference — this page announces, it is never the only place something is
-written.</p>
+<h3 id="authors-at-the-head-of-a-page">Authors at the head of a page</h3>
+<p>A page carrying <code>authors</code>, <code>date</code> or <code>modified</code> now opens with a byline: who
+wrote it, and when. The names show as written; a JSON file of the version,
+named by <code>authors: &#x27;authors.json&#x27;</code>, adds a biography, an avatar and a link —
+and feeds the page data with them. See
+<a href="/versions/beta/guide/writing-pages/">Who wrote the page</a> in the guide, and the
+<a href="/versions/beta/reference/configuration/"><code>authors</code> field</a> in the reference.</p>
 <h2 id="for-a-0-2-project">For a 0.2 project</h2>
 <p>Nothing to change: a 0.2 configuration builds as it is.
 <a href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a> lists what changes on
@@ -159,6 +162,11 @@ its own, what to check, and what is worth turning on.</p></article>
         <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
           <li class="dp-toc-item">
             <a href="#already-there">Already there</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#authors-at-the-head-of-a-page">Authors at the head of a page</a>
+              </li>
+            </ul>
           </li>
           <li class="dp-toc-item">
             <a href="#for-a-0-2-project">For a 0.2 project</a>

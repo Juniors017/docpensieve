@@ -153,6 +153,34 @@ intent.</p>
 <code>description</code> feeds the metadata and the JSON-LD. Everything is optional:
 without <code>title</code>, the project name stands in.</p>
 <p>The fields are detailed in the <a href="/versions/beta/reference/frontmatter/">reference</a>.</p>
+<h2 id="who-wrote-the-page">Who wrote the page</h2>
+<p>A page that names its authors, or carries a date, opens with a byline:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">title</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">Installation</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">authors</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">ada</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">grace</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2026-09-09</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">modified</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2026-09-16</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span></code></pre>
+<p>The names show as written. To give them a biography, an avatar and a link,
+describe them in a JSON file of the version folder:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  &quot;ada&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;name&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Ada Lovelace&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;bio&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Wrote the first algorithm meant for a machine.&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;avatar&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;authors/ada.png&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;url&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;https://example.com/ada&quot;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Then name that file in the configuration: <code>authors: &#x27;authors.json&#x27;</code>. It is
+read <strong>in each version folder</strong>, as the menu is — a biography corrected in
+the version being written leaves the published one alone. The file itself is
+not published; the avatars are, and are measured at the build so that the
+text does not jump when they arrive.</p>
+<p>A key nobody describes is shown as written, which is what lets a project name
+its authors before describing them. The description also feeds the page data:
+a biography becomes the <code>description</code> of its <code>Person</code>, a link its <code>url</code>.</p>
+<p>A date written the day the page was is not repeated as an update, and a home
+page carries no byline at all: it is an entrance hall, not a document.</p>
 <h2 id="what-the-url-depends-on">What the URL depends on</h2>
 <p>The file path gives the URL path, stripped of its extension and of its sorting
 prefix:</p>
@@ -248,6 +276,9 @@ without being published.</p></article>
         <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
           <li class="dp-toc-item">
             <a href="#the-frontmatter">The frontmatter</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#who-wrote-the-page">Who wrote the page</a>
           </li>
           <li class="dp-toc-item">
             <a href="#what-the-url-depends-on">What the URL depends on</a>
