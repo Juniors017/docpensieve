@@ -1,0 +1,76 @@
+---
+title: Cards
+description: Grids of clickable cards, built from the pages of the version.
+---
+
+# Cards
+
+A folder is a **series**: its `index` page introduces it, and the pages beside
+that index are its instalments. `Cards` turns that structure into a grid,
+rather than a list written by hand — a hand-written index goes stale at the
+first page renamed, and nothing says so.
+
+## On this page
+
+Placed in a page, the component lists what stands beside it. Here, the other
+component pages:
+
+<Cards />
+
+```mdx
+<Cards />
+```
+
+Written in the `index` page of a folder, it lists that folder instead: a series
+page shows its own instalments, not its neighbours.
+
+## What a card carries
+
+Everything comes from the pages themselves, nothing is declared twice:
+
+| Shown           | Read from                                                      |
+| --------------- | -------------------------------------------------------------- |
+| Title           | `title` of the page                                            |
+| Description     | `description` of the page                                      |
+| Image           | `preview` of the page, resolved from the page that declares it |
+| Number of pages | Counted under the folder — on a series card only               |
+| Update date     | `modified`, or failing that `date`                             |
+
+The **whole card is the link**, never the title alone: a card whose surface
+does nothing invites a click that is lost.
+
+## Narrowing the grid
+
+| Prop        | Effect                                                               |
+| ----------- | -------------------------------------------------------------------- |
+| `of`        | `series` keeps the folders, `pages` keeps the pages beside the index |
+| `from`      | Reads another folder, named by its path within the version           |
+| `className` | Classes added to the grid                                            |
+| `style`     | Inline styling, for a one-off adjustment                             |
+
+```mdx
+<Cards of="series" />
+<Cards from="guide" />
+```
+
+`from` names a folder of **this** version, as it appears in a URL: `guide`, or
+`guide/advanced`. It stops the build when nothing lives under that path, which
+catches a typo rather than rendering an empty grid.
+
+## Sizing
+
+The grid fills the width it is given, with as many columns as fit. To hold it
+narrower, set a width on the block — tokens and lengths work under both
+themes, so this needs no variant:
+
+```mdx
+<div style={{ maxWidth: '32rem' }}>
+  <Cards of="series" />
+</div>
+```
+
+## Without JavaScript
+
+Like every component here, the grid is built at the build. What reaches the
+reader is a list of links: it works with JavaScript turned off, and a card
+never waits for anything to become clickable.

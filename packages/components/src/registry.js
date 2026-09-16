@@ -8,6 +8,7 @@
  */
 
 import { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
+import { Cards } from './cards.js';
 import { Column, Columns } from './columns.js';
 import { ForTheme } from './for-theme.js';
 import { LogoIcon } from './logo-icon.js';
@@ -27,6 +28,7 @@ export const builtinComponents = {
   CardBody,
   CardFooter,
   CardImage,
+  Cards,
   Columns,
   Column,
   TimeTimer,

@@ -711,6 +711,18 @@ itself (ADR-006).
 | --- | --- | --- |
 | `props` | `{ className?: string, style?: object, src?: string, alt?: string, title?: string, srcSet?: string, sizes?: string, loading?: 'lazy' \| 'eager', }` | `alt` defaults to the empty string: without that attribute, a screen reader would announce the file URL. |
 
+### `Cards`
+
+`Cards(props)`
+
+Grid of cards for the children of a folder.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, of?: 'all' \| 'series' \| 'pages', from?: string, }` | `of` narrows the grid to the sub-folders (`'series'`) or to the pages beside the index (`'pages'`); `from` reads another folder, named by its slug, instead of the one holding the page. |
+
+**Throws** `Error` — When the page list is missing, or `from` names nothing.
+
 ### `Column`
 
 `Column(props)`

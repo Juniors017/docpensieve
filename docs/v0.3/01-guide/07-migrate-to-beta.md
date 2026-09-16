@@ -31,6 +31,7 @@ carries none of them looks exactly as before.
 
 ## What to turn on
 
-| Field                     | Gives                                                 |
-| ------------------------- | ----------------------------------------------------- |
-| `authors: 'authors.json'` | Biographies, avatars and links, described per version |
+| Field                        | Gives                                                 |
+| ---------------------------- | ----------------------------------------------------- |
+| `authors: 'authors.json'`    | Biographies, avatars and links, described per version |
+| `<Cards />` in an index page | A grid of cards built from the pages of the folder    |

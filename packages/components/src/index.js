@@ -19,6 +19,7 @@ export {
   setThemeFramework,
 } from './classes.js';
 export { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
+export { Cards } from './cards.js';
 export { Column, Columns } from './columns.js';
 export { FallbackAfter, FallbackBefore, TimeTimer } from './time-timer.js';
 export { TOOLTIP_PLACEMENTS, Tooltip } from './tooltip.js';

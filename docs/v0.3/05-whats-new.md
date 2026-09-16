@@ -25,6 +25,14 @@ and feeds the page data with them. See
 [Who wrote the page](./guide/writing-pages/) in the guide, and the
 [`authors` field](./reference/configuration/) in the reference.
 
+### Series and cards
+
+A folder is a series: its `index` page introduces it, and the pages beside
+that index are its instalments. The `Cards` component turns that structure
+into a grid of clickable cards — title, description, image, number of pages,
+update date — instead of an index list written by hand, which goes stale at
+the first page renamed. See [Cards](./components/cards/).
+
 ## For a 0.2 project
 
 Nothing to change: a 0.2 configuration builds as it is.

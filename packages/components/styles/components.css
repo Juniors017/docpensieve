@@ -14,6 +14,31 @@
  */
 
 @layer components {
+  /* --- Cards ------------------------------------------------------------- */
+
+  /*
+   * Grid of cards built from the pages of a folder. `auto-fill` rather than a
+   * fixed column count: the same grid serves three series and eleven pages,
+   * and follows the width it is given without a media query.
+   */
+  .dp-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  /* The card fills its cell, whatever its neighbours hold. */
+  .dp-cards-item {
+    height: 100%;
+    margin: 0;
+  }
+
+  .dp-cards-meta::before {
+    content: '·';
+    margin: 0 0.4rem;
+  }
+
   /* --- Card -------------------------------------------------------------- */
 
   /*

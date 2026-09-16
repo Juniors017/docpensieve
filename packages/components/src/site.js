@@ -28,6 +28,11 @@ const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
  * @property {string} basePath Version root, deployment prefix included.
  * @property {string} [filepath] Source file of the page, on disk.
  * @property {string} [sourceDir] Source folder of the version.
+ * @property {string} [slug] Path of the page within the version, `''` at the
+ *   root. It is what tells a component which folder it stands in.
+ * @property {{ url: string, slug: string, title: string, description?: string, preview?: string, modified?: { iso: string, label: string } }[]} [pages]
+ *   Every page of the version, targets already resolved. A component that
+ *   lists pages cannot compute this: the compiler works one page at a time.
  */
 
 /** @type {SiteContext} */
@@ -47,6 +52,8 @@ export function setSiteContext(page = {}) {
     basePath: page.basePath ?? '/',
     filepath: page.filepath,
     sourceDir: page.sourceDir,
+    slug: page.slug,
+    pages: page.pages,
   };
 }
 

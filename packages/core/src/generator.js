@@ -20,7 +20,7 @@ import {
 } from '@docpensieve/shared';
 import Handlebars from 'handlebars';
 
-import { buildAuthorTable, buildByline } from './authors.js';
+import { buildAuthorTable, buildByline, readDate } from './authors.js';
 import { Compiler } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
@@ -45,6 +45,12 @@ const SEARCH_SCRIPT = 'assets/search.js';
 
 /** Source of that script, shipped with this package. */
 const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.url));
+
+/**
+ * Targets a preview keeps as they are: another site, an anchor, a data URI.
+ * Same rule as the compiler and the components apply to a link.
+ */
+const EXTERNAL_PREVIEW = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
 
 /**
  * Where each project image is written in a version, before its extension.
@@ -155,7 +161,9 @@ export class SiteGenerator {
    *   compiler?: Compiler,
    *   onPage?: (page: {
    *     url: string, dirUrl?: string, basePath: string,
-   *     filepath?: string, sourceDir?: string,
+   *     filepath?: string, sourceDir?: string, slug?: string,
+   *     pages?: { url: string, slug: string, title: string, description?: string,
+   *       preview?: string, modified?: { iso: string, label: string } }[],
    *   }) => void,
    * }} [deps]
    *   Global components and the theme are injected rather than imported:
@@ -285,6 +293,39 @@ export class SiteGenerator {
       scrollToTop: this.config.scrollToTop !== false,
       notice,
     };
+    // Every page of the version, for the components that list pages: one of
+    // them renders a single page at a time and could never gather this by
+    // itself. Targets are resolved here, each against the folder of the page
+    // that declares it — a preview written in one page is not relative to the
+    // page that shows it in a card.
+    const pages = docs.map((doc) => {
+      const folder = dirPathToSlug(path.relative(sourceDir, path.dirname(doc.path)));
+      const dirUrl = joinUrl(versionBase, folder);
+      const target = String(doc.frontmatter.preview ?? '');
+      const absolute = target.startsWith('/');
+
+      return {
+        url: pageUrl(doc),
+        slug: doc.slug,
+        title: String(doc.frontmatter.title ?? this.config.projectName),
+        description: doc.frontmatter.description ? String(doc.frontmatter.description) : undefined,
+        preview:
+          target === '' || EXTERNAL_PREVIEW.test(target)
+            ? target || undefined
+            : new URL(
+                absolute ? target.slice(1) : target,
+                `https://docpensieve.invalid${absolute ? versionBase : dirUrl}`,
+              ).pathname,
+        // The same date the byline and the sitemap read, formatted once.
+        modified:
+          readDate(
+            doc.frontmatter.modified ?? doc.frontmatter.date,
+            'modified',
+            doc.slug || 'the home page',
+          ) ?? undefined,
+      };
+    });
+
     /** @type {{ title: string, url: string, description: string, text: string }[]} */
     const entries = [];
 
@@ -299,7 +340,15 @@ export class SiteGenerator {
       const dirUrl = joinUrl(versionBase, folder);
       // Components need to know which page they render: a link they produce
       // escapes the compiler plugins (ADR-006).
-      this.deps.onPage?.({ url, dirUrl, basePath: versionBase, filepath: doc.path, sourceDir });
+      this.deps.onPage?.({
+        url,
+        dirUrl,
+        basePath: versionBase,
+        filepath: doc.path,
+        sourceDir,
+        slug: doc.slug,
+        pages,
+      });
 
       const { html, toc, preloads } = await this.compiler.compile(doc.content, {
         filepath: doc.path,
