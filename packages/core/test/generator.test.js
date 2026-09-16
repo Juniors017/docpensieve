@@ -428,7 +428,7 @@ describe('search', () => {
     );
   });
 
-  it('keeps every content page free of script', async () => {
+  it('loads the search script on the search page only', async () => {
     const config = project({ 'index.md': page('Home') });
     const out = path.join(config.rootDir, 'out');
     await generatorFor(config).buildVersion('v1.0', out);
@@ -550,13 +550,16 @@ ${title}.
 });
 
 describe('errors', () => {
-  it('reports a write failure', async () => {
+  it('reports an output folder it cannot empty or write', async () => {
     const config = project({ 'index.md': page('Home') });
-    // A file where the generator wants to create a folder.
-    const out = path.join(config.rootDir, 'out');
-    writeFileSync(out, 'obstacle', 'utf8');
+    // A file where the generator wants a folder: emptying it fails, and the
+    // failure must come out as an error of the build, not as a raw system one.
+    const obstacle = path.join(config.rootDir, 'obstacle');
+    writeFileSync(obstacle, 'obstacle', 'utf8');
 
-    await expect(generatorFor(config).buildVersion('v1.0', out)).rejects.toThrow(GeneratorError);
+    await expect(
+      generatorFor(config).buildVersion('v1.0', path.join(obstacle, 'out')),
+    ).rejects.toThrow(GeneratorError);
   });
 });
 
@@ -831,6 +834,93 @@ describe('colour scheme and version images', () => {
 
     expect(read(out, 'index.html')).toContain('src="/versions/v1.0/assets/logo.svg"');
     expect(read(out, 'assets', 'logo.svg')).toBe('<svg id="beta"/>');
+  });
+});
+
+describe('the output folder', () => {
+  it('drops a page removed from the sources', async () => {
+    const config = project({ 'index.md': page('Home'), 'old.md': page('Old') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    expect(existsSync(path.join(out, 'old', 'index.html'))).toBe(true);
+
+    rmSync(path.join(config.rootDir, 'docs', 'v1.0', 'old.md'));
+    await generatorFor(config).buildVersion('v1.0', out);
+    // Left behind, it would have been published with the rest.
+    expect(existsSync(path.join(out, 'old'))).toBe(false);
+  });
+
+  it('keeps what it does not write, and drops what is no longer declared', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      { outDir: 'dist', siteUrl: 'https://example.com', feed: true },
+    );
+    const dist = path.join(config.rootDir, 'dist');
+    mkdirSync(path.join(dist, 'versions', 'v0.9'), { recursive: true });
+    writeFileSync(path.join(dist, 'versions', 'v0.9', 'index.html'), 'old', 'utf8');
+    writeFileSync(path.join(dist, 'CNAME'), 'docs.example.com', 'utf8');
+    await generatorFor(config).buildAll();
+
+    expect(existsSync(path.join(dist, 'versions', 'v0.9'))).toBe(false);
+    expect(read(dist, 'CNAME')).toBe('docs.example.com');
+    expect(existsSync(path.join(dist, 'feed.xml'))).toBe(true);
+
+    // A feed turned off since the last build does not linger.
+    const off = normalizeConfig({ ...config, feed: false });
+    off.rootDir = config.rootDir;
+    await generatorFor(off).buildAll();
+    expect(existsSync(path.join(dist, 'feed.xml'))).toBe(false);
+  });
+
+  it('refuses, before deleting anything, an output folder that holds the project or its pages', async () => {
+    for (const outDir of ['.', '..', 'docs', 'docs/v1.0/out']) {
+      const config = project({ 'index.md': page('Home') }, { outDir });
+      await expect(generatorFor(config).buildAll(), outDir).rejects.toThrow(GeneratorError);
+      expect(existsSync(path.join(config.rootDir, 'docs', 'v1.0', 'index.md')), outDir).toBe(true);
+    }
+  });
+
+  it('accepts an output folder outside the project', async () => {
+    const elsewhere = mkdtempSync(path.join(tmpdir(), 'docpensieve-out-'));
+    created.push(elsewhere);
+    const config = project({ 'index.md': page('Home') }, { outDir: elsewhere });
+    await generatorFor(config).buildAll();
+    expect(existsSync(path.join(elsewhere, 'versions', 'v1.0', 'index.html'))).toBe(true);
+  });
+});
+
+describe('the light / dark switch', () => {
+  it('adds a button and its few lines of script when asked, and they parse', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      { theme: { framework: 'custom', darkMode: 'dark', toggle: true } },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    // Hidden until its script runs: without JavaScript, it would do nothing.
+    expect(html).toContain('data-scheme-toggle hidden');
+    const scripts = html
+      .split('<script>')
+      .slice(1)
+      .map((part) => part.slice(0, part.indexOf('</script>')));
+    expect(scripts).toHaveLength(2);
+    for (const code of scripts) expect(() => new Function(code)).not.toThrow();
+  });
+
+  it('leaves the pages without any script once turned off', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      { theme: { framework: 'custom', toggle: false } },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+    const html = read(out, 'index.html');
+    expect(html).not.toContain('data-scheme-toggle');
+    // The structured data stay: they are read, not run.
+    expect(html).not.toContain('<script>');
+    expect(html).not.toContain('type="module"');
   });
 });
 

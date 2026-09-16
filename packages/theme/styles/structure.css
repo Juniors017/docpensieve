@@ -83,6 +83,51 @@ body {
   }
 }
 
+/* The light / dark switch: at the end of the header, one icon at a time —
+   the moon to go dark, the sun to go light. Its look is in prose.css. */
+.dp-scheme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
+  margin-inline-start: auto;
+  cursor: pointer;
+}
+
+.dp-search + .dp-scheme-toggle {
+  margin-inline-start: 0;
+}
+
+.dp-scheme-toggle[hidden] {
+  display: none;
+}
+
+.dp-scheme-toggle svg {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+}
+
+.dp-scheme-toggle .dp-scheme-sun,
+:root.dark .dp-scheme-toggle .dp-scheme-moon {
+  display: none;
+}
+
+:root.dark .dp-scheme-toggle .dp-scheme-sun {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .dp-scheme-toggle .dp-scheme-sun {
+    display: block;
+  }
+
+  :root:not(.light) .dp-scheme-toggle .dp-scheme-moon {
+    display: none;
+  }
+}
+
 .dp-header {
   position: sticky;
   top: 0;

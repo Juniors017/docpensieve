@@ -95,4 +95,5 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   scrollTop: 'dp-scroll-top',
   scrollTopIcon: 'dp-scroll-top-icon',
   search: 'dp-search',
+  schemeToggle: 'dp-scheme-toggle',
 });

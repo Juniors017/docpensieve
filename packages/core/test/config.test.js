@@ -20,7 +20,7 @@ describe('normalizeConfig', () => {
 
   it('deep-merges theme and jsonld', () => {
     const config = normalizeConfig({ versions: [v1], theme: { framework: 'tailwind' } });
-    expect(config.theme).toEqual({ framework: 'tailwind', darkMode: 'class' });
+    expect(config.theme).toEqual({ framework: 'tailwind', darkMode: 'class', toggle: true });
     expect(config.jsonld.enabled).toBe(true);
   });
 
@@ -341,6 +341,19 @@ describe('colour scheme and version images', () => {
     expect(() => normalizeConfig({ versions: [{ ...v1, favicon: 'brand/beta.jpg' }] })).toThrow(
       /favicon of version "v1.0"/,
     );
+  });
+});
+
+describe('the light / dark switch', () => {
+  it('is on by default, and takes true or false', () => {
+    expect(normalizeConfig({ versions: [v1] }).theme.toggle).toBe(true);
+    expect(
+      normalizeConfig({ versions: [v1], theme: { framework: 'custom', toggle: true } }).theme
+        .toggle,
+    ).toBe(true);
+    expect(() =>
+      normalizeConfig({ versions: [v1], theme: { framework: 'custom', toggle: 'yes' } }),
+    ).toThrow(/theme.toggle must be true or false/);
   });
 });
 

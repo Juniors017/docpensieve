@@ -229,6 +229,7 @@ describe('init — the configuration file', () => {
       'lang',
       'framework',
       'darkMode',
+      'toggle',
       'tokens',
       'css',
       'source',

@@ -36,7 +36,7 @@ import {
  * @property {string} baseUrl     Deployment prefix, slashes included.
  * @property {string} outDir      Output folder, relative to the root.
  * @property {Version[]} versions At least one.
- * @property {{ framework: string, darkMode?: string, tokens?: Record<string, string>, css?: string, source?: string }} theme
+ * @property {{ framework: string, darkMode?: string, toggle?: boolean, tokens?: Record<string, string>, css?: string, source?: string }} theme
  * @property {string} sidebar     `'auto'`, or the path of a description.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
@@ -67,7 +67,8 @@ export const DEFAULT_CONFIG = Object.freeze({
   baseUrl: '/',
   outDir: DEFAULT_OUT_DIR,
   versions: [],
-  theme: { framework: 'tailwind', darkMode: 'class' },
+  // The light / dark switch is on unless the project turns it off (ADR-014).
+  theme: { framework: 'tailwind', darkMode: 'class', toggle: true },
   sidebar: 'auto',
   globalComponents: true,
   scrollToTop: true,
@@ -319,6 +320,12 @@ export function normalizeConfig(userConfig) {
   if (!DARK_MODES.includes(config.theme.darkMode ?? 'class')) {
     throw new ConfigError(`Unknown darkMode: "${config.theme.darkMode}".`, {
       hint: `Accepted values: ${DARK_MODES.join(', ')}.`,
+    });
+  }
+
+  if (config.theme.toggle !== undefined && typeof config.theme.toggle !== 'boolean') {
+    throw new ConfigError('theme.toggle must be true or false.', {
+      hint: 'true adds a light / dark button to the header, with a few lines of inline script.',
     });
   }
 

@@ -4,7 +4,7 @@
  * @module @docpensieve/core/generator
  */
 
-import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -184,6 +184,19 @@ export class SiteGenerator {
     const rootDir = this.config.rootDir ?? process.cwd();
     const target = path.resolve(rootDir, outDir);
 
+    // A page removed from the sources must not stay online: the version's
+    // folder is emptied before it is written — once it is certain to hold
+    // nothing but what a build wrote there.
+    this.#guardOutput(target);
+    try {
+      await rm(target, { recursive: true, force: true });
+    } catch (cause) {
+      throw new GeneratorError(`Could not empty the output folder "${target}".`, {
+        cause,
+        hint: 'Check that the path is a folder, and that nothing holds it open.',
+      });
+    }
+
     const sourceDir = path.resolve(rootDir, version.folder);
     const docs = await this.loader.load(sourceDir);
 
@@ -255,6 +268,8 @@ export class SiteGenerator {
           ? new URL(images.socialImage, this.config.siteUrl).href
           : '',
       searchUrl,
+      // The light / dark switch: a button, and the few lines of script it needs.
+      schemeToggle: this.config.theme?.toggle !== false,
       cls: classes,
       versions: this.#versionLinks(version.slug),
       // A switcher offering a single choice is not a switcher.
@@ -434,6 +449,40 @@ export class SiteGenerator {
   }
 
   /**
+   * Refuses an output folder the build could not empty without harm: the
+   * project itself, a folder above it, or one that holds a version's pages —
+   * or lies inside them. Checked before anything is deleted.
+   *
+   * @param {string} folder Absolute path.
+   * @throws {GeneratorError}
+   */
+  #guardOutput(folder) {
+    const rootDir = path.resolve(this.config.rootDir ?? process.cwd());
+    /** @param {string} child @param {string} parent */
+    const within = (child, parent) => {
+      const relative = path.relative(parent, child);
+      return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+    };
+
+    if (within(rootDir, folder)) {
+      throw new GeneratorError(`The output folder "${folder}" holds the project itself.`, {
+        hint: 'Point outDir to a folder of its own, such as "dist": the build empties the folders it writes there.',
+      });
+    }
+    for (const version of this.config.versions) {
+      const sources = path.resolve(rootDir, version.folder);
+      if (within(sources, folder) || within(folder, sources)) {
+        throw new GeneratorError(
+          `The output folder "${folder}" overlaps the pages of version "${version.slug}".`,
+          {
+            hint: 'Keep outDir apart from the documentation folders: the build empties what it writes.',
+          },
+        );
+      }
+    }
+  }
+
+  /**
    * Absolute address of the RSS feed, or `''` when none is written.
    *
    * Known before any page is rendered: every page announces the feed in its
@@ -455,6 +504,12 @@ export class SiteGenerator {
    *   Pages of each version, by slug.
    */
   async #writeDiscovery(target, published) {
+    // Written anew every time: a sitemap or a feed turned off since the last
+    // build must not linger at the root of the site.
+    for (const file of ['sitemap.xml', 'robots.txt', 'feed.xml']) {
+      await rm(path.join(target, file), { force: true });
+    }
+
     const { siteUrl, baseUrl } = this.config;
     if (!siteUrl) return;
 
@@ -545,6 +600,23 @@ export class SiteGenerator {
   async buildAll() {
     const rootDir = this.config.rootDir ?? process.cwd();
     const target = path.resolve(rootDir, this.config.outDir);
+    this.#guardOutput(target);
+
+    // The folder of a version no longer declared would stay online, unlisted
+    // but reachable. Everything else in the output folder is left alone.
+    const declared = new Set(this.config.versions.map((version) => version.slug));
+    /** @type {import('node:fs').Dirent[]} */
+    let existing;
+    try {
+      existing = await readdir(path.join(target, 'versions'), { withFileTypes: true });
+    } catch {
+      existing = [];
+    }
+    for (const entry of existing) {
+      if (entry.isDirectory() && !declared.has(entry.name)) {
+        await rm(path.join(target, 'versions', entry.name), { recursive: true, force: true });
+      }
+    }
 
     let pages = 0;
     /** @type {Map<string, import('./discovery.js').PublishedPage[]>} */

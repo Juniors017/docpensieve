@@ -147,3 +147,16 @@
   background: var(--dp-accent-soft);
   color: inherit;
 }
+
+/* The light / dark switch of the header. */
+.dp-scheme-toggle {
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: transparent;
+  color: var(--dp-text-soft);
+}
+
+.dp-scheme-toggle:hover {
+  border-color: var(--dp-text-soft);
+  color: var(--dp-text);
+}
