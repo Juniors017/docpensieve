@@ -1,6 +1,6 @@
 {
   "name": "docpensieve",
-  "version": "0.4.0-beta.1",
+  "version": "0.4.0-beta.2",
   "description": "DocPensieve command-line interface (init, build, check, dev, serve)",
   "type": "module",
   "license": "MIT",
@@ -24,10 +24,10 @@
     "types"
   ],
   "dependencies": {
-    "@docpensieve/components": "0.4.0-beta.1",
-    "@docpensieve/core": "0.4.0-beta.1",
-    "@docpensieve/shared": "0.4.0-beta.1",
-    "@docpensieve/theme": "0.4.0-beta.1",
+    "@docpensieve/components": "0.4.0-beta.2",
+    "@docpensieve/core": "0.4.0-beta.2",
+    "@docpensieve/shared": "0.4.0-beta.2",
+    "@docpensieve/theme": "0.4.0-beta.2",
     "chalk": "^6.0.0",
     "chokidar": "^5.0.0",
     "commander": "^15.0.0"
