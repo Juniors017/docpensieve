@@ -28,6 +28,7 @@ reader stands in. On a narrow screen the whole menu folds above the content,
 whatever that setting. And a `headerLinks` entry carrying `columns` opens a
 panel of links instead of leading anywhere — declared on its own, so a site can
 navigate from the header alone, or from both. See
+[Navigation](./guide/navigation/) in the guide, and
 [the configuration reference](./reference/configuration/).
 
 ## For a 0.3 project

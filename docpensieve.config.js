@@ -98,8 +98,37 @@ export default defineConfig({
   authors: 'authors.json',
 
   // The examples live in the current version: the link names it, so that the
-  // archived version and the beta lead there too.
-  headerLinks: [{ label: 'Examples', href: '/examples/', version: 'latest' }],
+  // archived version and the beta lead there too. The panel gathers what a
+  // visitor looks for first; its links carry no version, so each version leads
+  // to its own pages.
+  headerLinks: [
+    { label: 'Examples', href: '/examples/', version: 'latest' },
+    {
+      label: 'Product',
+      columns: [
+        {
+          title: 'Guide',
+          items: [
+            { label: 'Installation', href: '/guide/installation/' },
+            { label: 'First site', href: '/guide/first-site/' },
+            { label: 'Writing pages', href: '/guide/writing-pages/' },
+          ],
+        },
+        {
+          title: 'Reference',
+          items: [
+            { label: 'Commands', href: '/reference/cli/' },
+            { label: 'Configuration', href: '/reference/configuration/' },
+            { label: 'Frontmatter', href: '/reference/frontmatter/' },
+          ],
+        },
+      ],
+    },
+  ],
+
+  // A menu of some forty entries: folded, it opens where the reader stands
+  // instead of asking them to scroll past what does not concern them.
+  foldedSidebar: true,
 
   globalComponents: true,
 
