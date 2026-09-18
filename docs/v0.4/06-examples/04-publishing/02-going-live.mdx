@@ -1,0 +1,163 @@
+---
+title: Going live
+description: The two addresses to set, the build that runs on its own, and the check that stops a bad publication.
+authors: [valentin, pensy]
+date: 2026-09-12
+modified: 2026-09-18
+tags: [course, advanced, deployment]
+---
+
+# Going live
+
+<Skill name="Module progress" level={100} color="#10b981">
+  Lesson 2 of 2 — the last one of the course.
+</Skill>
+
+The site is a folder of HTML files. Putting it online is copying that folder
+somewhere — the work is in the two addresses you set first, and in the check
+that runs after.
+
+## The two addresses
+
+They answer different questions, and mixing them up is the most common way to
+publish a broken site:
+
+| Field     | Answers                             | Looks like                      |
+| --------- | ----------------------------------- | ------------------------------- |
+| `baseUrl` | Where the site sits on its host     | `/` or `/my-course/`            |
+| `siteUrl` | The full public address of the site | `https://example.com/my-course` |
+
+```js
+siteUrl: 'https://example.com/my-course',
+baseUrl: '/my-course/',
+```
+
+`baseUrl` prefixes every internal link. Served from a subfolder without it,
+every link points one level too high — the site works on your machine and
+breaks the moment it is online. `siteUrl` is what lets the build write a
+sitemap, canonical addresses and share previews.
+
+<Admonition type="attention" title="The trap of the machine that works">
+  `npx docpensieve dev` serves at the root, so a wrong `baseUrl` never shows there. Build and open
+  `dist/` the way the host will: that is the only honest rehearsal.
+</Admonition>
+
+## Your turn: build and read it back
+
+```bash
+npx docpensieve build
+npx docpensieve check
+```
+
+The first writes the site. The second reads it back and **exits with code 1**
+if a link leads nowhere — which is what makes it worth running in a pipeline:
+a build that succeeds says nothing about a link that does not.
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Site URL set" level={100} shape="circle" color="#10b981" />
+  <Skill name="No dead link" level={100} shape="circle" color="#10b981" />
+  <Skill name="Pages reviewed" level={80} shape="circle" color="#f59e0b" />
+</div>
+
+`check` settles the second gauge. The third one is yours — nothing automates
+reading your own pages.
+
+## A build that runs on its own
+
+The shape of the pipeline matters more than its dialect. Every host writes it
+differently; each does the same four things:
+
+<Tree>
+  <TreeItem label="On every push to the main branch" open>
+    <TreeItem label="1. Install a recent runtime" />
+    <TreeItem label="2. Build the site" />
+    <TreeItem label="3. Read it back — a dead link stops the publication" />
+    <TreeItem label="4. Upload the folder to the host" />
+  </TreeItem>
+</Tree>
+
+```yaml
+- run: npx docpensieve build
+# A successful build says nothing of a dead link.
+- run: npx docpensieve check
+```
+
+<Admonition type="tip" title="Pin the version once it matters">
+  A project created by `init` has no `package.json`, so `npx` takes the latest published version —
+  convenient at first, surprising later. Declare the tool in a `package.json` and run `npm ci`
+  before the build, and two builds a month apart produce the same site.
+</Admonition>
+
+## What the reader downloads
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>One HTML file</CardHeader>
+      <CardBody>Complete on its own, served as it is — no framework to boot.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>One stylesheet</CardHeader>
+      <CardBody>Per version, minified, holding only the rules the pages use.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>No script</CardHeader>
+      <CardBody>Except the search page, and the light/dark button if you keep it.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Check yourself
+
+<details>
+<summary>Your site is served from `example.com/docs/` and every link 404s. What did you forget?</summary>
+
+`baseUrl: '/docs/'`. Without it, links are written from the root of the domain
+and point one level above the site.
+
+</details>
+
+<details>
+<summary>Why run `check` in the pipeline when the build already passed?</summary>
+
+Because they look at different things. The build compiles pages; `check` reads
+the produced site and follows its links. A renamed page compiles perfectly and
+leaves every link to it dead.
+
+</details>
+
+## Live session
+
+<TimeTimer date="15/10/2026">
+  <Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+    <CardBody>**The live session is today.** Bring your questions.</CardBody>
+  </Card>
+  <FallbackBefore start="16/09/2026">
+    Next live session: **15 October**. Bring the site you built during the course.
+  </FallbackBefore>
+  <FallbackAfter>The live session is over — its questions and answers are below.</FallbackAfter>
+</TimeTimer>
+
+## You made it
+
+You have finished the course. Your site is built, checked, wearing your
+colours, and ready to put online.
+
+<Columns>
+  <Column>
+    <Card href="/examples/" style={{ height: '100%' }} elevated>
+      <CardHeader>Back to the course</CardHeader>
+      <CardBody>Every module, and what each one covers.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card href="/guide/deployment/" style={{ height: '100%' }}>
+      <CardHeader>The deployment guide</CardHeader>
+      <CardBody>The full pipeline, a scheduled build, and keeping past versions online.</CardBody>
+    </Card>
+  </Column>
+</Columns>

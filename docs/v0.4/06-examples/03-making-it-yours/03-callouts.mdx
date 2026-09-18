@@ -1,0 +1,120 @@
+---
+title: Callouts
+description: Stop a reader who is about to make a mistake — six kinds of block, kinds of your own, and a mark to go with them.
+authors: [pensy]
+date: 2026-09-18
+tags: [course, intermediate, components]
+---
+
+# Callouts
+
+<Skill name="Module progress" level={100} color="#10b981">
+  Lesson 3 of 3 — the last one of this module.
+</Skill>
+
+Some sentences must not be read as prose. A warning in the middle of a
+paragraph is a warning nobody reads.
+
+## The six kinds
+
+<Admonition type="tip">Advice. The reader loses nothing by skipping it.</Admonition>
+
+<Admonition type="attention">
+  Something easy to get wrong. Reading on without it costs time.
+</Admonition>
+
+<Admonition type="danger" title="What a wrong move costs">
+  Deleting a version removes its pages from the site: its address stops answering, and the links
+  pointing at it lead nowhere.
+</Admonition>
+
+`note`, `info` and `alert` complete the set. Without a `type`, a block is a
+note; with a `title`, the label of the kind gives way to your words.
+
+```mdx
+<Admonition type="danger" title="What a wrong move costs">
+  Deleting a version removes its pages from the site.
+</Admonition>
+```
+
+## Your turn: a kind of your own
+
+Six kinds will not fit every team. Declare the one yours needs — a label, and a
+**tone** that carries the colour:
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  review: { label: 'To review', tone: 'attention' },
+  legal: { label: 'Legal notice', tone: 'info' },
+},
+```
+
+```mdx
+<Admonition type="review">This section awaits a second pair of eyes.</Admonition>
+```
+
+The tone comes from the theme, so a new kind needs no stylesheet and follows
+the light and dark schemes on its own. A kind nobody declared stops the build,
+listing those that exist — rendered anyway, the block would come out with no
+colour and no label, and nothing would say why.
+
+## A mark of its own
+
+A kind can carry an icon instead of the drawing of its tone. This very site
+declares two, with their marks taken from an icon set:
+
+<Admonition type="copilot">
+  A passage drafted with an assistant, then read and corrected by a person.
+</Admonition>
+
+<Admonition type="claude">The same, and the page still names a person as its author.</Admonition>
+
+```js
+admonitions: {
+  copilot: { label: 'Copilot', tone: 'info', icon: 'simple-icons:githubcopilot' },
+},
+```
+
+```bash
+npm install --save-dev @iconify-json/simple-icons
+```
+
+The set is a package of your project, read when the site is built: the drawing
+is placed in the page like a file of your own. Your reader downloads nothing,
+and no request leaves their browser — which is also why a set you have not
+installed stops the build instead of leaving an empty square.
+
+<Admonition type="note" title="An icon of yours does the same">
+  `icon: '/icons/review.svg'` names a file of the version folder. Same block, same result — one
+  comes from a package, the other from your repository.
+</Admonition>
+
+## Check yourself
+
+<details>
+<summary>You wrote `<Admonition type="warning">`. What happens?</summary>
+
+The build stops: `warning` is not one of the six, and nothing declared it. The
+kinds are `note`, `info`, `tip`, `attention`, `alert` and `danger` — the one
+you want here is `attention`.
+
+</details>
+
+<details>
+<summary>Your reader has JavaScript turned off. What do they miss?</summary>
+
+Nothing. The block is an `aside` written at the build, and its mark is an SVG
+already in the page.
+
+</details>
+
+## Well done
+
+You have finished **Making it yours**. The site now carries your colours, your
+navigation and your warnings.
+
+<Card href="/examples/publishing/" elevated>
+  <CardHeader>Next module: Going live</CardHeader>
+  <CardBody>Versions, a build that runs on its own, and the site online.</CardBody>
+</Card>

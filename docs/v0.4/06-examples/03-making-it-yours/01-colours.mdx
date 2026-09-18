@@ -1,0 +1,123 @@
+---
+title: Colours
+description: Give the site your palette — one token in the configuration, the dark scheme in a file of your own.
+authors: [valentin]
+date: 2026-09-18
+tags: [course, intermediate, themes]
+---
+
+# Colours
+
+<Skill name="Module progress" level={33}>
+  Lesson 1 of 3.
+</Skill>
+
+A component here never writes a colour. It asks for a <Tooltip text="A CSS variable named --dp-something, defined once and read by every component.">token</Tooltip>, and the theme answers — which is why one line changes the whole site, including the parts you have not written yet.
+
+## Your turn
+
+Open `docpensieve.config.mjs` and give the accent a colour of your own:
+
+```js
+theme: {
+  framework: 'tailwind',
+  tokens: {
+    '--dp-accent': '#7c5cff',
+    '--dp-radius': '0.75rem',
+  },
+},
+```
+
+Rebuild, and look at a link, a gauge, the current entry of the menu, the border
+of a card you never touched. All of them moved.
+
+<Admonition type="attention" title="A site held dark will show nothing">
+  `tokens` sets the **light** palette. If your configuration carries `darkMode: 'dark'`, the reader
+  never sees it — the dark values come from the theme's own stylesheet. The next section is then the
+  one that matters.
+</Admonition>
+
+## The dark scheme
+
+The dark palette is a second set of values for the same tokens. It is
+redefined in the `theme/` folder, at the root of the project — every `.css`
+file there is read in name order and appended **last**, which makes it the
+project's final word:
+
+<Tree>
+  <TreeItem label="my-course" open>
+    <TreeItem label="docpensieve.config.mjs" />
+    <TreeItem label="theme" open>
+      <TreeItem label="10-dark.css — yours" />
+      <TreeItem label="99-docpensieve.css — written by init, under the custom theme" />
+    </TreeItem>
+    <TreeItem label="docs" />
+  </TreeItem>
+</Tree>
+
+Create `theme/10-dark.css`. Dark comes in two ways — the reader's system, and
+the class a configuration sets — so both are written:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-accent: #a78bfa;
+    --dp-bg: #0b0b14;
+  }
+}
+
+:root.dark {
+  --dp-accent: #a78bfa;
+  --dp-bg: #0b0b14;
+}
+```
+
+The header carries a button that switches between the two and remembers the
+choice. It is the only script a content page loads, and `theme.toggle: false`
+removes it.
+
+## What you should see
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>In light</CardHeader>
+      <CardBody>Your accent on links, gauges, the current menu entry and the focus ring.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>In dark</CardHeader>
+      <CardBody>
+        The same, in the values of your `theme/` file — and the rest of the palette too.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Check yourself
+
+<details>
+<summary>You set `--dp-accent` in the configuration and nothing changed. Why?</summary>
+
+Either the site is held dark — `darkMode: 'dark'` — and the dark palette
+answers instead, or the token was written outside the `tokens` object. The
+build would have said nothing in both cases: the stylesheet compiles either
+way.
+
+</details>
+
+<details>
+<summary>Where do you put a class of your own, used in a page with `className`?</summary>
+
+In a `.css` file of the `theme/` folder. It is appended after the component
+rules, so it wins — and under the `custom` theme, it is the only place those
+classes exist at all.
+
+</details>
+
+<Card href="/guide/themes/">
+  <CardBody>
+    The full picture: slots, layer order, and why the stylesheet is compiled last.
+  </CardBody>
+</Card>
