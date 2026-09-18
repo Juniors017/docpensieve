@@ -14,6 +14,138 @@
  */
 
 @layer components {
+  /* --- Menu -------------------------------------------------------------- */
+
+  /*
+   * A menu of links inside a page. Written once and rendered twice — a row and
+   * a fold — of which one shows: a single rendering revealed by CSS alone
+   * hides the links outright where that CSS is unknown.
+   */
+  .dp-page-menu {
+    margin: 1.5rem 0;
+  }
+
+  .dp-page-menu-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 1.25rem;
+  }
+
+  .dp-page-menu-fold {
+    display: none;
+  }
+
+  .dp-page-menu-fold > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    color: var(--dp-text-soft);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .dp-page-menu-fold > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .dp-page-menu-fold[open] > summary,
+  .dp-page-menu-fold > summary:hover {
+    border-color: var(--dp-text-soft);
+    color: var(--dp-text);
+  }
+
+  .dp-page-menu-fold-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-block-start: 0.75rem;
+    padding-inline-start: 0.75rem;
+    border-inline-start: 1px solid var(--dp-border);
+  }
+
+  .dp-page-menu-link {
+    color: var(--dp-text);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .dp-page-menu-link:hover {
+    color: var(--dp-accent);
+  }
+
+  /* A group: a panel in the row, unfolded in place once the menu is folded. */
+  .dp-page-menu-group {
+    position: relative;
+  }
+
+  .dp-page-menu-title {
+    color: var(--dp-text-soft);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .dp-page-menu-title::-webkit-details-marker {
+    display: none;
+  }
+
+  .dp-page-menu-title::after {
+    content: '';
+    display: inline-block;
+    inline-size: 0.35rem;
+    block-size: 0.35rem;
+    margin-inline-start: 0.4rem;
+    border-inline-end: 1px solid currentColor;
+    border-block-end: 1px solid currentColor;
+    rotate: 45deg;
+    translate: 0 -0.15rem;
+  }
+
+  .dp-page-menu-group[open] > .dp-page-menu-title {
+    color: var(--dp-text);
+  }
+
+  .dp-page-menu-panel {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-inline-size: 10rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    background: var(--dp-bg);
+    box-shadow: 0 8px 24px var(--dp-shadow);
+  }
+
+  .dp-page-menu-fold-list .dp-page-menu-panel {
+    position: static;
+    min-inline-size: 0;
+    padding: 0.5rem 0 0 0.75rem;
+    border: 0;
+    border-inline-start: 1px solid var(--dp-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  @media (max-width: 40rem) {
+    .dp-page-menu-row {
+      display: none;
+    }
+
+    .dp-page-menu-fold {
+      display: block;
+    }
+  }
+
   /* --- Cards ------------------------------------------------------------- */
 
   /*

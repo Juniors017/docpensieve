@@ -21,6 +21,7 @@ export {
 export { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 export { Cards } from './cards.js';
 export { Column, Columns } from './columns.js';
+export { Menu, MenuGroup, MenuLink } from './menu.js';
 export { FallbackAfter, FallbackBefore, TimeTimer } from './time-timer.js';
 export { TOOLTIP_PLACEMENTS, Tooltip } from './tooltip.js';
 export { Tree, TreeItem } from './tree.js';

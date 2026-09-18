@@ -31,6 +31,13 @@ navigate from the header alone, or from both. See
 [Navigation](./guide/navigation/) in the guide, and
 [the configuration reference](./reference/configuration/).
 
+### A menu of links, anywhere in a page
+
+The `Menu` component places a row of links where a page needs them — a summary
+at the top of a landing page, the chapters of a guide. Entries can be grouped
+under a title, and the row folds behind a button on a narrow screen, without a
+script. See [Menu](./components/menu/).
+
 ## For a 0.3 project
 
 Nothing to change: a 0.3 configuration builds as it is.

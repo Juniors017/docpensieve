@@ -12,6 +12,7 @@ import { Cards } from './cards.js';
 import { Column, Columns } from './columns.js';
 import { ForTheme } from './for-theme.js';
 import { LogoIcon } from './logo-icon.js';
+import { Menu, MenuGroup, MenuLink } from './menu.js';
 import { ScrollToTop } from './scroll-to-top.js';
 import { Skill } from './skill.js';
 import { FallbackAfter, FallbackBefore, TimeTimer } from './time-timer.js';
@@ -31,6 +32,9 @@ export const builtinComponents = {
   Cards,
   Columns,
   Column,
+  Menu,
+  MenuLink,
+  MenuGroup,
   TimeTimer,
   FallbackBefore,
   FallbackAfter,

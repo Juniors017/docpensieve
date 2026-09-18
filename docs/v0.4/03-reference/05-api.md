@@ -759,6 +759,44 @@ the grid recomputes the widths by itself.
 | --- | --- | --- |
 | `props` | `{ className?: string, style?: object, children?: any }` |  |
 
+### `Menu`
+
+`Menu(props)`
+
+Menu of links.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, label?: string, }` | `label` names the menu for screen readers, and labels the button it folds into on a narrow screen. |
+
+### `MenuGroup`
+
+`MenuGroup(props)`
+
+Group of entries, folded under a title.
+
+In the row it opens as a panel below its title; folded, it unfolds in place
+rather than over the rest — on a narrow screen a panel would open off
+screen.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, title?: string, }` |  |
+
+**Throws** `DocPensieveError` — Outside a `Menu`, or without a title.
+
+### `MenuLink`
+
+`MenuLink(props)`
+
+Entry of a menu.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, href?: string, }` |  |
+
+**Throws** `DocPensieveError` — Outside a `Menu`, or without a target.
+
 ### `FallbackAfter`
 
 `FallbackAfter(props)`
