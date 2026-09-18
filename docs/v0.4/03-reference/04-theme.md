@@ -41,26 +41,34 @@ supported yet and stop the build.
 
 ## The tokens
 
-Fifteen tokens, which both providers define and the components read. A
-redefined token propagates everywhere, without any component having to know.
+Twenty-one tokens, which both providers define and the components read. A
+redefined token propagates everywhere, without any component having to know —
+in the **light** palette: the dark values live in the theme stylesheet, and
+are redefined in the project's `theme/` folder.
 
-| Token                | Role                                                |
-| -------------------- | --------------------------------------------------- |
-| `--dp-bg`            | Page background                                     |
-| `--dp-bg-soft`       | Background of recessed areas — gauge tracks, hovers |
-| `--dp-text`          | Body text                                           |
-| `--dp-text-soft`     | Secondary text — captions, card footers             |
-| `--dp-border`        | Visible borders                                     |
-| `--dp-rule`          | Discreet rules — tree separators                    |
-| `--dp-accent`        | Accent colour — links, fills                        |
-| `--dp-accent-soft`   | Accent background — banners                         |
-| `--dp-shadow`        | Colour of drop shadows                              |
-| `--dp-radius`        | Corner rounding                                     |
-| `--dp-font`          | Font family of the text                             |
-| `--dp-font-mono`     | Monospaced family — code, trees                     |
-| `--dp-content-width` | Reading width. `none` by default                    |
-| `--dp-sidebar-width` | Menu column                                         |
-| `--dp-toc-width`     | Table of contents column                            |
+| Token                 | Role                                                |
+| --------------------- | --------------------------------------------------- |
+| `--dp-bg`             | Page background                                     |
+| `--dp-bg-soft`        | Background of recessed areas — gauge tracks, hovers |
+| `--dp-text`           | Body text                                           |
+| `--dp-text-soft`      | Secondary text — captions, card footers             |
+| `--dp-border`         | Visible borders                                     |
+| `--dp-rule`           | Discreet rules — tree separators                    |
+| `--dp-accent`         | Accent colour — links, fills                        |
+| `--dp-accent-soft`    | Accent background — banners                         |
+| `--dp-tip`            | Tone of a block of advice — border and title        |
+| `--dp-tip-soft`       | Its ground                                          |
+| `--dp-attention`      | Tone of a block that warns                          |
+| `--dp-attention-soft` | Its ground                                          |
+| `--dp-danger`         | Tone of a block that says what a wrong move costs   |
+| `--dp-danger-soft`    | Its ground                                          |
+| `--dp-shadow`         | Colour of drop shadows                              |
+| `--dp-radius`         | Corner rounding                                     |
+| `--dp-font`           | Font family of the text                             |
+| `--dp-font-mono`      | Monospaced family — code, trees                     |
+| `--dp-content-width`  | Reading width. `none` by default                    |
+| `--dp-sidebar-width`  | Menu column                                         |
+| `--dp-toc-width`      | Table of contents column                            |
 
 Some components add their own, documented on their page: `--dp-skill-size` for
 a circle gauge, `--dp-skill-color` for the tint of a gauge,

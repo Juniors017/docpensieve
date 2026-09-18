@@ -43,7 +43,7 @@ they therefore follow the active palette without knowing anything about it.
 
 ## Changing the colours
 
-The fifteen tokens are listed in the [reference](../reference/theme/). They are
+The tokens are listed in the [reference](../reference/theme/). They are
 redefined from the configuration:
 
 ```js
@@ -56,19 +56,22 @@ theme: {
 },
 ```
 
-| Token                                  | What it sets                                                   |
-| -------------------------------------- | -------------------------------------------------------------- |
-| `--dp-bg`, `--dp-bg-soft`              | Backgrounds                                                    |
-| `--dp-text`, `--dp-text-soft`          | Text                                                           |
-| `--dp-border`, `--dp-rule`             | Borders and rules                                              |
-| `--dp-accent`, `--dp-accent-soft`      | Accent colour                                                  |
-| `--dp-radius`                          | Corner rounding                                                |
-| `--dp-font`, `--dp-font-mono`          | Font families                                                  |
-| `--dp-content-width`                   | Reading width. `none` by default: the content fills its column |
-| `--dp-sidebar-width`, `--dp-toc-width` | Side columns                                                   |
+| Token                                                           | What it sets                                                   |
+| --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `--dp-bg`, `--dp-bg-soft`                                       | Backgrounds                                                    |
+| `--dp-text`, `--dp-text-soft`                                   | Text                                                           |
+| `--dp-border`, `--dp-rule`                                      | Borders and rules                                              |
+| `--dp-accent`, `--dp-accent-soft`                               | Accent colour                                                  |
+| `--dp-tip`, `--dp-attention`, `--dp-danger` (and their `-soft`) | Tones of the blocks set apart from the text                    |
+| `--dp-radius`                                                   | Corner rounding                                                |
+| `--dp-font`, `--dp-font-mono`                                   | Font families                                                  |
+| `--dp-content-width`                                            | Reading width. `none` by default: the content fills its column |
+| `--dp-sidebar-width`, `--dp-toc-width`                          | Side columns                                                   |
 
 A redefined token propagates everywhere: components included, without any of
-them having to know.
+them having to know. It sets the **light** palette; the dark one is a set of
+tokens of its own, redefined in the `theme/` folder — see below. A site held
+dark by `darkMode: 'dark'` therefore shows nothing of a token set here.
 
 ## Adding CSS
 
