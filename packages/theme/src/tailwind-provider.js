@@ -49,6 +49,9 @@ const TAILWIND_TOKENS = Object.freeze({
 const TAILWIND_CLASSES = Object.freeze({
   header:
     'dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90',
+  // The same dress, without what holds it to the top of the screen.
+  headerStatic:
+    'dp-header dp-header--static border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950',
   brand: 'dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100',
   versionsList:
     'dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900',

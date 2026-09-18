@@ -61,6 +61,7 @@ can change.
 | `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one         |
 | `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                   |
 | `foldedSidebar`    | `false`             | Categories of the menu fold, opened where the reader stands                        |
+| `stickyHeader`     | `true`              | The header stays at the top of the screen; `false` lets it scroll away             |
 | `globalComponents` | `true`              | Shipped components available without an import                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                                    |
@@ -252,6 +253,20 @@ two can stand side by side with different links, or the site can go without a
 sidebar and navigate from the header alone.
 
 ## `foldedSidebar`
+
+```js
+stickyHeader: false,
+```
+
+The header holds to the top of the screen by default: the search field, the
+version switcher and the menu stay in reach wherever the reader is in the page.
+
+`false` lets it scroll away with the page, which gives its height back to the
+text — on a phone held in one hand, that height is a third of what is visible.
+The anchors then stop reserving room for it: a link to a heading no longer
+leaves a blank band above it.
+
+## `stickyHeader`
 
 ```js
 foldedSidebar: true,

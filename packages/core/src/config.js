@@ -46,6 +46,8 @@ import {
  *   the branch of the page being read.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
+ * @property {boolean} [stickyHeader] Header held at the top of the screen.
+ *   `false` lets it scroll away with the page.
  * @property {{ enabled: boolean }} jsonld
  * @property {string} [logo]        Image beside the project name, in the header.
  * @property {string} [favicon]     Icon of the browser tab: `.ico`, `.png` or `.svg`.
@@ -88,6 +90,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   foldedSidebar: false,
   globalComponents: true,
   scrollToTop: true,
+  // The header stays in reach: search, versions and menu are in it. A site
+  // that would rather give the height back to the text turns this off.
+  stickyHeader: true,
   jsonld: { enabled: true },
   logo: '',
   favicon: '',
@@ -272,6 +277,12 @@ export function normalizeConfig(userConfig) {
         },
       );
     }
+  }
+
+  if (config.stickyHeader !== undefined && typeof config.stickyHeader !== 'boolean') {
+    throw new ConfigError('stickyHeader must be true or false.', {
+      hint: 'true holds the header at the top of the screen; false lets it scroll away.',
+    });
   }
 
   // Links of the header: site navigation, not page content. A target starts

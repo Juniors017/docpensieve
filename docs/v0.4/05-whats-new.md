@@ -33,6 +33,10 @@ navigate from the header alone, or from both. See
 
 ### A menu of links, anywhere in a page
 
+The `stickyHeader` field also arrives: the header can now scroll away with the
+page instead of holding to the top of the screen. See
+[Navigation](./guide/navigation/).
+
 The `Menu` component places a row of links where a page needs them — a summary
 at the top of a landing page, the chapters of a guide. Entries can be grouped
 under a title, and the row folds behind a button on a narrow screen, without a

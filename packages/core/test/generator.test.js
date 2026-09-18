@@ -1354,6 +1354,26 @@ describe('the byline of a page', () => {
   });
 });
 
+describe('the header at the top of the screen', () => {
+  it('is held there by default', async () => {
+    const config = project({ 'index.md': page('Home') });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toContain('<header class="dp-header">');
+    expect(html).not.toContain('dp-header--static');
+  });
+
+  it('scrolls away with the page when the project says so', async () => {
+    const config = project({ 'index.md': page('Home') }, { stickyHeader: false });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('<header class="dp-header dp-header--static">');
+  });
+});
+
 describe('the menu of the documentation', () => {
   const files = {
     'index.md': page('Home'),

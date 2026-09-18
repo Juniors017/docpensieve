@@ -56,7 +56,7 @@
     into view scrolled nowhere. --}}
     <div id="top" tabindex="-1"></div>
 
-    <header class="{{{cls.header}}}">
+    <header class="{{#if stickyHeader}}{{{cls.header}}}{{else}}{{{cls.headerStatic}}}{{/if}}">
       {{!-- The logo's alt stays empty: the name that follows already says it. --}}
       <a class="{{{cls.brand}}}" href="{{homeUrl}}">{{#if logoUrl}}<img class="{{{cls.brandLogo}}}" src="{{logoUrl}}" alt="" />{{/if}}{{projectName}}</a>
       {{!-- Shown twice, one at a time: in a row on a wide screen, behind a button

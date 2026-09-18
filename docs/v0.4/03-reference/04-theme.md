@@ -72,55 +72,56 @@ The templates write no class. They ask for the class of each slot, and the
 theme answers. A provider only redefines what it changes; everything else keeps
 the `dp-*` class below.
 
-| Slot            | Default class             | Where                                           |
-| --------------- | ------------------------- | ----------------------------------------------- |
-| `skip`          | `dp-skip`                 | Skip link to the content                        |
-| `header`        | `dp-header`               | Site header                                     |
-| `brand`         | `dp-brand`                | Project name, in the header                     |
-| `brandLogo`     | `dp-brand-logo`           | Logo beside the project name                    |
-| `versions`      | `dp-versions`             | Version switcher                                |
-| `versionsList`  | `dp-versions-list`        | Open list of the switcher                       |
-| `shell`         | `dp-shell`                | Menu / content / table of contents grid         |
-| `shellWide`     | `dp-shell dp-shell--wide` | The same, without menu or table of contents     |
-| `sidebar`       | `dp-sidebar`              | Menu column                                     |
-| `nav`           | `dp-nav`                  | Navigation list                                 |
-| `navItem`       | `dp-nav-item`             | Navigation entry                                |
-| `navItemParent` | `dp-nav-item--parent`     | Entry that holds a section                      |
-| `navLink`       | `dp-nav-link`             | Navigation link                                 |
-| `navLabel`      | `dp-nav-label`            | Section label, not clickable                    |
-| `notice`        | `dp-notice`               | Banner of the versions that are not the current |
-| `skillIcon`     | `dp-skill-icon`           | Icon before the name of a gauge                 |
-| `main`          | `dp-main`                 | Main area                                       |
-| `article`       | `dp-article`              | Page content                                    |
-| `toc`           | `dp-toc`                  | Table of contents column                        |
-| `tocTitle`      | `dp-toc-title`            | Title of the table of contents                  |
-| `tocList`       | `dp-toc-list`             | List of the table of contents                   |
-| `tocItem`       | `dp-toc-item`             | Entry of the table of contents                  |
-| `footer`        | `dp-footer`               | Page footer                                     |
-| `scrollTop`     | `dp-scroll-top`           | Back-to-top button                              |
-| `scrollTopIcon` | `dp-scroll-top-icon`      | Arrow of that button                            |
-| `search`        | `dp-search`               | Search field of the header                      |
-| `schemeToggle`  | `dp-scheme-toggle`        | Light / dark button of the header               |
-| `headerNav`     | `dp-header-nav`           | Versions, links and search, in a row            |
-| `headerLinks`   | `dp-header-links`         | Links of the header                             |
-| `menu`          | `dp-menu`                 | Menu button, on a narrow screen                 |
-| `menuPanel`     | `dp-menu-panel`           | What that button opens                          |
-| `navGroup`      | `dp-nav-group`            | A folded category of the menu                   |
-| `navSummary`    | `dp-nav-summary`          | The handle of that fold                         |
-| `sidebarMenu`   | `dp-sidebar-menu`         | The documentation menu, on a narrow screen      |
-| `mega`          | `dp-mega`                 | A header entry that opens a panel               |
-| `megaPanel`     | `dp-mega-panel`           | That panel                                      |
-| `megaColumn`    | `dp-mega-column`          | A column of the panel                           |
-| `megaTitle`     | `dp-mega-title`           | The title of a column                           |
-| `byline`        | `dp-byline`               | Authors and dates at the head of a page         |
-| `bylineAuthors` | `dp-byline-authors`       | List of the authors                             |
-| `bylineAuthor`  | `dp-byline-author`        | One author                                      |
-| `bylineAvatar`  | `dp-byline-avatar`        | Avatar of an author                             |
-| `bylineName`    | `dp-byline-name`          | Name of an author                               |
-| `bylineBio`     | `dp-byline-bio`           | Biography of an author                          |
-| `bylineDates`   | `dp-byline-dates`         | Writing and update dates                        |
-| `tags`          | `dp-tags`                 | Tags at the bottom of a page                    |
-| `tag`           | `dp-tag`                  | One tag                                         |
+| Slot            | Default class                 | Where                                           |
+| --------------- | ----------------------------- | ----------------------------------------------- |
+| `skip`          | `dp-skip`                     | Skip link to the content                        |
+| `header`        | `dp-header`                   | Site header                                     |
+| `headerStatic`  | `dp-header dp-header--static` | The header when it scrolls away                 |
+| `brand`         | `dp-brand`                    | Project name, in the header                     |
+| `brandLogo`     | `dp-brand-logo`               | Logo beside the project name                    |
+| `versions`      | `dp-versions`                 | Version switcher                                |
+| `versionsList`  | `dp-versions-list`            | Open list of the switcher                       |
+| `shell`         | `dp-shell`                    | Menu / content / table of contents grid         |
+| `shellWide`     | `dp-shell dp-shell--wide`     | The same, without menu or table of contents     |
+| `sidebar`       | `dp-sidebar`                  | Menu column                                     |
+| `nav`           | `dp-nav`                      | Navigation list                                 |
+| `navItem`       | `dp-nav-item`                 | Navigation entry                                |
+| `navItemParent` | `dp-nav-item--parent`         | Entry that holds a section                      |
+| `navLink`       | `dp-nav-link`                 | Navigation link                                 |
+| `navLabel`      | `dp-nav-label`                | Section label, not clickable                    |
+| `notice`        | `dp-notice`                   | Banner of the versions that are not the current |
+| `skillIcon`     | `dp-skill-icon`               | Icon before the name of a gauge                 |
+| `main`          | `dp-main`                     | Main area                                       |
+| `article`       | `dp-article`                  | Page content                                    |
+| `toc`           | `dp-toc`                      | Table of contents column                        |
+| `tocTitle`      | `dp-toc-title`                | Title of the table of contents                  |
+| `tocList`       | `dp-toc-list`                 | List of the table of contents                   |
+| `tocItem`       | `dp-toc-item`                 | Entry of the table of contents                  |
+| `footer`        | `dp-footer`                   | Page footer                                     |
+| `scrollTop`     | `dp-scroll-top`               | Back-to-top button                              |
+| `scrollTopIcon` | `dp-scroll-top-icon`          | Arrow of that button                            |
+| `search`        | `dp-search`                   | Search field of the header                      |
+| `schemeToggle`  | `dp-scheme-toggle`            | Light / dark button of the header               |
+| `headerNav`     | `dp-header-nav`               | Versions, links and search, in a row            |
+| `headerLinks`   | `dp-header-links`             | Links of the header                             |
+| `menu`          | `dp-menu`                     | Menu button, on a narrow screen                 |
+| `menuPanel`     | `dp-menu-panel`               | What that button opens                          |
+| `navGroup`      | `dp-nav-group`                | A folded category of the menu                   |
+| `navSummary`    | `dp-nav-summary`              | The handle of that fold                         |
+| `sidebarMenu`   | `dp-sidebar-menu`             | The documentation menu, on a narrow screen      |
+| `mega`          | `dp-mega`                     | A header entry that opens a panel               |
+| `megaPanel`     | `dp-mega-panel`               | That panel                                      |
+| `megaColumn`    | `dp-mega-column`              | A column of the panel                           |
+| `megaTitle`     | `dp-mega-title`               | The title of a column                           |
+| `byline`        | `dp-byline`                   | Authors and dates at the head of a page         |
+| `bylineAuthors` | `dp-byline-authors`           | List of the authors                             |
+| `bylineAuthor`  | `dp-byline-author`            | One author                                      |
+| `bylineAvatar`  | `dp-byline-avatar`            | Avatar of an author                             |
+| `bylineName`    | `dp-byline-name`              | Name of an author                               |
+| `bylineBio`     | `dp-byline-bio`               | Biography of an author                          |
+| `bylineDates`   | `dp-byline-dates`             | Writing and update dates                        |
+| `tags`          | `dp-tags`                     | Tags at the bottom of a page                    |
+| `tag`           | `dp-tag`                      | One tag                                         |
 
 A slot can carry **variants**, suffixed `--variant`: `column` gives
 `dp-column--span-8`, `skill` gives `dp-skill--circle`.

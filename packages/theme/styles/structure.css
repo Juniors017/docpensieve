@@ -22,6 +22,14 @@ html {
   scroll-padding-top: 4.5rem;
 }
 
+/*
+ * Nothing covers the top of the page once the header scrolls away: kept, the
+ * padding would leave a blank band above every heading reached by a link.
+ */
+html:has(.dp-header--static) {
+  scroll-padding-top: 0;
+}
+
 body {
   margin: 0;
 }
@@ -137,6 +145,15 @@ body {
   gap: 0.85rem;
   height: 3.5rem;
   padding: 0 1.5rem;
+}
+
+/*
+ * Scrolls away with the page, giving its height back to the text. Written
+ * after the rule above, which it undoes: the element carries both classes,
+ * and of two rules of equal weight the last one wins.
+ */
+.dp-header--static {
+  position: static;
 }
 
 /* The version switcher is a <details>: it opens without JavaScript. */

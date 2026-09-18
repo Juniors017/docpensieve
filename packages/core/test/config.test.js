@@ -357,6 +357,24 @@ describe('the light / dark switch', () => {
   });
 });
 
+describe('the sticky header', () => {
+  it('is on by default, and takes true or false', () => {
+    expect(normalizeConfig({ versions: [v1] }).stickyHeader).toBe(true);
+    expect(normalizeConfig({ versions: [v1], stickyHeader: false }).stickyHeader).toBe(false);
+  });
+
+  it('refuses anything else', () => {
+    let failure;
+    try {
+      normalizeConfig({ versions: [v1], stickyHeader: 'static' });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure?.hint).toContain('scroll away');
+  });
+});
+
 describe('header links', () => {
   const beta = { slug: 'beta', name: '2.0', folder: 'docs/v2.0', prerelease: true };
 

@@ -71,6 +71,7 @@ export const PAGE_LAYOUTS = Object.freeze(['doc', 'home']);
 export const DEFAULT_THEME_CLASSES = Object.freeze({
   skip: 'dp-skip',
   header: 'dp-header',
+  headerStatic: 'dp-header dp-header--static',
   brand: 'dp-brand',
   brandLogo: 'dp-brand-logo',
   versions: 'dp-versions',

@@ -329,6 +329,9 @@ export class SiteGenerator {
           ? new URL(images.socialImage, this.config.siteUrl).href
           : '',
       searchUrl,
+      // Held at the top of the screen unless the project gives that height
+      // back to the text.
+      stickyHeader: this.config.stickyHeader !== false,
       headerLinks,
       // A menu with nothing in it would be a button that opens onto nothing.
       headerMenu: this.config.versions.length > 1 || headerLinks.length > 0 || searchUrl !== '',
