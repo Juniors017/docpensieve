@@ -539,6 +539,14 @@ column.</p>
 <h2 id="a-long-text">A long text</h2>
 <p>The bubble is capped at about sixteen rem wide, then wraps.</p>
 <p>See the <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_5b_">reason for version branches</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_5b_" role="tooltip">A published version stays in the state in which it was produced. Rebuilding it is never necessary, and nothing would guarantee it gives the same result years later.</span></span> for the details.</p>
+<h2 id="the-look-through-classname">The look through className</h2>
+<p>A <code>className</code> lands on the term, not on the bubble: it is the term the reader
+sees before hovering anything.</p>
+<p>A term marked <span class="dp-tooltip dp-tooltip--top text-indigo-500 font-medium"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_jh_">more firmly</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_jh_" role="tooltip">It now carries the accent colour, and a heavier weight.</span></span> than the others.</p><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;text-indigo-500 font-medium&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> text</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;…&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  more firmly</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Tooltip</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+
+<p><code>style</code> works the same way, for a one-off adjustment that needs no class.</p>
 <h2 id="what-it-cannot-do">What it cannot do</h2>
 <p>The bubble is positioned absolutely: inside a container that <strong>clips its
 overflow</strong> — an <code>overflow: hidden</code> — it will be cut. That is the limit of a
@@ -573,6 +581,9 @@ unnoticed for a long time. So does an unknown side.</p></article>
           </li>
           <li class="dp-toc-item">
             <a href="#a-long-text">A long text</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#the-look-through-classname">The look through className</a>
           </li>
           <li class="dp-toc-item">
             <a href="#what-it-cannot-do">What it cannot do</a>

@@ -588,6 +588,24 @@ every gauge it holds.</p>
 <p><code>showValue={false}</code> removes the percentage <strong>from the screen only</strong>: the gauge
 keeps announcing it to screen readers. Hiding a piece of information is not
 deleting it.</p>
+<h2 id="a-name-that-is-not-a-text">A name that is not a text</h2>
+<p><code>name</code> accepts more than a string — an icon beside a word, a term carrying a
+tooltip. A screen reader then has nothing to announce, so <code>label</code> says in plain
+words what the gauge measures:</p>
+<div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name"><span class="dp-logo-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  <path d="m9 12 2 2 4-4" />
+</svg></span> Coverage</span><span class="dp-skill-value">97%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100" aria-label="Test coverage"><div class="dp-skill-fill" style="--dp-skill-level:97%"></div></div></div>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Skill</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  name</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    &lt;&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">      &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">LogoIcon</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> src</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;./icons/shield.svg&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt; Coverage</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    &lt;/&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Test coverage&quot;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  level</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">97</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">/&gt;</span></span></code></pre>
+<p>With a plain string in <code>name</code>, <code>label</code> is not needed: the name already says it.</p>
 <h2 id="a-dashboard">A dashboard</h2>
 <p>Several gauges in columns, each in its card.</p>
 <div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card" style="height:100%"><div class="dp-card-header">Quality</div><div class="dp-card-body"><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Tests</span><span class="dp-skill-value">88%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Tests"><div class="dp-skill-fill" style="--dp-skill-level:88%"></div></div></div><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Types</span><span class="dp-skill-value">95%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="Types"><div class="dp-skill-fill" style="--dp-skill-level:95%"></div></div></div><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Documentation</span><span class="dp-skill-value">72%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Documentation"><div class="dp-skill-fill" style="--dp-skill-level:72%"></div></div></div></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card" style="height:100%"><div class="dp-card-header">Delivery</div><div class="dp-card-body"><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Continuous integration</span><span class="dp-skill-value">100%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Continuous integration"><div class="dp-skill-fill" style="--dp-skill-level:100%"></div></div></div><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Translations</span><span class="dp-skill-value">40%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Translations"><div class="dp-skill-fill" style="--dp-skill-level:40%"></div></div><div class="dp-skill-note"><p>Two languages out of five.</p></div></div><div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Site online</span><span class="dp-skill-value">100%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Site online"><div class="dp-skill-fill" style="--dp-skill-level:100%"></div></div></div></div></div></div></div>
@@ -644,6 +662,9 @@ unnoticed on review.</p></article>
           </li>
           <li class="dp-toc-item">
             <a href="#without-the-figure-1">Without the figure</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#a-name-that-is-not-a-text">A name that is not a text</a>
           </li>
           <li class="dp-toc-item">
             <a href="#a-dashboard">A dashboard</a>
