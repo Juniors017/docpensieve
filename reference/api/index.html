@@ -185,6 +185,9 @@
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/cards/">Cards</a>
                 </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/menu/">Menu</a>
+                </li>
               </ul>
             </details>
           </li>
@@ -356,6 +359,9 @@
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/cards/">Cards</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/menu/">Menu</a>
                   </li>
                 </ul>
               </details>
@@ -830,6 +836,23 @@ itself (ADR-006).</p>
 <p>The gap is set through <code>className</code> or <code>style</code>, with the theme&#x27;s utilities:
 the grid recomputes the widths by itself.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
+<h3 id="menu"><code>Menu</code></h3>
+<p><code>Menu(props)</code></p>
+<p>Menu of links.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, label?: string, }</code></td><td><code>label</code> names the menu for screen readers, and labels the button it folds into on a narrow screen.</td></tr></tbody></table></div>
+<h3 id="menugroup"><code>MenuGroup</code></h3>
+<p><code>MenuGroup(props)</code></p>
+<p>Group of entries, folded under a title.</p>
+<p>In the row it opens as a panel below its title; folded, it unfolds in place
+rather than over the rest — on a narrow screen a panel would open off
+screen.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, title?: string, }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Outside a <code>Menu</code>, or without a title.</p>
+<h3 id="menulink"><code>MenuLink</code></h3>
+<p><code>MenuLink(props)</code></p>
+<p>Entry of a menu.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, href?: string, }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Outside a <code>Menu</code>, or without a target.</p>
 <h3 id="fallbackafter"><code>FallbackAfter</code></h3>
 <p><code>FallbackAfter(props)</code></p>
 <p>Content shown after the period.</p>
@@ -1216,6 +1239,15 @@ one, which makes it usable elsewhere and testable on its own.</p>
               </li>
               <li class="dp-toc-item">
                 <a href="#columns">Columns</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#menu">Menu</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#menugroup">MenuGroup</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#menulink">MenuLink</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#fallbackafter">FallbackAfter</a>
