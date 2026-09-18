@@ -45,8 +45,9 @@ import {
  *   `columns` opens a panel of links instead of leading anywhere itself.
  * @property {boolean} [foldedSidebar] Categories of the menu fold, opened on
  *   the branch of the page being read.
- * @property {Record<string, { label: string, tone: string }>} [admonitions]
- *   Kinds of admonition the project adds to the ones shipped.
+ * @property {Record<string, { label: string, tone: string, icon?: string }>} [admonitions]
+ *   Kinds of admonition the project adds to the ones shipped. `icon` names an
+ *   SVG of the version folder, inlined in place of the tone's drawing.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {boolean} [stickyHeader] Header held at the top of the screen.
@@ -302,6 +303,11 @@ export function normalizeConfig(userConfig) {
       if (!kind || typeof kind.label !== 'string' || kind.label.trim() === '') {
         throw new ConfigError(`The admonition "${name}" has no label.`, {
           hint: `Write "${name}": { label: '…', tone: '${ADMONITION_TONES[0]}' } — the label is what the reader sees.`,
+        });
+      }
+      if (kind.icon !== undefined && (typeof kind.icon !== 'string' || kind.icon.trim() === '')) {
+        throw new ConfigError(`The icon of the admonition "${name}" must be a path.`, {
+          hint: "Give an SVG of the version folder — icon: '/icons/review.svg' — or leave the field out.",
         });
       }
       if (!ADMONITION_TONES.includes(kind.tone)) {

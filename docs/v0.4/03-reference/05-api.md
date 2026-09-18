@@ -705,7 +705,7 @@ Block set apart from the text.
 
 `getAdmonitionKinds()`
 
-@returns \{Record&lt;string, \{ label: string, tone: string \}>\} Every kind available.
+@returns \{Record&lt;string, \{ label: string, tone: string, icon?: string \}>\} Every kind available.
 
 ### `setAdmonitionKinds`
 
@@ -715,7 +715,7 @@ Declares the kinds of the project, beside the ones shipped.
 
 | Parameter | Type | |
 | --- | --- | --- |
-| `[kinds]` | `Record<string, { label: string, tone: string }>` |  |
+| `[kinds]` | `Record<string, { label: string, tone: string, icon?: string }>` |  |
 
 ### `Card`
 

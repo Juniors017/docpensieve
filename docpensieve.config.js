@@ -126,6 +126,13 @@ export default defineConfig({
     },
   ],
 
+  // Blocks that say who a passage comes from. Their marks are added with the
+  // files: an icon that names a missing file stops the build.
+  admonitions: {
+    copilot: { label: 'Copilot', tone: 'info' },
+    claude: { label: 'Claude', tone: 'info' },
+  },
+
   // A menu of some forty entries: folded, it opens where the reader stands
   // instead of asking them to scroll past what does not concern them.
   foldedSidebar: true,

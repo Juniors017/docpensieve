@@ -1,3 +1,7 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -5,10 +9,31 @@ import { DocPensieveError } from '@docpensieve/shared';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { ADMONITION_KINDS, Admonition, setAdmonitionKinds } from '../src/admonition.js';
+import { setSiteContext } from '../src/site.js';
 
 const render = (/** @type {any} */ element) => renderToStaticMarkup(element);
 
-afterEach(() => setAdmonitionKinds({}));
+/** @type {string[]} */
+const created = [];
+
+/** A version folder holding one icon, as a project would have. */
+function versionWithIcon() {
+  const dir = mkdtempSync(path.join(tmpdir(), 'docpensieve-adm-'));
+  created.push(dir);
+  mkdirSync(path.join(dir, 'icons'));
+  writeFileSync(
+    path.join(dir, 'icons', 'house.svg'),
+    '<svg viewBox="0 0 24 24"><path d="M3 12 12 3l9 9" /></svg>',
+    'utf8',
+  );
+  return dir;
+}
+
+afterEach(() => {
+  setAdmonitionKinds({});
+  setSiteContext({});
+  for (const dir of created.splice(0)) rmSync(dir, { recursive: true, force: true });
+});
 
 describe('Admonition', () => {
   it('ships the six kinds, each with its label', () => {
@@ -51,6 +76,19 @@ describe('Admonition', () => {
 
     expect(html).toContain('To review');
     expect(html).toContain('dp-admonition--attention');
+  });
+
+  it('carries the mark of a kind that brings one', () => {
+    // A kind of its own may have a logo; without one, the drawing of its tone
+    // stands. The icon is inlined from the version folder, as elsewhere.
+    setAdmonitionKinds({ house: { label: 'House', tone: 'info', icon: '/icons/house.svg' } });
+    setSiteContext({ url: '/v/', basePath: '/v/', sourceDir: versionWithIcon() });
+
+    const html = render(h(Admonition, { type: 'house' }, 'Body'));
+    expect(html).toContain('House');
+    // The file is inlined, in place of the drawing of the tone.
+    expect(html).toContain('M3 12 12 3l9 9');
+    expect(html).toContain('dp-admonition--info');
   });
 
   it('refuses a kind nobody declared, and says which exist', () => {

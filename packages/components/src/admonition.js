@@ -16,6 +16,7 @@ import { createElement as h } from 'react';
 import { ADMONITION_TONES, DocPensieveError } from '@docpensieve/shared';
 
 import { classNames, cls } from './classes.js';
+import { LogoIcon } from './logo-icon.js';
 
 /**
  * The kinds the tool ships with, each a label and a tone.
@@ -58,20 +59,20 @@ const PATHS = Object.freeze({
  * else, and `core` cannot hand this down without knowing this package
  * (ADR-002). The same reasoning as the theme's class table.
  *
- * @type {Record<string, { label: string, tone: string }>}
+ * @type {Record<string, { label: string, tone: string, icon?: string }>}
  */
 let projectKinds = {};
 
 /**
  * Declares the kinds of the project, beside the ones shipped.
  *
- * @param {Record<string, { label: string, tone: string }>} [kinds]
+ * @param {Record<string, { label: string, tone: string, icon?: string }>} [kinds]
  */
 export function setAdmonitionKinds(kinds = {}) {
   projectKinds = kinds;
 }
 
-/** @returns {Record<string, { label: string, tone: string }>} Every kind available. */
+/** @returns {Record<string, { label: string, tone: string, icon?: string }>} Every kind available. */
 export function getAdmonitionKinds() {
   return { ...ADMONITION_KINDS, ...projectKinds };
 }
@@ -112,23 +113,27 @@ export function Admonition({ className, style, children, type = 'note', title, .
     h(
       'p',
       { className: cls('admonitionTitle') },
-      h(
-        'svg',
-        {
-          className: cls('admonitionIcon'),
-          viewBox: '0 0 24 24',
-          fill: 'none',
-          stroke: 'currentColor',
-          strokeWidth: 2,
-          strokeLinecap: 'round',
-          strokeLinejoin: 'round',
-          // The title beside it already names the kind: announcing the icon
-          // too would say it twice.
-          'aria-hidden': 'true',
-          focusable: 'false',
-        },
-        h('path', { d: PATHS[type] ?? PATHS[tone] ?? PATHS.note }),
-      ),
+      // A kind may bring a mark of its own — a logo, inlined from the version
+      // folder. Without one, the drawing of its tone stands.
+      kind.icon
+        ? h(LogoIcon, { className: cls('admonitionIcon'), src: kind.icon })
+        : h(
+            'svg',
+            {
+              className: cls('admonitionIcon'),
+              viewBox: '0 0 24 24',
+              fill: 'none',
+              stroke: 'currentColor',
+              strokeWidth: 2,
+              strokeLinecap: 'round',
+              strokeLinejoin: 'round',
+              // The title beside it already names the kind: announcing the
+              // icon too would say it twice.
+              'aria-hidden': 'true',
+              focusable: 'false',
+            },
+            h('path', { d: PATHS[type] ?? PATHS[tone] ?? PATHS.note }),
+          ),
       title ?? kind.label,
     ),
     h('div', { className: cls('admonitionBody') }, children),
