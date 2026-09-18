@@ -49,30 +49,30 @@ can change.
 
 ## The fields
 
-| Field              | Default             | Effect                                                                             |
-| ------------------ | ------------------- | ---------------------------------------------------------------------------------- |
-| `projectName`      | `'Documentation'`   | Name shown in the header and in the JSON-LD                                        |
-| `siteUrl`          | `''`                | Public URL. Used for the `canonical` and the JSON-LD                               |
-| `baseUrl`          | `'/'`               | Deployment prefix. Derived from `siteUrl` when omitted                             |
-| `outDir`           | `'dist'`            | Output folder, relative to the root                                                |
-| `versions`         | `[]`                | At least one entry                                                                 |
-| `theme`            | see below           | Styling                                                                            |
-| `sidebar`          | `'auto'`            | `'auto'`: the menu follows the file tree. Or a `.json` file of each version folder |
-| `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one         |
-| `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                   |
-| `foldedSidebar`    | `false`             | Categories of the menu fold, opened where the reader stands                        |
-| `admonitions`      | `{}`                | Kinds of admonition the project adds to the six shipped                            |
-| `stickyHeader`     | `true`              | The header stays at the top of the screen; `false` lets it scroll away             |
-| `globalComponents` | `true`              | Shipped components available without an import                                     |
-| `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |
-| `jsonld`           | `{ enabled: true }` | Structured data                                                                    |
-| `lang`             | `'en'`              | Language of the document, in `<html lang>`. The shell's labels stay English        |
-| `logo`             | `''`                | Image beside the project name, in the header                                       |
-| `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                                  |
-| `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                          |
-| `sitemap`          | `true`              | `sitemap.xml` of the published versions, once `siteUrl` is set                     |
-| `feed`             | `false`             | RSS feed of the dated pages. Needs `siteUrl`                                       |
-| `search`           | `true`              | Search field in the header, and a search page built with the site                  |
+| Field              | Default             | Effect                                                                                             |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------- |
+| `projectName`      | `'Documentation'`   | Name shown in the header and in the JSON-LD                                                        |
+| `siteUrl`          | `''`                | Public URL. Used for the `canonical` and the JSON-LD                                               |
+| `baseUrl`          | `'/'`               | Deployment prefix. Derived from `siteUrl` when omitted                                             |
+| `outDir`           | `'dist'`            | Output folder, relative to the root                                                                |
+| `versions`         | `[]`                | At least one entry                                                                                 |
+| `theme`            | see below           | Styling                                                                                            |
+| `sidebar`          | `'auto'`            | `'auto'`: the menu follows the file tree. Or a `.json` file of each version folder                 |
+| `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one                         |
+| `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                                   |
+| `foldedSidebar`    | `false`             | Categories of the menu fold, opened where the reader stands                                        |
+| `admonitions`      | `{}`                | Kinds of admonition the project adds to the six shipped, each a label, a tone and an optional icon |
+| `stickyHeader`     | `true`              | The header stays at the top of the screen; `false` lets it scroll away                             |
+| `globalComponents` | `true`              | Shipped components available without an import                                                     |
+| `scrollToTop`      | `true`              | Back-to-top button on every page                                                                   |
+| `jsonld`           | `{ enabled: true }` | Structured data                                                                                    |
+| `lang`             | `'en'`              | Language of the document, in `<html lang>`. The shell's labels stay English                        |
+| `logo`             | `''`                | Image beside the project name, in the header                                                       |
+| `favicon`          | `''`                | Icon of the browser tab: `.ico`, `.png` or `.svg`                                                  |
+| `socialImage`      | `''`                | Preview of a shared page. Needs `siteUrl`                                                          |
+| `sitemap`          | `true`              | `sitemap.xml` of the published versions, once `siteUrl` is set                                     |
+| `feed`             | `false`             | RSS feed of the dated pages. Needs `siteUrl`                                                       |
+| `search`           | `true`              | Search field in the header, and a search page built with the site                                  |
 
 ## Images
 

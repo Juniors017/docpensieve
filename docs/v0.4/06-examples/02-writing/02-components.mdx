@@ -3,7 +3,7 @@ title: Components
 description: Columns, cards, gauges and tooltips — without an import, without a script.
 authors: [pensy]
 date: 2026-09-07
-modified: 2026-09-12
+modified: 2026-09-18
 tags: [course, intermediate, components]
 ---
 
@@ -42,6 +42,42 @@ Where a team tracks the state of its documentation:
   <Skill name="Translated" level={40} shape="circle" color="#f59e0b" />
 </div>
 
+## A warning the reader cannot walk past
+
+Some sentences must not be read as prose. An admonition lifts them out:
+
+<Admonition type="tip">
+  Write the lesson before the reference. A reader arrives with a task, not with a list of options.
+</Admonition>
+
+<Admonition type="danger" title="Before deleting a version">
+  Its address stops answering, and the links pointing at it lead nowhere.
+</Admonition>
+
+### Kinds this site added
+
+Six kinds ship with the tool; these two are declared in the configuration of
+this very site, with a mark taken from an icon set:
+
+<Admonition type="copilot">
+  A passage drafted with an assistant, then read and corrected by a person. The reader is told which
+  is which.
+</Admonition>
+
+<Admonition type="claude">
+  The same, and the page keeps its author: the byline above names a person, not a tool.
+</Admonition>
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  claude: { label: 'Claude', tone: 'info', icon: 'simple-icons:claude' },
+},
+```
+
+The mark is placed in the page when the site is built, like every other icon
+here: your reader downloads nothing, and no request leaves their browser.
+
 ## A term, explained in place
 
 A reader who does not know what a <Tooltip text="A version published before the stable one, to try what is coming.">beta</Tooltip> finds out without leaving the sentence — with the mouse or from the keyboard.
@@ -56,5 +92,7 @@ None. Every component here is rendered when the site is built.
 </details>
 
 <Card href="/components/">
-  <CardBody>This lesson uses **Columns**, **Card**, **Skill** and **Tooltip**.</CardBody>
+  <CardBody>
+    This lesson uses **Columns**, **Card**, **Skill**, **Tooltip** and **Admonition**.
+  </CardBody>
 </Card>

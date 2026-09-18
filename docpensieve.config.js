@@ -126,11 +126,12 @@ export default defineConfig({
     },
   ],
 
-  // Blocks that say who a passage comes from. Their marks are added with the
-  // files: an icon that names a missing file stops the build.
+  // Blocks that say who a passage comes from. Their marks come from an icon
+  // set installed beside the project, inlined at the build: the reader
+  // downloads nothing, and no request leaves their browser.
   admonitions: {
-    copilot: { label: 'Copilot', tone: 'info' },
-    claude: { label: 'Claude', tone: 'info' },
+    copilot: { label: 'Copilot', tone: 'info', icon: 'simple-icons:githubcopilot' },
+    claude: { label: 'Claude', tone: 'info', icon: 'simple-icons:claude' },
   },
 
   // A menu of some forty entries: folded, it opens where the reader stands

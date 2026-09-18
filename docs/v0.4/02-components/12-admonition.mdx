@@ -70,16 +70,19 @@ admonitions: {
 ### A mark of its own
 
 A kind may carry an icon instead of the drawing of its tone — the logo of a
-tool, the mark of a team. It names an SVG of the version folder, inlined at the
-build like any other icon:
+tool, the mark of a team. It names an SVG of the version folder, or an icon of
+a set, and either is inlined at the build:
 
 ```js
 admonitions: {
   review: { label: 'To review', tone: 'attention', icon: '/icons/review.svg' },
+  shipped: { label: 'Shipped', tone: 'tip', icon: 'simple-icons:github' },
 },
 ```
 
-A file that does not exist stops the build, naming the path it looked for.
+A file that does not exist stops the build, naming the path it looked for. An
+icon set is a package the project installs — see
+[LogoIcon](./logo-icon/) — and a set that is missing stops it too.
 
 The tones are `note`, `info`, `tip`, `attention` and `danger`. A kind nobody
 declared stops the build, listing those that exist: rendered anyway, the block

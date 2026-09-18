@@ -139,6 +139,27 @@ readers — which is right when nearby text already says the same thing. With
 In the list above, the icons have no `label`: the text next to them already
 carries the meaning, and announcing it twice would tell nothing.
 
+## An icon from a set
+
+Beside a file of your project, `src` accepts the name of an icon from a
+collection, written `prefix:name`:
+
+```mdx
+<LogoIcon src="simple-icons:github" label="Repository" />
+```
+
+The set is a package your project installs, and the drawing is placed in the
+page at the build, exactly as a file of yours would be:
+
+```bash
+npm install --save-dev @iconify-json/simple-icons
+```
+
+Nothing is fetched while the page is read — those collections offer an online
+service, which would mean a request for every icon and a script to make it.
+A set that is not installed stops the build and names the package to install;
+so does a name the set does not hold.
+
 ## What it refuses
 
 A missing file, a file without an `svg` tag, a target leaving the version

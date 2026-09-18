@@ -36,7 +36,10 @@ navigate from the header alone, or from both. See
 Admonitions arrive with it: `Admonition` sets a passage apart and says how to
 read it — note, info, tip, attention, alert, danger — and a project declares its
 own kinds in the `admonitions` field, each a label and a tone taken from the
-theme. See [Admonition](./components/admonition/).
+theme, and its own mark if it wants one. An icon may now come from a set
+installed beside the project — `simple-icons:github` — inlined at the build
+like any other. See [Admonition](./components/admonition/) and
+[LogoIcon](./components/logo-icon/).
 
 The `stickyHeader` field also arrives: the header can now scroll away with the
 page instead of holding to the top of the screen. See

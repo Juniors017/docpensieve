@@ -2,6 +2,7 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSy
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { ADMONITION_KINDS } from '@docpensieve/components';
 import { DEFAULT_CONFIG, loadConfig } from '@docpensieve/core';
 import { DocPensieveError } from '@docpensieve/shared';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -312,6 +313,29 @@ describe('init — DocPensieve documentation', () => {
         .replace(/```[\s\S]*?```/g, '')
         .replace(/`[^`\n]*`/g, '');
       expect(prose, page).not.toMatch(absolute);
+    }
+  });
+
+  it('renders nothing this site alone has installed', async () => {
+    // The pages are built in the reader's project, which has neither the icon
+    // sets nor the admonition kinds of our own configuration. An example
+    // rendered rather than shown would stop their build — and pass here, where
+    // both are within reach.
+    const dir = scratch();
+    await init(dir, { yes: true });
+
+    const pages = readdirSync(section(dir), { recursive: true })
+      .map(String)
+      .filter((file) => /\.mdx?$/.test(file));
+
+    const iconOfSet = /src="[a-z0-9-]+:[a-z0-9-]+"/;
+    const kind = /<Admonition[^>]*\btype="([a-z-]+)"/g;
+    for (const page of pages) {
+      const rendered = read(section(dir), page).replace(/```[\s\S]*?```/g, '');
+      expect(rendered, page).not.toMatch(iconOfSet);
+      for (const [, type] of rendered.matchAll(kind)) {
+        expect(ADMONITION_KINDS, `${page}: <Admonition type="${type}">`).toHaveProperty(type);
+      }
     }
   });
 });

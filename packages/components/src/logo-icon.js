@@ -14,6 +14,7 @@ import { createElement as h } from 'react';
 import { DocPensieveError } from '@docpensieve/shared';
 
 import { classNames, cls } from './classes.js';
+import { iconSvg, isIconName } from './iconify.js';
 import { resolveFile } from './site.js';
 
 /** Isolates the `svg` root: XML header, doctype and comments stay out. */
@@ -48,6 +49,11 @@ const cache = new Map();
  * @throws {DocPensieveError} File not found, or without an `svg` tag.
  */
 function readSvg(src) {
+  // `prefix:name` names an icon of a set rather than a file of the project:
+  // the drawing then comes from the set the project installed, and is placed
+  // in the page all the same.
+  if (isIconName(src)) return iconSvg(src).replace(SCRIPT, '').replace(HANDLER, '');
+
   /** @type {string} */
   let file;
   try {
