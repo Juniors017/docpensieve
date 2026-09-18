@@ -82,6 +82,43 @@ The bubble is capped at about sixteen rem wide, then wraps.
 
 See the <Tooltip text="A published version stays in the state in which it was produced. Rebuilding it is never necessary, and nothing would guarantee it gives the same result years later.">reason for version branches</Tooltip> for the details.
 
+## The look through className
+
+A `className` lands on the term, not on the bubble: it is the term the reader
+sees before hovering anything.
+
+<ForTheme framework="tailwind">
+
+A term marked <Tooltip className="text-indigo-500 font-medium" text="It now carries the accent colour, and a heavier weight.">more firmly</Tooltip> than the others.
+
+```mdx
+<Tooltip className="text-indigo-500 font-medium" text="…">
+  more firmly
+</Tooltip>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+A term marked <Tooltip className="accent-text" text="It now carries the accent colour of the theme.">more firmly</Tooltip> than the others.
+
+```mdx
+<Tooltip className="accent-text" text="…">
+  more firmly
+</Tooltip>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.accent-text {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+`style` works the same way, for a one-off adjustment that needs no class.
+
 ## What it cannot do
 
 The bubble is positioned absolutely: inside a container that **clips its

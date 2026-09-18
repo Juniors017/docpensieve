@@ -157,6 +157,36 @@ every gauge it holds.
 keeps announcing it to screen readers. Hiding a piece of information is not
 deleting it.
 
+## A name that is not a text
+
+`name` accepts more than a string — an icon beside a word, a term carrying a
+tooltip. A screen reader then has nothing to announce, so `label` says in plain
+words what the gauge measures:
+
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Coverage
+    </>
+  }
+  label="Test coverage"
+  level={97}
+/>
+
+```mdx
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Coverage
+    </>
+  }
+  label="Test coverage"
+  level={97}
+/>
+```
+
+With a plain string in `name`, `label` is not needed: the name already says it.
+
 ## A dashboard
 
 Several gauges in columns, each in its card.
