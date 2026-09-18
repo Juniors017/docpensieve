@@ -15,7 +15,29 @@ a row on a wide screen, behind a menu button on a narrow one. --}}
 {{/if}}
 {{#if headerLinks.length}}
 <ul class="{{{cls.headerLinks}}}">
-  {{#each headerLinks}}<li><a href="{{href}}">{{label}}</a></li>{{/each}}
+  {{#each headerLinks}}
+  <li>
+    {{#if columns.length}}
+    {{!-- A panel of links rather than a link: a details again, so that it
+    opens without a script, and folds into the menu of a narrow screen. --}}
+    <details class="{{{@root.cls.mega}}}">
+      <summary>{{label}}</summary>
+      <div class="{{{@root.cls.megaPanel}}}">
+        {{#each columns}}
+        <div class="{{{@root.cls.megaColumn}}}">
+          {{#if title}}<p class="{{{@root.cls.megaTitle}}}">{{title}}</p>{{/if}}
+          <ul>
+            {{#each items}}<li><a href="{{href}}">{{label}}</a></li>{{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </div>
+    </details>
+    {{else}}
+    <a href="{{href}}">{{label}}</a>
+    {{/if}}
+  </li>
+  {{/each}}
 </ul>
 {{/if}}
 {{!-- A plain form: it leads to the search page, and needs no script. --}}

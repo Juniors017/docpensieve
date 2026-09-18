@@ -19,6 +19,7 @@
  * @typedef {import('./compiler.js').TocEntry} TocEntry
  * @typedef {import('./compiler.js').Preload} Preload
  * @typedef {import('./sidebar.js').SidebarNode} SidebarNode
+ * @typedef {import('./sidebar.js').FoldedNode} FoldedNode
  * @typedef {import('./authors.js').Author} Author
  * @typedef {import('./authors.js').Byline} Byline
  */
@@ -34,6 +35,11 @@ export { DocLoader } from './loader.js';
 export { Compiler } from './compiler.js';
 export { StructuredDataBuilder } from './structured-data.js';
 export { SiteGenerator } from './generator.js';
-export { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
+export {
+  buildSidebar,
+  buildSidebarFromDescription,
+  collectSectionTitles,
+  foldSidebar,
+} from './sidebar.js';
 export { buildFeed, buildRobots, buildSitemap } from './discovery.js';
 export { buildAuthorTable, buildByline, readDate, resolvePageAuthors } from './authors.js';

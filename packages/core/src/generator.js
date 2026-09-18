@@ -28,7 +28,12 @@ import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
 import { imageSize } from './image-size.js';
 import { minifyCss } from './minify-css.js';
 import { SEARCH_SLUG, htmlToText, searchPageContent } from './search-index.js';
-import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from './sidebar.js';
+import {
+  buildSidebar,
+  buildSidebarFromDescription,
+  collectSectionTitles,
+  foldSidebar,
+} from './sidebar.js';
 import { StructuredDataBuilder } from './structured-data.js';
 
 /** Template folder, resolved from this module rather than from the cwd. */
@@ -245,6 +250,7 @@ export class SiteGenerator {
         ? await this.#describedSidebar(sourceDir, docs, pageUrl, version.folder)
         : null;
     const sidebar = described ?? buildSidebar(docs, pageUrl, { brand: this.config.projectName });
+    const folded = this.config.foldedSidebar === true;
     const breadcrumbTitles = collectSectionTitles(docs);
     const layout = await this.#loadLayout();
     const classes = this.#classes();
@@ -276,13 +282,29 @@ export class SiteGenerator {
     // Links of the header, resolved once per version. A link naming a version
     // leads there from every version: a section written in one version only
     // stays reachable from the others.
-    const headerLinks = (this.config.headerLinks ?? []).map((link) => ({
-      label: link.label,
-      href: EXTERNAL_PREVIEW.test(link.href)
+    /** @param {{ href: string, version?: string }} link */
+    const headerTarget = (link) =>
+      EXTERNAL_PREVIEW.test(link.href)
         ? link.href
         : joinUrl(this.config.baseUrl, 'versions', link.version ?? version.slug) +
-          link.href.replace(/^\/+/, ''),
-    }));
+          link.href.replace(/^\/+/, '');
+
+    const headerLinks = (this.config.headerLinks ?? []).map((link) =>
+      link.columns
+        ? {
+            label: link.label,
+            columns: link.columns.map((column) => ({
+              title: column.title,
+              items: column.items.map((item) => ({ label: item.label, href: headerTarget(item) })),
+            })),
+          }
+        : // Without columns the configuration has checked the target: an entry
+          // that leads nowhere and opens nothing never gets here.
+          {
+            label: link.label,
+            href: headerTarget({ href: String(link.href), version: link.version }),
+          },
+    );
 
     const shell = {
       lang: this.config.lang ?? 'en',
@@ -436,7 +458,10 @@ export class SiteGenerator {
         noindex: version.prerelease === true,
         byline,
         tags: wide ? [] : pageTags(doc.frontmatter.tags),
-        sidebar: wide ? [] : sidebar,
+        // Folded, the menu opens on the branch of the page being rendered, so
+        // it is prepared per page rather than once per version.
+        sidebar: wide ? [] : folded ? foldSidebar(sidebar, url) : sidebar,
+        foldedSidebar: folded,
         toc: wide ? [] : toc,
         preloads,
         content: html,

@@ -185,7 +185,13 @@ describe('buildVersion', () => {
 
     const html = read(out, 'index.html');
     expect(html).toContain('>Guide</a>');
-    expect(html.match(/dp-nav-link/g)).toHaveLength(1);
+    // The menu is written twice — the column, and the folded menu of a narrow
+    // screen — so the count is taken in the column alone.
+    const column = html.slice(
+      html.indexOf('<nav class="dp-sidebar"'),
+      html.indexOf('</nav>', html.indexOf('<nav class="dp-sidebar"')),
+    );
+    expect(column.match(/dp-nav-link/g)).toHaveLength(1);
   });
 
   it('copies attachments while keeping the file tree', async () => {
@@ -1348,6 +1354,52 @@ describe('the byline of a page', () => {
   });
 });
 
+describe('the menu of the documentation', () => {
+  const files = {
+    'index.md': page('Home'),
+    'guide/index.md': page('Guide'),
+    'guide/01-install.md': page('Install'),
+    'reference/index.md': page('Reference'),
+    'reference/01-cli.md': page('Commands'),
+  };
+
+  it('writes it twice: the column, and a folded menu for a narrow screen', async () => {
+    // One of the two is displayed at a time. Open above the content, a full
+    // menu would eat the first screen before a word is read.
+    const config = project(files);
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'guide', 'install', 'index.html');
+    expect(html).toContain('<nav class="dp-sidebar"');
+    expect(html).toMatch(
+      /<details class="dp-sidebar-menu">\s*<summary>Documentation menu<\/summary>/,
+    );
+    expect(html.match(/href="\/versions\/v1\.0\/guide\/install\/"/g)).toHaveLength(2);
+  });
+
+  it('shows every entry unfolded by default', async () => {
+    const config = project(files);
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).not.toContain('dp-nav-group');
+  });
+
+  it('folds the categories on request, open where the reader stands', async () => {
+    const config = project(files, { foldedSidebar: true });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'guide', 'install', 'index.html');
+    // The branch of the page is open, the other one closed.
+    expect(html).toMatch(/<details class="dp-nav-group" open>\s*<summary[^>]*>Guide</);
+    expect(html).toMatch(/<details class="dp-nav-group">\s*<summary[^>]*>Reference</);
+    // The category is a page too: folded, it gains its own entry.
+    expect(html).toContain('href="/versions/v1.0/guide/">Guide</a>');
+  });
+});
+
 describe('the header menu', () => {
   it('shows the links twice, in a row and behind the menu button', async () => {
     // One of the two is displayed at a time: in a row on a wide screen, behind
@@ -1386,6 +1438,40 @@ describe('the header menu', () => {
     // Built for v1.0, the link still leads to the beta, where the section is.
     expect(html).toContain('href="/versions/beta/examples/"');
     expect(html).toContain('href="https://example.com/repo"');
+  });
+
+  it('opens a panel of links for an entry that carries columns', async () => {
+    const config = project(
+      { 'index.md': page('Home') },
+      {
+        headerLinks: [
+          {
+            label: 'Product',
+            columns: [
+              {
+                title: 'Guide',
+                items: [
+                  { label: 'Install', href: '/guide/install/' },
+                  { label: 'Deploy', href: 'https://example.com/deploy' },
+                ],
+              },
+              { items: [{ label: 'Blog', href: '/blog/' }] },
+            ],
+          },
+        ],
+      },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'index.html');
+    expect(html).toMatch(/<details class="dp-mega">\s*<summary>Product<\/summary>/);
+    expect(html).toContain('<p class="dp-mega-title">Guide</p>');
+    expect(html).toContain('href="/versions/v1.0/guide/install/"');
+    expect(html).toContain('href="https://example.com/deploy"');
+    // A column may go without a title, and the panel is written twice: in the
+    // row and in the menu of a narrow screen.
+    expect(html.match(/dp-mega-panel/g)).toHaveLength(2);
   });
 
   it('writes no menu with nothing to put in it', async () => {

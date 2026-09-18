@@ -60,6 +60,7 @@ can change.
 | `sidebar`          | `'auto'`            | `'auto'`: the menu follows the file tree. Or a `.json` file of each version folder |
 | `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one         |
 | `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                   |
+| `foldedSidebar`    | `false`             | Categories of the menu fold, opened where the reader stands                        |
 | `globalComponents` | `true`              | Shipped components available without an import                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                                    |
@@ -219,6 +220,52 @@ declared stops the build.
 On a narrow screen, the version switcher, the links and the search field move
 behind a menu button. It is a native element that opens without a script, like
 the version switcher itself.
+
+### A panel of links
+
+An entry carrying `columns` opens a panel instead of leading anywhere:
+
+```js
+headerLinks: [
+  {
+    label: 'Product',
+    columns: [
+      {
+        title: 'Guide',
+        items: [
+          { label: 'Install', href: '/guide/installation/' },
+          { label: 'Deploy', href: '/guide/deployment/' },
+        ],
+      },
+      { items: [{ label: 'Repository', href: 'https://github.com/me/my-project' }] },
+    ],
+  },
+],
+```
+
+A column may go without a title. Every link follows the rules above — absolute
+target, optional `version`. An entry cannot carry both `href` and `columns`: it
+either leads somewhere or opens a panel, never both.
+
+The panel is declared here, not derived from the menu of the documentation: the
+two can stand side by side with different links, or the site can go without a
+sidebar and navigate from the header alone.
+
+## `foldedSidebar`
+
+```js
+foldedSidebar: true,
+```
+
+Every category of the menu becomes a fold. The branch holding the page being
+read is open, the others closed: a menu of a hundred pages stops asking the
+reader to scroll past what does not concern them. It folds without a script.
+
+A category that is also a page gains that page as its first entry: the handle
+of a fold cannot be a link as well without a click meaning two things.
+
+Left to `false`, the menu shows whole, as before. On a narrow screen the whole
+menu folds above the content either way, since the column has nowhere to stand.
 
 ## `sidebar`
 

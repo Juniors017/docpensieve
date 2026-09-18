@@ -105,6 +105,13 @@ the `dp-*` class below.
 | `headerLinks`   | `dp-header-links`         | Links of the header                             |
 | `menu`          | `dp-menu`                 | Menu button, on a narrow screen                 |
 | `menuPanel`     | `dp-menu-panel`           | What that button opens                          |
+| `navGroup`      | `dp-nav-group`            | A folded category of the menu                   |
+| `navSummary`    | `dp-nav-summary`          | The handle of that fold                         |
+| `sidebarMenu`   | `dp-sidebar-menu`         | The documentation menu, on a narrow screen      |
+| `mega`          | `dp-mega`                 | A header entry that opens a panel               |
+| `megaPanel`     | `dp-mega-panel`           | That panel                                      |
+| `megaColumn`    | `dp-mega-column`          | A column of the panel                           |
+| `megaTitle`     | `dp-mega-title`           | The title of a column                           |
 | `byline`        | `dp-byline`               | Authors and dates at the head of a page         |
 | `bylineAuthors` | `dp-byline-authors`       | List of the authors                             |
 | `bylineAuthor`  | `dp-byline-author`        | One author                                      |

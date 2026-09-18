@@ -185,6 +185,59 @@ body {
   margin-inline-start: 0;
 }
 
+/*
+ * A header entry that opens a panel of links instead of leading anywhere.
+ * Its look is in prose.css.
+ */
+.dp-mega {
+  position: relative;
+}
+
+.dp-mega > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.dp-mega > summary::-webkit-details-marker {
+  display: none;
+}
+
+.dp-mega-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1.25rem;
+  min-inline-size: 22rem;
+  padding: 1.1rem 1.25rem;
+}
+
+.dp-mega-panel ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dp-mega-title {
+  margin: 0 0 0.5rem;
+}
+
+/*
+ * Inside the menu of a narrow screen, the panel unfolds in place: laid over
+ * it, it would open outside the screen.
+ */
+.dp-menu-panel .dp-mega-panel {
+  position: static;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  min-inline-size: 0;
+  padding: 0.5rem 0 0 0.75rem;
+}
+
 .dp-menu {
   display: none;
   position: relative;
@@ -310,6 +363,59 @@ body {
   font-weight: 600;
 }
 
+/*
+ * A folded category: a native details, whose handle carries the marker. Its
+ * look is in prose.css.
+ */
+.dp-nav-group > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.dp-nav-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The marker turns with the fold, and never takes the focus on its own. */
+.dp-nav-group > summary::after {
+  content: '';
+  display: inline-block;
+  inline-size: 0.35rem;
+  block-size: 0.35rem;
+  margin-inline-start: 0.4rem;
+  border-inline-end: 1px solid currentColor;
+  border-block-end: 1px solid currentColor;
+  rotate: -45deg;
+  translate: 0 -0.1rem;
+}
+
+.dp-nav-group[open] > summary::after {
+  rotate: 45deg;
+  translate: 0 -0.15rem;
+}
+
+/*
+ * The menu of a narrow screen: folded above the content, where the column
+ * cannot stand. Shown instead of the column, never beside it.
+ */
+.dp-sidebar-menu {
+  display: none;
+  margin-block-end: 1.5rem;
+}
+
+.dp-sidebar-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.dp-sidebar-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
 .dp-sidebar,
 .dp-toc {
   position: sticky;
@@ -398,13 +504,15 @@ body {
     padding: 1.5rem 25px 4rem;
   }
   /*
-   * On a small screen the menu moves above the content and stops being
-   * sticky: a fixed column would eat half of the useful surface.
+   * On a small screen the column gives way to the folded menu above the
+   * content: open, it would eat the first screen before a word is read.
    */
   .dp-sidebar {
-    position: static;
-    max-height: none;
-    padding-bottom: 1.25rem;
+    display: none;
+  }
+
+  .dp-sidebar-menu {
+    display: block;
   }
 }
 

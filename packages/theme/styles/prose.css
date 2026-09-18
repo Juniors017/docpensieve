@@ -161,6 +161,31 @@
   color: var(--dp-text);
 }
 
+/* A folded category of the menu, and the menu of a narrow screen. */
+.dp-nav-summary {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  color: var(--dp-text-soft);
+  font-weight: 600;
+}
+
+.dp-nav-summary:hover {
+  color: var(--dp-text);
+}
+
+.dp-sidebar-menu > summary {
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  color: var(--dp-text-soft);
+  font-weight: 500;
+}
+
+.dp-sidebar-menu[open] > summary,
+.dp-sidebar-menu > summary:hover {
+  border-color: var(--dp-text-soft);
+  color: var(--dp-text);
+}
+
 /* The links of the header, and the menu that holds them on a narrow screen. */
 .dp-header-links a {
   color: var(--dp-text-soft);
@@ -170,6 +195,49 @@
 
 .dp-header-links a:hover {
   color: var(--dp-text);
+}
+
+.dp-mega > summary {
+  color: var(--dp-text-soft);
+  font-weight: 500;
+}
+
+.dp-mega > summary:hover,
+.dp-mega[open] > summary {
+  color: var(--dp-text);
+}
+
+.dp-mega-panel {
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg);
+  box-shadow: 0 8px 24px var(--dp-shadow);
+}
+
+.dp-mega-title {
+  color: var(--dp-text-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dp-mega-panel a {
+  color: var(--dp-text);
+  text-decoration: none;
+}
+
+.dp-mega-panel a:hover {
+  color: var(--dp-accent);
+}
+
+/* Inside the menu of a narrow screen, the panel is part of the list. */
+.dp-menu-panel .dp-mega-panel {
+  border: 0;
+  border-inline-start: 1px solid var(--dp-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .dp-menu > summary {

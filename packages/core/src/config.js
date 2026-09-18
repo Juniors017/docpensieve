@@ -39,8 +39,11 @@ import {
  * @property {{ framework: string, darkMode?: string, toggle?: boolean, tokens?: Record<string, string>, css?: string, source?: string }} theme
  * @property {string} sidebar     `'auto'`, or the path of a description.
  * @property {string} [authors]   Path of a JSON describing the authors, read in each version folder.
- * @property {{ label: string, href: string, version?: string }[]} [headerLinks]
- *   Links of the header, beside the version switcher.
+ * @property {{ label: string, href?: string, version?: string, columns?: { title?: string, items: { label: string, href: string, version?: string }[] }[] }[]} [headerLinks]
+ *   Links of the header, beside the version switcher. An entry carrying
+ *   `columns` opens a panel of links instead of leading anywhere itself.
+ * @property {boolean} [foldedSidebar] Categories of the menu fold, opened on
+ *   the branch of the page being read.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {{ enabled: boolean }} jsonld
@@ -80,6 +83,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   // No link in the header by default: the version switcher and the search
   // field are there already.
   headerLinks: [],
+  // The menu shows whole by default: a documentation of a few dozen pages
+  // reads better open than behind folds. Long ones turn this on.
+  foldedSidebar: false,
   globalComponents: true,
   scrollToTop: true,
   jsonld: { enabled: true },
@@ -279,29 +285,69 @@ export function normalizeConfig(userConfig) {
       });
     }
     const slugs = new Set(config.versions.map((version) => version.slug));
+
+    /** @param {any} link @param {string} where */
+    const checkTarget = (link, where) => {
+      if (
+        typeof link.href !== 'string' ||
+        !(link.href.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(link.href))
+      ) {
+        throw new ConfigError(`${where} needs an absolute target: "${String(link.href)}".`, {
+          hint: "Start from the root of the version — '/examples/' — or give a full address.",
+        });
+      }
+      if (link.version !== undefined && !slugs.has(link.version)) {
+        throw new ConfigError(`${where} names an unknown version: "${String(link.version)}".`, {
+          hint: `Declared versions: ${[...slugs].join(', ')}.`,
+        });
+      }
+    };
+
     for (const link of config.headerLinks) {
       if (!link || typeof link.label !== 'string' || link.label.trim() === '') {
         throw new ConfigError(`A header link has no label: ${JSON.stringify(link)}.`, {
           hint: "Write { label: 'Examples', href: '/examples/' }.",
         });
       }
-      if (
-        typeof link.href !== 'string' ||
-        !(link.href.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(link.href))
-      ) {
-        throw new ConfigError(
-          `The header link "${link.label}" needs an absolute target: "${String(link.href)}".`,
-          {
-            hint: "Start from the root of the version — '/examples/' — or give a full address.",
-          },
-        );
+
+      // An entry either leads somewhere, or opens a panel of links: both at
+      // once would leave a click meaning two things.
+      if (link.columns !== undefined) {
+        if (!Array.isArray(link.columns) || link.columns.length === 0) {
+          throw new ConfigError(`The columns of "${link.label}" must be a list of columns.`, {
+            hint: "Write columns: [{ title: 'Guide', items: [{ label: 'Install', href: '/guide/install/' }] }].",
+          });
+        }
+        if (link.href !== undefined) {
+          throw new ConfigError(`The header entry "${link.label}" has both href and columns.`, {
+            hint: 'An entry either leads somewhere, or opens a panel: drop one of the two.',
+          });
+        }
+        for (const column of link.columns) {
+          if (!column || !Array.isArray(column.items) || column.items.length === 0) {
+            throw new ConfigError(`A column of "${link.label}" holds no link.`, {
+              hint: "Every column needs items: [{ label: 'Install', href: '/guide/install/' }].",
+            });
+          }
+          if (column.title !== undefined && typeof column.title !== 'string') {
+            throw new ConfigError(`A column title of "${link.label}" must be text.`, {
+              hint: 'Either write a title, or leave the field out.',
+            });
+          }
+          for (const item of column.items) {
+            if (!item || typeof item.label !== 'string' || item.label.trim() === '') {
+              throw new ConfigError(
+                `A link of "${link.label}" has no label: ${JSON.stringify(item)}.`,
+                { hint: "Write { label: 'Install', href: '/guide/install/' }." },
+              );
+            }
+            checkTarget(item, `The link "${item.label}" of "${link.label}"`);
+          }
+        }
+        continue;
       }
-      if (link.version !== undefined && !slugs.has(link.version)) {
-        throw new ConfigError(
-          `The header link "${link.label}" names an unknown version: "${String(link.version)}".`,
-          { hint: `Declared versions: ${[...slugs].join(', ')}.` },
-        );
-      }
+
+      checkTarget(link, `The header link "${link.label}"`);
     }
   }
 

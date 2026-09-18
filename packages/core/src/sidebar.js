@@ -105,6 +105,58 @@ export function collectSectionTitles(docs) {
 }
 
 /**
+ * Prepares a menu whose categories fold, for the page being rendered.
+ *
+ * Two things change. Every category carries `open`, true along the branch
+ * holding the current page: a long menu opens where the reader stands, and
+ * stays closed everywhere else. And a category that is itself a page gains
+ * that page as its first entry — folded, its title becomes the handle of the
+ * fold, which cannot be a link as well without a click meaning two things.
+ *
+ * The tree is rebuilt rather than marked in place: it is shared by every page
+ * of the version, and marking it would leave one page's branch open on all the
+ * others.
+ *
+ * @typedef {object} FoldedNode
+ * @property {string} label
+ * @property {string | null} url
+ * @property {FoldedNode[]} items
+ * @property {boolean} [open] Whether the category starts open. Absent on a
+ *   plain entry, which has nothing to fold.
+ */
+
+/**
+ * @param {SidebarNode[]} nodes
+ * @param {string} [currentUrl] URL of the page being rendered.
+ * @returns {FoldedNode[]}
+ */
+export function foldSidebar(nodes, currentUrl = '') {
+  return nodes.map((node) => {
+    if (node.items.length === 0) return { ...node };
+
+    const items = foldSidebar(
+      node.url ? [{ label: node.label, url: node.url, items: [] }, ...node.items] : node.items,
+      currentUrl,
+    );
+
+    // Open when the reader is inside: on the category's own page, or on any
+    // page it holds, however deep.
+    return { ...node, items, open: node.url === currentUrl || holds(items, currentUrl) };
+  });
+}
+
+/**
+ * Whether a branch holds the current page.
+ *
+ * @param {FoldedNode[]} nodes
+ * @param {string} currentUrl
+ * @returns {boolean}
+ */
+function holds(nodes, currentUrl) {
+  return nodes.some((node) => node.url === currentUrl || holds(node.items, currentUrl));
+}
+
+/**
  * An entry of a sidebar description: a page path, or an object — see
  * `buildSidebarFromDescription`.
  *

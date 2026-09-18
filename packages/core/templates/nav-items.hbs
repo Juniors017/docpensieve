@@ -1,13 +1,29 @@
 <ul class="{{{@root.cls.nav}}}">
   {{#each this}}
   <li class="{{{@root.cls.navItem}}}{{#if items.length}} {{{@root.cls.navItemParent}}}{{/if}}">
+    {{#if items.length}}
+    {{#if @root.foldedSidebar}}
+    {{!-- Folded, a category is a native details: it opens without a script,
+    and starts open on the branch the reader is in. Its own page sits as the
+    first entry, since the handle of the fold cannot be a link as well. --}}
+    <details class="{{{@root.cls.navGroup}}}"{{#if open}} open{{/if}}>
+      <summary class="{{{@root.cls.navSummary}}}">{{label}}</summary>
+      {{> navItems items}}
+    </details>
+    {{else}}
     {{#if url}}
     <a class="{{{@root.cls.navLink}}}" href="{{url}}"{{#if (eq url @root.currentUrl)}} aria-current="page"{{/if}}>{{label}}</a>
     {{else}}
     <span class="{{{@root.cls.navLabel}}}">{{label}}</span>
     {{/if}}
-    {{#if items.length}}
     {{> navItems items}}
+    {{/if}}
+    {{else}}
+    {{#if url}}
+    <a class="{{{@root.cls.navLink}}}" href="{{url}}"{{#if (eq url @root.currentUrl)}} aria-current="page"{{/if}}>{{label}}</a>
+    {{else}}
+    <span class="{{{@root.cls.navLabel}}}">{{label}}</span>
+    {{/if}}
     {{/if}}
   </li>
   {{/each}}

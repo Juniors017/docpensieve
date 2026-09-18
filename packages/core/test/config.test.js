@@ -394,6 +394,58 @@ describe('header links', () => {
     expect(failure?.hint).toContain("'/examples/'");
   });
 
+  it('takes an entry that opens a panel of links', () => {
+    const links = [
+      {
+        label: 'Product',
+        columns: [{ title: 'Guide', items: [{ label: 'Install', href: '/guide/install/' }] }],
+      },
+    ];
+    expect(normalizeConfig({ versions: [v1], headerLinks: links }).headerLinks).toEqual(links);
+  });
+
+  it('refuses an entry that both leads somewhere and opens a panel', () => {
+    let failure;
+    try {
+      normalizeConfig({
+        versions: [v1],
+        headerLinks: [
+          {
+            label: 'Product',
+            href: '/product/',
+            columns: [{ items: [{ label: 'Install', href: '/guide/install/' }] }],
+          },
+        ],
+      });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure?.hint).toContain('drop one of the two');
+  });
+
+  it('refuses an empty column, and a link of a column without a target', () => {
+    expect(() =>
+      normalizeConfig({
+        versions: [v1],
+        headerLinks: [{ label: 'Product', columns: [{ items: [] }] }],
+      }),
+    ).toThrow(ConfigError);
+
+    let failure;
+    try {
+      normalizeConfig({
+        versions: [v1],
+        headerLinks: [
+          { label: 'Product', columns: [{ items: [{ label: 'Install', href: 'guide/' }] }] },
+        ],
+      });
+    } catch (error) {
+      failure = /** @type {ConfigError} */ (error);
+    }
+    expect(failure?.message).toContain('"Install" of "Product"');
+  });
+
   it('refuses a version nobody declared', () => {
     let failure;
     try {

@@ -85,10 +85,19 @@
     </header>
 
     <div class="{{#if wide}}{{{cls.shellWide}}}{{else}}{{{cls.shell}}}{{/if}}">
+      {{!-- Written once, shown twice: the column on a wide screen, and a folded
+      menu above the content on a narrow one, where a full menu would eat the
+      first screen. Only one of the two is displayed at a time. --}}
       {{#if sidebar.length}}
       <nav class="{{{cls.sidebar}}}" aria-label="Documentation navigation">
         {{> navItems sidebar}}
       </nav>
+      <details class="{{{cls.sidebarMenu}}}">
+        <summary>Documentation menu</summary>
+        <nav aria-label="Documentation navigation">
+          {{> navItems sidebar}}
+        </nav>
+      </details>
       {{/if}}
 
       <main class="{{{cls.main}}}" id="content" tabindex="-1">

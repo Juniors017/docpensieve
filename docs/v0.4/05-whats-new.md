@@ -16,10 +16,19 @@ npx docpensieve@beta init my-site
 
 ## Already there
 
-Nothing yet: the 0.4 has just opened, and its pages are still those of the 0.3.
-Each feature is announced here as it lands, with a link to the guide and to the
-reference — this page announces, it is never the only place something is
-written.
+The 0.4 has just opened. What follows is what it already brings, and the rest of
+its pages are still those of the 0.3. Each feature is announced here as it lands,
+with a link to the guide and to the reference — this page announces, it is never
+the only place something is written.
+
+### A menu that folds, and a panel of links in the header
+
+`foldedSidebar: true` folds the categories of the menu, open on the branch the
+reader stands in. On a narrow screen the whole menu folds above the content,
+whatever that setting. And a `headerLinks` entry carrying `columns` opens a
+panel of links instead of leading anywhere — declared on its own, so a site can
+navigate from the header alone, or from both. See
+[the configuration reference](./reference/configuration/).
 
 ## For a 0.3 project
 

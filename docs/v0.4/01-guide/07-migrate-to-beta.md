@@ -22,3 +22,6 @@ Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
 
 Nothing yet: the 0.4 has just opened. Each change is listed here as it lands,
 beside what it asks of a project already built on the 0.3.
+
+One thing changes on its own: on a narrow screen, the menu of the documentation
+now folds above the content instead of standing open. Nothing to configure.

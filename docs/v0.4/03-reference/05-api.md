@@ -443,6 +443,17 @@ humanised from their slug by `StructuredDataBuilder`.
 
 **Returns** `Record<string, string>` — Full folder slug to title.
 
+### `foldSidebar`
+
+`foldSidebar(nodes, [currentUrl])`
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `nodes` | `SidebarNode[]` |  |
+| `[currentUrl]` | `string` | URL of the page being rendered. |
+
+**Returns** `FoldedNode[]`
+
 ### `buildFeed`
 
 `buildFeed(pages, site)`

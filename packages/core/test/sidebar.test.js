@@ -2,7 +2,12 @@ import { describe, expect, it } from 'vitest';
 
 import { ConfigError } from '@docpensieve/shared';
 
-import { buildSidebar, buildSidebarFromDescription, collectSectionTitles } from '../src/index.js';
+import {
+  buildSidebar,
+  buildSidebarFromDescription,
+  collectSectionTitles,
+  foldSidebar,
+} from '../src/index.js';
 
 /**
  * Builds a document, in the order the loader would return it.
@@ -214,5 +219,62 @@ describe('buildSidebarFromDescription', () => {
 
   it('refuses an automatic folder that holds no page', () => {
     expect(failureOf([{ auto: 'nowhere' }]).message).toMatch(/holds no page/);
+  });
+});
+
+describe('foldSidebar', () => {
+  /** A menu two levels deep, as a documentation of some size has. */
+  const menu = () => [
+    { label: 'Home', url: '/', items: [] },
+    {
+      label: 'Guide',
+      url: '/guide/',
+      items: [
+        { label: 'Install', url: '/guide/install/', items: [] },
+        {
+          label: 'Advanced',
+          url: null,
+          items: [{ label: 'Themes', url: '/guide/advanced/themes/', items: [] }],
+        },
+      ],
+    },
+    { label: 'Reference', url: '/reference/', items: [{ label: 'CLI', url: '/cli/', items: [] }] },
+  ];
+
+  it('opens the branch holding the page, and only that one', () => {
+    const [, guide, reference] = foldSidebar(menu(), '/guide/advanced/themes/');
+    expect(guide.open).toBe(true);
+    expect(reference.open).toBe(false);
+    // Deep inside, every category above the page opens with it.
+    expect(guide.items.find((item) => item.label === 'Advanced')?.open).toBe(true);
+  });
+
+  it('opens a category on its own page', () => {
+    const [, guide] = foldSidebar(menu(), '/guide/');
+    expect(guide.open).toBe(true);
+  });
+
+  it('gives a category that is a page its own entry', () => {
+    // The handle of a fold cannot be a link as well: the page would be
+    // unreachable, or a click would mean two things.
+    const [, guide] = foldSidebar(menu(), '/');
+    expect(guide.items[0]).toEqual({ label: 'Guide', url: '/guide/', items: [] });
+    expect(guide.open).toBe(false);
+  });
+
+  it('leaves a category without a page alone, and plain entries untouched', () => {
+    const [home, guide] = foldSidebar(menu(), '/');
+    expect(home).toEqual({ label: 'Home', url: '/', items: [] });
+    const advanced = guide.items.find((item) => item.label === 'Advanced');
+    expect(advanced?.items.map((item) => item.label)).toEqual(['Themes']);
+  });
+
+  it('never marks the tree it is given', () => {
+    // The tree is shared by every page of the version: marked in place, one
+    // page would leave its branch open on all the others.
+    const source = menu();
+    foldSidebar(source, '/guide/install/');
+    expect(source[1].items).toHaveLength(2);
+    expect('open' in source[1]).toBe(false);
   });
 });

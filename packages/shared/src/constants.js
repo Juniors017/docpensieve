@@ -83,6 +83,9 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   navItemParent: 'dp-nav-item--parent',
   navLink: 'dp-nav-link',
   navLabel: 'dp-nav-label',
+  navGroup: 'dp-nav-group',
+  navSummary: 'dp-nav-summary',
+  sidebarMenu: 'dp-sidebar-menu',
   notice: 'dp-notice',
   skillIcon: 'dp-skill-icon',
   main: 'dp-main',
@@ -109,4 +112,8 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   headerLinks: 'dp-header-links',
   menu: 'dp-menu',
   menuPanel: 'dp-menu-panel',
+  mega: 'dp-mega',
+  megaPanel: 'dp-mega-panel',
+  megaColumn: 'dp-mega-column',
+  megaTitle: 'dp-mega-title',
 });
