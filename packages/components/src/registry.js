@@ -7,6 +7,7 @@
  * @module @docpensieve/components/registry
  */
 
+import { Admonition } from './admonition.js';
 import { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 import { Cards } from './cards.js';
 import { Column, Columns } from './columns.js';
@@ -24,6 +25,7 @@ import { Tree, TreeItem } from './tree.js';
  * @type {Record<string, Function>}
  */
 export const builtinComponents = {
+  Admonition,
   Card,
   CardHeader,
   CardBody,

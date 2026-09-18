@@ -61,6 +61,7 @@ can change.
 | `authors`          | `''`                | A `.json` file describing the authors, in each version folder that has one         |
 | `headerLinks`      | `[]`                | Links of the header, beside the version switcher                                   |
 | `foldedSidebar`    | `false`             | Categories of the menu fold, opened where the reader stands                        |
+| `admonitions`      | `{}`                | Kinds of admonition the project adds to the six shipped                            |
 | `stickyHeader`     | `true`              | The header stays at the top of the screen; `false` lets it scroll away             |
 | `globalComponents` | `true`              | Shipped components available without an import                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                   |

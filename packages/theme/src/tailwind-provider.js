@@ -30,6 +30,13 @@ const TAILWIND_TOKENS = Object.freeze({
   '--dp-rule': 'oklch(92.9% 0.013 255.508)',
   '--dp-accent': 'oklch(51.1% 0.262 276.966)',
   '--dp-accent-soft': 'oklch(96.2% 0.018 272.314)',
+  // Meaning, not decoration: a tip, a caution and a danger.
+  '--dp-tip': 'oklch(50.8% 0.118 165.612)',
+  '--dp-tip-soft': 'oklch(97.9% 0.021 166.113)',
+  '--dp-attention': 'oklch(55.5% 0.123 66.442)',
+  '--dp-attention-soft': 'oklch(98% 0.016 73.684)',
+  '--dp-danger': 'oklch(50.5% 0.213 27.518)',
+  '--dp-danger-soft': 'oklch(97.1% 0.013 17.38)',
   '--dp-shadow': 'rgba(15, 23, 42, 0.12)',
   '--dp-radius': '0.375rem',
   '--dp-font': 'var(--font-sans, ui-sans-serif, system-ui, sans-serif)',

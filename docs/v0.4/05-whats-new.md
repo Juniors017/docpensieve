@@ -33,6 +33,11 @@ navigate from the header alone, or from both. See
 
 ### A menu of links, anywhere in a page
 
+Admonitions arrive with it: `Admonition` sets a passage apart and says how to
+read it — note, info, tip, attention, alert, danger — and a project declares its
+own kinds in the `admonitions` field, each a label and a tone taken from the
+theme. See [Admonition](./components/admonition/).
+
 The `stickyHeader` field also arrives: the header can now scroll away with the
 page instead of holding to the top of the screen. See
 [Navigation](./guide/navigation/).

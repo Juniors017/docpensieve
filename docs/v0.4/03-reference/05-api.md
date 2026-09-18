@@ -91,19 +91,14 @@ Layouts accepted in a page's frontmatter.
 the right, content held to reading width. `home` removes all three, which
 is what a landing page expects.
 
-### `DEFAULT_THEME_CLASSES`
+### `ADMONITION_TONES`
 
-`DEFAULT_THEME_CLASSES`
+`ADMONITION_TONES`
 
-Class slots of the page shell.
+Tones an admonition can take: what colours it, nothing more.
 
-Templates hard-code no class: they ask the theme for the class of each
-slot. A provider only redefines what it wants to change; everything else
-falls back to these values. That is what lets a single template render
-either `dp-nav` or a string of Tailwind utilities.
-
-This table is shared: `core` reads it in its templates, `theme` extends it
-in its providers.
+Here rather than with the component: the configuration validates the kinds a
+project declares, and `core` never imports `components` (ADR-002).
 
 ### `DocPensieveError`
 
@@ -684,6 +679,43 @@ Declares the framework of the active theme, which `ForTheme` reads.
 | Parameter | Type | |
 | --- | --- | --- |
 | `[framework]` | `string` |  |
+
+### `ADMONITION_KINDS`
+
+`ADMONITION_KINDS`
+
+The kinds the tool ships with, each a label and a tone.
+
+`alert` and `danger` share a tone and differ in their label and their icon:
+one calls for attention now, the other warns of what a wrong move costs.
+
+### `Admonition`
+
+`Admonition(props)`
+
+Block set apart from the text.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, type?: string, title?: string, }` | `type` names the kind; `title` replaces its label for this block alone. |
+
+**Throws** `DocPensieveError` — When the kind is unknown.
+
+### `getAdmonitionKinds`
+
+`getAdmonitionKinds()`
+
+@returns \{Record&lt;string, \{ label: string, tone: string \}>\} Every kind available.
+
+### `setAdmonitionKinds`
+
+`setAdmonitionKinds([kinds])`
+
+Declares the kinds of the project, beside the ones shipped.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `[kinds]` | `Record<string, { label: string, tone: string }>` |  |
 
 ### `Card`
 

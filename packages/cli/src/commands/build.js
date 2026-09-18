@@ -6,7 +6,12 @@
 
 import path from 'node:path';
 
-import { componentsCss, createRegistry, setSiteContext } from '@docpensieve/components';
+import {
+  componentsCss,
+  createRegistry,
+  setSiteContext,
+  setAdmonitionKinds,
+} from '@docpensieve/components';
 import { SiteGenerator, loadConfig, resolveVersion } from '@docpensieve/core';
 
 import { createTheme } from '../theme.js';
@@ -20,6 +25,9 @@ export async function build(versionSlug, options = {}) {
   const cwd = options.cwd ?? process.cwd();
   const config = await loadConfig(cwd);
   const outDir = path.resolve(cwd, options.out ?? config.outDir);
+
+  // The kinds a project declares, beside the ones shipped.
+  setAdmonitionKinds(config.admonitions);
 
   const generator = new SiteGenerator(config, {
     // `globalComponents: false` removes the shipped components: a project that

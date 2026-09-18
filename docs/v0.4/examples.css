@@ -163,3 +163,9 @@
   border-radius: var(--dp-radius);
   background: var(--dp-bg-soft);
 }
+
+/* An admonition held apart by a shadow, for the custom theme */
+
+.admonition-quiet {
+  box-shadow: 0 2px 8px var(--dp-shadow);
+}

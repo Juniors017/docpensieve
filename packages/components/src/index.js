@@ -18,6 +18,12 @@ export {
   setThemeClasses,
   setThemeFramework,
 } from './classes.js';
+export {
+  ADMONITION_KINDS,
+  Admonition,
+  getAdmonitionKinds,
+  setAdmonitionKinds,
+} from './admonition.js';
 export { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 export { Cards } from './cards.js';
 export { Column, Columns } from './columns.js';

@@ -14,6 +14,68 @@
  */
 
 @layer components {
+  /* --- Admonition -------------------------------------------------------- */
+
+  /*
+   * A block set apart from the text. Its colour comes from its tone, through
+   * two variables the modifier sets: the component therefore knows no colour,
+   * and a kind declared by a project needs no rule of its own.
+   */
+  .dp-admonition {
+    --dp-admonition-colour: var(--dp-text-soft);
+    --dp-admonition-ground: var(--dp-bg-soft);
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--dp-border);
+    border-inline-start: 3px solid var(--dp-admonition-colour);
+    border-radius: var(--dp-radius);
+    background: var(--dp-admonition-ground);
+  }
+
+  .dp-admonition--info {
+    --dp-admonition-colour: var(--dp-accent);
+    --dp-admonition-ground: var(--dp-accent-soft);
+  }
+
+  .dp-admonition--tip {
+    --dp-admonition-colour: var(--dp-tip);
+    --dp-admonition-ground: var(--dp-tip-soft);
+  }
+
+  .dp-admonition--attention {
+    --dp-admonition-colour: var(--dp-attention);
+    --dp-admonition-ground: var(--dp-attention-soft);
+  }
+
+  .dp-admonition--danger {
+    --dp-admonition-colour: var(--dp-danger);
+    --dp-admonition-ground: var(--dp-danger-soft);
+  }
+
+  .dp-admonition-title {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0 0.4rem;
+    color: var(--dp-admonition-colour);
+    font-weight: 600;
+  }
+
+  /* Size only: the icon inherits the colour of the title it stands beside. */
+  .dp-admonition-icon {
+    flex: none;
+    inline-size: 1.05rem;
+    block-size: 1.05rem;
+  }
+
+  .dp-admonition-body > :first-child {
+    margin-block-start: 0;
+  }
+
+  .dp-admonition-body > :last-child {
+    margin-block-end: 0;
+  }
+
   /* --- Menu -------------------------------------------------------------- */
 
   /*

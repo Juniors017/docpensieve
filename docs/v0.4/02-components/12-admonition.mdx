@@ -1,0 +1,137 @@
+---
+title: Admonition
+description: A block set apart from the text, which says how to read it — and the kinds a project adds.
+---
+
+# Admonition
+
+An admonition sets a passage apart and says how to read it: a piece of advice,
+a caution, a danger. Six kinds ship with the tool, and a project declares its
+own rather than waiting for that list to grow.
+
+## The six kinds
+
+<Admonition type="note">A remark beside the text. Nothing is at stake.</Admonition>
+
+<Admonition type="info">
+  A piece of context worth knowing, which the surrounding sentence did not need.
+</Admonition>
+
+<Admonition type="tip">
+  A shortcut, a habit worth taking. The reader loses nothing by skipping it.
+</Admonition>
+
+<Admonition type="attention">
+  Something easy to get wrong. Reading on without it costs time.
+</Admonition>
+
+<Admonition type="alert">
+  Something happening now: a version no longer maintained, a service stopping.
+</Admonition>
+
+<Admonition type="danger">What a wrong move costs: lost data, a site taken offline.</Admonition>
+
+```mdx
+<Admonition type="tip">A shortcut, a habit worth taking.</Admonition>
+```
+
+Without a `type`, the block is a **note**.
+
+## A title of its own
+
+<Admonition type="attention" title="Read this before upgrading">
+  The label of the kind gives way to the title you write.
+</Admonition>
+
+```mdx
+<Admonition type="attention" title="Read this before upgrading">
+  …
+</Admonition>
+```
+
+## Kinds of your own
+
+A kind is a **label** and a **tone**. The tone carries the colour, taken from
+the theme, so a new kind needs no stylesheet and follows whichever theme is
+active:
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  review: { label: 'To review', tone: 'attention' },
+  legal: { label: 'Legal notice', tone: 'info' },
+},
+```
+
+```mdx
+<Admonition type="review">This section awaits a second pair of eyes.</Admonition>
+```
+
+The tones are `note`, `info`, `tip`, `attention` and `danger`. A kind nobody
+declared stops the build, listing those that exist: rendered anyway, the block
+would come out with no colour and no label, and nothing would say why.
+
+## Styling
+
+The block takes its colours from the theme's tokens — `--dp-tip`,
+`--dp-attention`, `--dp-danger` and their `-soft` grounds — so it follows the
+light and dark schemes on its own.
+
+<ForTheme framework="tailwind">
+
+A `className` adds utilities on top:
+
+<Admonition type="tip" className="shadow-sm">
+  Held apart by a shadow.
+</Admonition>
+
+```mdx
+<Admonition type="tip" className="shadow-sm">
+  …
+</Admonition>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+A `className` names a class of your own, written in the `theme/` folder:
+
+<Admonition type="tip" className="admonition-quiet">
+  Held apart by a shadow.
+</Admonition>
+
+```mdx
+<Admonition type="tip" className="admonition-quiet">
+  …
+</Admonition>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.admonition-quiet {
+  box-shadow: 0 2px 8px var(--dp-shadow);
+}
+```
+
+</ForTheme>
+
+## What it carries
+
+A block holds whatever a page holds — several paragraphs, a list, a code
+block:
+
+<Admonition type="danger" title="Before deleting a version">
+  Removing a version from the configuration removes its pages from the site.
+
+- its address stops answering;
+- the links pointing at it from elsewhere lead nowhere.
+
+Its orphan branch keeps what was built, and the history keeps the sources.
+
+</Admonition>
+
+## Without JavaScript
+
+Like every component here, it is rendered at the build. It is an `aside`
+announced as a note, with its icon hidden from screen readers — the title
+beside it already says the kind, and saying it twice helps nobody.

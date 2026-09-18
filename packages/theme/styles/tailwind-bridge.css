@@ -28,6 +28,12 @@
     --dp-rule: oklch(27.9% 0.041 260.031);
     --dp-accent: oklch(78.5% 0.115 274.713);
     --dp-accent-soft: oklch(20.8% 0.042 265.755);
+    --dp-tip: oklch(76.5% 0.177 163.223);
+    --dp-tip-soft: oklch(26.2% 0.051 172.552);
+    --dp-attention: oklch(82.8% 0.189 84.429);
+    --dp-attention-soft: oklch(27.9% 0.077 45.635);
+    --dp-danger: oklch(70.4% 0.191 22.216);
+    --dp-danger-soft: oklch(25.8% 0.092 26.042);
     --dp-shadow: rgba(0, 0, 0, 0.45);
   }
 }
@@ -42,6 +48,12 @@
   --dp-rule: oklch(27.9% 0.041 260.031);
   --dp-accent: oklch(78.5% 0.115 274.713);
   --dp-accent-soft: oklch(20.8% 0.042 265.755);
+  --dp-tip: oklch(76.5% 0.177 163.223);
+  --dp-tip-soft: oklch(26.2% 0.051 172.552);
+  --dp-attention: oklch(82.8% 0.189 84.429);
+  --dp-attention-soft: oklch(27.9% 0.077 45.635);
+  --dp-danger: oklch(70.4% 0.191 22.216);
+  --dp-danger-soft: oklch(25.8% 0.092 26.042);
   --dp-shadow: rgba(0, 0, 0, 0.45);
 }
 

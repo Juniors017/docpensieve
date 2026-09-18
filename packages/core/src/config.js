@@ -9,6 +9,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import {
+  ADMONITION_TONES,
   CONFIG_FILENAME,
   CONFIG_FILENAMES,
   ConfigError,
@@ -44,6 +45,8 @@ import {
  *   `columns` opens a panel of links instead of leading anywhere itself.
  * @property {boolean} [foldedSidebar] Categories of the menu fold, opened on
  *   the branch of the page being read.
+ * @property {Record<string, { label: string, tone: string }>} [admonitions]
+ *   Kinds of admonition the project adds to the ones shipped.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
  * @property {boolean} [stickyHeader] Header held at the top of the screen.
@@ -88,6 +91,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   // The menu shows whole by default: a documentation of a few dozen pages
   // reads better open than behind folds. Long ones turn this on.
   foldedSidebar: false,
+  // Six kinds of admonition ship with the tool; a project names its own here
+  // rather than waiting for that list to grow.
+  admonitions: {},
   globalComponents: true,
   scrollToTop: true,
   // The header stays in reach: search, versions and menu are in it. A site
@@ -276,6 +282,34 @@ export function normalizeConfig(userConfig) {
           hint: "For instance authors: 'authors.json', read as docs/v1.0/authors.json for that version.",
         },
       );
+    }
+  }
+
+  // Kinds of admonition the project adds. A kind is a label and a tone: the
+  // tone carries the colour, taken from the theme, so a new kind needs no
+  // stylesheet and follows whichever theme is active.
+  if (config.admonitions !== undefined) {
+    if (
+      config.admonitions === null ||
+      typeof config.admonitions !== 'object' ||
+      Array.isArray(config.admonitions)
+    ) {
+      throw new ConfigError('admonitions must be an object of kinds.', {
+        hint: "Write admonitions: { review: { label: 'Review', tone: 'info' } }.",
+      });
+    }
+    for (const [name, kind] of Object.entries(config.admonitions)) {
+      if (!kind || typeof kind.label !== 'string' || kind.label.trim() === '') {
+        throw new ConfigError(`The admonition "${name}" has no label.`, {
+          hint: `Write "${name}": { label: '…', tone: '${ADMONITION_TONES[0]}' } — the label is what the reader sees.`,
+        });
+      }
+      if (!ADMONITION_TONES.includes(kind.tone)) {
+        throw new ConfigError(
+          `The admonition "${name}" has an unknown tone: "${String(kind.tone)}".`,
+          { hint: `Tones: ${ADMONITION_TONES.join(', ')}. The tone is what colours the block.` },
+        );
+      }
     }
   }
 

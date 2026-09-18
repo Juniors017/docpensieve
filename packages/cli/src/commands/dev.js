@@ -7,7 +7,12 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 
-import { componentsCss, createRegistry, setSiteContext } from '@docpensieve/components';
+import {
+  componentsCss,
+  createRegistry,
+  setSiteContext,
+  setAdmonitionKinds,
+} from '@docpensieve/components';
 import { SiteGenerator, loadConfig } from '@docpensieve/core';
 import { CONFIG_FILENAME, DocPensieveError, THEME_FOLDER } from '@docpensieve/shared';
 import chokidar from 'chokidar';
@@ -54,6 +59,9 @@ export async function dev(options = {}) {
     // The configuration is read again every time: changing it must show
     // without restarting the command.
     const current = await loadConfig(cwd);
+    // Read again with the rest: a kind added to the configuration must show
+    // without restarting the command.
+    setAdmonitionKinds(current.admonitions);
     const generator = new SiteGenerator(current, {
       // `globalComponents: false` removes the shipped components: a project
       // that defines its own thus avoids a name collision. The option was

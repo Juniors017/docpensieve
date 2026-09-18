@@ -68,6 +68,14 @@ export const PAGE_LAYOUTS = Object.freeze(['doc', 'home']);
  * This table is shared: `core` reads it in its templates, `theme` extends it
  * in its providers.
  */
+/**
+ * Tones an admonition can take: what colours it, nothing more.
+ *
+ * Here rather than with the component: the configuration validates the kinds a
+ * project declares, and `core` never imports `components` (ADR-002).
+ */
+export const ADMONITION_TONES = Object.freeze(['note', 'info', 'tip', 'attention', 'danger']);
+
 export const DEFAULT_THEME_CLASSES = Object.freeze({
   skip: 'dp-skip',
   header: 'dp-header',

@@ -30,6 +30,12 @@
     --dp-rule: #262a32;
     --dp-accent: #9b97f0;
     --dp-accent-soft: #1e1d33;
+    --dp-tip: #4cc79a;
+    --dp-tip-soft: #10241d;
+    --dp-attention: #e0a85a;
+    --dp-attention-soft: #241c10;
+    --dp-danger: #f2837a;
+    --dp-danger-soft: #2a1513;
     --dp-shadow: rgba(0, 0, 0, 0.45);
   }
 }
@@ -44,6 +50,12 @@
   --dp-rule: #262a32;
   --dp-accent: #9b97f0;
   --dp-accent-soft: #1e1d33;
+  --dp-tip: #4cc79a;
+  --dp-tip-soft: #10241d;
+  --dp-attention: #e0a85a;
+  --dp-attention-soft: #241c10;
+  --dp-danger: #f2837a;
+  --dp-danger-soft: #2a1513;
   --dp-shadow: rgba(0, 0, 0, 0.45);
 }
 

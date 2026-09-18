@@ -22,6 +22,14 @@ export const DEFAULT_TOKENS = Object.freeze({
   '--dp-rule': '#e8ebef',
   '--dp-accent': '#5b57d1',
   '--dp-accent-soft': '#f0effc',
+  // Meaning, not decoration: a tip, a caution and a danger. A component never
+  // writes a colour, so the three come from here.
+  '--dp-tip': '#0f7a5a',
+  '--dp-tip-soft': '#eaf7f2',
+  '--dp-attention': '#9a6400',
+  '--dp-attention-soft': '#fdf4e3',
+  '--dp-danger': '#b42318',
+  '--dp-danger-soft': '#fdf0ef',
   '--dp-shadow': 'rgba(20, 24, 34, 0.12)',
   '--dp-radius': '6px',
   '--dp-font': 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
