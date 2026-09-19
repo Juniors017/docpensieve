@@ -71,6 +71,23 @@ other icon: your reader downloads nothing, and no request leaves their browser.
 An admonition kind takes its mark the same way. See
 [LogoIcon](./components/logo-icon/).
 
+### A site in several languages
+
+A version declares the folder of each translation:
+
+```js
+versions: [
+  { slug: 'latest', name: '1.0', folder: 'docs/v1.0', current: true,
+    translations: { fr: 'docs/v1.0-fr' } },
+],
+```
+
+The language of the site keeps the addresses it has, and a translation is
+served under its code — `/versions/latest/fr/`. The shell follows: English and
+French ship with the tool, and the `ui` field corrects a word or adds a
+language. A page nobody translated is not offered in that language rather than
+served in another. See [Languages](./guide/languages/).
+
 ## For a 0.3 project
 
 Nothing to change: a 0.3 configuration builds as it is, every new field being
