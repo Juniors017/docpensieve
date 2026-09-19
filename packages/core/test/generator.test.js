@@ -1595,3 +1595,138 @@ describe('shell accessibility', () => {
     );
   });
 });
+
+describe('a version in two languages', () => {
+  /**
+   * Same project, with a translation: three pages in English, two in French,
+   * so that one page has no twin — the case every decision here turns on.
+   *
+   * @param {Record<string, any>} [overrides]
+   */
+  const bilingual = (overrides = {}) => {
+    const config = project(
+      {
+        'index.md': page('Home'),
+        'guide/01-install.md': page('Install'),
+        'guide/02-advanced.md': page('Advanced'),
+      },
+      {
+        versions: [
+          {
+            slug: 'v1.0',
+            name: '1.0',
+            folder: 'docs/v1.0',
+            current: true,
+            translations: { fr: 'docs/v1.0-fr' },
+          },
+        ],
+        ...overrides,
+      },
+    );
+    for (const [relative, contents] of Object.entries({
+      'index.md': page('Accueil'),
+      'guide/01-install.md': page('Installation'),
+    })) {
+      const full = path.join(config.rootDir, 'docs', 'v1.0-fr', relative);
+      mkdirSync(path.dirname(full), { recursive: true });
+      writeFileSync(full, contents, 'utf8');
+    }
+    return config;
+  };
+
+  it('serves the site language where it was, and the translation under its code', async () => {
+    // Nothing already published moves: that is the whole point of the shape.
+    const config = bilingual();
+    const out = path.join(config.rootDir, 'out');
+
+    const result = await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(result.pages).toBe(5);
+    expect(existsSync(path.join(out, 'guide', 'install', 'index.html'))).toBe(true);
+    expect(existsSync(path.join(out, 'fr', 'guide', 'install', 'index.html'))).toBe(true);
+  });
+
+  it('writes each page in its own language, shell included', async () => {
+    const config = bilingual();
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const french = read(out, 'fr', 'guide', 'install', 'index.html');
+    expect(french).toContain('<html lang="fr"');
+    expect(french).toContain('Aller au contenu');
+    expect(french).not.toContain('Skip to content');
+
+    // The language of the site is untouched by the translation.
+    expect(read(out, 'guide', 'install', 'index.html')).toContain('Skip to content');
+  });
+
+  it('offers the other language only where the page exists', async () => {
+    const config = bilingual();
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const translated = read(out, 'guide', 'install', 'index.html');
+    expect(translated).toContain('/out/fr/guide/install/'.replace('/out', ''));
+
+    // A page nobody translated: the language is named so that the reader knows
+    // it exists, and inert so that they are not sent to a page that is not.
+    const alone = read(out, 'guide', 'advanced', 'index.html');
+    const switcher = alone.slice(alone.indexOf('dp-languages-list'));
+    expect(switcher).toContain('aria-disabled="true"');
+    expect(alone).not.toContain('fr/guide/advanced/');
+  });
+
+  it('announces to search engines only the twins that exist', async () => {
+    const config = bilingual({ siteUrl: 'https://acme.example.com' });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const translated = read(out, 'guide', 'install', 'index.html');
+    expect(translated).toContain('hreflang="fr"');
+    expect(translated).toContain('https://acme.example.com/versions/v1.0/fr/guide/install/');
+
+    // A page with no twin announcing one would send a French reader to English.
+    const alone = read(out, 'guide', 'advanced', 'index.html');
+    expect(alone).toContain('hreflang="en"');
+    expect(alone).not.toContain('hreflang="fr"');
+  });
+
+  it('publishes the pages of every language, and only those', async () => {
+    const config = bilingual({ siteUrl: 'https://acme.example.com' });
+    const out = path.join(config.rootDir, 'out');
+
+    const { published } = await generatorFor(config).buildVersion('v1.0', out);
+    const urls = published.map((entry) => entry.url);
+
+    expect(urls).toContain('/versions/v1.0/fr/guide/install/');
+    expect(urls).not.toContain('/versions/v1.0/fr/guide/advanced/');
+  });
+
+  it('gives each language its own search page', async () => {
+    const config = bilingual();
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    // A French reader searching English pages would find nothing of use.
+    expect(read(out, 'fr', 'search', 'index.html')).toContain('Rechercher dans la documentation');
+    expect(read(out, 'search', 'index.html')).toContain('Search the documentation');
+  });
+
+  it('refuses a translation folder with nothing in it', async () => {
+    const config = bilingual();
+    rmSync(path.join(config.rootDir, 'docs', 'v1.0-fr'), { recursive: true, force: true });
+    const out = path.join(config.rootDir, 'out');
+
+    /** @type {any} */
+    let failure;
+    try {
+      await generatorFor(config).buildVersion('v1.0', out);
+    } catch (error) {
+      failure = error;
+    }
+
+    expect(failure).toBeInstanceOf(GeneratorError);
+    expect(failure.message).toContain('"fr" translation');
+    expect(failure.hint).toContain('docs/v1.0-fr');
+  });
+});

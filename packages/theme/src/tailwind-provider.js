@@ -62,6 +62,8 @@ const TAILWIND_CLASSES = Object.freeze({
   brand: 'dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100',
   versionsList:
     'dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900',
+  languagesList:
+    'dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900',
   sidebar: 'dp-sidebar text-sm',
   navLink:
     'dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300',

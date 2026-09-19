@@ -13,6 +13,24 @@ a row on a wide screen, behind a menu button on a narrow one. --}}
   </ul>
 </details>
 {{/if}}
+{{#if languages.length}}
+<details class="{{{cls.languages}}}">
+  <summary aria-label="{{ui.language}}">{{ui.language}}</summary>
+  <ul class="{{{cls.languagesList}}}">
+    {{#each languages}}
+    <li>
+      {{#if url}}
+      <a href="{{url}}"{{#if current}} aria-current="true"{{/if}}>{{label}}</a>
+      {{else}}
+      {{!-- Not translated: shown so that the reader knows the language exists,
+      inert so that they are not sent to a page that does not. --}}
+      <span aria-disabled="true">{{label}}</span>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ul>
+</details>
+{{/if}}
 {{#if headerLinks.length}}
 <ul class="{{{cls.headerLinks}}}">
   {{#each headerLinks}}

@@ -93,6 +93,8 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   brandLogo: 'dp-brand-logo',
   versions: 'dp-versions',
   versionsList: 'dp-versions-list',
+  languages: 'dp-languages',
+  languagesList: 'dp-languages-list',
   shell: 'dp-shell',
   shellWide: 'dp-shell dp-shell--wide',
   sidebar: 'dp-sidebar',

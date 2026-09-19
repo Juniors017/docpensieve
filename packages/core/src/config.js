@@ -29,6 +29,9 @@ import {
  *   reference one. Its pages carry a notice and are not indexed.
  * @property {string} [logo]    Logo of this version, instead of the project's.
  * @property {string} [favicon] Favicon of this version, instead of the project's.
+ * @property {Record<string, string>} [translations] Folder of each translation,
+ *   by language code. The pages of the site language stay at the root of the
+ *   version; a translation is served under its code.
  */
 
 /**
@@ -194,6 +197,10 @@ export function normalizeConfig(userConfig) {
   // be both. "../../elsewhere" wrote outside the output folder, "a/b" nested
   // the version, "Été" produced an encoded URL.
   const VERSION_SLUG = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+  // A language code becomes a URL segment and the `lang` of the document:
+  // "fr", "pt-BR". Anything else would put in the markup a value no browser
+  // or screen reader knows how to read.
+  const LANGUAGE_CODE = /^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$/;
 
   const seen = new Set();
   for (const version of config.versions) {
@@ -222,6 +229,44 @@ export function normalizeConfig(userConfig) {
         );
       }
     }
+    // A translation names a language and the folder holding it. The pages of
+    // the site language keep their address: only a translation takes a prefix,
+    // so nothing already published moves.
+    if (version.translations !== undefined) {
+      if (
+        version.translations === null ||
+        typeof version.translations !== 'object' ||
+        Array.isArray(version.translations)
+      ) {
+        throw new ConfigError(`The translations of version "${version.slug}" must be an object.`, {
+          hint: "Write translations: { fr: 'docs/v1.0-fr' } — one folder per language.",
+        });
+      }
+      for (const [lang, folder] of Object.entries(version.translations)) {
+        if (!LANGUAGE_CODE.test(lang)) {
+          throw new ConfigError(`Invalid language code in version "${version.slug}": "${lang}".`, {
+            hint: 'A language code is two or three letters, with an optional region — "fr", "pt-BR".',
+          });
+        }
+        if (typeof folder !== 'string' || folder === '') {
+          throw new ConfigError(
+            `The translation "${lang}" of version "${version.slug}" has no folder.`,
+            {
+              hint: "Give the folder holding those pages: { ${lang}: 'docs/v1.0-${lang}' }.",
+            },
+          );
+        }
+        if (folder === version.folder) {
+          throw new ConfigError(
+            `The translation "${lang}" of version "${version.slug}" reads the same folder as the version.`,
+            {
+              hint: 'A translation is a folder of its own: the same pages would be published twice.',
+            },
+          );
+        }
+      }
+    }
+
     if (seen.has(version.slug)) {
       throw new ConfigError(`The version slug "${version.slug}" is declared twice.`);
     }

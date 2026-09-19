@@ -160,6 +160,35 @@ a {
   font-weight: 560;
 }
 
+/* The language switcher wears the same dress; a language this page has not
+   been translated into is dimmed rather than removed. */
+.dp-languages-list {
+  padding: 0.3rem;
+  background: var(--dp-bg);
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  box-shadow: 0 8px 24px var(--dp-shadow);
+}
+.dp-languages-list a,
+.dp-languages-list span {
+  display: block;
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.86rem;
+  color: var(--dp-text);
+  text-decoration: none;
+}
+.dp-languages-list a:hover {
+  background: var(--dp-bg-soft);
+}
+.dp-languages-list a[aria-current] {
+  color: var(--dp-accent);
+  font-weight: 560;
+}
+.dp-languages-list span {
+  color: var(--dp-text-soft);
+}
+
 /* --- Side columns -------------------------------------------------------- */
 
 .dp-sidebar,

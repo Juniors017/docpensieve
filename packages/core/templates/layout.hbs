@@ -45,6 +45,13 @@
     {{#each scripts}}
     <script type="module" src="{{this}}"></script>
     {{/each}}
+    {{!-- The other languages of this page, for search engines: a reader
+    looking for the French page must not be sent to the English one. --}}
+    {{#each languages}}
+    {{#if url}}
+    <link rel="alternate" hreflang="{{lang}}" href="{{url}}" />
+    {{/if}}
+    {{/each}}
     {{{jsonld}}}
   </head>
   <body>

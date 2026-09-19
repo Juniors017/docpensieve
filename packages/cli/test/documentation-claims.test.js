@@ -30,6 +30,7 @@ const WORDS = /** @type {Record<string, number>} */ ({
   'twenty-one': 21,
   'twenty-four': 24,
   'forty-eight': 48,
+  fifty: 50,
 });
 
 /**

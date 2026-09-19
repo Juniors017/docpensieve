@@ -227,33 +227,68 @@ export class SiteGenerator {
       });
     }
 
-    const sourceDir = path.resolve(rootDir, version.folder);
-    const docs = await this.loader.load(sourceDir);
+    // The version is served in the language of the site; each translation is
+    // served under its own code. Nothing already published moves that way, and
+    // one orphan branch still holds the whole version.
+    const languages = [
+      { lang: this.config.lang ?? DEFAULT_LANGUAGE, folder: version.folder, suffix: '', target },
+      ...Object.entries(version.translations ?? {}).map(([lang, folder]) => ({
+        lang,
+        folder,
+        suffix: lang,
+        target: path.join(target, lang),
+      })),
+    ];
 
-    // A version without pages still published a redirect to itself: the site
-    // root led to a page that did not exist.
-    if (docs.length === 0) {
-      throw new GeneratorError(`Version "${version.slug}" has no page to publish.`, {
-        hint: `Add a page to ${version.folder}, or remove "draft: true" from the existing ones.`,
+    // Every language is read before any page is written: a page knows its
+    // twins only once the others are known, and the language switcher must
+    // never offer an address that leads nowhere.
+    const reading = [];
+    for (const language of languages) {
+      const dir = path.resolve(rootDir, language.folder);
+      let pages;
+      try {
+        pages = await this.loader.load(dir);
+      } catch (cause) {
+        // The folder of the version says what it is by itself; a translation
+        // folder does not, and "folder not found" left the reader looking for
+        // which of the two was missing.
+        if (language.suffix === '') throw cause;
+        throw new GeneratorError(
+          `The "${language.lang}" translation of version "${version.slug}" cannot be read.`,
+          {
+            cause,
+            hint: `Expected its pages here: ${language.folder}. Remove the entry from "translations" to stop publishing that language.`,
+          },
+        );
+      }
+
+      // A version without pages still published a redirect to itself: the site
+      // root led to a page that did not exist.
+      if (pages.length === 0) {
+        throw new GeneratorError(
+          language.suffix === ''
+            ? `Version "${version.slug}" has no page to publish.`
+            : `The "${language.lang}" translation of version "${version.slug}" has no page to publish.`,
+          {
+            hint: `Add a page to ${language.folder}, or remove "draft: true" from the existing ones.`,
+          },
+        );
+      }
+      reading.push({
+        ...language,
+        sourceDir: dir,
+        docs: pages,
+        slugs: new Set(pages.map((doc) => doc.slug)),
       });
     }
 
-    const versionBase = joinUrl(this.config.baseUrl, 'versions', version.slug);
-    /** @param {import('./loader.js').Doc} doc */
-    const pageUrl = (doc) => joinUrl(versionBase, doc.slug);
+    const versionRoot = joinUrl(this.config.baseUrl, 'versions', version.slug);
 
     const current = this.config.versions.find((candidate) => candidate.current);
     const notice = versionNotice(version, current, this.config.baseUrl);
 
-    // 'auto' follows the file tree; otherwise each version describes its menu
-    // in a file of its own, since each has its own pages.
-    const described =
-      this.config.sidebar && this.config.sidebar !== 'auto'
-        ? await this.#describedSidebar(sourceDir, docs, pageUrl, version.folder)
-        : null;
-    const sidebar = described ?? buildSidebar(docs, pageUrl, { brand: this.config.projectName });
     const folded = this.config.foldedSidebar === true;
-    const breadcrumbTitles = collectSectionTitles(docs);
     const layout = await this.#loadLayout();
     const classes = this.#classes();
 
@@ -273,282 +308,359 @@ export class SiteGenerator {
 
     // The project's images go into every version: each one stands on its
     // own, down to the orphan branch it is published on.
-    const images = await this.#copyImages(target, versionBase, written, version);
+    const images = await this.#copyImages(target, versionRoot, written, version);
 
-    // What every page of the version shares, the search page included.
-    const searchUrl = this.config.search !== false ? joinUrl(versionBase, SEARCH_SLUG) : '';
-    // Described once per version, like the menu: the same authors serve every
-    // page, and a biography corrected in one version leaves the others alone.
-    const authors = await this.#readAuthors(sourceDir, version.folder, versionBase);
+    /** @type {import('./discovery.js').PublishedPage[]} */
+    const published = [];
+    let pageTotal = 0;
 
-    // Links of the header, resolved once per version. A link naming a version
-    // leads there from every version: a section written in one version only
-    // stays reachable from the others.
-    /** @param {{ href: string, version?: string }} link */
-    const headerTarget = (link) =>
-      EXTERNAL_PREVIEW.test(link.href)
-        ? link.href
-        : joinUrl(this.config.baseUrl, 'versions', link.version ?? version.slug) +
-          link.href.replace(/^\/+/, '');
+    for (const language of reading) {
+      const { sourceDir, docs } = language;
+      const versionBase = joinUrl(this.config.baseUrl, 'versions', version.slug, language.suffix);
+      /** @param {import('./loader.js').Doc} doc */
+      const pageUrl = (doc) => joinUrl(versionBase, doc.slug);
 
-    const headerLinks = (this.config.headerLinks ?? []).map((link) =>
-      link.columns
-        ? {
-            label: link.label,
-            columns: link.columns.map((column) => ({
-              title: column.title,
-              items: column.items.map((item) => ({ label: item.label, href: headerTarget(item) })),
-            })),
-          }
-        : // Without columns the configuration has checked the target: an entry
-          // that leads nowhere and opens nothing never gets here.
-          {
-            label: link.label,
-            href: headerTarget({ href: String(link.href), version: link.version }),
-          },
-    );
+      // 'auto' follows the file tree; otherwise each version describes its menu
+      // in a file of its own, since each has its own pages.
+      const described =
+        this.config.sidebar && this.config.sidebar !== 'auto'
+          ? await this.#describedSidebar(sourceDir, docs, pageUrl, language.folder)
+          : null;
+      const sidebar = described ?? buildSidebar(docs, pageUrl, { brand: this.config.projectName });
+      const breadcrumbTitles = collectSectionTitles(docs);
 
-    const shell = {
-      lang: this.config.lang ?? DEFAULT_LANGUAGE,
-      // The words the shell adds around the pages. In the language of the
-      // pages: left in English, they would announce the language of the tool
-      // rather than the language of the documentation.
-      ui: uiStrings(this.config.lang, this.config.ui),
-      // A fixed scheme is a class on <html>, which the skins and the dark
-      // variant of the utilities both obey.
-      darkModeClass: ['dark', 'light'].includes(this.config.theme?.darkMode ?? '')
-        ? this.config.theme.darkMode
-        : null,
-      projectName: this.config.projectName,
-      versionName: version.name,
-      homeUrl: versionBase,
-      cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
-      feedUrl: this.#feedUrl(),
-      logoUrl: images.logo ?? '',
-      favicon: images.favicon
-        ? { href: images.favicon, type: FAVICON_TYPES[path.extname(images.favicon).toLowerCase()] }
-        : null,
-      // Social networks only read an absolute address: normalisation
-      // refuses a preview image without siteUrl.
-      socialImage:
-        images.socialImage && this.config.siteUrl
-          ? new URL(images.socialImage, this.config.siteUrl).href
-          : '',
-      searchUrl,
-      // Held at the top of the screen unless the project gives that height
-      // back to the text.
-      stickyHeader: this.config.stickyHeader !== false,
-      headerLinks,
-      // A menu with nothing in it would be a button that opens onto nothing.
-      headerMenu: this.config.versions.length > 1 || headerLinks.length > 0 || searchUrl !== '',
-      // The light / dark switch: a button, and the few lines of script it needs.
-      schemeToggle: this.config.theme?.toggle !== false,
-      cls: classes,
-      versions: this.#versionLinks(version.slug),
-      // A switcher offering a single choice is not a switcher.
-      showVersions: this.config.versions.length > 1,
-      // The back-to-top button is page furniture, not content: writing it in
-      // every file would repeat it everywhere, and forget it somewhere.
-      scrollToTop: this.config.scrollToTop !== false,
-      notice,
-    };
-    // Every page of the version, for the components that list pages: one of
-    // them renders a single page at a time and could never gather this by
-    // itself. Targets are resolved here, each against the folder of the page
-    // that declares it — a preview written in one page is not relative to the
-    // page that shows it in a card.
-    const pages = docs.map((doc) => {
-      const folder = dirPathToSlug(path.relative(sourceDir, path.dirname(doc.path)));
-      const dirUrl = joinUrl(versionBase, folder);
-      const target = String(doc.frontmatter.preview ?? '');
-      const absolute = target.startsWith('/');
+      // The languages this version offers, and where the page being read has a
+      // twin. A language the page was never translated into is announced and
+      // disabled rather than hidden: the reader learns the site has it.
+      const languageLinks =
+        reading.length > 1
+          ? reading.map((other) => ({
+              lang: other.lang,
+              label: other.lang.toUpperCase(),
+              base: joinUrl(this.config.baseUrl, 'versions', version.slug, other.suffix),
+              slugs: other.slugs,
+              current: other.lang === language.lang,
+            }))
+          : [];
 
-      return {
-        url: pageUrl(doc),
-        slug: doc.slug,
-        title: String(doc.frontmatter.title ?? this.config.projectName),
-        description: doc.frontmatter.description ? String(doc.frontmatter.description) : undefined,
-        preview:
-          target === '' || EXTERNAL_PREVIEW.test(target)
-            ? target || undefined
-            : new URL(
-                absolute ? target.slice(1) : target,
-                `https://docpensieve.invalid${absolute ? versionBase : dirUrl}`,
-              ).pathname,
-        // The same date the byline and the sitemap read, formatted once.
-        modified:
-          readDate(
-            doc.frontmatter.modified ?? doc.frontmatter.date,
-            'modified',
-            doc.slug || 'the home page',
-            shell.ui.dateLocale,
-          ) ?? undefined,
-      };
-    });
+      // What every page of the version shares, the search page included.
+      const searchUrl = this.config.search !== false ? joinUrl(versionBase, SEARCH_SLUG) : '';
+      // Described once per version, like the menu: the same authors serve every
+      // page, and a biography corrected in one version leaves the others alone.
+      const authors = await this.#readAuthors(sourceDir, language.folder, versionBase);
 
-    /** @type {{ title: string, url: string, description: string, text: string }[]} */
-    const entries = [];
+      // Links of the header, resolved once per version. A link naming a version
+      // leads there from every version: a section written in one version only
+      // stays reachable from the others.
+      /** @param {{ href: string, version?: string }} link */
+      const headerTarget = (link) =>
+        EXTERNAL_PREVIEW.test(link.href)
+          ? link.href
+          : joinUrl(this.config.baseUrl, 'versions', link.version ?? version.slug) +
+            link.href.replace(/^\/+/, '');
 
-    for (const doc of docs) {
-      const url = pageUrl(doc);
-
-      // Base of relative targets: the source file's folder, mapped into URL
-      // space. Not the page URL, which has one more level — `./diagram.png`
-      // written in `guide/install.md` would otherwise point to
-      // `/guide/install/diagram.png`, whereas the file is output under `/guide/`.
-      const folder = dirPathToSlug(path.relative(sourceDir, path.dirname(doc.path)));
-      const dirUrl = joinUrl(versionBase, folder);
-      // Components need to know which page they render: a link they produce
-      // escapes the compiler plugins (ADR-006).
-      this.deps.onPage?.({
-        url,
-        dirUrl,
-        basePath: versionBase,
-        filepath: doc.path,
-        sourceDir,
-        slug: doc.slug,
-        pages,
-      });
-
-      const { html, toc, preloads } = await this.compiler.compile(doc.content, {
-        filepath: doc.path,
-        url,
-        dirUrl,
-        basePath: versionBase,
-        sourceDir,
-      });
-
-      // Who wrote the page, and when. Read before the structured data, which
-      // describes the same people: the page and its metadata must not
-      // disagree about an author.
-      const credits = buildByline(
-        doc.frontmatter,
-        authors,
-        doc.slug || 'the home page',
-        shell.ui.dateLocale,
+      const headerLinks = (this.config.headerLinks ?? []).map((link) =>
+        link.columns
+          ? {
+              label: link.label,
+              columns: link.columns.map((column) => ({
+                title: column.title,
+                items: column.items.map((item) => ({
+                  label: item.label,
+                  href: headerTarget(item),
+                })),
+              })),
+            }
+          : // Without columns the configuration has checked the target: an entry
+            // that leads nowhere and opens nothing never gets here.
+            {
+              label: link.label,
+              href: headerTarget({ href: String(link.href), version: link.version }),
+            },
       );
 
-      const jsonld = new StructuredDataBuilder(doc.frontmatter, url, this.config, {
-        breadcrumbTitles,
-        basePath: versionBase,
-        dirUrl,
-        logo: images.logo,
-        // A described author carries a biography and a link, which a bare
-        // name in the frontmatter cannot.
-        authors: credits?.authors ?? [],
-      }).toScriptTag();
+      const shell = {
+        lang: language.lang,
+        // The words the shell adds around the pages. In the language of the
+        // pages: left in English, they would announce the language of the tool
+        // rather than the language of the documentation.
+        ui: uiStrings(language.lang, this.config.ui),
+        // A fixed scheme is a class on <html>, which the skins and the dark
+        // variant of the utilities both obey.
+        darkModeClass: ['dark', 'light'].includes(this.config.theme?.darkMode ?? '')
+          ? this.config.theme.darkMode
+          : null,
+        projectName: this.config.projectName,
+        versionName: version.name,
+        homeUrl: versionBase,
+        cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
+        feedUrl: this.#feedUrl(),
+        logoUrl: images.logo ?? '',
+        favicon: images.favicon
+          ? {
+              href: images.favicon,
+              type: FAVICON_TYPES[path.extname(images.favicon).toLowerCase()],
+            }
+          : null,
+        // Social networks only read an absolute address: normalisation
+        // refuses a preview image without siteUrl.
+        socialImage:
+          images.socialImage && this.config.siteUrl
+            ? new URL(images.socialImage, this.config.siteUrl).href
+            : '',
+        searchUrl,
+        // Held at the top of the screen unless the project gives that height
+        // back to the text.
+        stickyHeader: this.config.stickyHeader !== false,
+        headerLinks,
+        // A menu with nothing in it would be a button that opens onto nothing.
+        headerMenu: this.config.versions.length > 1 || headerLinks.length > 0 || searchUrl !== '',
+        // The light / dark switch: a button, and the few lines of script it needs.
+        schemeToggle: this.config.theme?.toggle !== false,
+        cls: classes,
+        versions: this.#versionLinks(version.slug),
+        // A switcher offering a single choice is not a switcher.
+        showVersions: this.config.versions.length > 1,
+        // The back-to-top button is page furniture, not content: writing it in
+        // every file would repeat it everywhere, and forget it somewhere.
+        scrollToTop: this.config.scrollToTop !== false,
+        notice,
+      };
+      // Every page of the version, for the components that list pages: one of
+      // them renders a single page at a time and could never gather this by
+      // itself. Targets are resolved here, each against the folder of the page
+      // that declares it — a preview written in one page is not relative to the
+      // page that shows it in a card.
+      const pages = docs.map((doc) => {
+        const folder = dirPathToSlug(path.relative(sourceDir, path.dirname(doc.path)));
+        const dirUrl = joinUrl(versionBase, folder);
+        const target = String(doc.frontmatter.preview ?? '');
+        const absolute = target.startsWith('/');
 
-      // A home page has neither menu nor table of contents: those are reading
-      // landmarks within a document, not in an entrance hall.
-      const wide = pageLayout(doc) === 'home';
-
-      entries.push({
-        title: String(doc.frontmatter.title ?? this.config.projectName),
-        url,
-        description: String(doc.frontmatter.description ?? ''),
-        text: htmlToText(html),
+        return {
+          url: pageUrl(doc),
+          slug: doc.slug,
+          title: String(doc.frontmatter.title ?? this.config.projectName),
+          description: doc.frontmatter.description
+            ? String(doc.frontmatter.description)
+            : undefined,
+          preview:
+            target === '' || EXTERNAL_PREVIEW.test(target)
+              ? target || undefined
+              : new URL(
+                  absolute ? target.slice(1) : target,
+                  `https://docpensieve.invalid${absolute ? versionBase : dirUrl}`,
+                ).pathname,
+          // The same date the byline and the sitemap read, formatted once.
+          modified:
+            readDate(
+              doc.frontmatter.modified ?? doc.frontmatter.date,
+              'modified',
+              doc.slug || 'the home page',
+              shell.ui.dateLocale,
+            ) ?? undefined,
+        };
       });
 
-      const byline =
-        wide || !credits
-          ? null
-          : {
-              authors: credits.authors,
-              dates: [
-                credits.created && { prefix: shell.ui.written, ...credits.created },
-                credits.updated && { prefix: shell.ui.updated, ...credits.updated },
-              ].filter(Boolean),
-            };
+      /** @type {{ title: string, url: string, description: string, text: string }[]} */
+      const entries = [];
 
-      const page = layout({
-        ...shell,
-        title: documentTitle(doc.frontmatter.title, this.config.projectName),
-        description: doc.frontmatter.description ?? '',
-        canonical: this.config.siteUrl ? new URL(url, this.config.siteUrl).href : '',
-        currentUrl: url,
-        wide,
-        // A version in preparation must not compete with the current one:
-        // same content, two addresses, and the wrong one comes up. "follow"
-        // still lets its links be followed.
-        noindex: version.prerelease === true,
-        byline,
-        tags: wide ? [] : pageTags(doc.frontmatter.tags),
-        // Folded, the menu opens on the branch of the page being rendered, so
-        // it is prepared per page rather than once per version.
-        sidebar: wide ? [] : folded ? foldSidebar(sidebar, url) : sidebar,
-        foldedSidebar: folded,
-        toc: wide ? [] : toc,
-        preloads,
-        content: html,
-        jsonld,
-      });
+      for (const doc of docs) {
+        const url = pageUrl(doc);
 
-      for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
-        for (const token of value.split(/\s+/)) if (token) candidates.add(token);
-      }
-
-      const destination = path.join(target, ...doc.slug.split('/').filter(Boolean), 'index.html');
-      written.set(destination, path.relative(sourceDir, doc.path).split(path.sep).join('/'));
-      await this.#write(destination, page);
-    }
-
-    // The search page and the index it reads, built with the site: content
-    // pages load no script, and this page is useful before its own runs.
-    if (searchUrl) {
-      const destination = path.join(target, SEARCH_SLUG, 'index.html');
-      const taken = written.get(destination);
-      if (taken !== undefined) {
-        throw new GeneratorError(`"${taken}" takes the place of the search page, ${searchUrl}.`, {
-          hint: 'Rename that page, or set search: false in the configuration.',
+        // Base of relative targets: the source file's folder, mapped into URL
+        // space. Not the page URL, which has one more level — `./diagram.png`
+        // written in `guide/install.md` would otherwise point to
+        // `/guide/install/diagram.png`, whereas the file is output under `/guide/`.
+        const folder = dirPathToSlug(path.relative(sourceDir, path.dirname(doc.path)));
+        const dirUrl = joinUrl(versionBase, folder);
+        // Components need to know which page they render: a link they produce
+        // escapes the compiler plugins (ADR-006).
+        this.deps.onPage?.({
+          url,
+          dirUrl,
+          basePath: versionBase,
+          filepath: doc.path,
+          sourceDir,
+          slug: doc.slug,
+          pages,
         });
+
+        const { html, toc, preloads } = await this.compiler.compile(doc.content, {
+          filepath: doc.path,
+          url,
+          dirUrl,
+          basePath: versionBase,
+          sourceDir,
+        });
+
+        // Who wrote the page, and when. Read before the structured data, which
+        // describes the same people: the page and its metadata must not
+        // disagree about an author.
+        const credits = buildByline(
+          doc.frontmatter,
+          authors,
+          doc.slug || 'the home page',
+          shell.ui.dateLocale,
+        );
+
+        const jsonld = new StructuredDataBuilder(doc.frontmatter, url, this.config, {
+          breadcrumbTitles,
+          basePath: versionBase,
+          dirUrl,
+          logo: images.logo,
+          // A described author carries a biography and a link, which a bare
+          // name in the frontmatter cannot.
+          authors: credits?.authors ?? [],
+        }).toScriptTag();
+
+        // A home page has neither menu nor table of contents: those are reading
+        // landmarks within a document, not in an entrance hall.
+        const wide = pageLayout(doc) === 'home';
+
+        entries.push({
+          title: String(doc.frontmatter.title ?? this.config.projectName),
+          url,
+          description: String(doc.frontmatter.description ?? ''),
+          text: htmlToText(html),
+        });
+
+        const byline =
+          wide || !credits
+            ? null
+            : {
+                authors: credits.authors,
+                dates: [
+                  credits.created && { prefix: shell.ui.written, ...credits.created },
+                  credits.updated && { prefix: shell.ui.updated, ...credits.updated },
+                ].filter(Boolean),
+              };
+
+        const page = layout({
+          ...shell,
+          title: documentTitle(doc.frontmatter.title, this.config.projectName),
+          description: doc.frontmatter.description ?? '',
+          canonical: this.config.siteUrl ? new URL(url, this.config.siteUrl).href : '',
+          currentUrl: url,
+          wide,
+          // A version in preparation must not compete with the current one:
+          // same content, two addresses, and the wrong one comes up. "follow"
+          // still lets its links be followed.
+          noindex: version.prerelease === true,
+          // Where this page exists in the other languages. An entry without a
+          // url is a language the page was never translated into: announced,
+          // never offered, because a link leading nowhere is worse than none.
+          languages: languageLinks.map((other) => ({
+            lang: other.lang,
+            label: other.label,
+            current: other.current,
+            url: other.slugs.has(doc.slug) ? this.#absolute(joinUrl(other.base, doc.slug)) : '',
+          })),
+          byline,
+          tags: wide ? [] : pageTags(doc.frontmatter.tags),
+          // Folded, the menu opens on the branch of the page being rendered, so
+          // it is prepared per page rather than once per version.
+          sidebar: wide ? [] : folded ? foldSidebar(sidebar, url) : sidebar,
+          foldedSidebar: folded,
+          toc: wide ? [] : toc,
+          preloads,
+          content: html,
+          jsonld,
+        });
+
+        for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
+          for (const token of value.split(/\s+/)) if (token) candidates.add(token);
+        }
+
+        const destination = path.join(
+          language.target,
+          ...doc.slug.split('/').filter(Boolean),
+          'index.html',
+        );
+        written.set(destination, path.relative(sourceDir, doc.path).split(path.sep).join('/'));
+        await this.#write(destination, page);
       }
 
-      /** @param {string} file */
-      const assetUrl = (file) =>
-        joinUrl(versionBase, path.posix.dirname(file)) + path.posix.basename(file);
-      const indexFile = path.join(target, ...SEARCH_INDEX.split('/'));
-      const scriptFile = path.join(target, ...SEARCH_SCRIPT.split('/'));
-      await this.#write(indexFile, JSON.stringify(entries));
-      await mkdir(path.dirname(scriptFile), { recursive: true });
-      await copyFile(CLIENT_SEARCH, scriptFile);
+      // The search page and the index it reads, built with the site: content
+      // pages load no script, and this page is useful before its own runs.
+      if (searchUrl) {
+        const destination = path.join(language.target, SEARCH_SLUG, 'index.html');
+        const taken = written.get(destination);
+        if (taken !== undefined) {
+          throw new GeneratorError(`"${taken}" takes the place of the search page, ${searchUrl}.`, {
+            hint: 'Rename that page, or set search: false in the configuration.',
+          });
+        }
 
-      const page = layout({
-        ...shell,
-        title: documentTitle(shell.ui.searchTitle, this.config.projectName),
-        description: `Search the pages of ${this.config.projectName} ${version.name}.`,
-        canonical: '',
-        currentUrl: searchUrl,
-        wide: false,
-        // A list of every page, and a script: nothing a search engine should
-        // offer as a result.
-        noindex: true,
-        sidebar,
-        toc: [],
-        preloads: [],
-        scripts: [assetUrl(SEARCH_SCRIPT)],
-        content: searchPageContent(entries, assetUrl(SEARCH_INDEX), shell.ui),
-        jsonld: '',
-      });
-      for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
-        for (const token of value.split(/\s+/)) if (token) candidates.add(token);
+        /** @param {string} file */
+        const assetUrl = (file) =>
+          joinUrl(versionBase, path.posix.dirname(file)) + path.posix.basename(file);
+        const indexFile = path.join(language.target, ...SEARCH_INDEX.split('/'));
+        const scriptFile = path.join(language.target, ...SEARCH_SCRIPT.split('/'));
+        await this.#write(indexFile, JSON.stringify(entries));
+        await mkdir(path.dirname(scriptFile), { recursive: true });
+        await copyFile(CLIENT_SEARCH, scriptFile);
+
+        const page = layout({
+          ...shell,
+          title: documentTitle(shell.ui.searchTitle, this.config.projectName),
+          description: `Search the pages of ${this.config.projectName} ${version.name}.`,
+          canonical: '',
+          currentUrl: searchUrl,
+          wide: false,
+          // A list of every page, and a script: nothing a search engine should
+          // offer as a result.
+          noindex: true,
+          // The search page is written in every language, so every one of them
+          // has this twin.
+          languages: languageLinks.map((other) => ({
+            lang: other.lang,
+            label: other.label,
+            current: other.current,
+            url: this.#absolute(joinUrl(other.base, SEARCH_SLUG)),
+          })),
+          sidebar,
+          toc: [],
+          preloads: [],
+          scripts: [assetUrl(SEARCH_SCRIPT)],
+          content: searchPageContent(entries, assetUrl(SEARCH_INDEX), shell.ui),
+          jsonld: '',
+        });
+        for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
+          for (const token of value.split(/\s+/)) if (token) candidates.add(token);
+        }
+        await this.#write(destination, page);
+        for (const file of [destination, indexFile, scriptFile])
+          written.set(file, 'the search page');
       }
-      await this.#write(destination, page);
-      for (const file of [destination, indexFile, scriptFile]) written.set(file, 'the search page');
+
+      await this.#copyAssets(sourceDir, language.target, '', written);
+
+      published.push(...docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })));
+      pageTotal += docs.length;
     }
 
-    await this.#copyAssets(sourceDir, target, '', written);
-
-    // The stylesheet is compiled last: it needs the classes above.
+    // The stylesheet is compiled last: it needs the classes of every language.
     const { css } = await this.deps.theme.compile({ candidates: [...candidates] });
     // Comments and indentation make the stylesheet readable, and heavier on
     // every page: the reader receives it minified.
     await this.#write(path.join(target, ...STYLESHEET.split('/')), minifyCss(css));
 
-    return {
-      pages: docs.length,
-      outDir: target,
-      published: docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })),
-    };
+    return { pages: pageTotal, outDir: target, published };
+  }
+
+  /**
+   * The address of a page as another machine reads it.
+   *
+   * `hreflang` is followed from outside the site, so a path alone would only
+   * work by chance. Without `siteUrl` the path is all there is, and it still
+   * serves the language switcher inside the page.
+   *
+   * @param {string} urlPath Path within the site.
+   * @returns {string}
+   */
+  #absolute(urlPath) {
+    return this.config.siteUrl ? new URL(urlPath, this.config.siteUrl).href : urlPath;
   }
 
   /**
