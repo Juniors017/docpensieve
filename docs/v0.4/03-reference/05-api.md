@@ -286,6 +286,44 @@ Reads the ordering weight of a prefixed file name.
 
 **Returns** `number` — The prefix number, or `Infinity` when absent (sorted last).
 
+### `UI_STRINGS`
+
+`UI_STRINGS`
+
+The shipped languages.
+
+### `DEFAULT_LANGUAGE`
+
+`DEFAULT_LANGUAGE`
+
+Language used when nothing else is known.
+
+### `uiStrings`
+
+`uiStrings([lang], [overrides])`
+
+The wording of a language, completed by English for anything it omits.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `[lang]` | `string` | Language code, `fr` or `fr-CA`. |
+| `[overrides]` | `Record<string, Partial<UiStrings>>` | Wording declared by the project. |
+
+**Returns** `UiStrings`
+
+### `pageCount`
+
+`pageCount(count, strings)`
+
+Counts pages in the language of the page.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `count` | `number` |  |
+| `strings` | `UiStrings` |  |
+
+**Returns** `string` — For instance `12 pages` or `1 page`.
+
 ## `@docpensieve/core`
 
 Configuration, loading, compilation, structured data and generation.
@@ -525,7 +563,7 @@ Turns the JSON description of a version into a table of authors.
 
 ### `buildByline`
 
-`buildByline(frontmatter, [table], [where])`
+`buildByline(frontmatter, [table], [where], [locale])`
 
 Assembles what the head of a page shows, or nothing when it has none of it.
 
@@ -534,6 +572,7 @@ Assembles what the head of a page shows, or nothing when it has none of it.
 | `frontmatter` | `Record<string, any>` |  |
 | `[table]` | `Map<string, Author>` |  |
 | `[where]` | `string` | Page named in a date error. |
+| `[locale]` | `string` | Locale the dates are written in. |
 
 **Returns** `Byline \| null`
 
@@ -541,7 +580,7 @@ Assembles what the head of a page shows, or nothing when it has none of it.
 
 ### `readDate`
 
-`readDate(value, field, where)`
+`readDate(value, field, where, [locale])`
 
 Reads a date of the frontmatter, and gives it in both forms: the machine one
 for `<time datetime>`, the readable one for the reader.
@@ -555,6 +594,7 @@ than shown as `Invalid Date`.
 | `value` | `unknown` |  |
 | `field` | `string` | Name of the field, for the error message. |
 | `where` | `string` | Page the date comes from. |
+| `[locale]` | `string` | Locale the label is written in. Default: `en-GB`. |
 
 **Returns** `{ iso: string, label: string } \| null` — `null` when absent.
 

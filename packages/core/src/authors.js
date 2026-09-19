@@ -12,7 +12,10 @@
  * @module @docpensieve/core/authors
  */
 
-import { ConfigError } from '@docpensieve/shared';
+import { ConfigError, UI_STRINGS } from '@docpensieve/shared';
+
+/** Locale of a date when the caller names none: the wording of the default language. */
+const DEFAULT_DATE_LOCALE = UI_STRINGS.en.dateLocale;
 
 /**
  * @typedef {object} Author
@@ -44,10 +47,11 @@ const AUTHOR_FIELDS = new Set(['name', 'bio', 'avatar', 'url']);
  * @param {unknown} value
  * @param {string} field Name of the field, for the error message.
  * @param {string} where Page the date comes from.
+ * @param {string} [locale] Locale the label is written in. Default: `en-GB`.
  * @returns {{ iso: string, label: string } | null} `null` when absent.
  * @throws {ConfigError} When the value is not a date.
  */
-export function readDate(value, field, where) {
+export function readDate(value, field, where, locale = DEFAULT_DATE_LOCALE) {
   if (value === undefined || value === null || value === '') return null;
 
   const date = value instanceof Date ? value : new Date(String(value));
@@ -59,11 +63,11 @@ export function readDate(value, field, where) {
 
   return {
     iso: date.toISOString().slice(0, 10),
-    // Fixed locale: the page is built once and read everywhere, so the label
-    // must not depend on the machine that produced it. Day first, month
-    // spelled out — "16 September 2026" is read the same way everywhere,
-    // where 09/16 and 16/09 are the same page read two ways.
-    label: new Intl.DateTimeFormat('en-GB', {
+    // The locale comes from the page, never from the machine that built it:
+    // a site is produced once and read everywhere. Day first, month spelled
+    // out — "16 September 2026" is read the same way everywhere, where 09/16
+    // and 16/09 are the same page read two ways.
+    label: new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -159,14 +163,15 @@ export function resolvePageAuthors(value, table = new Map()) {
  * @param {Record<string, any>} frontmatter
  * @param {Map<string, Author>} [table]
  * @param {string} [where] Page named in a date error.
+ * @param {string} [locale] Locale the dates are written in.
  * @returns {Byline | null}
  * @throws {ConfigError} When a date cannot be read.
  */
-export function buildByline(frontmatter, table = new Map(), where = 'this page') {
+export function buildByline(frontmatter, table = new Map(), where = 'this page', locale) {
   const authors = resolvePageAuthors(frontmatter?.authors, table);
-  const created = readDate(frontmatter?.date, 'date', where);
+  const created = readDate(frontmatter?.date, 'date', where, locale);
   // The same field the sitemap reads for lastmod: one date, one meaning.
-  const updated = readDate(frontmatter?.modified, 'modified', where);
+  const updated = readDate(frontmatter?.modified, 'modified', where, locale);
 
   if (authors.length === 0 && !created && !updated) return null;
 

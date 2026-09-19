@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   ConfigError,
+  DEFAULT_LANGUAGE,
   DOC_EXTENSIONS,
   assetPathToSlug,
   dirPathToSlug,
@@ -17,6 +18,7 @@ import {
   PAGE_LAYOUTS,
   ThemeError,
   VERSIONS_MANIFEST,
+  uiStrings,
 } from '@docpensieve/shared';
 import Handlebars from 'handlebars';
 
@@ -307,7 +309,11 @@ export class SiteGenerator {
     );
 
     const shell = {
-      lang: this.config.lang ?? 'en',
+      lang: this.config.lang ?? DEFAULT_LANGUAGE,
+      // The words the shell adds around the pages. In the language of the
+      // pages: left in English, they would announce the language of the tool
+      // rather than the language of the documentation.
+      ui: uiStrings(this.config.lang, this.config.ui),
       // A fixed scheme is a class on <html>, which the skins and the dark
       // variant of the utilities both obey.
       darkModeClass: ['dark', 'light'].includes(this.config.theme?.darkMode ?? '')
@@ -375,6 +381,7 @@ export class SiteGenerator {
             doc.frontmatter.modified ?? doc.frontmatter.date,
             'modified',
             doc.slug || 'the home page',
+            shell.ui.dateLocale,
           ) ?? undefined,
       };
     });
@@ -414,7 +421,12 @@ export class SiteGenerator {
       // Who wrote the page, and when. Read before the structured data, which
       // describes the same people: the page and its metadata must not
       // disagree about an author.
-      const credits = buildByline(doc.frontmatter, authors, doc.slug || 'the home page');
+      const credits = buildByline(
+        doc.frontmatter,
+        authors,
+        doc.slug || 'the home page',
+        shell.ui.dateLocale,
+      );
 
       const jsonld = new StructuredDataBuilder(doc.frontmatter, url, this.config, {
         breadcrumbTitles,
@@ -443,8 +455,8 @@ export class SiteGenerator {
           : {
               authors: credits.authors,
               dates: [
-                credits.created && { prefix: 'Written', ...credits.created },
-                credits.updated && { prefix: 'Updated', ...credits.updated },
+                credits.created && { prefix: shell.ui.written, ...credits.created },
+                credits.updated && { prefix: shell.ui.updated, ...credits.updated },
               ].filter(Boolean),
             };
 
@@ -502,7 +514,7 @@ export class SiteGenerator {
 
       const page = layout({
         ...shell,
-        title: documentTitle('Search', this.config.projectName),
+        title: documentTitle(shell.ui.searchTitle, this.config.projectName),
         description: `Search the pages of ${this.config.projectName} ${version.name}.`,
         canonical: '',
         currentUrl: searchUrl,
@@ -514,7 +526,7 @@ export class SiteGenerator {
         toc: [],
         preloads: [],
         scripts: [assetUrl(SEARCH_SCRIPT)],
-        content: searchPageContent(entries, assetUrl(SEARCH_INDEX)),
+        content: searchPageContent(entries, assetUrl(SEARCH_INDEX), shell.ui),
         jsonld: '',
       });
       for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {

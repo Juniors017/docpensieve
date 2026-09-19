@@ -5,7 +5,7 @@ a row on a wide screen, behind a menu button on a narrow one. --}}
 <details class="{{{cls.versions}}}">
   {{!-- The accessible name contains the visible label: when dictated by voice,
   what is read on screen must find this button. --}}
-  <summary aria-label="Version {{versionName}}, switch version">{{versionName}}</summary>
+  <summary aria-label="{{ui.versionSwitch}} {{versionName}}, {{ui.switchVersion}}">{{versionName}}</summary>
   <ul class="{{{cls.versionsList}}}">
     {{#each versions}}
     <li><a href="{{url}}"{{#if current}} aria-current="true"{{/if}}>{{name}}</a></li>
@@ -43,6 +43,6 @@ a row on a wide screen, behind a menu button on a narrow one. --}}
 {{!-- A plain form: it leads to the search page, and needs no script. --}}
 {{#if searchUrl}}
 <form class="{{{cls.search}}}" role="search" action="{{searchUrl}}">
-  <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+  <input type="search" name="q" placeholder="{{ui.search}}" aria-label="{{ui.searchTheDocumentation}}" />
 </form>
 {{/if}}

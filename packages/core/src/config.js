@@ -15,6 +15,7 @@ import {
   ConfigError,
   DEFAULT_OUT_DIR,
   THEME_FRAMEWORKS,
+  UI_STRINGS,
 } from '@docpensieve/shared';
 
 /**
@@ -45,6 +46,7 @@ import {
  *   `columns` opens a panel of links instead of leading anywhere itself.
  * @property {boolean} [foldedSidebar] Categories of the menu fold, opened on
  *   the branch of the page being read.
+ * @property {Record<string, Record<string, string>>} [ui]
  * @property {Record<string, { label: string, tone: string, icon?: string }>} [admonitions]
  *   Kinds of admonition the project adds to the ones shipped. `icon` names an
  *   SVG of the version folder, inlined in place of the tone's drawing.
@@ -94,6 +96,7 @@ export const DEFAULT_CONFIG = Object.freeze({
   foldedSidebar: false,
   // Six kinds of admonition ship with the tool; a project names its own here
   // rather than waiting for that list to grow.
+  ui: {},
   admonitions: {},
   globalComponents: true,
   scrollToTop: true,
@@ -289,6 +292,36 @@ export function normalizeConfig(userConfig) {
   // Kinds of admonition the project adds. A kind is a label and a tone: the
   // tone carries the colour, taken from the theme, so a new kind needs no
   // stylesheet and follows whichever theme is active.
+  if (config.ui !== undefined) {
+    if (config.ui === null || typeof config.ui !== 'object' || Array.isArray(config.ui)) {
+      throw new ConfigError('ui must be an object of languages.', {
+        hint: "Write ui: { fr: { search: 'Chercher' } } — one entry per language.",
+      });
+    }
+    const known = Object.keys(UI_STRINGS.en);
+    for (const [lang, words] of Object.entries(config.ui)) {
+      if (!words || typeof words !== 'object' || Array.isArray(words)) {
+        throw new ConfigError(`The wording of "${lang}" must be an object.`, {
+          hint: "Write ui: { fr: { search: 'Chercher' } }.",
+        });
+      }
+      for (const [key, value] of Object.entries(words)) {
+        // A key nobody reads would leave the shipped wording in place without
+        // a word, and a typo is exactly what this field invites.
+        if (!known.includes(key)) {
+          throw new ConfigError(`Unknown wording key in "${lang}": "${key}".`, {
+            hint: `Keys: ${known.join(', ')}.`,
+          });
+        }
+        if (typeof value !== 'string' || value === '') {
+          throw new ConfigError(`The wording "${key}" of "${lang}" must be a text.`, {
+            hint: 'An empty label would leave the element unnamed on screen.',
+          });
+        }
+      }
+    }
+  }
+
   if (config.admonitions !== undefined) {
     if (
       config.admonitions === null ||

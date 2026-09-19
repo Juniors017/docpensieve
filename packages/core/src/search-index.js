@@ -9,6 +9,8 @@
  * @module @docpensieve/core/search-index
  */
 
+import { UI_STRINGS, pageCount } from '@docpensieve/shared';
+
 /** Path of the search page within a version. */
 export const SEARCH_SLUG = 'search';
 
@@ -58,19 +60,29 @@ function escapeHtml(value) {
  * @param {string} indexUrl URL of the version's index.
  * @returns {string}
  */
-export function searchPageContent(entries, indexUrl) {
+export function searchPageContent(entries, indexUrl, strings = UI_STRINGS.en) {
   const items = entries.map((entry) => {
     const description = entry.description ? `<p>${escapeHtml(entry.description)}</p>` : '';
     return `<li data-url="${escapeHtml(entry.url)}"><a href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a>${description}</li>`;
   });
 
   return [
-    '<h1 id="search">Search</h1>',
-    `<form class="dp-search-page" role="search" data-search-page data-index="${escapeHtml(indexUrl)}">`,
-    '<label for="dp-search-query">Search the documentation</label>',
+    `<h1 id="search">${escapeHtml(strings.searchTitle)}</h1>`,
+    // The script is copied as it is, so its wording travels with the page
+    // rather than inside the file: one script, every language.
+    `<form class="dp-search-page" role="search" data-search-page data-index="${escapeHtml(indexUrl)}" data-strings="${escapeHtml(
+      JSON.stringify({
+        failed: strings.searchIndexFailed,
+        page: strings.page,
+        pages: strings.pages,
+        noResultFor: strings.noResultFor,
+        resultsFor: strings.resultsFor,
+      }),
+    )}">`,
+    `<label for="dp-search-query">${escapeHtml(strings.searchTheDocumentation)}</label>`,
     '<input id="dp-search-query" type="search" name="q" autocomplete="off" />',
     '</form>',
-    `<p class="dp-search-status" data-search-status aria-live="polite">${entries.length} pages.</p>`,
+    `<p class="dp-search-status" data-search-status aria-live="polite">${escapeHtml(pageCount(entries.length, strings))}.</p>`,
     `<ol class="dp-search-results" data-search-results>${items.join('')}</ol>`,
   ].join('');
 }

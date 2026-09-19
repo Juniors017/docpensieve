@@ -10,3 +10,4 @@
 export * from './constants.js';
 export * from './errors.js';
 export * from './slug.js';
+export * from './ui-strings.js';

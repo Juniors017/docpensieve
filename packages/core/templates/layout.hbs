@@ -48,7 +48,7 @@
     {{{jsonld}}}
   </head>
   <body>
-    <a class="{{{cls.skip}}}" href="#content">Skip to content</a>
+    <a class="{{{cls.skip}}}" href="#content">{{ui.skipToContent}}</a>
 
     {{!-- Target of the back-to-top link: it brings the focus back, not only the
     view. It stays out of the header on purpose — the header is sticky, so it
@@ -63,21 +63,21 @@
       on a narrow one. The button is a details element, so that the menu opens
       without a script — as the version switcher does. --}}
       {{#if headerMenu}}
-      <nav class="{{{cls.headerNav}}}" aria-label="Site">
+      <nav class="{{{cls.headerNav}}}" aria-label="{{ui.site}}">
         {{> headerMenu}}
       </nav>
       <details class="{{{cls.menu}}}">
-        <summary aria-label="Menu">
+        <summary aria-label="{{ui.menu}}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </summary>
-        <nav class="{{{cls.menuPanel}}}" aria-label="Site">
+        <nav class="{{{cls.menuPanel}}}" aria-label="{{ui.site}}">
           {{> headerMenu}}
         </nav>
       </details>
       {{/if}}
       {{!-- Hidden until its script runs: without JavaScript, it would do nothing. --}}
       {{#if schemeToggle}}
-      <button class="{{{cls.schemeToggle}}}" type="button" data-scheme-toggle hidden aria-label="Switch the colour scheme">
+      <button class="{{{cls.schemeToggle}}}" type="button" data-scheme-toggle hidden aria-label="{{ui.switchScheme}}">
         <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
         <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
       </button>
@@ -89,12 +89,12 @@
       menu above the content on a narrow one, where a full menu would eat the
       first screen. Only one of the two is displayed at a time. --}}
       {{#if sidebar.length}}
-      <nav class="{{{cls.sidebar}}}" aria-label="Documentation navigation">
+      <nav class="{{{cls.sidebar}}}" aria-label="{{ui.documentationNavigation}}">
         {{> navItems sidebar}}
       </nav>
       <details class="{{{cls.sidebarMenu}}}">
-        <summary>Documentation menu</summary>
-        <nav aria-label="Documentation navigation">
+        <summary>{{ui.documentationMenu}}</summary>
+        <nav aria-label="{{ui.documentationNavigation}}">
           {{> navItems sidebar}}
         </nav>
       </details>
@@ -104,11 +104,11 @@
         {{#if notice}}
         <aside class="{{{cls.notice}}}" role="note">
           {{#if notice.prerelease}}
-          This version is in preparation and may change.
+          {{ui.prereleaseNotice}}
           {{else}}
-          This version is no longer maintained.
+          {{ui.archivedNotice}}
           {{/if}}
-          The current version is <a href="{{notice.url}}">{{notice.name}}</a>.
+          {{ui.currentVersionIs}} <a href="{{notice.url}}">{{notice.name}}</a>.
         </aside>
         {{/if}}
         {{!-- Who wrote the page, and when. Absent when the page says neither,
@@ -139,26 +139,26 @@
         text, they say what it was about. Labels, not links — there is no page
         per tag. None on a home page. --}}
         {{#if tags.length}}
-        <ul class="{{{cls.tags}}}" aria-label="Tags">
+        <ul class="{{{cls.tags}}}" aria-label="{{ui.tags}}">
           {{#each tags}}<li class="{{{@root.cls.tag}}}">{{this}}</li>{{/each}}
         </ul>
         {{/if}}
       </main>
 
       {{#if toc.length}}
-      <nav class="{{{cls.toc}}}" aria-label="On this page">
-        <p class="{{{cls.tocTitle}}}">On this page</p>
+      <nav class="{{{cls.toc}}}" aria-label="{{ui.onThisPage}}">
+        <p class="{{{cls.tocTitle}}}">{{ui.onThisPage}}</p>
         {{> tocItems toc}}
       </nav>
       {{/if}}
     </div>
 
     <footer class="{{{cls.footer}}}">
-      <p>{{projectName}} — version {{versionName}}</p>
+      <p>{{projectName}} — {{ui.versionLabel}} {{versionName}}</p>
     </footer>
 
     {{#if scrollToTop}}
-    <a class="{{{cls.scrollTop}}}" href="#top" aria-label="Back to top">
+    <a class="{{{cls.scrollTop}}}" href="#top" aria-label="{{ui.backToTop}}">
       <svg
         class="{{{cls.scrollTopIcon}}}"
         viewBox="0 0 24 24"
