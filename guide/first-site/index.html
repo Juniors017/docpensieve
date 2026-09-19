@@ -145,6 +145,9 @@
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/navigation/">Navigation</a>
                 </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
+                </li>
               </ul>
             </details>
           </li>
@@ -297,6 +300,9 @@
                         <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/versions/">Versions</a>
                       </li>
                       <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/being-found/">Being found</a>
+                      </li>
+                      <li class="dp-nav-item">
                         <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/going-live/">Going live</a>
                       </li>
                     </ul>
@@ -341,6 +347,9 @@
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/navigation/">Navigation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
                   </li>
                 </ul>
               </details>
@@ -494,6 +503,9 @@
                           <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/versions/">Versions</a>
                         </li>
                         <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/being-found/">Being found</a>
+                        </li>
+                        <li class="dp-nav-item">
                           <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/examples/publishing/going-live/">Going live</a>
                         </li>
                       </ul>
@@ -548,6 +560,10 @@ pages are written, because a utility theme needs to know which classes were
 actually used in order to emit only those.</p>
 <p><strong>The <code>versions.json</code> at the root</strong> describes the available versions. It is
 what lets versions built long ago stay online without ever rebuilding them.</p>
+<p>The folder itself is <code>dist/</code>, which <code>outDir</code> changes — to <code>public/</code>, or to
+whatever your host expects. The build empties the folders it writes and leaves
+the rest of that folder alone, so an output folder shared with something else
+keeps what is not its own.</p>
 <h2 id="reading-the-output-back">Reading the output back</h2>
 <p>A successful build says nothing of a dead link: nothing in the chain looks at
 them. A command takes care of it:</p>
@@ -562,7 +578,8 @@ online.</p>
     → ignores the deployment prefix &quot;/my-project/&quot;
 </code></pre>
 <p>It is the check to run after any change of <code>baseUrl</code>, of folder structure or of
-URL.</p>
+URL. When something does not add up, <a href="/versions/beta/guide/when-it-breaks/">When it breaks</a> lists
+the failures this tool produces, by the symptom you see.</p>
 <h2 id="searching-the-site">Searching the site</h2>
 <p>Every page carries a search field in its header. It leads to the search page
 of the version, at <code>/search/</code>, which the build writes with the site: the list
