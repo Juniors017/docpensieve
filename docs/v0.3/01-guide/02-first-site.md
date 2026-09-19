@@ -72,6 +72,11 @@ actually used in order to emit only those.
 **The `versions.json` at the root** describes the available versions. It is
 what lets versions built long ago stay online without ever rebuilding them.
 
+The folder itself is `dist/`, which `outDir` changes — to `public/`, or to
+whatever your host expects. The build empties the folders it writes and leaves
+the rest of that folder alone, so an output folder shared with something else
+keeps what is not its own.
+
 ## Reading the output back
 
 A successful build says nothing of a dead link: nothing in the chain looks at

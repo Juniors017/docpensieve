@@ -197,6 +197,10 @@ In an `.mdx` page, the shipped components are used **without an import**:
 They are rendered at build time: the delivered HTML only holds their result.
 The list is in [Components](../components/).
 
+`globalComponents: false` removes them from every page. It is meant for a
+project that would rather bring its own: a page still using one then stops the
+build, naming it.
+
 ## A trap to know
 
 The content of a JSX tag **left alone on its own line** becomes a paragraph:
