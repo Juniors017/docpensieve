@@ -3,14 +3,14 @@ title: Going live
 description: The two addresses to set, the build that runs on its own, and the check that stops a bad publication.
 authors: [valentin, pensy]
 date: 2026-09-12
-modified: 2026-09-18
+modified: 2026-09-19
 tags: [course, advanced, deployment]
 ---
 
 # Going live
 
 <Skill name="Module progress" level={100} color="#10b981">
-  Lesson 2 of 2 — the last one of the course.
+  Lesson 3 of 3 — the last one of the course.
 </Skill>
 
 The site is a folder of HTML files. Putting it online is copying that folder
@@ -37,10 +37,13 @@ every link points one level too high — the site works on your machine and
 breaks the moment it is online. `siteUrl` is what lets the build write a
 sitemap, canonical addresses and share previews.
 
-<Admonition type="attention" title="The trap of the machine that works">
-  `npx docpensieve dev` serves at the root, so a wrong `baseUrl` never shows there. Build and open
-  `dist/` the way the host will: that is the only honest rehearsal.
-</Admonition>
+<Card style={{ borderColor: '#f59e0b' }}>
+  <CardHeader>The trap of the machine that works</CardHeader>
+  <CardBody>
+    `npx docpensieve dev` serves at the root, so a wrong `baseUrl` never shows there. Build and open
+    `dist/` the way the host will: that is the only honest rehearsal.
+  </CardBody>
+</Card>
 
 ## Your turn: build and read it back
 
@@ -82,11 +85,14 @@ differently; each does the same four things:
 - run: npx docpensieve check
 ```
 
-<Admonition type="tip" title="Pin the version once it matters">
-  A project created by `init` has no `package.json`, so `npx` takes the latest published version —
-  convenient at first, surprising later. Declare the tool in a `package.json` and run `npm ci`
-  before the build, and two builds a month apart produce the same site.
-</Admonition>
+<Card style={{ borderColor: 'var(--dp-accent)' }}>
+  <CardHeader>Pin the version once it matters</CardHeader>
+  <CardBody>
+    A project created by `init` has no `package.json`, so `npx` takes the latest published version —
+    convenient at first, surprising later. Declare the tool in a `package.json` and run `npm ci`
+    before the build, and two builds a month apart produce the same site.
+  </CardBody>
+</Card>
 
 ## What the reader downloads
 

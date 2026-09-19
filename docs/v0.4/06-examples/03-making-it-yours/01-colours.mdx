@@ -95,6 +95,50 @@ removes it.
   </Column>
 </Columns>
 
+## What follows the accent on its own
+
+An icon inlined in the page takes the colour of the text around it, so it
+follows your palette without being told:
+
+<LogoIcon src="../../icons/star.svg" size="1.5rem" style={{ color: 'var(--dp-accent)' }} /> on the
+accent,
+<LogoIcon src="../../icons/shield.svg" size="1.5rem" style={{ color: 'var(--dp-text-soft)' }} /> on
+the quiet text.
+
+```mdx
+<LogoIcon src="./icons/star.svg" size="1.5rem" style={{ color: 'var(--dp-accent)' }} />
+```
+
+The one thing that does **not** follow by itself is a class you write yourself,
+and its shape depends on the theme you chose in the first lesson of the course:
+
+<ForTheme framework="tailwind">
+
+Under the `tailwind` theme, a one-off colour is a utility, written where it is
+used:
+
+```mdx
+<div className="text-indigo-500">A line of your own</div>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Under the `custom` theme, a one-off colour is a class of the `theme/` folder,
+written on the tokens so that it follows the palette:
+
+```css
+/* theme/99-mine.css */
+.mine {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+This page is showing you the variant of the theme this very site runs — that is
+`ForTheme`, and it is how the whole documentation stays right under both.
+
 ## Check yourself
 
 <details>

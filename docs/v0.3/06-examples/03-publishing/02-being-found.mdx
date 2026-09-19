@@ -1,0 +1,166 @@
+---
+title: Being found
+description: A documentation nobody finds is a documentation nobody reads — search, sitemap, shared links and weight.
+authors: [valentin, pensy]
+date: 2026-09-19
+tags: [course, advanced, discovery]
+---
+
+# Being found
+
+<Skill name="Module progress" level={66}>
+  Lesson 2 of 3.
+</Skill>
+
+Your reader rarely arrives at the home page. They arrive from a search engine,
+from a link a colleague pasted, or from the field in your own header — three
+doors, and this lesson opens all three.
+
+## The search inside the site
+
+Every page carries a field in its header. It leads to `/search/`, a page the
+build writes with the site: the list of every page, which a small script
+filters as the reader types.
+
+<Card style={{ borderColor: 'var(--dp-border)' }}>
+  <CardHeader>The only page with a script</CardHeader>
+  <CardBody>
+    Nothing else on your site loads JavaScript — except the light/dark button, if you keep it.
+    Without the script, the search page stays the list of every page, which is still a usable table
+    of contents.
+  </CardBody>
+</Card>
+
+`search: false` removes the field and the page. Worth doing on a site of ten
+pages, where the menu already shows everything.
+
+## The two files crawlers read
+
+```js
+siteUrl: 'https://acme.example.com/docs',
+```
+
+That one field is what makes the rest possible — an address is what a crawler,
+a social network and a feed reader all need.
+
+| File          | Written when                            | What it holds                                        |
+| ------------- | --------------------------------------- | ---------------------------------------------------- |
+| `sitemap.xml` | `siteUrl` is set                        | Every page of every version, **except a prerelease** |
+| `robots.txt`  | the site sits at the root of its domain | Where the sitemap is                                 |
+| `feed.xml`    | `feed: true`                            | The latest pages, announced in the head              |
+
+A version marked `prerelease` stays out of the sitemap and asks not to be
+indexed. That is what stops a reader searching for your tool from landing on
+the documentation of a version nobody can install yet.
+
+<Card style={{ borderColor: '#f59e0b' }}>
+  <CardHeader>robots.txt needs the root</CardHeader>
+  <CardBody>
+    Served from a subfolder, a site cannot speak for the whole domain — the file would claim rules
+    over addresses that are not yours. The build simply does not write it, which is the right call
+    and easy to mistake for a bug.
+  </CardBody>
+</Card>
+
+## What a shared link looks like
+
+A link pasted in a chat shows a title, a description and an image. All three
+come from what you already wrote:
+
+<Columns>
+  <Column span={5}>
+    <Card>
+      <CardImage src="../../icons/logo.jpg" alt="The preview of a shared page" />
+      <CardHeader>The preview</CardHeader>
+      <CardBody>
+        Title and description from the frontmatter, image from `socialImage`.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={7}>
+
+The `description` of a page is not decoration: it is the sentence under the
+title in a search result, and the one under the link in a chat. A page without
+one is announced by its title alone.
+
+`socialImage` is declared once, in the configuration, and needs `siteUrl` —
+another machine fetches it, so the address has to be absolute.
+
+  </Column>
+</Columns>
+
+## Saying what a page is
+
+Search engines read structured data. The build writes it from the frontmatter,
+and a page can say what kind of thing it is:
+
+```yaml
+---
+title: Install
+description: One command sets up a project.
+jsonld:
+  type: TechArticle
+  faq:
+    - question: Which Node version do I need?
+      answer: Version 22 or later.
+---
+```
+
+The questions become a real FAQ block in the structured data — the kind a
+search engine can show folded under your result.
+
+## Weight, which nobody notices until it is bad
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Scripts on a page" level={0} shape="circle" showValue={false} />
+  <Skill name="Stylesheets" level={10} shape="circle" showValue={false} color="#10b981" />
+  <Skill name="Images measured" level={100} shape="circle" color="#10b981" />
+</div>
+
+Three things happen at the build without being asked:
+
+- **Each image gets its dimensions**, read from the file itself, so the page
+  stops jumping while it loads.
+- **Every image but the first loads late**, which is why the top of the page
+  arrives first.
+- **The stylesheet is minified**, and holds only the rules the pages use.
+
+Nothing to configure. It is worth knowing because it explains a surprise: the
+first image of a page is deliberately not deferred, and that is not an
+oversight.
+
+## Tags, and what they are not
+
+```yaml
+tags: [course, advanced, discovery]
+```
+
+They show under the page and travel into the structured data as keywords.
+**There is no page per tag**: they label, they do not navigate. A reader
+looking for everything on one subject uses the search field.
+
+## Check yourself
+
+<details>
+<summary>Your beta is in the sitemap. What did you forget?</summary>
+
+`prerelease: true` on that version. Without it, nothing distinguishes it from
+the version people should be reading.
+
+</details>
+
+<details>
+<summary>No `robots.txt` was written and `siteUrl` is set. Why?</summary>
+
+The site is served from a subfolder. A `robots.txt` only means something at the
+root of a domain, so the build leaves it out rather than write a file that
+would speak for addresses that are not yours.
+
+</details>
+
+<Card href="/guide/deployment/">
+  <CardBody>
+    The deployment guide covers the same ground from the host's side — what to serve, and what to
+    check before it goes online.
+  </CardBody>
+</Card>

@@ -98,9 +98,30 @@ in your text rather than in the configuration.
 </Menu>
 ```
 
-Entries can be grouped under a title with `MenuGroup`. On a narrow screen the
-row folds behind its label — the same fold as the header, and no more script
-than it.
+Past a handful of entries, `MenuGroup` puts them under a title — the reader
+stops reading a flat list and starts reading two short ones:
+
+<Menu label="The whole course">
+  <MenuGroup title="Learn">
+    <MenuLink href="/examples/first-steps/">First steps</MenuLink>
+    <MenuLink href="/examples/writing/">Writing well</MenuLink>
+  </MenuGroup>
+  <MenuGroup title="Ship">
+    <MenuLink href="/examples/making-it-yours/">Making it yours</MenuLink>
+    <MenuLink href="/examples/publishing/">Going live</MenuLink>
+  </MenuGroup>
+</Menu>
+
+```mdx
+<Menu label="The whole course">
+  <MenuGroup title="Learn">
+    <MenuLink href="/examples/first-steps/">First steps</MenuLink>
+  </MenuGroup>
+</Menu>
+```
+
+On a narrow screen the row folds behind its label — the same fold as the
+header, and no more script than it.
 
 ## On a phone
 
