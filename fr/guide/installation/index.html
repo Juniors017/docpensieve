@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Installation · DocPensieve</title>
+    <meta name="description" content="Ce qu&#x27;il faut, et comment mettre en place un projet de documentation." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://docpensieve.com/versions/beta/fr/guide/installation/" />
+    <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="Installation · DocPensieve" />
+    <meta property="og:description" content="Ce qu&#x27;il faut, et comment mettre en place un projet de documentation." />
+    <meta property="og:url" content="https://docpensieve.com/versions/beta/fr/guide/installation/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/beta/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/guide/installation/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/guide/installation/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/fr/guide/installation/#article","headline":"Installation","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/fr/guide/installation/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Ce qu'il faut, et comment mettre en place un projet de documentation.","datePublished":"2026-09-09","dateModified":"2026-09-19","keywords":["guide","installation"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/fr/guide/installation/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/fr/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/beta/fr/guide/"},{"@type":"ListItem","position":3,"name":"Installation","item":"https://docpensieve.com/versions/beta/fr/guide/installation/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Aller au contenu</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+            <li><a href="/versions/latest/">0.3.0</a></li>
+            <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Langue">Langue</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/beta/guide/installation/">EN</a>
+            </li>
+            <li>
+              <a href="https://docpensieve.com/versions/beta/fr/guide/installation/" aria-current="true">FR</a>
+            </li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li>
+            <a href="/versions/latest/examples/">Examples</a>
+          </li>
+          <li>
+            <details class="dp-mega">
+              <summary>Product</summary>
+              <div class="dp-mega-panel">
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Guide</p>
+                  <ul>
+                    <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                  </ul>
+                </div>
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Reference</p>
+                  <ul>
+                    <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ul>
+        <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+          <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+              <li><a href="/versions/latest/">0.3.0</a></li>
+              <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Langue">Langue</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/beta/guide/installation/">EN</a>
+              </li>
+              <li>
+                <a href="https://docpensieve.com/versions/beta/fr/guide/installation/" aria-current="true">FR</a>
+              </li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li>
+              <a href="/versions/latest/examples/">Examples</a>
+            </li>
+            <li>
+              <details class="dp-mega">
+                <summary>Product</summary>
+                <div class="dp-mega-panel">
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Guide</p>
+                    <ul>
+                      <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                    </ul>
+                  </div>
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Reference</p>
+                    <ul>
+                      <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+            <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+          </form>
+        </nav>
+      </details>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Basculer entre clair et sombre">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Navigation de la documentation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group" open>
+              <summary class="dp-nav-summary">Guide</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/" aria-current="page">Installation</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <details class="dp-sidebar-menu">
+        <summary>Menu de la documentation</summary>
+        <nav aria-label="Navigation de la documentation">
+          <ul class="dp-nav">
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group" open>
+                <summary class="dp-nav-summary">Guide</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/" aria-current="page">Installation</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </details>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <aside class="dp-notice" role="note">
+          Cette version est en préparation et peut encore changer.
+          La version actuelle est <a href="/versions/latest/">0.3.0</a>.
+        </aside>
+        <div class="dp-byline">
+          <p class="dp-byline-dates">
+            <span>Écrit <time datetime="2026-09-09">9 septembre 2026</time></span><span>Mis à jour <time datetime="2026-09-19">19 septembre 2026</time></span>
+          </p>
+        </div>
+        <article class="dp-article"><h1 id="installation">Installation</h1>
+<h2 id="ce-quil-faut">Ce qu&#x27;il faut</h2>
+<p><strong>Node.js 22 ou plus récent.</strong> C&#x27;est la seule exigence. Le générateur tourne à
+la génération, pas du côté du lecteur : rien d&#x27;autre à installer sur le serveur
+qui hébergera le site, lequel n&#x27;a qu&#x27;à servir des fichiers.</p>
+<h2 id="mettre-en-place-un-projet">Mettre en place un projet</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> mon-site</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> mon-site</span></span></code></pre>
+<p>La commande crée le dossier et y écrit une configuration, un premier dossier de
+documentation et une page d&#x27;accueil. Elle pose quelques questions ; <code>--yes</code> les
+passe et accepte les valeurs par défaut. Là où elle ne peut pas les poser — un
+script, une intégration continue, ou un terminal qui ne donne aucune entrée
+interactive aux programmes qu&#x27;il lance — elle le dit et s&#x27;en tient aux options
+et aux défauts.</p>
+<p>Elle installe aussi cette documentation, dans une section <strong>DocPensieve</strong> à la
+fin du menu du nouveau site. Elle correspond à la version que vous avez
+installée, et son dossier, <code>99-docpensieve</code>, se supprime dès que vous n&#x27;en avez
+plus besoin ; <code>--minimal</code> l&#x27;écarte d&#x27;emblée. Le fichier de configuration liste
+toutes les options, chacune commentée, à sa valeur par défaut ou donnée en
+exemple.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> mon-site</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --yes</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --name</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> &quot;Ma documentation&quot;</span></span></code></pre>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effet</th></tr></thead><tbody><tr><td><code>-n, --name &lt;nom&gt;</code></td><td>Nom du projet, affiché dans l&#x27;en-tête</td></tr><tr><td><code>-t, --theme &lt;framework&gt;</code></td><td><code>tailwind</code> ou <code>custom</code></td></tr><tr><td><code>-u, --site-url &lt;url&gt;</code></td><td>Adresse publique, dont découle le préfixe de déploiement</td></tr><tr><td><code>--version-name &lt;version&gt;</code></td><td>Première version, <code>1.0</code> par exemple</td></tr><tr><td><code>-y, --yes</code></td><td>Accepte les valeurs par défaut sans dialogue</td></tr><tr><td><code>-f, --force</code></td><td>Écrase une configuration existante</td></tr><tr><td><code>--minimal</code></td><td>Laisse la documentation de DocPensieve hors du site</td></tr></tbody></table></div>
+<h2 id="linstaller-dans-un-projet">L&#x27;installer dans un projet</h2>
+<p>Avec <code>npx</code> seul, la version employée est la dernière publiée. Pour figer celle
+qu&#x27;un projet utilise — ce dont l&#x27;intégration continue a besoin — installez-la
+dans le projet :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -y</span><span style="color:#6A737D;--shiki-dark:#6A737D">              # seulement si le dossier n&#x27;a pas encore de package.json</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> .</span></span></code></pre>
+<p><code>npm install</code> ne fait qu&#x27;installer : il ne crée aucun site et ne demande rien —
+c&#x27;est <code>init</code> qui s&#x27;en charge. Il installe aussi dans le dossier le plus proche
+qui possède un <code>package.json</code>, en remontant depuis le dossier courant : dans un
+dossier qui n&#x27;en a pas, le paquet atterrit dans un dossier parent et rien
+n&#x27;apparaît là où vous êtes. D&#x27;où le <code>npm init -y</code> d&#x27;abord. <code>npx docpensieve</code>
+lance ensuite la copie installée.</p>
+<p><code>init</code> refuse d&#x27;écraser une configuration existante : il faut le demander avec
+<code>--force</code>. Ce refus est voulu — une configuration écrasée par mégarde ne se
+remarque qu&#x27;au déploiement suivant.</p>
+<h2 id="choisir-le-theme">Choisir le thème</h2>
+<p><code>tailwind</code> est le défaut et installe Tailwind en dépendance. <code>custom</code> s&#x27;en
+passe entièrement : le site est alors habillé par une feuille écrite dans le
+paquet, sans aucune dépendance de style. Vos propres classes vivent alors dans
+le dossier <code>theme/</code>, que <code>init</code> amorce avec <code>theme/custom.css</code>.</p>
+<p>Les deux s&#x27;emploient de la même façon — les gabarits sont les mêmes, seul
+l&#x27;habillage change. Le choix n&#x27;est pas définitif : il tient dans un champ de la
+configuration, décrit dans <a href="/versions/beta/guide/themes/">Thèmes</a>.</p>
+<h2 id="mettre-a-jour">Mettre à jour</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@latest</span></span></code></pre>
+<p>Lancé par <code>npx</code> seul, DocPensieve ne demande rien : <code>npx docpensieve</code> va
+chercher la dernière version de lui-même.</p>
+<p>Un projet monté avec la 0.1.0 possède un <code>docpensieve.config.js</code>. Il fonctionne
+encore, mais Node ne le lit comme module que si le <code>package.json</code> le déclare, et
+avertit à chaque génération sinon : renommez-le <code>docpensieve.config.mjs</code>.</p>
+<p>La documentation installée par <code>init</code> dans <code>99-docpensieve</code> reste à la version
+qui l&#x27;a écrite. Pour la rafraîchir, lancez <code>init</code> dans un dossier jetable et
+recopiez ce dossier.</p>
+<p>Venant de la 0.3, <a href="/versions/beta/guide/migrate-to-beta/">Migrer vers la bêta</a> dit ce
+qui change tout seul et ce qu&#x27;il faut vérifier. Pour essayer cette bêta,
+installez <code>docpensieve@beta</code>, ou lancez <code>npx docpensieve@beta</code> seul.</p>
+<h2 id="verifier">Vérifier</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
+<p>Si le dossier de sortie apparaît avec un <code>index.html</code> dedans, tout est en
+place. Ensuite : <a href="/versions/beta/guide/first-site/">Premier site</a>.</p></article>
+        <ul class="dp-tags" aria-label="Étiquettes">
+          <li class="dp-tag">guide</li><li class="dp-tag">installation</li>
+        </ul>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="Sur cette page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Sur cette page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#ce-quil-faut">Ce qu&#x27;il faut</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#mettre-en-place-un-projet">Mettre en place un projet</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#linstaller-dans-un-projet">L&#x27;installer dans un projet</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#choisir-le-theme">Choisir le thème</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#mettre-a-jour">Mettre à jour</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#verifier">Vérifier</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.4.0-beta.2</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>

@@ -17,6 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/whats-new/" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/beta/whats-new/#article","headline":"What's new in 0.4","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/whats-new/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"What the 0.4 brings, and what it changes for a 0.3 project.","keywords":["release"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/whats-new/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/"},{"@type":"ListItem","position":2,"name":"What's new in 0.4","item":"https://docpensieve.com/versions/beta/whats-new/"}]}]}</script>
   </head>
   <body>
@@ -33,6 +34,17 @@
             <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
             <li><a href="/versions/latest/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Language">Language</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/beta/whats-new/" aria-current="true">EN</a>
+            </li>
+            <li>
+              <span aria-disabled="true">FR</span>
+            </li>
           </ul>
         </details>
         <ul class="dp-header-links">
@@ -74,6 +86,17 @@
               <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
               <li><a href="/versions/latest/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Language">Language</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/beta/whats-new/" aria-current="true">EN</a>
+              </li>
+              <li>
+                <span aria-disabled="true">FR</span>
+              </li>
             </ul>
           </details>
           <ul class="dp-header-links">
@@ -147,6 +170,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/languages/">Languages</a>
                 </li>
               </ul>
             </details>
@@ -350,6 +376,9 @@
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/languages/">Languages</a>
                   </li>
                 </ul>
               </details>
@@ -570,6 +599,17 @@ project installs and the drawing is placed in the page at the build, like any
 other icon: your reader downloads nothing, and no request leaves their browser.
 An admonition kind takes its mark the same way. See
 <a href="/versions/beta/components/logo-icon/">LogoIcon</a>.</p>
+<h3 id="a-site-in-several-languages">A site in several languages</h3>
+<p>A version declares the folder of each translation:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;latest&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    translations: { fr: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0-fr&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> } },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span></code></pre>
+<p>The language of the site keeps the addresses it has, and a translation is
+served under its code — <code>/versions/latest/fr/</code>. The shell follows: English and
+French ship with the tool, and the <code>ui</code> field corrects a word or adds a
+language. A page nobody translated is not offered in that language rather than
+served in another. See <a href="/versions/beta/guide/languages/">Languages</a>.</p>
 <h2 id="for-a-0-3-project">For a 0.3 project</h2>
 <p>Nothing to change: a 0.3 configuration builds as it is, every new field being
 optional. <a href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a> lists what
@@ -602,6 +642,9 @@ changes on its own, and what is worth turning on.</p></article>
               </li>
               <li class="dp-toc-item">
                 <a href="#icons-from-a-set">Icons from a set</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#a-site-in-several-languages">A site in several languages</a>
               </li>
             </ul>
           </li>

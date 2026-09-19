@@ -17,6 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/reference/api/" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/beta/reference/api/#article","headline":"API","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/reference/api/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Every export of the five packages, from their JSDoc.","keywords":["reference","api"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/reference/api/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/"},{"@type":"ListItem","position":2,"name":"Reference","item":"https://docpensieve.com/versions/beta/reference/"},{"@type":"ListItem","position":3,"name":"API","item":"https://docpensieve.com/versions/beta/reference/api/"}]}]}</script>
   </head>
   <body>
@@ -33,6 +34,17 @@
             <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
             <li><a href="/versions/latest/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Language">Language</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/beta/reference/api/" aria-current="true">EN</a>
+            </li>
+            <li>
+              <span aria-disabled="true">FR</span>
+            </li>
           </ul>
         </details>
         <ul class="dp-header-links">
@@ -74,6 +86,17 @@
               <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
               <li><a href="/versions/latest/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Language">Language</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/beta/reference/api/" aria-current="true">EN</a>
+              </li>
+              <li>
+                <span aria-disabled="true">FR</span>
+              </li>
             </ul>
           </details>
           <ul class="dp-header-links">
@@ -147,6 +170,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/languages/">Languages</a>
                 </li>
               </ul>
             </details>
@@ -350,6 +376,9 @@
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/when-it-breaks/">When it breaks</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/guide/languages/">Languages</a>
                   </li>
                 </ul>
               </details>
@@ -670,6 +699,22 @@ real title — the sidebar and the breadcrumb prefer the frontmatter title.</p>
 <p>Reads the ordering weight of a prefixed file name.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>filename</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>number</code> — The prefix number, or <code>Infinity</code> when absent (sorted last).</p>
+<h3 id="ui-strings"><code>UI_STRINGS</code></h3>
+<p><code>UI_STRINGS</code></p>
+<p>The shipped languages.</p>
+<h3 id="default-language"><code>DEFAULT_LANGUAGE</code></h3>
+<p><code>DEFAULT_LANGUAGE</code></p>
+<p>Language used when nothing else is known.</p>
+<h3 id="uistrings"><code>uiStrings</code></h3>
+<p><code>uiStrings([lang], [overrides])</code></p>
+<p>The wording of a language, completed by English for anything it omits.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[lang]</code></td><td><code>string</code></td><td>Language code, <code>fr</code> or <code>fr-CA</code>.</td></tr><tr><td><code>[overrides]</code></td><td><code>Record&lt;string, Partial&lt;UiStrings&gt;&gt;</code></td><td>Wording declared by the project.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>UiStrings</code></p>
+<h3 id="pagecount"><code>pageCount</code></h3>
+<p><code>pageCount(count, strings)</code></p>
+<p>Counts pages in the language of the page.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>count</code></td><td><code>number</code></td><td></td></tr><tr><td><code>strings</code></td><td><code>UiStrings</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — For instance <code>12 pages</code> or <code>1 page</code>.</p>
 <h2 id="docpensieve-core"><code>@docpensieve/core</code></h2>
 <p>Configuration, loading, compilation, structured data and generation.</p>
 <h3 id="default-config"><code>DEFAULT_CONFIG</code></h3>
@@ -785,19 +830,19 @@ that carries neither is listed without one rather than with a made-up date.</p>
 <p><strong>Returns</strong> <code>Map&lt;string, Author&gt;</code></p>
 <p><strong>Throws</strong> <code>ConfigError</code> — When the shape is wrong, naming the offending entry.</p>
 <h3 id="buildbyline"><code>buildByline</code></h3>
-<p><code>buildByline(frontmatter, [table], [where])</code></p>
+<p><code>buildByline(frontmatter, [table], [where], [locale])</code></p>
 <p>Assembles what the head of a page shows, or nothing when it has none of it.</p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>frontmatter</code></td><td><code>Record&lt;string, any&gt;</code></td><td></td></tr><tr><td><code>[table]</code></td><td><code>Map&lt;string, Author&gt;</code></td><td></td></tr><tr><td><code>[where]</code></td><td><code>string</code></td><td>Page named in a date error.</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>frontmatter</code></td><td><code>Record&lt;string, any&gt;</code></td><td></td></tr><tr><td><code>[table]</code></td><td><code>Map&lt;string, Author&gt;</code></td><td></td></tr><tr><td><code>[where]</code></td><td><code>string</code></td><td>Page named in a date error.</td></tr><tr><td><code>[locale]</code></td><td><code>string</code></td><td>Locale the dates are written in.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>Byline \| null</code></p>
 <p><strong>Throws</strong> <code>ConfigError</code> — When a date cannot be read.</p>
 <h3 id="readdate"><code>readDate</code></h3>
-<p><code>readDate(value, field, where)</code></p>
+<p><code>readDate(value, field, where, [locale])</code></p>
 <p>Reads a date of the frontmatter, and gives it in both forms: the machine one
 for <code>&lt;time datetime&gt;</code>, the readable one for the reader.</p>
 <p>A date is often written unquoted in YAML, which parses it as a Date; quoted,
 it arrives as text. Both are accepted, anything unreadable is refused rather
 than shown as <code>Invalid Date</code>.</p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>unknown</code></td><td></td></tr><tr><td><code>field</code></td><td><code>string</code></td><td>Name of the field, for the error message.</td></tr><tr><td><code>where</code></td><td><code>string</code></td><td>Page the date comes from.</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>unknown</code></td><td></td></tr><tr><td><code>field</code></td><td><code>string</code></td><td>Name of the field, for the error message.</td></tr><tr><td><code>where</code></td><td><code>string</code></td><td>Page the date comes from.</td></tr><tr><td><code>[locale]</code></td><td><code>string</code></td><td>Locale the label is written in. Default: <code>en-GB</code>.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>{ iso: string, label: string } \| null</code> — <code>null</code> when absent.</p>
 <p><strong>Throws</strong> <code>ConfigError</code> — When the value is not a date.</p>
 <h3 id="resolvepageauthors"><code>resolvePageAuthors</code></h3>
@@ -1185,6 +1230,18 @@ one, which makes it usable elsewhere and testable on its own.</p>
               </li>
               <li class="dp-toc-item">
                 <a href="#orderof">orderOf</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#ui-strings">UI_STRINGS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#default-language">DEFAULT_LANGUAGE</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#uistrings">uiStrings</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#pagecount">pageCount</a>
               </li>
             </ul>
           </li>
