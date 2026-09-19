@@ -131,6 +131,20 @@ async function init() {
   const status = /** @type {HTMLElement | null} */ (document.querySelector('[data-search-status]'));
   if (!form || !input || !list || !status) return;
 
+  // The wording of the page, put there by the build: this file is copied as
+  // it is into every site, whatever its language.
+  const words = {
+    failed: 'The search index could not be loaded: every page is listed below.',
+    page: 'page',
+    pages: 'pages',
+    noResultFor: 'No page matches “{query}”.',
+    resultsFor: '{count} for “{query}”.',
+    ...JSON.parse(form.dataset.strings || '{}'),
+  };
+
+  /** @param {number} n */
+  const count = (n) => `${n} ${n === 1 ? words.page : words.pages}`;
+
   /** @type {Map<string, HTMLElement>} */
   const items = new Map();
   const listed = /** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll('li[data-url]'));
@@ -142,7 +156,7 @@ async function init() {
     const response = await fetch(form.dataset.index ?? '');
     entries = await response.json();
   } catch {
-    status.textContent = 'The search index could not be loaded: every page is listed below.';
+    status.textContent = words.failed;
     return;
   }
 
@@ -161,7 +175,7 @@ async function init() {
         reset(item);
         list.append(item);
       }
-      status.textContent = `${items.size} pages.`;
+      status.textContent = `${count(items.size)}.`;
       return;
     }
 
@@ -186,8 +200,8 @@ async function init() {
 
     status.textContent =
       found.length === 0
-        ? `No page matches “${query}”.`
-        : `${found.length} ${found.length === 1 ? 'page' : 'pages'} for “${query}”.`;
+        ? words.noResultFor.replace('{query}', query)
+        : words.resultsFor.replace('{count}', count(found.length)).replace('{query}', query);
   };
 
   input.value = new URLSearchParams(location.search).get('q') ?? '';
