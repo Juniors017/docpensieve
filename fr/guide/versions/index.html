@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="fr" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Versions · DocPensieve</title>
+    <meta name="description" content="Garder côte à côte la version en ligne et celle qui se prépare." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://docpensieve.com/versions/beta/fr/guide/versions/" />
+    <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="Versions · DocPensieve" />
+    <meta property="og:description" content="Garder côte à côte la version en ligne et celle qui se prépare." />
+    <meta property="og:url" content="https://docpensieve.com/versions/beta/fr/guide/versions/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/beta/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/guide/versions/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/guide/versions/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/fr/guide/versions/#article","headline":"Versions","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/fr/guide/versions/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Garder côte à côte la version en ligne et celle qui se prépare.","keywords":["guide","versions"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/fr/guide/versions/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/fr/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/beta/fr/guide/"},{"@type":"ListItem","position":3,"name":"Versions","item":"https://docpensieve.com/versions/beta/fr/guide/versions/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Aller au contenu</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+            <li><a href="/versions/latest/">0.3.0</a></li>
+            <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Langue">Langue</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/beta/guide/versions/">EN</a>
+            </li>
+            <li>
+              <a href="https://docpensieve.com/versions/beta/fr/guide/versions/" aria-current="true">FR</a>
+            </li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li>
+            <a href="/versions/latest/examples/">Examples</a>
+          </li>
+          <li>
+            <details class="dp-mega">
+              <summary>Product</summary>
+              <div class="dp-mega-panel">
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Guide</p>
+                  <ul>
+                    <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                  </ul>
+                </div>
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Reference</p>
+                  <ul>
+                    <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ul>
+        <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+          <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+              <li><a href="/versions/latest/">0.3.0</a></li>
+              <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Langue">Langue</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/beta/guide/versions/">EN</a>
+              </li>
+              <li>
+                <a href="https://docpensieve.com/versions/beta/fr/guide/versions/" aria-current="true">FR</a>
+              </li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li>
+              <a href="/versions/latest/examples/">Examples</a>
+            </li>
+            <li>
+              <details class="dp-mega">
+                <summary>Product</summary>
+                <div class="dp-mega-panel">
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Guide</p>
+                    <ul>
+                      <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                    </ul>
+                  </div>
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Reference</p>
+                    <ul>
+                      <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+            <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+          </form>
+        </nav>
+      </details>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Basculer entre clair et sombre">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Navigation de la documentation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group" open>
+              <summary class="dp-nav-summary">Guide</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/">Installation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/first-site/">Premier site</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/writing-pages/">Écrire des pages</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/versions/" aria-current="page">Versions</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/navigation/">Navigation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/when-it-breaks/">Quand ça casse</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/languages/">Langues</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <details class="dp-sidebar-menu">
+        <summary>Menu de la documentation</summary>
+        <nav aria-label="Navigation de la documentation">
+          <ul class="dp-nav">
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group" open>
+                <summary class="dp-nav-summary">Guide</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/">Installation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/first-site/">Premier site</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/writing-pages/">Écrire des pages</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/versions/" aria-current="page">Versions</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/navigation/">Navigation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/when-it-breaks/">Quand ça casse</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/languages/">Langues</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </details>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <aside class="dp-notice" role="note">
+          Cette version est en préparation et peut encore changer.
+          La version actuelle est <a href="/versions/latest/">0.3.0</a>.
+        </aside>
+        <article class="dp-article"><h1 id="versions">Versions</h1>
+<p>Une version, c&#x27;est un <strong>dossier de sources</strong> et une <strong>entrée de
+configuration</strong>. Rien d&#x27;autre. Tout le reste — adresse, menu, sélecteur,
+branche — en découle.</p>
+<h2 id="le-modele-a-deux-voies">Le modèle à deux voies</h2>
+<p>C&#x27;est l&#x27;arrangement le plus courant, et celui qu&#x27;emploie la documentation de
+DocPensieve :</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Version</th><th>Rôle</th><th>Qui la voit</th></tr></thead><tbody><tr><td><strong>courante</strong></td><td>celle qui est en ligne et reçoit les correctifs</td><td>tout le monde, par défaut</td></tr><tr><td><strong>bêta</strong></td><td>celle qui se prépare pour la sortie suivante</td><td>ceux qui la choisissent</td></tr></tbody></table></div>
+<p>Un visiteur qui arrive à la racine est envoyé vers la <strong>courante</strong>. La bêta
+existe, elle est atteignable, mais personne n&#x27;y atterrit par hasard.</p>
+<h2 id="1-declarer-les-versions">1. Déclarer les versions</h2>
+<p>Dans <code>docpensieve.config.mjs</code> :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.1 (beta)&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, prerelease: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span></code></pre>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Champ</th><th>Rôle</th></tr></thead><tbody><tr><td><code>slug</code></td><td>Identifiant d&#x27;adresse et de branche. Il apparaît dans <code>/versions/&lt;slug&gt;/</code></td></tr><tr><td><code>name</code></td><td>Ce que le visiteur lit dans le sélecteur</td></tr><tr><td><code>folder</code></td><td>Dossier des sources, relatif à la racine du projet</td></tr><tr><td><code>current</code></td><td>La version servie par défaut. <strong>Au plus une</strong></td></tr><tr><td><code>archived</code></td><td>Version conservée mais qui ne reçoit plus de correctifs</td></tr><tr><td><code>prerelease</code></td><td>Version en préparation, pas encore la courante</td></tr></tbody></table></div>
+<p>Deux règles à retenir :</p>
+<ul>
+<li><strong>une seule version peut porter <code>current</code></strong> — deux arrêtent la génération ;</li>
+<li>si <strong>aucune</strong> ne la porte, la première de la liste devient courante. Une
+configuration à une seule version n&#x27;a donc rien à préciser.</li>
+</ul>
+<p>Le sélecteur n&#x27;apparaît dans l&#x27;en-tête qu&#x27;à partir de <strong>deux</strong> versions : un
+choix unique n&#x27;est pas un choix.</p>
+<h3 id="nommer-une-version-le-numero-ou-le-canal">Nommer une version : le numéro ou le canal</h3>
+<p>Le <code>slug</code> est l&#x27;adresse. Deux conventions, et le choix n&#x27;est pas neutre.</p>
+<p><strong>Le numéro</strong> — <code>v1.0</code>, <code>v1.1</code> — donne à chaque version une adresse qui ne
+bouge jamais : un lien pris aujourd&#x27;hui mène aux mêmes pages dans deux ans.
+Mais l&#x27;adresse ne peut porter que ce qui reste vrai pour toute une série.
+<code>v1.0</code> nomme encore la documentation une fois la <code>1.0.7</code> sortie : l&#x27;adresse en
+dit donc moins que le sélecteur, qui affiche la version exacte.</p>
+<p><strong>Le canal</strong> — <code>latest</code>, <code>beta</code> — nomme le rôle à la place. L&#x27;adresse que
+partage un lecteur reste juste pour toujours : <code>/versions/latest/</code> mène
+toujours à la documentation qui compte, <code>/versions/beta/</code> à celle qui se
+prépare. Ce qui bouge, c&#x27;est ce qu&#x27;il y a derrière — le jour de la sortie,
+<code>latest</code> devient la nouvelle version, et celle qu&#x27;elle remplace prend un slug
+numéroté en passant aux archives : son contenu gèle, donc son adresse peut
+geler avec lui.</p>
+<p>Aucune n&#x27;est meilleure. Prenez le numéro si vos lecteurs renvoient vers une
+version précise, le canal s&#x27;ils renvoient vers « la documentation ». La
+documentation de DocPensieve prend le canal : ses versions sont <code>latest</code> et
+<code>beta</code>.</p>
+<h2 id="2-ouvrir-la-beta">2. Ouvrir la bêta</h2>
+<p>Partez de la version courante, et donnez-lui son propre dossier :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">cp</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -r</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docs/v1.0</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docs/v1.1-beta</span></span></code></pre>
+<p>Déclarez ensuite l&#x27;entrée avec <code>prerelease</code> — et <strong>sans</strong> <code>current</code>, que la
+version courante conserve :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.1 (beta)&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.1-beta&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, prerelease: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span></code></pre>
+<p><code>prerelease</code> n&#x27;est pas qu&#x27;une étiquette. Il pose sur <strong>chaque page</strong> de la
+version un bandeau qui renvoie vers la courante, et un
+<code>&lt;meta name=&quot;robots&quot; content=&quot;noindex, follow&quot;&gt;</code> dans l&#x27;en-tête du document.</p>
+<p>Ce second point compte plus qu&#x27;il n&#x27;y paraît. Une bêta est une copie presque
+identique de la version courante : sans cela, les deux se disputent la même
+place dans les moteurs de recherche, et c&#x27;est souvent la mauvaise qui remonte.
+Quelqu&#x27;un lirait alors une documentation en cours en croyant lire celle qui
+compte. <code>follow</code> laisse tout de même suivre les liens de la page.</p>
+<p>Une version ne peut être à la fois <code>current</code> et <code>prerelease</code> : la génération
+s&#x27;arrête. Le bandeau de l&#x27;une contredirait le rôle de l&#x27;autre.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> serve</span></span></code></pre>
+<p>Le sélecteur propose désormais les deux. La racine mène toujours à la <code>1.0</code>.</p>
+<p>À partir de là, les deux dossiers vivent leur vie : ce que vous écrivez dans
+<code>docs/v1.1-beta</code> ne touche pas la documentation en ligne.</p>
+<h3 id="un-correctif-qui-vaut-pour-les-deux">Un correctif qui vaut pour les deux</h3>
+<p>Corriger une faute dans la version courante ne la corrige pas dans la bêta :
+ce sont deux dossiers distincts. C&#x27;est le prix des versions figées, et il se
+paie à chaque correctif — le reporter dans les deux dossiers fait partie du
+travail.</p>
+<h2 id="3-promouvoir-la-beta">3. Promouvoir la bêta</h2>
+<p>Le jour de la sortie, la bêta devient la version courante. Une seule chose
+change : <strong>où se trouve <code>current</code></strong>.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.1&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.1&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.1&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, archived: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span></code></pre>
+<p>En pratique, trois étapes :</p>
+<ol>
+<li>renommer le dossier <code>docs/v1.1-beta</code> en <code>docs/v1.1</code> ;</li>
+<li>dans la configuration, changer le <code>slug</code>, le <code>name</code>, le <code>folder</code>, et
+déplacer <code>current</code> ;</li>
+<li>retirer <code>prerelease</code> de la nouvelle, et marquer l&#x27;ancienne <code>archived</code>.</li>
+</ol>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span></code></pre>
+<p><code>archived</code> dit que la version ne recevra plus de correctifs. Elle <strong>reste en
+ligne</strong> : ce n&#x27;est pas une extinction, c&#x27;est une information. Ses pages portent
+aussi un bandeau vers la version courante, mais <strong>restent indexées</strong> — une
+version passée compte encore pour ceux qui l&#x27;utilisent.</p>
+<blockquote>
+<p><strong>Le <code>slug</code> change en même temps que le dossier, et l&#x27;adresse avec.</strong>
+<code>/versions/v1.1-beta/</code> disparaît au profit de <code>/versions/v1.1/</code>, et les liens
+externes qui visaient la bêta ne mènent plus nulle part. Deux issues : garder
+le même slug du début à la fin — <code>v1.1</code> d&#x27;emblée, seule l&#x27;étiquette
+mentionnant la bêta — ou nommer le canal plutôt que le numéro, <code>beta</code> puis
+<code>latest</code>, qui ne bouge jamais. Voir <em>Nommer une version</em> plus haut.</p>
+</blockquote>
+<h2 id="ce-que-produit-la-generation">Ce que produit la génération</h2>
+<pre><code>dist/
+├── index.html          redirection vers la version courante
+├── versions.json       la liste, pour qui veut la lire
+└── versions/
+    ├── v1.1-beta/
+    └── v1.0/
+</code></pre>
+<p>La racine est une <strong>redirection HTML</strong>, pas une règle de serveur : la sortie
+reste publiable sur n&#x27;importe quel hébergeur statique, sans configuration.</p>
+<p><code>versions.json</code> décrit chaque version — son slug, son libellé, son adresse, si
+elle est courante, si elle est archivée.</p>
+<h2 id="generer-une-seule-version">Générer une seule version</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> v1.1-beta</span></span></code></pre>
+<p>Seule cette version est écrite, dans <code>versions/v1.1-beta/</code>. Les autres ne sont
+pas touchées — pratique pour travailler la bêta sans vouloir regénérer le
+reste.</p>
+<p>Une réserve : cette forme n&#x27;écrit <strong>ni le manifeste ni la redirection de
+racine</strong>, qui ne concernent aucune version en particulier. Après avoir ajouté,
+renommé ou retiré une version, lancez une génération complète.</p>
+<h2 id="une-branche-par-version">Une branche par version</h2>
+<p>Le modèle va plus loin que le dossier : chaque version compilée peut vivre sur
+sa <strong>propre branche orpheline</strong>, nommée d&#x27;après son slug, avec un historique
+séparé de celui des sources.</p>
+<p>L&#x27;enjeu n&#x27;est pas le stockage, c&#x27;est le temps. Une version publiée il y a deux
+ans reste ce qu&#x27;elle était, dans l&#x27;état où elle a été produite — sans dépendre
+du générateur d&#x27;aujourd&#x27;hui ni des sources d&#x27;aujourd&#x27;hui. La regénérer n&#x27;est
+jamais nécessaire, et rien ne garantirait qu&#x27;elle donne le même résultat.</p>
+<p>Les sources restent sur la branche de travail. Les deux ne se mélangent jamais.</p>
+<p>À quoi ressemble le jour d&#x27;une sortie vu du dehors — les adresses, la chaîne
+d&#x27;intégration, le contrôle qui arrête une mauvaise publication — est dans
+<a href="/versions/beta/guide/deployment/">Déploiement</a>.</p></article>
+        <ul class="dp-tags" aria-label="Étiquettes">
+          <li class="dp-tag">guide</li><li class="dp-tag">versions</li>
+        </ul>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="Sur cette page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Sur cette page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#le-modele-a-deux-voies">Le modèle à deux voies</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#1-declarer-les-versions">1. Déclarer les versions</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#nommer-une-version-le-numero-ou-le-canal">Nommer une version : le numéro ou le canal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#2-ouvrir-la-beta">2. Ouvrir la bêta</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#un-correctif-qui-vaut-pour-les-deux">Un correctif qui vaut pour les deux</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#3-promouvoir-la-beta">3. Promouvoir la bêta</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-que-produit-la-generation">Ce que produit la génération</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#generer-une-seule-version">Générer une seule version</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#une-branche-par-version">Une branche par version</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.4.0-beta.2</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>

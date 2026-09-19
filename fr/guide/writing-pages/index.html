@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="fr" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Écrire des pages · DocPensieve</title>
+    <meta name="description" content="Frontmatter, adresses, ordre du menu, liens et images." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://docpensieve.com/versions/beta/fr/guide/writing-pages/" />
+    <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="Écrire des pages · DocPensieve" />
+    <meta property="og:description" content="Frontmatter, adresses, ordre du menu, liens et images." />
+    <meta property="og:url" content="https://docpensieve.com/versions/beta/fr/guide/writing-pages/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/beta/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/guide/writing-pages/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/guide/writing-pages/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/fr/guide/writing-pages/#article","headline":"Écrire des pages","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/fr/guide/writing-pages/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Frontmatter, adresses, ordre du menu, liens et images.","keywords":["guide","contenu"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/fr/guide/writing-pages/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/fr/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/beta/fr/guide/"},{"@type":"ListItem","position":3,"name":"Écrire des pages","item":"https://docpensieve.com/versions/beta/fr/guide/writing-pages/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Aller au contenu</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+            <li><a href="/versions/latest/">0.3.0</a></li>
+            <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Langue">Langue</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/beta/guide/writing-pages/">EN</a>
+            </li>
+            <li>
+              <a href="https://docpensieve.com/versions/beta/fr/guide/writing-pages/" aria-current="true">FR</a>
+            </li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li>
+            <a href="/versions/latest/examples/">Examples</a>
+          </li>
+          <li>
+            <details class="dp-mega">
+              <summary>Product</summary>
+              <div class="dp-mega-panel">
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Guide</p>
+                  <ul>
+                    <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                  </ul>
+                </div>
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Reference</p>
+                  <ul>
+                    <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ul>
+        <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+          <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.4.0-beta.2, changer de version">0.4.0-beta.2</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/" aria-current="true">0.4.0-beta.2</a></li>
+              <li><a href="/versions/latest/">0.3.0</a></li>
+              <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Langue">Langue</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/beta/guide/writing-pages/">EN</a>
+              </li>
+              <li>
+                <a href="https://docpensieve.com/versions/beta/fr/guide/writing-pages/" aria-current="true">FR</a>
+              </li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li>
+              <a href="/versions/latest/examples/">Examples</a>
+            </li>
+            <li>
+              <details class="dp-mega">
+                <summary>Product</summary>
+                <div class="dp-mega-panel">
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Guide</p>
+                    <ul>
+                      <li><a href="/versions/beta/guide/installation/">Installation</a></li><li><a href="/versions/beta/guide/first-site/">First site</a></li><li><a href="/versions/beta/guide/writing-pages/">Writing pages</a></li>
+                    </ul>
+                  </div>
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Reference</p>
+                    <ul>
+                      <li><a href="/versions/beta/reference/cli/">Commands</a></li><li><a href="/versions/beta/reference/configuration/">Configuration</a></li><li><a href="/versions/beta/reference/frontmatter/">Frontmatter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/beta/fr/search/">
+            <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+          </form>
+        </nav>
+      </details>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Basculer entre clair et sombre">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Navigation de la documentation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group" open>
+              <summary class="dp-nav-summary">Guide</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/">Installation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/first-site/">Premier site</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/writing-pages/" aria-current="page">Écrire des pages</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/versions/">Versions</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/navigation/">Navigation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/when-it-breaks/">Quand ça casse</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/languages/">Langues</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <details class="dp-sidebar-menu">
+        <summary>Menu de la documentation</summary>
+        <nav aria-label="Navigation de la documentation">
+          <ul class="dp-nav">
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group" open>
+                <summary class="dp-nav-summary">Guide</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/">Guide</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/installation/">Installation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/first-site/">Premier site</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/writing-pages/" aria-current="page">Écrire des pages</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/versions/">Versions</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/navigation/">Navigation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/when-it-breaks/">Quand ça casse</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/guide/languages/">Langues</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </details>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <aside class="dp-notice" role="note">
+          Cette version est en préparation et peut encore changer.
+          La version actuelle est <a href="/versions/latest/">0.3.0</a>.
+        </aside>
+        <article class="dp-article"><h1 id="ecrire-des-pages">Écrire des pages</h1>
+<p>Une page est un fichier <code>.md</code> ou <code>.mdx</code> du dossier de version. Les deux passent
+par la même chaîne : l&#x27;extension ne change pas ce qui est possible, elle dit
+l&#x27;intention.</p>
+<h2 id="le-frontmatter">Le frontmatter</h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">title</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">Installation</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">description</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">Ce qu&#x27;il faut, et comment mettre un projet en place.</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2026-09-09</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">tags</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">guide</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">installation</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span></code></pre>
+<p><code>title</code> devient la balise <code>&lt;title&gt;</code>, l&#x27;entrée de menu et le fil d&#x27;Ariane.
+<code>description</code> alimente les métadonnées et le JSON-LD. <code>tags</code> s&#x27;affichent en bas
+de page, sous le texte qu&#x27;ils décrivent — une étiquette seule peut s&#x27;écrire
+sans crochets. Tout est facultatif : sans <code>title</code>, le nom du projet prend le
+relais.</p>
+<p>Les champs sont détaillés dans la <a href="/versions/beta/reference/frontmatter/">référence</a>.</p>
+<h2 id="qui-a-ecrit-la-page">Qui a écrit la page</h2>
+<p>Une page qui nomme ses auteurs, ou qui porte une date, s&#x27;ouvre sur une
+signature :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">title</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">Installation</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">authors</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">ada</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">grace</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2026-09-09</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">modified</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2026-09-16</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">---</span></span></code></pre>
+<p>Les noms s&#x27;affichent tels quels. Pour leur donner une biographie, un portrait
+et un lien, décrivez-les dans un fichier JSON du dossier de version :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  &quot;ada&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;name&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Ada Lovelace&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;bio&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;A écrit le premier algorithme destiné à une machine.&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;avatar&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;authors/ada.png&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;url&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;https://example.com/ada&quot;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Nommez ensuite ce fichier dans la configuration : <code>authors: &#x27;authors.json&#x27;</code>. Il
+est lu <strong>dans chaque dossier de version</strong>, comme le menu — une biographie
+corrigée dans la version en cours laisse la version publiée tranquille. Le
+fichier lui-même n&#x27;est pas publié ; les portraits le sont, et sont mesurés à la
+génération pour que le texte ne saute pas à leur arrivée. Une version sans le
+fichier montre les noms seuls : une version plus ancienne n&#x27;a pas à en recevoir
+de copie.</p>
+<p>Une clé que personne ne décrit s&#x27;affiche telle quelle, ce qui permet de nommer
+ses auteurs avant de les décrire. La description alimente aussi les données de
+la page : une biographie devient la <code>description</code> de sa <code>Person</code>, un lien son
+<code>url</code>.</p>
+<p>Une date écrite le jour même de la page n&#x27;est pas répétée comme mise à jour, et
+une page d&#x27;accueil ne porte pas de signature du tout : c&#x27;est un hall d&#x27;entrée,
+pas un document.</p>
+<h2 id="ce-dont-depend-ladresse">Ce dont dépend l&#x27;adresse</h2>
+<p>Le chemin du fichier donne le chemin de l&#x27;adresse, débarrassé de son extension
+et de son préfixe d&#x27;ordre :</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Fichier</th><th>Adresse</th></tr></thead><tbody><tr><td><code>index.md</code></td><td><code>/</code></td></tr><tr><td><code>guide/01-installation.md</code></td><td><code>/guide/installation/</code></td></tr><tr><td><code>guide/index.md</code></td><td><code>/guide/</code></td></tr><tr><td><code>components/02-columns.mdx</code></td><td><code>/components/columns/</code></td></tr></tbody></table></div>
+<p>Le préfixe <code>01-</code> <strong>ordonne le menu sans apparaître dans l&#x27;adresse</strong>. C&#x27;est la
+seule façon de trier les pages autrement qu&#x27;alphabétiquement, et elle évite de
+tenir une liste à part.</p>
+<h2 id="lordre-du-menu">L&#x27;ordre du menu</h2>
+<p>Le menu découle de l&#x27;arborescence. Les dossiers deviennent des sections, les
+préfixes numériques donnent l&#x27;ordre, et un <code>index.md</code> dans un dossier fournit
+le titre de la section.</p>
+<pre><code>docs/v1.0/
+├── index.mdx           →  /
+├── guide/
+│   ├── index.md        →  /guide/        (titre de la section)
+│   ├── 01-installation.md
+│   └── 02-first-site.md
+└── components/
+    ├── index.md
+    └── 01-card.mdx
+</code></pre>
+<h2 id="series-de-pages">Séries de pages</h2>
+<p>Un dossier est une <strong>série</strong> : sa page <code>index</code> la présente, et les pages
+voisines de cet index en sont les épisodes. Écrite dans cet index, une ligne
+construit la grille de ses pages, en cartes cliquables :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Cards</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>Chaque carte reprend le <code>title</code> et la <code>description</code> de sa page, son <code>preview</code>
+comme image, et sa date <code>modified</code>. Sur l&#x27;index d&#x27;un dossier qui en contient
+d&#x27;autres, les cartes de ces séries comptent aussi leurs pages. Rien n&#x27;est listé
+à la main, donc rien ne périme quand une page est ajoutée ou renommée.</p>
+<p>La page <a href="/versions/beta/components/cards/">Cards</a> détaille toutes les options.</p>
+<h2 id="ecrire-le-menu-a-la-main">Écrire le menu à la main</h2>
+<p>Quand l&#x27;arborescence ne donne pas le menu voulu, décrivez-le dans un fichier
+JSON du dossier de la version, et nommez-le dans la configuration :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">// docpensieve.config.mjs</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">sidebar</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;sidebar.json&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">[</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">  &quot;/&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;label&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Commencer ici&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;items&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guide/installation&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guide/first-site&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">] },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;auto&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;components&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;label&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Dépôt&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">&quot;href&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;https://github.com/moi/mon-projet&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span></code></pre>
+<p>Une page se nomme par son chemin, comme dans son adresse.
+<code>{ &quot;auto&quot;: &quot;components&quot; }</code> garde le menu automatique d&#x27;un dossier — la section
+DocPensieve reste entière ainsi. Une page que le fichier oublie est quand même
+publiée, seulement hors du menu, et une version sans le fichier garde le menu
+de ses dossiers. Tous les genres d&#x27;entrée sont dans la
+<a href="/versions/beta/reference/configuration/">référence de <code>sidebar</code></a>.</p>
+<h2 id="liens-internes">Liens internes</h2>
+<p>Deux écritures, deux sens :</p>
+<ul>
+<li><strong>relative</strong> — <code>./voisine/</code>, <code>../guide/</code> — se résout depuis le dossier du
+fichier de la page, comme entre deux fichiers quelconques ;</li>
+<li><strong>absolue</strong> — <code>/guide/installation/</code> — part de la <strong>racine de la version</strong>,
+pas de la racine du domaine.</li>
+</ul>
+<p>La seconde règle mérite qu&#x27;on s&#x27;y arrête. Une documentation ne sait pas qu&#x27;elle
+peut être servie sous <code>/mon-projet/versions/v1.0/</code> : si <code>/guide/installation/</code>
+était pris au pied de la lettre, tous les liens internes casseraient dès qu&#x27;un
+préfixe entre en jeu. Ils sont donc réécrits à la génération.</p>
+<p>Pour viser une vraie adresse de domaine, l&#x27;adresse complète reste possible.</p>
+<h2 id="images">Images</h2>
+<p>Une image se pose à côté de la page et s&#x27;écrit relativement :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">![</span><span style="color:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline">Schéma de la chaîne</span><span style="color:#24292E;--shiki-dark:#E1E4E8">](</span><span style="color:#24292E;--shiki-light-text-decoration:underline;--shiki-dark:#E1E4E8;--shiki-dark-text-decoration:underline">./schema.png</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span></span></code></pre>
+<p>Les fichiers qui ne sont pas des pages sont copiés tels quels dans la sortie, à
+la même place relative. Le chemin est réécrit comme un lien.</p>
+<p>La génération lit la largeur et la hauteur de chaque image dans son fichier —
+PNG, JPEG, GIF, WebP ou SVG — et les écrit dans la page : le navigateur garde
+la place avant l&#x27;arrivée de l&#x27;image, au lieu de décaler le texte à ce
+moment-là. Toutes les images sauf la première se chargent en différé, quand le
+lecteur en approche ; la première, souvent visible d&#x27;emblée, garde son
+chargement normal.</p>
+<h2 id="composants">Composants</h2>
+<p>Dans une page <code>.mdx</code>, les composants livrés s&#x27;emploient <strong>sans import</strong> :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Columns</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Column</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> span</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">8</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}&gt;L&#x27;essentiel du propos&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Column</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Column</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> span</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span><span style="color:#005CC5;--shiki-dark:#79B8FF">4</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}&gt;Une remarque de côté&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Column</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Columns</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>Ils sont rendus à la génération : le HTML livré ne contient que leur résultat.
+La liste est dans <a href="/versions/beta/components/">Composants</a>.</p>
+<p><code>globalComponents: false</code> les retire de toutes les pages. C&#x27;est fait pour un
+projet qui préfère apporter les siens : une page qui en emploie encore un
+arrête alors la génération, en le nommant.</p>
+<h2 id="un-piege-a-connaitre">Un piège à connaître</h2>
+<p>Le contenu d&#x27;une balise JSX <strong>laissé seul sur sa ligne</strong> devient un
+paragraphe :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#22863A;--shiki-dark:#85E89D">p</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;flex gap-3&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;Du texte&lt;/</span><span style="color:#22863A;--shiki-dark:#85E89D">p</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>produit <code>&lt;p class=&quot;flex gap-3&quot;&gt;&lt;p&gt;Du texte&lt;/p&gt;&lt;/p&gt;</code> — deux paragraphes
+imbriqués, ce qui est invalide. Le navigateur ferme le premier de lui-même :
+l&#x27;enveloppe disparaît, et la mise en page voulue avec elle.</p>
+<p>Le formateur rend le piège sournois. Une longue chaîne de classes finit coupée
+sur plusieurs lignes, ce qui laisse le texte seul sur sa ligne <strong>après coup</strong>,
+sans que personne l&#x27;ait écrit ainsi.</p>
+<p>Trois façons de s&#x27;en prémunir :</p>
+<ul>
+<li>préférer <code>&lt;div&gt;</code> à <code>&lt;p&gt;</code> comme enveloppe — un paragraphe y est valide ;</li>
+<li>écrire un contenu court sur la même ligne que ses balises ;</li>
+<li>pour les cas répétés, poser une classe dans le dossier <code>theme/</code> plutôt
+qu&#x27;une longue chaîne d&#x27;utilitaires, afin que la ligne reste courte.</li>
+</ul>
+<p><code>docpensieve check</code> signale ces imbrications sur le site produit.</p>
+<h2 id="ce-qui-nest-pas-publie">Ce qui n&#x27;est pas publié</h2>
+<p>Une page dont le frontmatter porte <code>draft: true</code> est chargée mais gardée hors
+de la sortie. C&#x27;est ce qui permet à une page en cours de rester dans le dépôt
+sans être publiée.</p></article>
+        <ul class="dp-tags" aria-label="Étiquettes">
+          <li class="dp-tag">guide</li><li class="dp-tag">contenu</li>
+        </ul>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="Sur cette page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Sur cette page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#le-frontmatter">Le frontmatter</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#qui-a-ecrit-la-page">Qui a écrit la page</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-dont-depend-ladresse">Ce dont dépend l&#x27;adresse</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#lordre-du-menu">L&#x27;ordre du menu</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#series-de-pages">Séries de pages</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ecrire-le-menu-a-la-main">Écrire le menu à la main</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#liens-internes">Liens internes</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#images">Images</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#composants">Composants</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#un-piege-a-connaitre">Un piège à connaître</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-qui-nest-pas-publie">Ce qui n&#x27;est pas publié</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.4.0-beta.2</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>
