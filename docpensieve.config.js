@@ -53,6 +53,9 @@ export default defineConfig({
       prerelease: true,
       // The beta is told apart at a glance: its bowl is on fire.
       logo: 'branding/mark-beta.png',
+      // La traduction française de la bêta, servie sous /fr/. Les pages non
+      // traduites ne sont pas proposées dans cette langue.
+      translations: { fr: 'docs/v0.4-fr' },
       favicon: 'branding/favicon-beta.png',
     },
     // Frozen at the 0.3 published on npm: main carries the 0.4 now.

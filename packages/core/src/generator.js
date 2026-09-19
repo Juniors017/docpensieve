@@ -393,7 +393,10 @@ export class SiteGenerator {
         projectName: this.config.projectName,
         versionName: version.name,
         homeUrl: versionBase,
-        cssHref: joinUrl(versionBase, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
+        // One stylesheet for the whole version, translations included: it is
+        // compiled from the classes of every language, and written once at the
+        // root of the version.
+        cssHref: joinUrl(versionRoot, path.dirname(STYLESHEET)) + path.basename(STYLESHEET),
         feedUrl: this.#feedUrl(),
         logoUrl: images.logo ?? '',
         favicon: images.favicon
