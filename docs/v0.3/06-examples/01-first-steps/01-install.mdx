@@ -1,8 +1,9 @@
 ---
 title: Install
-description: One command sets up a project, with its configuration and a first page.
+description: One command sets up a project, with its configuration and a first page — and asks you what it should contain.
 authors: [pensy]
 date: 2026-09-01
+modified: 2026-09-19
 tags: [course, beginner, installation]
 ---
 
@@ -24,6 +25,39 @@ npx docpensieve init my-course
 
 The command asks a few questions, then writes the project.
 
+| It asks           | Why it matters                                                        |
+| ----------------- | --------------------------------------------------------------------- |
+| A name            | Shown in the header and in the tab                                    |
+| A public address  | Fills the sitemap and the share previews; can be left for later       |
+| A first version   | Names the folder your pages live in — `docs/v1.0`                     |
+| A theme           | `tailwind` to write utilities in pages, `custom` for classes of yours |
+| The documentation | Installs this tool's own documentation inside your site, or not       |
+
+<Card style={{ borderColor: 'var(--dp-border)' }}>
+  <CardHeader>No questions?</CardHeader>
+  <CardBody>
+    Without a real terminal — a script, a pipeline, a piped command — `init` asks nothing and takes
+    the defaults. It says so before starting, unless you passed `--yes`, which is the way to mean it
+    on purpose.
+  </CardBody>
+</Card>
+
+## What it writes
+
+<Tree>
+  <TreeItem label="my-course" open>
+    <TreeItem label="docpensieve.config.mjs — every setting of the site" />
+    <TreeItem label="docs" open>
+      <TreeItem label="v1.0" open>
+        <TreeItem label="index.md — the home page" />
+        <TreeItem label="01-guide — a first section, with an example page" />
+        <TreeItem label="99-docpensieve — this tool's own documentation, to delete when done" />
+      </TreeItem>
+    </TreeItem>
+    <TreeItem label=".gitignore — keeps dist/ and node_modules/ out of the repository" />
+  </TreeItem>
+</Tree>
+
 <Columns>
   <Column>
     <Card style={{ height: '100%' }}>
@@ -43,6 +77,46 @@ The command asks a few questions, then writes the project.
   </Column>
 </Columns>
 
+## Open the configuration
+
+It is the file you will come back to in every module of this course. Every
+setting is written in it, most of them commented out — it is a menu as much as
+a configuration:
+
+```js
+/** @type {import('@docpensieve/core').DocPensieveConfig} */
+export default {
+  // Name shown in the header, in the page titles and in the structured data.
+  projectName: 'My documentation',
+
+  // Public address of the site. It feeds the canonical links and the
+  // structured data, and its path gives the deployment prefix.
+  // siteUrl: 'https://example.com/my-project',
+
+  versions: [
+    {
+      slug: 'v1.0', // URL segment, and name of the version's branch
+      name: '1.0', // label in the version switcher
+      folder: 'docs/v1.0',
+      current: true,
+    },
+  ],
+};
+```
+
+The comment above the file is not decoration: it is what gives your editor the
+name and the shape of every field, so a typo shows up while you type rather
+than at the next build.
+
+<Card style={{ borderColor: 'var(--dp-accent)' }}>
+  <CardHeader>Why .mjs</CardHeader>
+  <CardBody>
+    The extension is what tells Node to read the file as a module. A `.js` file works only if a
+    `package.json` nearby says so — and the one `npm init` writes says the opposite. The tool
+    accepts both and refuses to guess when it finds two.
+  </CardBody>
+</Card>
+
 ## Check yourself
 
 <details>
@@ -52,6 +126,17 @@ The command asks a few questions, then writes the project.
 
 </details>
 
-<Card href="/components/skill/">
-  <CardBody>This lesson uses **Skill**, **Tooltip**, **Columns** and **Card**.</CardBody>
+<details>
+<summary>You ran `init` in a pipeline and it created a site you did not choose. Why?</summary>
+
+There was no terminal to answer the questions, so it took the defaults. Pass
+the options on the command line — or `--yes` — when you want that on purpose.
+
+</details>
+
+<Card href="/guide/installation/">
+  <CardBody>
+    This lesson uses **Skill**, **Tooltip**, **Tree**, **Admonition**, **Columns** and **Card** —
+    the installation guide covers the options one by one.
+  </CardBody>
 </Card>

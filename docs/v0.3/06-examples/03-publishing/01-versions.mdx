@@ -1,9 +1,9 @@
 ---
 title: Versions
-description: The current version and the one being prepared, side by side.
+description: The current version and the one being prepared, side by side — declared, built, and swapped when the time comes.
 authors: [valentin]
 date: 2026-09-10
-modified: 2026-09-16
+modified: 2026-09-19
 tags: [course, advanced, versions]
 ---
 
@@ -12,6 +12,10 @@ tags: [course, advanced, versions]
 <Skill name="Module progress" level={50}>
   Lesson 1 of 2.
 </Skill>
+
+Your product moves. Your readers do not all move with it: some run the version
+you shipped last spring. A documentation that only describes today lies to
+them.
 
 ## Two tracks
 
@@ -34,9 +38,64 @@ tags: [course, advanced, versions]
 
 The address names the <Tooltip text="latest or beta: the role of the version, not its number — so a shared link stays right.">channel</Tooltip>, the menu shows the exact number.
 
+## Your turn: declare them
+
+A version is a folder of pages and an entry in the configuration:
+
+```js
+versions: [
+  { slug: 'beta', name: '2.0 (beta)', folder: 'docs/v2.0', prerelease: true },
+  { slug: 'latest', name: '1.4', folder: 'docs/v1.4', current: true },
+  { slug: 'v1.3', name: '1.3', folder: 'docs/v1.3', archived: true },
+],
+```
+
+<Tree>
+  <TreeItem label="my-course" open>
+    <TreeItem label="docs" open>
+      <TreeItem label="v1.3 — frozen" />
+      <TreeItem label="v1.4 — what readers get" />
+      <TreeItem label="v2.0 — what you are writing" />
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+Each folder stands on its own: its own pages, its own images, its own menu. A
+fix that matters to both tracks is written twice — which sounds like a chore
+until the first time an edit to today's page would have rewritten history.
+
+<Card style={{ borderColor: 'var(--dp-accent)' }}>
+  <CardHeader>Why the slug says the channel, not the number</CardHeader>
+  <CardBody>
+    A link to `/versions/v1.4/guide/` goes stale the day 1.5 ships. A link to
+    `/versions/latest/guide/` stays right forever. The number belongs in the label the menu shows —
+    and in the address only once a version is frozen, because then it stops moving.
+  </CardBody>
+</Card>
+
+## Swapping them, the day you ship
+
+Three edits, in this order:
+
+1. The beta becomes the current version: `slug: 'latest'`, `current: true`, and
+   `prerelease` goes away.
+2. The version it replaces is archived under its number: `slug: 'v1.4'`,
+   `archived: true`.
+3. A new beta folder opens, copied from the one just promoted.
+
+<Card style={{ borderColor: '#f59e0b' }}>
+  <CardHeader>The logo of the promoted version</CardHeader>
+  <CardBody>
+    Fields like `logo` follow the configuration, but an image sitting inside a version folder does
+    not: a home page that showed a beta banner keeps showing it. This site learned that the hard way
+    — it published a promoted version still wearing the beta logo, and a reader saw it first.
+  </CardBody>
+</Card>
+
 ## A banner that follows the calendar
 
-A notice can announce a release and remove itself once it is out:
+A notice can announce a release and remove itself once it is out — no diary
+entry, no forgotten banner:
 
 <TimeTimer start="01/09/2026" duration="60d">
   <Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
@@ -52,9 +111,28 @@ A notice can announce a release and remove itself once it is out:
 </TimeTimer>
 ```
 
+## Check yourself
+
+<details>
+<summary>What does a prerelease version change, besides the banner?</summary>
+
+It stays out of the sitemap and asks search engines not to index it — a reader
+arriving from a search lands on the version that is actually shipped.
+
+</details>
+
+<details>
+<summary>You renamed a version's slug. What happens to the links people shared?</summary>
+
+They break: the slug is the address. This is the whole reason a channel slug —
+`latest`, `beta` — is worth more than a number, and why an archived version
+takes its number only once its content stops moving.
+
+</details>
+
 <Card href="/guide/versions/">
   <CardBody>
-    This lesson uses **TimeTimer**, **Tooltip**, **Columns** and **Card** — and the versions guide
-    goes further.
+    This lesson uses **TimeTimer**, **Tooltip**, **Tree**, **Admonition** and **Card** — and the
+    versions guide goes through the whole cycle.
   </CardBody>
 </Card>
