@@ -208,4 +208,4 @@ Les sources restent sur la branche de travail. Les deux ne se mélangent jamais.
 
 À quoi ressemble le jour d'une sortie vu du dehors — les adresses, la chaîne
 d'intégration, le contrôle qui arrête une mauvaise publication — est dans
-[Déploiement](../../guide/deployment/).
+[Déploiement](./deployment/).

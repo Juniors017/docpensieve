@@ -85,7 +85,7 @@ le dossier `theme/`, que `init` amorce avec `theme/custom.css`.
 
 Les deux s'emploient de la même façon — les gabarits sont les mêmes, seul
 l'habillage change. Le choix n'est pas définitif : il tient dans un champ de la
-configuration, décrit dans [Thèmes](../../guide/themes/).
+configuration, décrit dans [Thèmes](./themes/).
 
 ## Mettre à jour
 
@@ -104,7 +104,7 @@ La documentation installée par `init` dans `99-docpensieve` reste à la version
 qui l'a écrite. Pour la rafraîchir, lancez `init` dans un dossier jetable et
 recopiez ce dossier.
 
-Venant de la 0.3, [Migrer vers la bêta](../../guide/migrate-to-beta/) dit ce
+Venant de la 0.3, [Migrer vers la bêta](./migrate-to-beta/) dit ce
 qui change tout seul et ce qu'il faut vérifier. Pour essayer cette bêta,
 installez `docpensieve@beta`, ou lancez `npx docpensieve@beta` seul.
 
@@ -115,4 +115,4 @@ npx docpensieve build
 ```
 
 Si le dossier de sortie apparaît avec un `index.html` dedans, tout est en
-place. Ensuite : [Premier site](../../guide/first-site/).
+place. Ensuite : [Premier site](./first-site/).
