@@ -1,0 +1,140 @@
+---
+title: Navigation
+description: Le menu de la documentation, les liens de l'en-tête, et ce que les deux deviennent sur un téléphone.
+tags: [guide, navigation]
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: true
+---
+
+# Navigation
+
+Un lecteur trouve une page de deux façons : le menu de la documentation, à
+gauche, ou l'en-tête, en haut. Ils répondent à des questions différentes — _où
+suis-je dans cette documentation_ et _où puis-je aller d'autre_ — et un site
+peut employer l'un, l'autre, ou les deux.
+
+Aucun des deux ne charge de script. Tout ici se replie et se déplie avec des
+éléments natifs.
+
+## L'en-tête, retenu ou non
+
+L'en-tête reste en haut de l'écran. Pour le laisser défiler avec la page :
+
+```js
+stickyHeader: false,
+```
+
+Retenu, il garde le champ de recherche et le sélecteur de version à portée.
+Lâché, il rend sa hauteur — un tiers d'écran de téléphone — et les ancres
+cessent de lui réserver de la place.
+
+## Le menu de la documentation
+
+Il suit l'arborescence, ou le fichier que vous décrivez — c'est
+[Écrire le menu à la main](./writing-pages/). Ce qui change ici, c'est la part
+qui s'en montre d'un coup.
+
+### Replier les catégories
+
+```js
+// docpensieve.config.mjs
+foldedSidebar: true,
+```
+
+Chaque catégorie devient un repli. **La branche qui contient la page lue est
+ouverte, les autres fermées**, si bien qu'un menu de cent entrées cesse de
+demander au lecteur de faire défiler ce qui ne le concerne pas.
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Déplié — le défaut</CardHeader>
+      <CardBody>
+        Tout est visible d'un coup. Juste pour une documentation de quelques dizaines de pages, où
+        faire défiler le menu ne coûte rien.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>Replié</CardHeader>
+      <CardBody>
+        Seule la branche lue est ouverte. Juste dès que le menu est assez long pour que sa fin sorte
+        du champ.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+Une catégorie qui est aussi une page reçoit cette page en première entrée. La
+poignée d'un repli ne peut pas être un lien en plus — un clic voudrait dire
+deux choses, et la page deviendrait inatteignable.
+
+## L'en-tête
+
+`headerLinks` pose des liens à côté du sélecteur de version.
+
+```js
+headerLinks: [{ label: 'Blog', href: '/blog/' }],
+```
+
+Une cible part de la racine d'une version — `/blog/` — ou est une adresse
+complète. Une cible relative est refusée : l'en-tête est sur toutes les pages,
+et `blog/` voudrait dire autre chose sur chacune.
+
+### Une section qui vit dans une seule version
+
+Un lien peut nommer la version vers laquelle il mène :
+
+```js
+{ label: 'Exemples', href: '/examples/', version: 'latest' },
+```
+
+Toutes les versions y mènent alors, ce qui garde atteignable depuis toutes une
+section écrite dans une seule. C'est exactement ce que fait ce site pour ses
+exemples.
+
+### Un panneau de liens
+
+Une entrée portant `columns` ouvre un panneau au lieu de mener quelque part :
+
+```js
+{
+  label: 'Produit',
+  columns: [
+    {
+      title: 'Guide',
+      items: [
+        { label: 'Installation', href: '/guide/installation/' },
+        { label: 'Premier site', href: '/guide/first-site/' },
+      ],
+    },
+    { items: [{ label: 'Dépôt', href: 'https://github.com/moi/mon-projet' }] },
+  ],
+}
+```
+
+Une colonne peut se passer de titre. Une entrée ne peut pas porter à la fois
+`href` et `columns` : soit elle mène quelque part, soit elle ouvre un panneau.
+
+Le panneau se déclare ici, **il ne découle pas du menu de la documentation**.
+Les deux sont donc libres de montrer des choses différentes — ou un site sans
+barre latérale peut naviguer depuis le seul en-tête.
+
+## Sur un téléphone
+
+Rien n'est laissé à déborder de l'écran.
+
+| Quoi                                            | Sous 48rem                              | Sous 56rem                                       |
+| ----------------------------------------------- | --------------------------------------- | ------------------------------------------------ |
+| Sélecteur de version, liens, panneau, recherche | Derrière le bouton de menu de l'en-tête | —                                                |
+| Menu de la documentation                        | —                                       | Replié au-dessus du contenu, derrière son bouton |
+
+Le panneau de liens se déplie dans le menu de l'en-tête plutôt que par-dessus,
+et le menu de la documentation commence fermé : ouvert, il remplirait le
+premier écran avant qu'un mot soit lu.
+
+Les deux boutons sont des éléments natifs. JavaScript désactivé, ils s'ouvrent
+quand même.
