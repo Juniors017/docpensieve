@@ -94,7 +94,8 @@ online.
 ```
 
 It is the check to run after any change of `baseUrl`, of folder structure or of
-URL.
+URL. When something does not add up, [When it breaks](./when-it-breaks/) lists
+the failures this tool produces, by the symptom you see.
 
 ## Searching the site
 
