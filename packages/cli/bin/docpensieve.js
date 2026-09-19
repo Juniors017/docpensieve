@@ -8,7 +8,7 @@
 
 import { createRequire } from 'node:module';
 
-import { DocPensieveError, NotImplementedError } from '@docpensieve/shared';
+import { DOCUMENTATION_URL, DocPensieveError, NotImplementedError } from '@docpensieve/shared';
 import { Command } from 'commander';
 import chalk from 'chalk';
 
@@ -21,7 +21,10 @@ const program = new Command();
 program
   .name('docpensieve')
   .description('Static documentation site generator')
-  .version(version, '-v, --version');
+  .version(version, '-v, --version')
+  // Someone typing --help is usually stuck: the list of commands alone sends
+  // them back where they started.
+  .addHelpText('after', `\nDocumentation: ${DOCUMENTATION_URL}`);
 
 program
   .command('init')

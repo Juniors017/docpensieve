@@ -14,6 +14,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { DOCUMENTATION_URL } from '@docpensieve/shared';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { build, check, init } from '../src/index.js';
@@ -188,4 +189,13 @@ describe('init, build, check', () => {
       }
     },
   );
+
+  it('sends a stuck reader to the documentation', () => {
+    // Someone typing --help has usually run out of ideas; a list of commands
+    // with no address leaves them exactly where they were.
+    const { stdout, status } = spawnSync(process.execPath, [CLI, '--help'], { encoding: 'utf8' });
+
+    expect(status).toBe(0);
+    expect(stdout).toContain(DOCUMENTATION_URL);
+  });
 });

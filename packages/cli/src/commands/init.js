@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import {
   CONFIG_FILENAME,
   CONFIG_FILENAMES,
+  DOCUMENTATION_URL,
   DocPensieveError,
   THEME_FOLDER,
   THEME_FRAMEWORKS,
@@ -63,9 +64,6 @@ const NOT_INSTALLED = new Set([
 
 /** Starting point of the project's own stylesheet, under the custom theme. */
 const CUSTOM_CSS = fileURLToPath(new URL('../templates/custom.css', import.meta.url));
-
-/** Where the generated configuration sends readers for every field. */
-const DOCUMENTATION_URL = 'https://docpensieve.com/';
 
 /**
  * Asks a question, with a default value shown between brackets.

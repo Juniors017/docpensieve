@@ -47,6 +47,15 @@ export const JSONLD_TYPES = ['Article', 'TechArticle', 'BlogPosting'];
 export const THEME_FRAMEWORKS = ['tailwind', 'custom'];
 
 /**
+ * Public address of the documentation.
+ *
+ * Written wherever a reader could be stuck — the foot of the help, the
+ * generated configuration, the end of `init` — so it lives in one place
+ * rather than in each of them.
+ */
+export const DOCUMENTATION_URL = 'https://docpensieve.com/';
+
+/**
  * Layouts accepted in a page's frontmatter.
  *
  * `doc` is the documentation layout: menu on the left, table of contents on

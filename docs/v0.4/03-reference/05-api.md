@@ -85,6 +85,16 @@ JSON-LD types supported by the `jsonld.type` frontmatter field.
 
 CSS frameworks known to the ThemeEngine.
 
+### `DOCUMENTATION_URL`
+
+`DOCUMENTATION_URL`
+
+Public address of the documentation.
+
+Written wherever a reader could be stuck — the foot of the help, the
+generated configuration, the end of `init` — so it lives in one place
+rather than in each of them.
+
 ### `PAGE_LAYOUTS`
 
 `PAGE_LAYOUTS`
