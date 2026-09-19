@@ -265,6 +265,12 @@ export function renderApiReference() {
     '',
     'Each entry comes from the JSDoc of the source, which the type checker',
     'verifies: it cannot drift from the code without the build noticing.',
+    '',
+    // This page is long and easy to land in from a search: a reader after the
+    // tool rather than its API left it with nowhere to go.
+    'To use the tool rather than call it, start at',
+    '[Installation](../guide/installation/); the fields of a configuration are',
+    'in [Configuration](./configuration/).',
   ];
 
   for (const pkg of PACKAGES) {

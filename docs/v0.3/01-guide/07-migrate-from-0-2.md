@@ -45,3 +45,6 @@ only adds links to that menu.
 | ---------------------------- | ----------------------------------------------------- |
 | `authors: 'authors.json'`    | Biographies, avatars and links, described per version |
 | `<Cards />` in an index page | A grid of cards built from the pages of the folder    |
+
+Both are described where they are used: authors and dates in
+[Writing pages](./writing-pages/), the grid in [Cards](../components/cards/).

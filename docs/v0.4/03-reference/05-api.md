@@ -15,6 +15,10 @@ what goes further — a script that builds a site, a theme of your own.
 Each entry comes from the JSDoc of the source, which the type checker
 verifies: it cannot drift from the code without the build noticing.
 
+To use the tool rather than call it, start at
+[Installation](../guide/installation/); the fields of a configuration are
+in [Configuration](./configuration/).
+
 ## `@docpensieve/shared`
 
 Constants, errors and slugs, shared by every package.

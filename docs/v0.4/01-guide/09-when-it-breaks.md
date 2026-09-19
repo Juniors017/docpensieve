@@ -171,3 +171,6 @@ and leaves every link to it dead.
 
 An unexpected failure — one without a hint — comes out with its stack trace,
 and is worth reporting with the version printed by `npx docpensieve --version`.
+
+Each message comes from a command, and the [CLI reference](../reference/cli/)
+lists what each one does, with the exit codes a pipeline reads.

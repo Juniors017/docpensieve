@@ -199,3 +199,7 @@ today's generator or today's sources. Rebuilding it is never necessary, and
 nothing would guarantee it gives the same result.
 
 The sources stay on the working branch. The two never mix.
+
+What the day of a release looks like from the outside — the addresses, the
+pipeline, the check that stops a bad publication — is in
+[Deployment](./deployment/).

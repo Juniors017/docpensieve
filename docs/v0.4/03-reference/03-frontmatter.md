@@ -108,3 +108,6 @@ No. Without a title, the project name stands in; without a date, no date is publ
 ### How do I keep a page offline?
 
 Set `draft: true` in its frontmatter. It stays in the repository, absent from the output.
+
+What these fields do once the page is built — the order of the menu, the
+byline, the tags under the text — is in [Writing pages](../guide/writing-pages/).

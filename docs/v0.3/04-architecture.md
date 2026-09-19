@@ -106,3 +106,6 @@ parent, a file not found: each one stops the build with a message and a hint.
 The alternative — rendering an empty element, ignoring a prop, falling back on
 a default value — produces pages that look right and are not. Those faults are
 only discovered in production, long afterwards.
+
+Those it does produce, with the shape each one takes on your screen, are
+gathered by symptom in [When it breaks](./guide/when-it-breaks/).
