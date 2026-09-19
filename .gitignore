@@ -37,3 +37,6 @@ npm-debug.log*
 .env.local
 # Documentation copied into the CLI package while it is being packed.
 packages/cli/starter/
+
+.claude.md
+.claude
