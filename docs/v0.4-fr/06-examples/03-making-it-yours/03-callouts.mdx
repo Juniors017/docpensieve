@@ -1,0 +1,121 @@
+---
+title: Alertes
+description: Arrêter un lecteur sur le point de se tromper — six types de bloc, les vôtres, et une marque pour les accompagner.
+authors: [pensy]
+date: 2026-09-18
+modified: 2026-09-20
+tags: [cours, intermédiaire, composants]
+---
+
+# Alertes
+
+<Skill name="Progression du module" level={100} color="#10b981">
+  Leçon 3 sur 3 — la dernière de ce module.
+</Skill>
+
+Certaines phrases ne doivent pas se lire comme de la prose. Un avertissement au
+milieu d'un paragraphe est un avertissement que personne ne lit.
+
+## Les six types
+
+<Admonition type="tip">Un conseil. Le lecteur ne perd rien à le sauter.</Admonition>
+
+<Admonition type="attention">
+  Quelque chose de facile à rater. Continuer sans le savoir coûte du temps.
+</Admonition>
+
+<Admonition type="danger" title="Ce que coûte un faux pas">
+  Supprimer une version retire ses pages du site : son adresse cesse de répondre, et les liens qui
+  la visaient ne mènent plus nulle part.
+</Admonition>
+
+`note`, `info` et `alert` complètent l'ensemble. Sans `type`, un bloc est une
+note ; avec un `title`, le libellé du type cède la place à vos mots.
+
+```mdx
+<Admonition type="danger" title="Ce que coûte un faux pas">
+  Supprimer une version retire ses pages du site.
+</Admonition>
+```
+
+## À vous : un type qui vous ressemble
+
+Six types ne conviendront pas à toutes les équipes. Déclarez celui dont la
+vôtre a besoin — un libellé, et un **ton** qui porte la couleur :
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  review: { label: 'À relire', tone: 'attention' },
+  legal: { label: 'Mention légale', tone: 'info' },
+},
+```
+
+```mdx
+<Admonition type="review">Cette section attend une seconde paire d'yeux.</Admonition>
+```
+
+Le ton vient du thème : un nouveau type ne demande donc aucune feuille de style
+et suit les schémas clair et sombre tout seul. Un type que personne n'a déclaré
+arrête la génération, en listant ceux qui existent — rendu quand même, le bloc
+sortirait sans couleur ni libellé, et rien ne dirait pourquoi.
+
+## Une marque à soi
+
+Un type peut porter une icône à la place du dessin de son ton. Ce site même en
+déclare deux, avec leur marque prise dans un jeu d'icônes :
+
+<Admonition type="copilot">
+  Un passage rédigé avec un assistant, puis relu et corrigé par une personne.
+</Admonition>
+
+<Admonition type="claude">Le même, et la page nomme toujours une personne comme auteur.</Admonition>
+
+```js
+admonitions: {
+  copilot: { label: 'Copilot', tone: 'info', icon: 'simple-icons:githubcopilot' },
+},
+```
+
+```bash
+npm install --save-dev @iconify-json/simple-icons
+```
+
+Le jeu est un paquet de votre projet, lu à la génération : le dessin est posé
+dans la page comme un fichier à vous. Votre lecteur ne télécharge rien, et
+aucune requête ne part de son navigateur — c'est aussi pourquoi un jeu que vous
+n'avez pas installé arrête la génération au lieu de laisser un carré vide.
+
+<Admonition type="note" title="Une icône à vous fait pareil">
+  `icon: '/icons/review.svg'` nomme un fichier du dossier de version. Même bloc, même résultat —
+  l'un vient d'un paquet, l'autre de votre dépôt.
+</Admonition>
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Vous avez écrit `<Admonition type="warning">`. Que se passe-t-il ?</summary>
+
+La génération s'arrête : `warning` n'est pas l'un des six, et personne ne l'a
+déclaré. Les types sont `note`, `info`, `tip`, `attention`, `alert` et
+`danger` — celui que vous vouliez ici est `attention`.
+
+</details>
+
+<details>
+<summary>Votre lecteur a désactivé JavaScript. Que perd-il ?</summary>
+
+Rien. Le bloc est un `aside` écrit à la génération, et sa marque un SVG déjà
+présent dans la page.
+
+</details>
+
+## Bravo
+
+Vous avez terminé **À votre main**. Le site porte désormais vos couleurs, votre
+navigation et vos avertissements.
+
+<Card href="/examples/publishing/" elevated>
+  <CardHeader>Module suivant : Mise en ligne</CardHeader>
+  <CardBody>Les versions, une génération qui tourne toute seule, et le site en ligne.</CardBody>
+</Card>

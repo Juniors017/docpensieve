@@ -1,0 +1,140 @@
+---
+title: Installer
+description: Une commande met un projet en place, avec sa configuration et une première page — et vous demande ce qu'il doit contenir.
+authors: [pensy]
+date: 2026-09-01
+modified: 2026-09-20
+tags: [cours, débutant, installation]
+---
+
+# Installer
+
+<Skill name="Progression du module" level={33}>
+  Leçon 1 sur 3.
+</Skill>
+
+## Avant de commencer
+
+Il vous faut <Tooltip text="L'environnement JavaScript sur lequel tourne DocPensieve — version 22 ou plus récente.">Node.js</Tooltip> et un terminal. Rien d'autre : le thème est livré avec l'outil.
+
+## À vous
+
+```bash
+npx docpensieve init mon-cours
+```
+
+La commande pose quelques questions, puis écrit le projet.
+
+| Elle demande         | Pourquoi ça compte                                                        |
+| -------------------- | ------------------------------------------------------------------------- |
+| Un nom               | Affiché dans l'en-tête et dans l'onglet                                   |
+| Une adresse publique | Alimente le plan du site et les aperçus de partage ; peut attendre        |
+| Une première version | Nomme le dossier où vivront vos pages — `docs/v1.0`                       |
+| Un thème             | `tailwind` pour écrire des utilitaires, `custom` pour vos propres classes |
+| La documentation     | Installe la documentation de l'outil dans votre site, ou non              |
+
+<Admonition type="note" title="Aucune question ?">
+  Sans vrai terminal — un script, une chaîne d'intégration, une commande derrière un tube — `init`
+  ne demande rien et prend les valeurs par défaut. Il le dit avant de commencer, sauf si vous avez
+  passé `--yes`, qui est la façon de le vouloir.
+</Admonition>
+
+## Ce qu'il écrit
+
+<Tree>
+  <TreeItem label="mon-cours" open>
+    <TreeItem label="docpensieve.config.mjs — tous les réglages du site" />
+    <TreeItem label="docs" open>
+      <TreeItem label="v1.0" open>
+        <TreeItem label="index.md — la page d'accueil" />
+        <TreeItem label="01-guide — une première section, avec une page d'exemple" />
+        <TreeItem label="99-docpensieve — la documentation de l'outil, à supprimer ensuite" />
+      </TreeItem>
+    </TreeItem>
+    <TreeItem label=".gitignore — garde dist/ et node_modules/ hors du dépôt" />
+  </TreeItem>
+</Tree>
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Ce que vous obtenez</CardHeader>
+      <CardBody>
+        Un fichier de configuration, un dossier de documentation et une première page — prêts à
+        générer.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Ce dont vous n'avez pas besoin</CardHeader>
+      <CardBody>
+        Aucun framework à ajouter, aucun outil de build à configurer, aucun serveur à faire tourner
+        en production.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Ouvrez la configuration
+
+C'est le fichier sur lequel vous reviendrez à chaque module de ce cours. Tous
+les réglages y sont écrits, la plupart en commentaire — c'est un menu autant
+qu'une configuration :
+
+```js
+/** @type {import('@docpensieve/core').DocPensieveConfig} */
+export default {
+  // Nom affiché dans l'en-tête, dans les titres de page et dans les données
+  // structurées.
+  projectName: 'My documentation',
+
+  // Adresse publique du site. Elle alimente les liens canoniques et les
+  // données structurées, et son chemin donne le préfixe de déploiement.
+  // siteUrl: 'https://example.com/my-project',
+
+  versions: [
+    {
+      slug: 'v1.0', // segment d'adresse, et nom de la branche de la version
+      name: '1.0', // libellé dans le sélecteur de version
+      folder: 'docs/v1.0',
+      current: true,
+    },
+  ],
+};
+```
+
+Le commentaire en tête du fichier n'est pas décoratif : c'est lui qui donne à
+votre éditeur le nom et la forme de chaque champ, si bien qu'une faute de
+frappe se voit pendant que vous tapez plutôt qu'à la génération suivante.
+
+<Admonition type="tip" title="Pourquoi .mjs">
+  L'extension est ce qui dit à Node de lire le fichier comme un module. Un fichier `.js` ne
+  fonctionne que si un `package.json` voisin le déclare — et celui qu'écrit `npm init` dit le
+  contraire. L'outil accepte les deux et refuse de deviner quand il en trouve deux.
+</Admonition>
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Quel fichier porte les réglages du projet ?</summary>
+
+`docpensieve.config.mjs`, à la racine du projet.
+
+</details>
+
+<details>
+<summary>Vous avez lancé `init` dans une chaîne d'intégration et il a créé un site que vous n'avez pas choisi. Pourquoi ?</summary>
+
+Il n'y avait pas de terminal pour recueillir les réponses : il a donc pris les
+valeurs par défaut. Passez les options sur la ligne de commande — ou `--yes` —
+quand c'est voulu.
+
+</details>
+
+<Card href="../../guide/installation/">
+  <CardBody>
+    Cette leçon emploie **Skill**, **Tooltip**, **Tree**, **Admonition**, **Columns** et **Card** —
+    le guide d'installation reprend les options une à une.
+  </CardBody>
+</Card>

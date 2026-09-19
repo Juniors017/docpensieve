@@ -1,0 +1,171 @@
+---
+title: Navigation
+description: Quarante pages où un lecteur se déplace — un menu qui se replie, des liens dans l'en-tête, et une rangée de liens dans la page.
+authors: [valentin, pensy]
+date: 2026-09-18
+modified: 2026-09-20
+tags: [cours, intermédiaire, navigation]
+---
+
+# Navigation
+
+<Skill name="Progression du module" level={66}>
+  Leçon 2 sur 3.
+</Skill>
+
+Un site de dix pages n'a pas besoin de navigation : le menu montre tout et le
+lecteur voit où il est. À quarante, ce même menu lui demande de faire défiler
+ce qui ne le concerne pas.
+
+Cette leçon active trois choses, dans l'ordre où vous les voudrez.
+
+## 1. Replier le menu
+
+```js
+foldedSidebar: true,
+```
+
+Les catégories se replient, et la branche de la page lue s'ouvre d'elle-même —
+le lecteur atterrit là où il est, pas en haut d'une liste. Une catégorie qui
+est aussi une page garde sa page en première entrée : la poignée d'un repli ne
+peut pas être un lien, elle deviendrait sinon inatteignable.
+
+<Admonition type="note">
+  Rien ne se replie sur un téléphone qui ne se repliait pas déjà : sur un écran étroit, le menu
+  entier se replie au-dessus du contenu, quoi que dise ce réglage.
+</Admonition>
+
+## 2. Poser vos liens dans l'en-tête
+
+```js
+headerLinks: [
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Dépôt', href: 'https://example.com/repo' },
+],
+```
+
+Une cible part de la racine d'une version — `/blog/` — ou est une adresse
+complète. Une cible relative est refusée, parce qu'elle voudrait dire autre
+chose sur chaque page.
+
+Une entrée portant `columns` ouvre un **panneau** au lieu de mener quelque part :
+
+```js
+headerLinks: [
+  {
+    label: 'Apprendre',
+    columns: [
+      {
+        title: 'Commencer ici',
+        items: [
+          { label: 'Installer', href: '/guide/install/' },
+          { label: 'Première page', href: '/guide/first-page/' },
+        ],
+      },
+      {
+        title: 'Aller plus loin',
+        items: [{ label: 'Composants', href: '/components/' }],
+      },
+    ],
+  },
+],
+```
+
+<Admonition type="tip" title="Les deux, avec des liens différents">
+  Le panneau et le menu de la documentation se déclarent séparément et disent des choses différentes
+  : l'en-tête porte ce qu'un visiteur cherche en premier, le menu porte les pages dans leur ordre.
+  Un site peut avoir l'un, l'autre, ou les deux.
+</Admonition>
+
+`href` et `columns` ensemble sont refusés — une entrée mène quelque part ou
+ouvre un panneau.
+
+## 3. Une rangée de liens dans la page
+
+Certaines pages ont besoin de leur propre plan : une page d'atterrissage,
+l'ouverture d'un module. `Menu` en pose une là où la page en a besoin, et c'est
+la seule navigation qui vit dans votre texte plutôt que dans la configuration.
+
+<Menu label="Ce module">
+  <MenuLink href="/examples/making-it-yours/colours/">Couleurs</MenuLink>
+  <MenuLink href="/examples/making-it-yours/navigation/">Navigation</MenuLink>
+  <MenuLink href="/examples/making-it-yours/callouts/">Alertes</MenuLink>
+</Menu>
+
+```mdx
+<Menu label="Ce module">
+  <MenuLink href="/examples/making-it-yours/colours/">Couleurs</MenuLink>
+  <MenuLink href="/examples/making-it-yours/navigation/">Navigation</MenuLink>
+</Menu>
+```
+
+Passé une poignée d'entrées, `MenuGroup` les range sous un titre — le lecteur
+cesse de lire une liste plate et en lit deux courtes :
+
+<Menu label="Tout le cours">
+  <MenuGroup title="Apprendre">
+    <MenuLink href="/examples/first-steps/">Premiers pas</MenuLink>
+    <MenuLink href="/examples/writing/">Bien écrire</MenuLink>
+  </MenuGroup>
+  <MenuGroup title="Publier">
+    <MenuLink href="/examples/making-it-yours/">À votre main</MenuLink>
+    <MenuLink href="/examples/publishing/">Mise en ligne</MenuLink>
+  </MenuGroup>
+</Menu>
+
+Sur un écran étroit, la rangée se replie derrière son libellé — le même repli
+que l'en-tête, et pas plus de script que lui.
+
+## Sur un téléphone
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>L'en-tête</CardHeader>
+      <CardBody>
+        Versions, vos liens et le champ de recherche passent dans un menu hamburger.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Le menu</CardHeader>
+      <CardBody>Replié au-dessus du contenu, fermé, pour que la page commence à la page.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Un menu de page</CardHeader>
+      <CardBody>La rangée devient un seul bouton, qui s'ouvre sur place.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+Essayez honnêtement : rétrécissez la fenêtre jusqu'à ce que la mise en page
+change. Chaque repli ici est un élément `details` natif — il fonctionne
+JavaScript désactivé, et le clavier l'ouvre comme n'importe quel autre.
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Votre entrée de panneau porte à la fois `href` et `columns`. Que se passe-t-il ?</summary>
+
+La génération s'arrête et le dit. Une entrée qui mène quelque part **et** ouvre
+un panneau devrait choisir au moment du clic, et le lecteur ne saurait jamais
+ce qu'il obtient.
+
+</details>
+
+<details>
+<summary>Lequel des trois demande au lecteur de charger un script ?</summary>
+
+Aucun.
+
+</details>
+
+<Card href="../../guide/navigation/" elevated>
+  <CardHeader>La page du guide</CardHeader>
+  <CardBody>
+    Chaque champ, ce qu'il fait sur écran large, et ce qu'il fait sur écran étroit.
+  </CardBody>
+</Card>

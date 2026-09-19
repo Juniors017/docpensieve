@@ -1,0 +1,112 @@
+---
+title: Composants
+description: Colonnes, cartes, jauges et infobulles — sans import, sans script.
+authors: [pensy]
+date: 2026-09-07
+modified: 2026-09-20
+tags: [cours, intermédiaire, composants]
+---
+
+# Composants
+
+<Skill name="Progression du module" level={100} color="#10b981">
+  Leçon 2 sur 2 — la dernière de ce module.
+</Skill>
+
+## Une comparaison, en colonnes
+
+Une page qui compare deux façons de travailler se lit mieux côte à côte :
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Une liste écrite à la main</CardHeader>
+      <CardBody>Périme à la première page renommée. Rien ne vous le dit.</CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>Une grille de cartes</CardHeader>
+      <CardBody>
+        Construite depuis les pages à chaque génération. Elle ne peut pas périmer.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Un tableau de bord, en jauges
+
+Là où une équipe suit l'état de sa documentation :
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Pages relues" level={82} shape="circle" />
+  <Skill name="Exemples testés" level={95} shape="circle" color="#10b981" />
+  <Skill name="Traduites" level={40} shape="circle" color="#f59e0b" />
+</div>
+
+## Un avertissement qu'on ne peut pas dépasser
+
+Certaines phrases ne doivent pas se lire comme de la prose. Une admonition les
+sort du texte :
+
+<Admonition type="tip">
+  Écrivez la leçon avant la référence. Un lecteur arrive avec une tâche, pas avec une liste
+  d'options.
+</Admonition>
+
+<Admonition type="danger" title="Avant de supprimer une version">
+  Son adresse cesse de répondre, et les liens qui la visaient ne mènent plus nulle part.
+</Admonition>
+
+### Les types que ce site a ajoutés
+
+Six types sont livrés avec l'outil ; ces deux-là sont déclarés dans la
+configuration de ce site même, avec une marque prise dans un jeu d'icônes :
+
+<Admonition type="copilot">
+  Un passage rédigé avec un assistant, puis relu et corrigé par une personne.
+</Admonition>
+
+<Admonition type="claude">
+  Le même, et la page garde son auteur : la signature ci-dessus nomme une personne, pas un outil.
+</Admonition>
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  claude: { label: 'Claude', tone: 'info', icon: 'simple-icons:claude' },
+},
+```
+
+La marque est posée dans la page à la génération, comme toutes les autres
+icônes ici : votre lecteur ne télécharge rien, et aucune requête ne part de son
+navigateur.
+
+## Un terme, expliqué sur place
+
+Un lecteur qui ne sait pas ce qu'est une <Tooltip text="Une version publiée avant la version stable, pour essayer ce qui vient.">bêta</Tooltip> l'apprend sans quitter la phrase — à la souris comme au clavier.
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Combien de scripts cette page charge-t-elle ?</summary>
+
+Aucun. Chaque composant employé ici est rendu à la génération du site.
+
+</details>
+
+<Card href="../../../components/">
+  <CardBody>
+    Cette leçon emploie **Columns**, **Card**, **Skill**, **Tooltip** et **Admonition**.
+  </CardBody>
+</Card>
+
+## Bravo
+
+Vous avez terminé **Bien écrire**. Le site porte de vraies pages ; le module
+suivant lui donne votre allure et votre navigation.
+
+<Card href="/examples/making-it-yours/" elevated>
+  <CardHeader>Module suivant : À votre main</CardHeader>
+  <CardBody>Couleurs, navigation, et blocs qui arrêtent un lecteur à temps.</CardBody>
+</Card>

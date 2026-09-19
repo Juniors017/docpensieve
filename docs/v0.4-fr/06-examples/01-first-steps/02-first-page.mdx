@@ -1,0 +1,62 @@
+---
+title: Une première page
+description: Où vit une page, ce que dit son frontmatter, et comment son adresse en découle.
+authors: [pensy]
+date: 2026-09-02
+modified: 2026-09-20
+tags: [cours, débutant, rédaction]
+---
+
+# Une première page
+
+<Skill name="Progression du module" level={66}>
+  Leçon 2 sur 3.
+</Skill>
+
+## Où vivent les pages
+
+Chaque page est un fichier du dossier de version. Sa place donne son adresse :
+
+<Tree>
+  <TreeItem label="docs/v1.0" open>
+    <TreeItem label="index.mdx — la page d'accueil" />
+    <TreeItem label="guide" open>
+      <TreeItem label="index.md — /guide/" />
+      <TreeItem label="01-hello.md — /guide/hello/" />
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+Le <Tooltip text="Deux chiffres et un tiret en tête de nom : ils ordonnent le menu et disparaissent de l'adresse.">préfixe d'ordre</Tooltip> fixe l'ordre sans apparaître dans l'adresse.
+
+## À vous
+
+Créez `docs/v1.0/guide/01-hello.md` :
+
+```md
+---
+title: Bonjour
+description: Ma toute première page.
+tags: [bonjour]
+---
+
+Bienvenue dans ma documentation.
+```
+
+Le <Tooltip text="Le bloc entre les deux lignes de tirets, en haut du fichier.">frontmatter</Tooltip> est facultatif, mais c'est lui qui remplit le titre de l'onglet, l'entrée du menu et les étiquettes en bas de page.
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Quelle est l'adresse de 02-setup.md, dans le dossier guide ?</summary>
+
+`/guide/setup/` — le préfixe et l'extension disparaissent.
+
+</details>
+
+<Card href="../../../components/tree/">
+  <CardBody>
+    Cette leçon emploie **Tree**, **Tooltip** et **Skill**, et montre ses propres étiquettes en bas
+    de page.
+  </CardBody>
+</Card>
