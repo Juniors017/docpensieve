@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" class="dark">
+<html lang="fr" dir="ltr" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/guide/languages/" />
+    <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/guide/languages/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/guide/languages/" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/fr/guide/languages/#article","headline":"Langues","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/fr/guide/languages/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Publier la même version en plusieurs langues — les dossiers, les adresses, et ce qu'il advient d'une page que personne n'a traduite.","keywords":["guide","langues"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/fr/guide/languages/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/fr/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/beta/fr/guide/"},{"@type":"ListItem","position":3,"name":"Langues","item":"https://docpensieve.com/versions/beta/fr/guide/languages/"}]}]}</script>
   </head>
@@ -607,6 +608,28 @@ où un projet écrit les siens — ou corrige un mot :</p>
 page lisible. Une clé qui n&#x27;existe pas arrête la génération, en listant celles
 qui existent — une faute de frappe y laisserait le mot livré en place, sans un
 mot.</p>
+<h3 id="compter-dans-les-pluriels-de-la-langue">Compter, dans les pluriels de la langue</h3>
+<p>Une clé n&#x27;est pas un mot mais un ensemble : <code>pages</code>, qui suit un nombre.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ui</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  pl</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">pages</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">one</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;strona&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">few</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;strony&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">many</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;stron&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">other</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;stron&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> } },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
+<p>Les catégories sont celles de <strong>CLDR</strong>, la référence que portent les
+navigateurs et Node : l&#x27;anglais en a deux — <code>one</code> et <code>other</code> —, le français met
+zéro au singulier, le polonais en a quatre et l&#x27;arabe six. La génération
+choisit la bonne par <code>Intl.PluralRules</code> plutôt qu&#x27;en comparant le compte à un,
+ce qui est une règle anglaise.</p>
+<p>Remplissez <code>other</code> au minimum : c&#x27;est la catégorie que toute langue possède, et
+elle répond pour celles qu&#x27;une traduction laisse de côté.</p>
+<h2 id="ce-que-la-langue-decide-delle-meme">Ce que la langue décide d&#x27;elle-même</h2>
+<p>Trois choses découlent du seul code, sans rien à déclarer :</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Depuis la langue</th><th>Ce qu&#x27;elle règle</th></tr></thead><tbody><tr><td>Le sens d&#x27;écriture</td><td><code>dir=&quot;rtl&quot;</code> sur <code>&lt;html&gt;</code> pour l&#x27;arabe, l&#x27;hébreu, le persan…</td></tr><tr><td>Le pluriel d&#x27;un compte</td><td>Les catégories CLDR ci-dessus</td></tr><tr><td>La date d&#x27;une signature</td><td>Écrite selon les conventions de cette langue</td></tr></tbody></table></div>
+<p>Les codes eux-mêmes sont des étiquettes <strong>BCP 47</strong> — <code>fr</code>, <code>pt-BR</code>, <code>zh-Hans</code> —
+la norme qu&#x27;attendent <code>&lt;html lang&gt;</code> et <code>hreflang</code>. Une étiquette qui n&#x27;en est
+pas une arrête la génération : elle poserait sinon dans le balisage une valeur
+qu&#x27;aucun navigateur ni lecteur d&#x27;écran ne sait lire.</p>
+<p>Les moteurs de recherche reçoivent aussi <code>hreflang=&quot;x-default&quot;</code>, qui désigne la
+langue dans laquelle les pages sont écrites : c&#x27;est l&#x27;adresse à servir à un
+lecteur dont le site n&#x27;a pas la langue.</p>
 <h2 id="ce-que-chaque-langue-a-en-propre">Ce que chaque langue a en propre</h2>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>En propre</th><th>Partagé avec la version</th></tr></thead><tbody><tr><td>Pages, menu, page de recherche</td><td>La feuille de style</td></tr><tr><td>Fichier d&#x27;auteurs et images de son dossier</td><td>Le logo et la favicone</td></tr><tr><td>Les mots de la coquille</td><td>Le bandeau de version et son numéro</td></tr></tbody></table></div>
 <p>Le fichier d&#x27;auteurs est lu dans chaque dossier : une biographie peut donc être
@@ -640,6 +663,14 @@ sélecteur le dit.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#les-mots-autour-de-vos-pages">Les mots autour de vos pages</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#compter-dans-les-pluriels-de-la-langue">Compter, dans les pluriels de la langue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-que-la-langue-decide-delle-meme">Ce que la langue décide d&#x27;elle-même</a>
           </li>
           <li class="dp-toc-item">
             <a href="#ce-que-chaque-langue-a-en-propre">Ce que chaque langue a en propre</a>

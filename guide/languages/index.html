@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" dir="ltr" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/guide/languages/" />
+    <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/guide/languages/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/guide/languages/" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/guide/languages/#article","headline":"Languages","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/guide/languages/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Publish the same version in several languages — the folders, the addresses, and what happens to a page nobody translated.","keywords":["guide","languages"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/guide/languages/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/beta/guide/"},{"@type":"ListItem","position":3,"name":"Languages","item":"https://docpensieve.com/versions/beta/guide/languages/"}]}]}</script>
   </head>
@@ -605,6 +606,28 @@ where a project writes its own — or corrects a word:</p>
 <p>Anything left out stays in English rather than empty: half a translation is
 still a readable page. A key that does not exist stops the build, listing those
 that do — a typo there would leave the shipped word in place without a word.</p>
+<h3 id="counting-in-the-plurals-of-the-language">Counting, in the plurals of the language</h3>
+<p>One key is not a word but a set of them: <code>pages</code>, which follows a number.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">ui</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  pl</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">pages</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">one</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;strona&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">few</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;strony&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">many</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;stron&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">other</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;stron&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> } },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
+<p>The categories are those of <strong>CLDR</strong>, the reference the browsers and Node
+carry: English has two — <code>one</code> and <code>other</code> — French puts zero in the singular,
+Polish has four and Arabic six. The build picks the right one through
+<code>Intl.PluralRules</code> rather than comparing the count with one, which is an
+English rule.</p>
+<p>Fill <code>other</code> at least: it is the category every language has, and it answers
+for the ones a translation leaves out.</p>
+<h2 id="what-the-language-decides-by-itself">What the language decides by itself</h2>
+<p>Three things follow from the code alone, with nothing to declare:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>From the language</th><th>What it sets</th></tr></thead><tbody><tr><td>Writing direction</td><td><code>dir=&quot;rtl&quot;</code> on <code>&lt;html&gt;</code> for Arabic, Hebrew, Persian…</td></tr><tr><td>Plural of a count</td><td>The CLDR categories above</td></tr><tr><td>The date of a byline</td><td>Written in the conventions of that language</td></tr></tbody></table></div>
+<p>The codes themselves are <strong>BCP 47</strong> tags — <code>fr</code>, <code>pt-BR</code>, <code>zh-Hans</code> — the
+standard <code>&lt;html lang&gt;</code> and <code>hreflang</code> expect. A tag that is not one stops the
+build: it would otherwise put in the markup a value no browser or screen reader
+knows how to read.</p>
+<p>Search engines also receive <code>hreflang=&quot;x-default&quot;</code>, pointing at the language
+the pages are written in: it is the address to serve a reader whose own
+language the site does not have.</p>
 <h2 id="what-each-language-has-of-its-own">What each language has of its own</h2>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Its own</th><th>Shared with the version</th></tr></thead><tbody><tr><td>Pages, menu, search page</td><td>The stylesheet</td></tr><tr><td>Author file and images of its folder</td><td>The logo and favicon</td></tr><tr><td>The wording of the shell</td><td>The version notice and its number</td></tr></tbody></table></div>
 <p>The author file is read in each folder, so a biography can be translated with
@@ -637,6 +660,14 @@ file name is a different page: it has no twin, and the switcher says so.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#the-words-around-your-pages">The words around your pages</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#counting-in-the-plurals-of-the-language">Counting, in the plurals of the language</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-the-language-decides-by-itself">What the language decides by itself</a>
           </li>
           <li class="dp-toc-item">
             <a href="#what-each-language-has-of-its-own">What each language has of its own</a>

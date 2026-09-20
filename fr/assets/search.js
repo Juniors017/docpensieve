@@ -134,16 +134,20 @@ async function init() {
   // The wording of the page, put there by the build: this file is copied as
   // it is into every site, whatever its language.
   const words = {
+    lang: 'en',
     failed: 'The search index could not be loaded: every page is listed below.',
-    page: 'page',
-    pages: 'pages',
+    pages: { one: 'page', other: 'pages' },
     noResultFor: 'No page matches “{query}”.',
     resultsFor: '{count} for “{query}”.',
     ...JSON.parse(form.dataset.strings || '{}'),
   };
 
+  // The plural comes from the language, not from a comparison with one: that
+  // rule is English, and gets French wrong on zero — "0 page".
+  const plural = new Intl.PluralRules(words.lang);
+
   /** @param {number} n */
-  const count = (n) => `${n} ${n === 1 ? words.page : words.pages}`;
+  const count = (n) => `${n} ${words.pages[plural.select(n)] ?? words.pages.other}`;
 
   /** @type {Map<string, HTMLElement>} */
   const items = new Map();
