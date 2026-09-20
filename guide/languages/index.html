@@ -31,9 +31,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.1, switch version">0.5.0-beta.1</summary>
+          <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +84,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.1, switch version">0.5.0-beta.1</summary>
+            <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -559,6 +559,13 @@
         <article class="dp-article"><h1 id="languages">Languages</h1>
 <p>A version can be published in several languages. Each one is a folder of pages
 of its own, standing beside the version it translates.</p>
+<h2 id="starting-from-init">Starting from init</h2>
+<p><code>init</code> asks whether the site will be in several languages. Answer yes, give a
+code, and the project comes out wired: the folder beside your pages, the field
+in the configuration, and a home page in that language to start from.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-site</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --translation</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> fr</span></span></code></pre>
+<p>Everything below is what that answer sets up — and what to do when you add a
+language to a project that already exists.</p>
 <h2 id="declaring-a-translation">Declaring a translation</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">lang</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;en&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
@@ -659,6 +666,9 @@ file name is a different page: it has no twin, and the switcher says so.</li>
         <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">On this page</p>
         <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
           <li class="dp-toc-item">
+            <a href="#starting-from-init">Starting from init</a>
+          </li>
+          <li class="dp-toc-item">
             <a href="#declaring-a-translation">Declaring a translation</a>
           </li>
           <li class="dp-toc-item">
@@ -692,7 +702,7 @@ file name is a different page: it has no twin, and the switcher says so.</li>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.1</p>
+      <p>DocPensieve — version 0.5.0-beta.2</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

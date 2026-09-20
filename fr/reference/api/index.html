@@ -31,9 +31,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.1, changer de version">0.5.0-beta.1</summary>
+          <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +84,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.1, changer de version">0.5.0-beta.1</summary>
+            <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -734,6 +734,23 @@ what CLDR knows, and a list would go stale the day someone translates into
 a language nobody thought of.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[lang]</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
 <p><strong>Renvoie</strong> <code>&#x27;ltr&#x27; \| &#x27;rtl&#x27;</code> — <code>ltr</code> when the language is unknown — the safe default, and what every page did before this existed.</p>
+<h3 id="islanguagecode"><code>isLanguageCode</code></h3>
+<p><code>isLanguageCode(value)</code></p>
+<p>Whether a string names a language, as BCP 47 and CLDR understand it.</p>
+<p>The standard is BCP 47, and <code>Intl</code> carries it: a regex of our own refused
+<code>zh-Hans-CN</code>, which is valid, and accepted shapes that are not. Well formed
+is not the same as real, though — BCP 47 allows a language subtag of five
+to eight letters, so <code>francais</code> passes that check and would land in the
+markup as <code>lang=&quot;francais&quot;</code>, a value no browser maps to a language. CLDR
+knows which tags name one; the subtag alone is asked, so that a region, a
+script or a private extension does not get in the way.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>boolean</code></p>
+<h3 id="languagename"><code>languageName</code></h3>
+<p><code>languageName(code, [inLang])</code></p>
+<p>Name of a language, written in a language.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>code</code></td><td><code>string</code></td><td>Language code.</td></tr><tr><td><code>[inLang]</code></td><td><code>string</code></td><td>Language the name is written in.</td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>string</code> — The name, or the code itself when nothing names it.</p>
 <h2 id="docpensieve-core"><code>@docpensieve/core</code></h2>
 <p>Configuration, chargement, compilation, données structurées et génération.</p>
 <h3 id="default-config"><code>DEFAULT_CONFIG</code></h3>
@@ -1131,9 +1148,9 @@ one, which makes it usable elsewhere and testable on its own.</p>
 <h3 id="init"><code>init</code></h3>
 <p><code>init([dir], [options])</code></p>
 <p>Sets up a documentation project.</p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[dir]</code></td><td><code>string</code></td><td>Target folder, created if needed.</td></tr><tr><td><code>[options]</code></td><td><code>{ name?: string, theme?: string, siteUrl?: string, version?: string, yes?: boolean, force?: boolean, minimal?: boolean, }</code></td><td><code>minimal</code> leaves DocPensieve&#x27;s documentation out of the site.</td></tr></tbody></table></div>
-<p><strong>Renvoie</strong> <code>Promise&lt;{ dir: string, theme: string, docs: boolean }&gt;</code></p>
-<p><strong>Lève</strong> <code>DocPensieveError</code> — Unknown framework, project already initialised, or documentation to install missing.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[dir]</code></td><td><code>string</code></td><td>Target folder, created if needed.</td></tr><tr><td><code>[options]</code></td><td><code>{ name?: string, theme?: string, siteUrl?: string, version?: string, translation?: string, yes?: boolean, force?: boolean, minimal?: boolean, }</code></td><td><code>minimal</code> leaves DocPensieve&#x27;s documentation out of the site; <code>translation</code> is the code of a second language, <code>fr</code> for instance.</td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>Promise&lt;{ dir: string, theme: string, docs: boolean, translation: string, }&gt;</code></p>
+<p><strong>Lève</strong> <code>DocPensieveError</code> — Unknown framework, unknown language, project already initialised, or documentation to install missing.</p>
 <h3 id="serve"><code>serve</code></h3>
 <p><code>serve([options])</code></p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, dir?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
@@ -1264,6 +1281,12 @@ one, which makes it usable elsewhere and testable on its own.</p>
               </li>
               <li class="dp-toc-item">
                 <a href="#textdirection">textDirection</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#islanguagecode">isLanguageCode</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#languagename">languageName</a>
               </li>
             </ul>
           </li>
@@ -1523,7 +1546,7 @@ one, which makes it usable elsewhere and testable on its own.</p>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.1</p>
+      <p>DocPensieve — version 0.5.0-beta.2</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

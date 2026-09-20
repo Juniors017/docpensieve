@@ -32,9 +32,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.1, switch version">0.5.0-beta.1</summary>
+          <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +85,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.1, switch version">0.5.0-beta.1</summary>
+            <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.1</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -165,8 +165,11 @@
   <path d="M6 7.5v9M8.5 5h5a4 4 0 0 1 4 4v.5" />
 </svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Architecture</strong><p>How a page becomes HTML, and why it works that way.</p></div></a></div></div>
 <h2 id="new-in-this-beta">New in this beta</h2>
-<p>Nothing yet: the 0.5 has just opened. What it brings will be listed here as it
-lands.</p>
+<ul>
+<li><strong>init asks about languages</strong> — one question, and the project comes out with
+its second language wired: the folder, the configuration field and a page to
+start from.</li>
+</ul>
 <p><a href="/versions/beta/whats-new/">Everything that is new</a> ·
 <a href="/versions/beta/guide/migrate-to-beta/">Migrate from latest to beta</a></p>
 <h2 id="in-three-commands">In three commands</h2>
@@ -176,12 +179,14 @@ lands.</p>
 sets up a configuration and a documentation folder; the last one opens a server
 that rebuilds on every save.</p><p>Nothing else to install: the <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2qd_">build</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2qd_" role="tooltip">Turning the sources into HTML pages ready to serve.</span></span> runs on your machine, and the produced site only needs a file host.</p></div><div class="dp-column dp-column--span-5"><div class="dp-card h-full"><div class="dp-card-header">What you get</div><div class="dp-card-body"><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">dist</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.html</span></li><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">versions.json</span></li><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">versions</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details"><summary class="dp-tree-label">v1.0</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">index.html</span></li><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">assets</span></li></ul></details></li></ul></details></li></ul></details></li></ul></div></div></div></div>
 <h2 id="what-init-asks">What init asks</h2>
-<p><code>init</code> sets the project up through five questions. Enter keeps the default,
+<p><code>init</code> sets the project up through six questions. Enter keeps the default,
 listed in the table below; an answer it does not understand is asked again.</p>
 <pre><code>$ npx docpensieve init my-site
 Project name [My documentation]: Acme docs
 Public URL of the site (optional): https://acme.github.io/docs
 First version [1.0]:
+Will the site be in several languages? [y/N]: y
+Code of the second language [fr]:
 
 CSS framework:
   1. tailwind — Tailwind CSS — ships with the tool, nothing to install
@@ -189,9 +194,9 @@ CSS framework:
 Your choice [1-2]: 2
 Install DocPensieve&#x27;s documentation in the site? [Y/n]:
 </code></pre>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Question</th><th>Default</th><th>What your answer changes</th><th>Answered in advance by</th></tr></thead><tbody><tr><td>Project name</td><td><code>My documentation</code></td><td>The name in the header, in the page titles and in the structured data.</td><td><code>--name</code></td></tr><tr><td>Public URL of the site</td><td>none</td><td>The canonical links and the structured data. Its path becomes the deployment prefix: <code>https://acme.github.io/docs</code> serves the site under <code>/docs/</code>. Leave it empty until you know.</td><td><code>--site-url</code></td></tr><tr><td>First version</td><td><code>1.0</code></td><td>The folder of your pages, <code>docs/v1.0/</code>, and the version in the URLs. <code>1.0</code> and <code>v1.0</code> are the same answer.</td><td><code>--version-name</code></td></tr><tr><td>CSS framework</td><td><code>tailwind</code></td><td><code>tailwind</code> compiles the utilities your pages use, with nothing more to install. <code>custom</code> is a plain stylesheet: your own classes go in a <code>theme/</code> folder. Type the number or the name.</td><td><code>--theme</code></td></tr><tr><td>DocPensieve&#x27;s documentation</td><td>yes</td><td>Yes: this documentation joins your menu, in a <strong>DocPensieve</strong> section matching your version. No: the site starts with your pages alone.</td><td><code>--minimal</code>, for no</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Question</th><th>Default</th><th>What your answer changes</th><th>Answered in advance by</th></tr></thead><tbody><tr><td>Project name</td><td><code>My documentation</code></td><td>The name in the header, in the page titles and in the structured data.</td><td><code>--name</code></td></tr><tr><td>Public URL of the site</td><td>none</td><td>The canonical links and the structured data. Its path becomes the deployment prefix: <code>https://acme.github.io/docs</code> serves the site under <code>/docs/</code>. Leave it empty until you know.</td><td><code>--site-url</code></td></tr><tr><td>First version</td><td><code>1.0</code></td><td>The folder of your pages, <code>docs/v1.0/</code>, and the version in the URLs. <code>1.0</code> and <code>v1.0</code> are the same answer.</td><td><code>--version-name</code></td></tr><tr><td>A second language</td><td>no</td><td>Yes, then a code: your pages get a folder of their own in that language — <code>docs/v1.0-fr/</code>, served under <code>/fr/</code>. A page with no twin in it does not exist in that language.</td><td><code>--translation fr</code></td></tr><tr><td>CSS framework</td><td><code>tailwind</code></td><td><code>tailwind</code> compiles the utilities your pages use, with nothing more to install. <code>custom</code> is a plain stylesheet: your own classes go in a <code>theme/</code> folder. Type the number or the name.</td><td><code>--theme</code></td></tr><tr><td>DocPensieve&#x27;s documentation</td><td>yes</td><td>Yes: this documentation joins your menu, in a <strong>DocPensieve</strong> section matching your version. No: the site starts with your pages alone.</td><td><code>--minimal</code>, for no</td></tr></tbody></table></div>
 <h3 id="what-it-writes-depending-on-your-answers">What it writes, depending on your answers</h3>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>File</th><th>Written when</th></tr></thead><tbody><tr><td><code>docpensieve.config.mjs</code></td><td>always — every option, each with a comment</td></tr><tr><td><code>docs/v1.0/index.md</code> and <code>docs/v1.0/01-guide/01-installation.md</code></td><td>always — a home page and a first page</td></tr><tr><td><code>.gitignore</code></td><td>always — the output folder is added to it</td></tr><tr><td><code>docs/v1.0/99-docpensieve/</code></td><td>documentation: yes — delete it when you are done</td></tr><tr><td><code>theme/custom.css</code></td><td>theme: <code>custom</code> — where your own classes go</td></tr><tr><td><code>theme/99-docpensieve.css</code></td><td>theme: <code>custom</code> and documentation: yes — the classes of its examples</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>File</th><th>Written when</th></tr></thead><tbody><tr><td><code>docpensieve.config.mjs</code></td><td>always — every option, each with a comment</td></tr><tr><td><code>docs/v1.0/index.md</code> and <code>docs/v1.0/01-guide/01-installation.md</code></td><td>always — a home page and a first page</td></tr><tr><td><code>docs/v1.0-fr/index.md</code></td><td>a second language — the home page, ready to translate</td></tr><tr><td><code>.gitignore</code></td><td>always — the output folder is added to it</td></tr><tr><td><code>docs/v1.0/99-docpensieve/</code></td><td>documentation: yes — delete it when you are done</td></tr><tr><td><code>theme/custom.css</code></td><td>theme: <code>custom</code> — where your own classes go</td></tr><tr><td><code>theme/99-docpensieve.css</code></td><td>theme: <code>custom</code> and documentation: yes — the classes of its examples</td></tr></tbody></table></div>
 <p>The answers end up in <code>docpensieve.config.mjs</code>: the name, the URL and the
 theme can be changed there later.</p>
 <p>In a script or in continuous integration, <code>--yes</code> accepts every default and
@@ -254,7 +259,7 @@ enough.</p></div></div></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.1</p>
+      <p>DocPensieve — version 0.5.0-beta.2</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">
