@@ -20,8 +20,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 /** Where each page is written: the reference of the version being prepared. */
 export const API_PAGES = {
-  en: path.join(ROOT, 'docs', 'v0.4', '03-reference', '05-api.md'),
-  fr: path.join(ROOT, 'docs', 'v0.4-fr', '03-reference', '05-api.md'),
+  en: path.join(ROOT, 'docs', 'v0.5', '03-reference', '05-api.md'),
+  fr: path.join(ROOT, 'docs', 'v0.5-fr', '03-reference', '05-api.md'),
 };
 
 /** The English page, still named on its own by the rest of the repository. */

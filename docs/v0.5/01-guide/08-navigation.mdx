@@ -1,0 +1,138 @@
+---
+title: Navigation
+description: The menu of the documentation, the links of the header, and what becomes of both on a phone.
+tags: [guide, navigation]
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: true
+---
+
+# Navigation
+
+A reader finds a page in one of two ways: the menu of the documentation, on the
+left, or the header, at the top. They answer different questions — _where am I
+in this documentation_ and _where else can I go_ — and a site may use one, the
+other, or both.
+
+Neither loads a script. Everything here folds and unfolds with native elements.
+
+## The header, held or not
+
+The header stays at the top of the screen. To let it scroll away with the page:
+
+```js
+stickyHeader: false,
+```
+
+Held, it keeps the search field and the version switcher within reach. Let go,
+it gives back its height — a third of a phone screen — and anchors stop
+reserving room for it.
+
+## The menu of the documentation
+
+It follows the file tree, or the file you describe — that is
+[Writing the menu by hand](./writing-pages/). What changes here is how much of
+it shows at once.
+
+### Folding the categories
+
+```js
+// docpensieve.config.mjs
+foldedSidebar: true,
+```
+
+Every category becomes a fold. **The branch holding the page being read is
+open, the others closed**, so a menu of a hundred entries stops asking the
+reader to scroll past what does not concern them.
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Unfolded — the default</CardHeader>
+      <CardBody>
+        Everything is visible at once. Right for a documentation of a few dozen pages, where
+        scrolling the menu costs nothing.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>Folded</CardHeader>
+      <CardBody>
+        Only the branch being read is open. Right once the menu is long enough that its end is out
+        of sight.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+A category that is also a page gains that page as its first entry. The handle
+of a fold cannot be a link as well — a click would mean two things, and the
+page would become unreachable.
+
+## The header
+
+`headerLinks` puts links beside the version switcher.
+
+```js
+headerLinks: [{ label: 'Blog', href: '/blog/' }],
+```
+
+A target starts from the root of a version — `/blog/` — or is a full address. A
+relative target is refused: the header is on every page, and `blog/` would mean
+something else on each.
+
+### A section that lives in one version
+
+A link may name the version it leads to:
+
+```js
+{ label: 'Examples', href: '/examples/', version: 'latest' },
+```
+
+Every version then leads there, which is what keeps a section written in one
+version reachable from all of them. This site does exactly that for its
+examples.
+
+### A panel of links
+
+An entry carrying `columns` opens a panel instead of leading anywhere:
+
+```js
+{
+  label: 'Product',
+  columns: [
+    {
+      title: 'Guide',
+      items: [
+        { label: 'Installation', href: '/guide/installation/' },
+        { label: 'First site', href: '/guide/first-site/' },
+      ],
+    },
+    { items: [{ label: 'Repository', href: 'https://github.com/me/my-project' }] },
+  ],
+}
+```
+
+A column may go without a title. An entry cannot carry both `href` and
+`columns`: it either leads somewhere or opens a panel.
+
+The panel is declared here, **not derived from the menu of the documentation**.
+The two are therefore free to show different things — or a site without a
+sidebar can navigate from the header alone.
+
+## On a phone
+
+Nothing is left to overflow off the screen.
+
+| What                                   | Below 48rem                          | Below 56rem                                     |
+| -------------------------------------- | ------------------------------------ | ----------------------------------------------- |
+| Version switcher, links, panel, search | Behind the menu button of the header | —                                               |
+| Menu of the documentation              | —                                    | Folded above the content, behind its own button |
+
+The panel of links unfolds inside the header menu rather than over it, and the
+documentation menu starts closed: open, it would fill the first screen before a
+word is read.
+
+Both buttons are native elements. With JavaScript turned off, they still open.

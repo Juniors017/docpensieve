@@ -1,0 +1,170 @@
+---
+title: Couleurs
+description: Donner votre palette au site — un jeton dans la configuration, le schéma sombre dans un fichier à vous.
+authors: [valentin]
+date: 2026-09-18
+modified: 2026-09-20
+tags: [cours, intermédiaire, thèmes]
+---
+
+# Couleurs
+
+<Skill name="Progression du module" level={33}>
+  Leçon 1 sur 3.
+</Skill>
+
+Un composant, ici, n'écrit jamais une couleur. Il demande un <Tooltip text="Une variable CSS nommée --dp-quelque-chose, définie une fois et lue par chaque composant.">jeton</Tooltip>, et le thème répond — c'est pourquoi une ligne change tout le site, y compris les parties que vous n'avez pas encore écrites.
+
+## À vous
+
+Ouvrez `docpensieve.config.mjs` et donnez à l'accent une couleur à vous :
+
+```js
+theme: {
+  framework: 'tailwind',
+  tokens: {
+    '--dp-accent': '#7c5cff',
+    '--dp-radius': '0.75rem',
+  },
+},
+```
+
+Regénérez, puis regardez un lien, une jauge, l'entrée courante du menu, la
+bordure d'une carte que vous n'avez jamais touchée. Tout a bougé.
+
+<Admonition type="attention" title="Un site tenu sombre ne montrera rien">
+  `tokens` règle la palette **claire**. Si votre configuration porte `darkMode: 'dark'`, le lecteur
+  ne la voit jamais — les valeurs sombres viennent de la feuille du thème. C'est alors la section
+  suivante qui compte.
+</Admonition>
+
+## Le schéma sombre
+
+La palette sombre est un second jeu de valeurs pour les mêmes jetons. Elle se
+redéfinit dans le dossier `theme/`, à la racine du projet — chaque fichier
+`.css` qui s'y trouve est lu dans l'ordre des noms et ajouté **en dernier**, ce
+qui en fait le dernier mot du projet :
+
+<Tree>
+  <TreeItem label="mon-cours" open>
+    <TreeItem label="docpensieve.config.mjs" />
+    <TreeItem label="theme" open>
+      <TreeItem label="10-sombre.css — le vôtre" />
+      <TreeItem label="99-docpensieve.css — écrit par init, sous le thème custom" />
+    </TreeItem>
+    <TreeItem label="docs" />
+  </TreeItem>
+</Tree>
+
+Créez `theme/10-sombre.css`. Le sombre arrive de deux façons — le système du
+lecteur, et la classe que pose une configuration — donc les deux s'écrivent :
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-accent: #a78bfa;
+    --dp-bg: #0b0b14;
+  }
+}
+
+:root.dark {
+  --dp-accent: #a78bfa;
+  --dp-bg: #0b0b14;
+}
+```
+
+L'en-tête porte un bouton qui bascule entre les deux et retient le choix. C'est
+le seul script que charge une page de contenu, et `theme.toggle: false` le
+retire.
+
+## Ce que vous devriez voir
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>En clair</CardHeader>
+      <CardBody>
+        Votre accent sur les liens, les jauges, l'entrée courante du menu et l'anneau de focus.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>En sombre</CardHeader>
+      <CardBody>
+        Le même, aux valeurs de votre fichier `theme/` — et le reste de la palette aussi.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Ce qui suit l'accent tout seul
+
+Une icône posée dans la page prend la couleur du texte qui l'entoure : elle
+suit donc votre palette sans qu'on le lui dise.
+
+<LogoIcon src="../../icons/star.svg" size="1.5rem" style={{ color: 'var(--dp-accent)' }} /> sur
+l'accent,
+<LogoIcon src="../../icons/shield.svg" size="1.5rem" style={{ color: 'var(--dp-text-soft)' }} /> sur
+le texte discret.
+
+```mdx
+<LogoIcon src="./icons/star.svg" size="1.5rem" style={{ color: 'var(--dp-accent)' }} />
+```
+
+La seule chose qui ne suit **pas** d'elle-même, c'est une classe que vous
+écrivez, et sa forme dépend du thème choisi à la première leçon du cours :
+
+<ForTheme framework="tailwind">
+
+Sous le thème `tailwind`, une couleur ponctuelle est un utilitaire, écrit là où
+il sert :
+
+```mdx
+<div className="text-indigo-500">Une ligne à vous</div>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Sous le thème `custom`, une couleur ponctuelle est une classe du dossier
+`theme/`, écrite sur les jetons pour qu'elle suive la palette :
+
+```css
+/* theme/99-a-moi.css */
+.a-moi {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+Cette page vous montre la variante du thème que ce site emploie — c'est
+`ForTheme`, et c'est ainsi que toute la documentation reste juste sous les deux.
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Vous avez posé `--dp-accent` dans la configuration et rien n'a changé. Pourquoi ?</summary>
+
+Soit le site est tenu sombre — `darkMode: 'dark'` — et c'est la palette sombre
+qui répond, soit le jeton a été écrit hors de l'objet `tokens`. La génération
+n'aurait rien dit dans les deux cas : la feuille se compile de toute façon.
+
+</details>
+
+<details>
+<summary>Où poser une classe à vous, employée dans une page avec `className` ?</summary>
+
+Dans un fichier `.css` du dossier `theme/`. Il est ajouté après les règles des
+composants, donc il l'emporte — et sous le thème `custom`, c'est le seul
+endroit où ces classes existent.
+
+</details>
+
+<Card href="../../guide/themes/">
+  <CardBody>
+    Le tableau complet : les créneaux, l'ordre des couches, et pourquoi la feuille est compilée en
+    dernier.
+  </CardBody>
+</Card>

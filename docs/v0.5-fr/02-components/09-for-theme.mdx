@@ -1,0 +1,48 @@
+---
+title: ForTheme
+description: Du contenu réservé à un seul thème.
+---
+
+# ForTheme
+
+Garde son contenu pour les sites dont le thème correspond. Le choix est fait à
+la génération : l'autre variante n'atteint même pas le HTML.
+
+```mdx
+<ForTheme framework="tailwind">
+
+Avec Tailwind, un utilitaire : `className="max-w-sm"`.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Avec le thème custom, une classe du dossier `theme/` : `className="narrow"`.
+
+</ForTheme>
+```
+
+C'est ainsi que les pages de cette documentation montrent chaque exemple dans
+les termes de votre thème. Changer `theme.framework` dans la configuration
+change ce qu'elles montrent, sans les modifier.
+
+## Sur ce site
+
+<ForTheme framework="tailwind">
+
+Ce site est généré avec le thème **Tailwind**.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Ce site est généré avec le thème **custom**.
+
+</ForTheme>
+
+## Ce qu'il refuse
+
+Un `framework` autre que `tailwind` ou `custom` arrête la génération, avec les
+valeurs acceptées : une faute de frappe cacherait sinon le contenu sous tous
+les thèmes, sans un mot.
+
+Le thème qu'emploie un projet est un champ de sa configuration, et tout ce
+qu'il change est dans [Thèmes](../guide/themes/).

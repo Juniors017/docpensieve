@@ -1,0 +1,280 @@
+---
+title: Skill
+description: Une jauge de niveau, remplie en CSS.
+---
+
+# Skill
+
+Une mesure dans un intervalle connu : c'est exactement ce que décrit le rôle
+`meter`, que porte la jauge. La valeur est donc annoncée, qu'elle soit affichée
+en chiffre ou non.
+
+## Une jauge
+
+<Skill name="Accessibilité" level={85} />
+<Skill name="Performance" level={92} />
+<Skill name="Couverture des tests" level={64}>
+  Objectif : 90 % sur les modules livrés.
+</Skill>
+
+```mdx
+<Skill name="Accessibilité" level={85} />
+<Skill name="Couverture des tests" level={64}>
+  Objectif : 90 %.
+</Skill>
+```
+
+Un contenu passé en enfant devient un commentaire sous la barre.
+
+## En cercle
+
+`shape="circle"` dessine un cadran plutôt qu'une barre. Utile quand les jauges
+sont peu nombreuses et qu'on veut les faire ressortir.
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Accessibilité" level={85} shape="circle" />
+  <Skill name="Performance" level={92} shape="circle" />
+  <Skill name="Couverture" level={64} shape="circle" />
+  <Skill name="Types" level={100} shape="circle" />
+</div>
+
+```mdx
+<Skill name="Accessibilité" level={85} shape="circle" />
+```
+
+Le cercle est un SVG décoratif : c'est son enveloppe qui porte le rôle et la
+valeur, si bien que ce qui est annoncé ne dépend pas de ce qui est dessiné.
+
+Son rayon lui donne une circonférence de cent unités exactement. Le niveau part
+alors tel quel dans `stroke-dasharray`, sans multiplication ni arrondi — et
+l'animation d'entrée n'a qu'à partir de zéro.
+
+### Taille
+
+Elle se règle par `--dp-skill-size`, sur la jauge ou sur ce qui l'entoure.
+
+<div
+  style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', '--dp-skill-size': '4rem' }}
+>
+  <Skill name="Plus petite" level={70} shape="circle" />
+  <Skill name="Aussi plus petite" level={45} shape="circle" />
+</div>
+
+```mdx
+<div style={{ '--dp-skill-size': '4rem' }}>
+  <Skill name="Plus petite" level={70} shape="circle" />
+</div>
+```
+
+### Avec un commentaire
+
+<Skill name="Traductions" level={40} shape="circle">
+  Deux langues sur cinq.
+</Skill>
+
+### Sans le chiffre
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Discrète" level={55} shape="circle" showValue={false} />
+</div>
+
+Là encore, le chiffre quitte l'écran mais pas ce que la jauge annonce.
+
+## Avec une icône et une couleur
+
+`icon` se place devant le nom — un [LogoIcon](./logo-icon/) y tient bien.
+`color` teinte le remplissage **et** l'icône : les deux désignent la même
+chose, et les voir s'accorder aide à lire une colonne de jauges d'un coup
+d'œil.
+
+<Skill name="Vitesse" level={92} color="#f59e0b" icon={<LogoIcon src="./icons/lightning.svg" />} />
+<Skill name="Sûreté" level={78} color="#10b981" icon={<LogoIcon src="./icons/shield.svg" />} />
+<Skill name="Documentation" level={64} color="#6366f1" icon={<LogoIcon src="./icons/book.svg" />} />
+
+```mdx
+<Skill name="Vitesse" level={92} color="#f59e0b" icon={<LogoIcon src="./icons/lightning.svg" />} />
+```
+
+`color` accepte n'importe quelle couleur CSS. Sans elle, la couleur d'accent du
+thème s'applique.
+
+### En cercle aussi
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill
+    name="Vitesse"
+    level={92}
+    shape="circle"
+    color="#f59e0b"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="Sûreté"
+    level={78}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/shield.svg" />}
+  />
+  <Skill
+    name="Favori"
+    level={55}
+    shape="circle"
+    color="#ec4899"
+    icon={<LogoIcon src="./icons/star.svg" />}
+  />
+</div>
+
+### Teinter tout un groupe
+
+La teinte passe par `--dp-skill-color` : la poser sur un conteneur s'applique à
+toutes les jauges qu'il contient.
+
+<div style={{ '--dp-skill-color': '#0ea5e9' }}>
+  <Skill name="Première" level={70} />
+  <Skill name="Deuxième" level={45} />
+</div>
+
+```mdx
+<div style={{ '--dp-skill-color': '#0ea5e9' }}>
+  <Skill name="Première" level={70} />
+</div>
+```
+
+## Les bornes
+
+`level` va de 0 à 100. Les deux extrêmes se rendent sans cas particulier.
+
+<Skill name="Pas commencé" level={0} />
+<Skill name="Terminé" level={100} />
+
+## Sans le chiffre
+
+<Skill name="Sobriété" level={70} showValue={false} />
+
+```mdx
+<Skill name="Sobriété" level={70} showValue={false} />
+```
+
+`showValue={false}` retire le pourcentage **de l'écran seulement** : la jauge
+continue de l'annoncer aux lecteurs d'écran. Cacher une information n'est pas
+la supprimer.
+
+## Un nom qui n'est pas du texte
+
+`name` accepte plus qu'une chaîne — une icône à côté d'un mot, un terme portant
+une infobulle. Un lecteur d'écran n'a alors rien à annoncer : `label` dit en
+toutes lettres ce que la jauge mesure.
+
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Couverture
+    </>
+  }
+  label="Couverture des tests"
+  level={97}
+/>
+
+```mdx
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Couverture
+    </>
+  }
+  label="Couverture des tests"
+  level={97}
+/>
+```
+
+Avec une simple chaîne dans `name`, `label` est inutile : le nom le dit déjà.
+
+## Un tableau de bord
+
+Plusieurs jauges en colonnes, chacune dans sa carte.
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Qualité</CardHeader>
+      <CardBody>
+        <Skill name="Tests" level={88} />
+        <Skill name="Types" level={95} />
+        <Skill name="Documentation" level={72} />
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Livraison</CardHeader>
+      <CardBody>
+        <Skill name="Intégration continue" level={100} />
+        <Skill name="Traductions" level={40}>
+          Deux langues sur cinq.
+        </Skill>
+        <Skill name="Site en ligne" level={100} />
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Habiller la jauge
+
+<ForTheme framework="tailwind">
+
+Les classes du composant vivent sous les utilitaires : un `className` posé à
+l'emploi l'emporte.
+
+<Skill className="max-w-sm" name="Largeur réduite" level={55} />
+
+La jauge prend sa couleur de `--dp-skill-color`, qu'une propriété arbitraire
+pose :
+
+<Skill className="[--dp-skill-color:#10b981]" name="Remplissage vert" level={78} />
+
+```mdx
+<Skill className="[--dp-skill-color:#10b981]" name="Remplissage vert" level={78} />
+```
+
+Un sélecteur écrit dans une classe, comme `[&_.dp-skill-fill]:…`, ne
+conviendrait pas : son `&` atteint le HTML en `&amp;`, et la feuille — compilée
+d'après les pages rendues — ne reçoit jamais la règle.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Les classes du composant vivent dans la couche `components`, celles du dossier
+de thème dans aucune : une classe à vous posée à l'emploi l'emporte. La jauge
+prend sa couleur de `--dp-skill-color`, qu'une classe peut poser — ici `narrow`
+et `green`, de `theme/99-docpensieve.css` :
+
+<Skill className="narrow" name="Largeur réduite" level={55} />
+
+<Skill className="green" name="Remplissage vert" level={78} />
+
+```mdx
+<Skill className="green" name="Remplissage vert" level={78} />
+```
+
+```css
+.green {
+  --dp-skill-color: #10b981;
+  color: #10b981;
+}
+```
+
+</ForTheme>
+
+## Le remplissage
+
+Il s'anime à l'entrée dans la fenêtre, par `animation-timeline: view()`, sur
+une plage assez large pour que le mouvement se voie plutôt qu'il ne
+scintille. Là où cette propriété manque, ou si le système demande moins de
+mouvement, la barre est pleine d'emblée — la valeur reste lisible, et c'est ce
+qui compte.
+
+## Ce qu'elle refuse
+
+Un niveau hors de 0–100 arrête la génération, comme une jauge sans nom, un
+niveau qui n'est pas un nombre, ou une `shape` inconnue. Une barre muette ou
+qui déborde passe inaperçue à la relecture.

@@ -1,0 +1,174 @@
+---
+title: LogoIcon
+description: Une icône SVG posée dans la page à la génération.
+---
+
+# LogoIcon
+
+Le fichier est lu à la génération et son contenu posé dans la page. C'est ce
+qui lui permet de prendre sa couleur de `currentColor` et d'être dimensionnée
+comme le texte — impossible par une balise `img`, qui isole le document.
+
+## Une icône
+
+<LogoIcon src="./icons/book.svg" label="Documentation" />
+<LogoIcon src="./icons/star.svg" label="Favori" />
+<LogoIcon src="./icons/lightning.svg" label="Rapide" />
+<LogoIcon src="./icons/shield.svg" label="Vérifié" />
+
+```mdx
+<LogoIcon src="./icons/book.svg" label="Documentation" />
+```
+
+Un chemin relatif part de la page, un chemin absolu du dossier de version.
+Rien ne peut en sortir : une page ne lit pas le reste de la machine.
+
+## Elle suit le texte
+
+Posée dans un texte, l'icône en prend la taille et la couleur.
+
+<ForTheme framework="tailwind">
+
+<div className="text-indigo-600 text-2xl">
+  <LogoIcon src="./icons/star.svg" /> à la taille et à la couleur du texte
+</div>
+
+<div className="text-sm text-slate-500">
+  <LogoIcon src="./icons/star.svg" /> et ici, plus petite et plus grise
+</div>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<div className="accent-text large">
+  <LogoIcon src="./icons/star.svg" /> à la taille et à la couleur du texte
+</div>
+
+<div className="small muted">
+  <LogoIcon src="./icons/star.svg" /> et ici, plus petite et plus grise
+</div>
+
+</ForTheme>
+
+## Tailles
+
+`size` accepte n'importe quelle longueur CSS.
+
+<div style={{ display: 'flex', alignItems: 'flex-end', gap: '1rem', color: '#10b981' }}>
+  <LogoIcon src="./icons/shield.svg" size="1rem" />
+  <LogoIcon src="./icons/shield.svg" size="2rem" />
+  <LogoIcon src="./icons/shield.svg" size="3rem" />
+  <LogoIcon src="./icons/shield.svg" size="4rem" />
+</div>
+
+<ForTheme framework="tailwind">
+
+```mdx
+<LogoIcon src="./icons/shield.svg" size="3rem" style={{ color: '#10b981' }} />
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+```mdx
+<LogoIcon src="./icons/shield.svg" size="3rem" className="green" />
+```
+
+`green` vient de `theme/99-docpensieve.css`, et pose `color`.
+
+</ForTheme>
+
+La couleur ne suit que si le fichier s'en remet à `currentColor` plutôt qu'à
+une couleur fixe.
+
+## Dans une liste
+
+<ul style={{ listStyle: 'none', paddingInlineStart: 0, display: 'grid', gap: '0.5rem' }}>
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/lightning.svg" size="1.1rem" style={{ color: '#f59e0b' }} /> Aucun script
+    à charger
+  </li>
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/shield.svg" size="1.1rem" style={{ color: '#10b981' }} /> Les liens sont
+    relus avant publication
+  </li>
+  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <LogoIcon src="./icons/book.svg" size="1.1rem" style={{ color: 'var(--dp-accent)' }} /> Une
+    version par branche
+  </li>
+</ul>
+
+## En tête d'une carte
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardBody>
+        <LogoIcon src="./icons/lightning.svg" size="1.6rem" style={{ color: '#f59e0b' }} />
+        <strong style={{ display: 'block', margin: '0.5rem 0 0.25rem', fontSize: '1rem' }}>Rapide</strong>
+
+        Aucune hydratation, aucun paquet à télécharger avant de lire.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardBody>
+        <LogoIcon src="./icons/shield.svg" size="1.6rem" style={{ color: '#10b981' }} />
+        <strong style={{ display: 'block', margin: '0.5rem 0 0.25rem', fontSize: '1rem' }}>Vérifié</strong>
+
+        Les liens morts et le balisage invalide arrêtent la publication.
+      </CardBody>
+    </Card>
+
+  </Column>
+</Columns>
+
+## Décorative ou porteuse de sens
+
+Sans `label`, l'icône est traitée comme décorative et masquée aux lecteurs
+d'écran — ce qui est juste quand un texte voisin dit déjà la même chose. Avec
+`label`, elle devient une image décrite.
+
+```mdx
+<LogoIcon src="./icons/star.svg" />
+<LogoIcon src="./icons/star.svg" label="Favori" />
+```
+
+Dans la liste ci-dessus, les icônes n'ont pas de `label` : le texte à côté
+porte déjà le sens, et l'annoncer deux fois n'apprendrait rien.
+
+## Une icône issue d'un jeu
+
+À côté d'un fichier de votre projet, `src` accepte le nom d'une icône d'une
+collection, écrit `prefix:nom` :
+
+```mdx
+<LogoIcon src="simple-icons:github" label="Dépôt" />
+```
+
+Le jeu est un paquet que votre projet installe, et le dessin est posé dans la
+page à la génération, exactement comme le serait un fichier à vous :
+
+```bash
+npm install --save-dev @iconify-json/simple-icons
+```
+
+Rien n'est récupéré pendant la lecture de la page — ces collections proposent
+un service en ligne, qui demanderait une requête par icône et un script pour la
+faire. Un jeu non installé arrête la génération en nommant le paquet à
+installer ; un nom que le jeu ne contient pas aussi.
+
+## Ce qu'elle refuse
+
+Un fichier manquant, un fichier sans balise `svg`, une cible qui sort du
+dossier de version : chacun arrête la génération, en nommant le chemin attendu.
+Une icône manquante laisserait sinon un carré vide que personne ne remarque.
+
+Les scripts et les gestionnaires d'événements présents dans un fichier sont
+retirés avant l'intégration. Un composant ne charge aucun JavaScript, et
+celui-ci ne va pas commencer.
+
+Un type d'admonition prend sa marque par ce même composant — voir
+[Admonition](./admonition/).

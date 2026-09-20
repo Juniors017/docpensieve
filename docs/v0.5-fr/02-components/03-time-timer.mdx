@@ -1,0 +1,126 @@
+---
+title: TimeTimer
+description: Afficher un contenu pendant une période, avec des replis avant et après.
+---
+
+# TimeTimer
+
+`TimeTimer` choisit quoi montrer selon la date. Sur un site statique,
+« maintenant » désigne le moment de la **génération**, pas celui de la lecture
+— une génération programmée suffit à le garder juste.
+
+## Une date passée
+
+<TimeTimer date="01/01/2020">
+  Pendant la journée du 1er janvier 2020.
+  <FallbackBefore>Avant cette date.</FallbackBefore>
+  <FallbackAfter>Cette date est passée — c'est le repli « après » qui s'affiche.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer date="01/01/2020">
+  Pendant la journée du 1er janvier 2020.
+  <FallbackBefore>Avant cette date.</FallbackBefore>
+  <FallbackAfter>Cette date est passée.</FallbackAfter>
+</TimeTimer>
+```
+
+Une date seule couvre la **journée entière**.
+
+## Une date à venir
+
+<TimeTimer date="01/01/2090">
+  Pendant la journée du 1er janvier 2090.
+  <FallbackBefore>
+    Cette date est encore à venir — c'est le repli « avant » qui s'affiche.
+  </FallbackBefore>
+  <FallbackAfter>Après cette date.</FallbackAfter>
+</TimeTimer>
+
+## Une période en cours
+
+<TimeTimer start="01/01/2020" duration="36500d">
+  Cette période est en cours : c'est le contenu principal qui s'affiche.
+  <FallbackBefore>Pas encore commencée.</FallbackBefore>
+  <FallbackAfter>Déjà terminée.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/01/2020" duration="36500d">
+  …
+</TimeTimer>
+```
+
+`duration` s'écrit `30d` (jours), `2h` (heures) ou `45m` (minutes). Une durée
+mal écrite **arrête la génération** : une faute de frappe qui ferait disparaître
+un bloc en silence est exactement ce qu'il faut éviter.
+
+## Avec une heure
+
+Le format complet est `JJ/MM/AAAA HH:mm`. Sans année, l'année en cours est
+employée.
+
+<TimeTimer start="01/01/2020 08:30" duration="36500d">
+  Une période commencée à 8 h 30.
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/01/2020 08:30" duration="2h">
+  …
+</TimeTimer>
+```
+
+## Sans repli
+
+Hors de la période et sans repli, le composant n'affiche **rien**. La ligne
+suivante est vide, et c'est voulu :
+
+<TimeTimer date="01/01/2020">Ce contenu ne s'affiche pas.</TimeTimer>
+
+## Borner un repli
+
+`FallbackBefore` accepte `start`, `FallbackAfter` accepte `end` : le repli ne
+s'affiche alors que dans cette fenêtre, et rien en dehors. C'est ce qui permet
+d'annoncer un événement quelques jours à l'avance, sans que l'annonce traîne
+pendant des mois.
+
+```mdx
+<TimeTimer date="24/12/2090">
+  C'est aujourd'hui.
+  <FallbackBefore start="17/12/2090">Dans moins d'une semaine.</FallbackBefore>
+</TimeTimer>
+```
+
+## Un usage réel
+
+Une bannière d'annonce qui se retire d'elle-même :
+
+<Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+  <CardBody>
+    <TimeTimer start="01/01/2020" duration="36500d">
+      **Version 1.1 en préparation.** Les nouveautés s'écrivent dans cette version.
+      <FallbackAfter>La version 1.1 est sortie.</FallbackAfter>
+    </TimeTimer>
+  </CardBody>
+</Card>
+
+## Heure locale ou UTC
+
+Par défaut, les dates sont lues dans le fuseau de la machine qui génère.
+`strict` les lit en UTC — utile quand la génération tourne en intégration
+continue, dont le fuseau n'est pas le vôtre.
+
+```mdx
+<TimeTimer date="24/12/2090" strict>
+  …
+</TimeTimer>
+```
+
+## Ce qu'il refuse
+
+Une durée mal écrite arrête la génération, et une date invalide aussi. Le
+message nomme la valeur fautive et rappelle le format attendu.
+
+Annoncer une sortie est l'usage habituel, et [Versions](../guide/versions/)
+couvre le reste de ce cycle — le bandeau qu'une préversion porte d'elle-même,
+et le jour où les deux voies s'échangent.

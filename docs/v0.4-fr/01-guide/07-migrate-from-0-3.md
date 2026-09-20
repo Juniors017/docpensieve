@@ -1,6 +1,6 @@
 ---
-title: Migrer de latest vers la bêta
-description: Faire passer un projet de la version courante, la 0.3, à la bêta 0.4 — ce qui change tout seul, et ce qu'il vaut la peine d'activer.
+title: Migrer de la 0.3 vers la 0.4
+description: Faire passer un projet de la 0.3 à la 0.4 — ce qui change tout seul, et ce qu'il vaut la peine d'activer.
 tags: [guide, migration]
 
 jsonld:
@@ -8,20 +8,18 @@ jsonld:
   breadcrumbs: true
 ---
 
-# Migrer de latest vers la bêta
+# Migrer de la 0.3 vers la 0.4
 
-Un projet sur la version courante — la 0.3 — se génère avec la bêta 0.4 tel
-quel : tous les champs que la 0.4 ajoute sont facultatifs, et les laisser de
-côté garde le site que vous avez.
+Un projet en 0.3 se génère avec la 0.4 tel quel : tous les champs que la 0.4
+ajoute sont facultatifs, et les laisser de côté garde le site que vous avez.
 
 ## Mettre à jour
 
 ```bash
-npm install docpensieve@beta
+npm install docpensieve@latest
 ```
 
-Par `npx` seul, `npx docpensieve@beta` lance la bêta. Le retour en arrière est
-`npm install docpensieve@latest`.
+Par `npx` seul, `npx docpensieve` la lance déjà.
 
 Relisez votre site une fois après la mise à jour — c'est le contrôle le moins
 cher qui soit :
@@ -142,5 +140,5 @@ proposée dans cette langue plutôt que servie dans une autre. Voir
 - **`npx docpensieve check`**, qui relit le site produit et signale les liens
   morts et le balisage invalide.
 
-Rien de tout cela n'est obligatoire pour rester sur la bêta. Un projet qui
-n'active rien est un projet 0.3 qui se trouve tourner sur la 0.4.
+Rien de tout cela n'est obligatoire. Un projet qui n'active rien est un projet
+0.3 qui se trouve tourner sur la 0.4.

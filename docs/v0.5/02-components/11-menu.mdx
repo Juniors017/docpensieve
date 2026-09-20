@@ -1,0 +1,129 @@
+---
+title: Menu
+description: A menu of links placed anywhere in a page, folded behind a button on a narrow screen.
+---
+
+# Menu
+
+The header carries the navigation of the site, and the sidebar that of the
+documentation. This menu belongs to a **page**: the links a section offers
+where it stands — a summary at the top of a landing page, the chapters of a
+guide, the entries of a portal.
+
+## A row of links
+
+<Menu label="Guide">
+  <MenuLink href="../guide/installation/">Installation</MenuLink>
+  <MenuLink href="../guide/first-site/">First site</MenuLink>
+  <MenuLink href="../guide/writing-pages/">Writing pages</MenuLink>
+</Menu>
+
+```mdx
+<Menu label="Guide">
+  <MenuLink href="../guide/installation/">Installation</MenuLink>
+  <MenuLink href="../guide/first-site/">First site</MenuLink>
+</Menu>
+```
+
+A target resolves as anywhere else: relative to the page, or absolute from the
+version root. `label` names the menu for screen readers, and labels the button
+it folds into.
+
+## Groups
+
+An entry may open a group rather than lead somewhere:
+
+<Menu label="Sections">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuGroup title="Reference">
+    <MenuLink href="../reference/cli/">Commands</MenuLink>
+    <MenuLink href="../reference/configuration/">Configuration</MenuLink>
+    <MenuLink href="../reference/frontmatter/">Frontmatter</MenuLink>
+  </MenuGroup>
+  <MenuLink href="../components/">Components</MenuLink>
+</Menu>
+
+```mdx
+<MenuGroup title="Reference">
+  <MenuLink href="../reference/cli/">Commands</MenuLink>
+</MenuGroup>
+```
+
+In the row the group opens as a panel below its title. Once the menu is folded,
+it unfolds in place instead: on a narrow screen a panel would open off screen.
+
+## On a narrow screen
+
+Below 40rem the row gives way to a button carrying the `label`. Everything is
+written once and rendered twice — a row and a fold — of which the stylesheet
+shows one.
+
+That costs a little markup, and buys a menu that works with JavaScript turned
+off: the button is a native element. The lighter alternative relies on a recent
+CSS pseudo-element, and where the browser does not know it, the links vanish
+altogether.
+
+**Narrow this window** to see the row become a button.
+
+## Styling
+
+The menu takes the palette of the active theme through the `--dp-*` tokens.
+What it does not decide is how far it stands from the text, or whether it sits
+in a box — that is set at use.
+
+<ForTheme framework="tailwind">
+
+A `className` holds utilities:
+
+<Menu className="rounded-lg border border-slate-200 p-3 dark:border-slate-800" label="Boxed">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuLink href="../reference/">Reference</MenuLink>
+</Menu>
+
+```mdx
+<Menu className="rounded-lg border border-slate-200 p-3 dark:border-slate-800">
+  <MenuLink href="../guide/">Guide</MenuLink>
+</Menu>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+A `className` names a class of your own, written in the `theme/` folder:
+
+<Menu className="menu-boxed" label="Boxed">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuLink href="../reference/">Reference</MenuLink>
+</Menu>
+
+```mdx
+<Menu className="menu-boxed">
+  <MenuLink href="../guide/">Guide</MenuLink>
+</Menu>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.menu-boxed {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg-soft);
+}
+```
+
+</ForTheme>
+
+A one-off adjustment needs no class at all: `style` understands the tokens
+under both themes.
+
+```mdx
+<Menu style={{ marginBlock: '2.5rem' }}>…</Menu>
+```
+
+## What it refuses
+
+A `MenuLink` or a `MenuGroup` written outside a `Menu` stops the build, and so
+does an entry without a target or a group without a title. Each of these would
+otherwise render something that looks like a menu and leads nowhere — the kind
+of fault a review does not catch.

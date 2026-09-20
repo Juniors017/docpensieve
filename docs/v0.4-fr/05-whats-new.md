@@ -6,19 +6,16 @@ tags: [sortie]
 
 # Nouveautés de la 0.4
 
-Cette version est **en préparation**. Ses bêtas sortent sous l'étiquette npm
-`beta`, tandis que la version installée par défaut reste la 0.3, documentée
-dans les pages `latest` de ce site :
+La 0.4 est sortie, et s'installe par défaut :
 
 ```bash
-npx docpensieve@beta init mon-site
+npx docpensieve init mon-site
 ```
 
-Chaque nouveauté est annoncée ici à mesure qu'elle atterrit, avec un lien vers
-le guide et vers la référence : cette page annonce, elle n'est jamais le seul
-endroit où quelque chose est écrit.
+Chaque nouveauté ci-dessous renvoie au guide et à la référence : cette page les
+rassemble, elle n'est jamais le seul endroit où quelque chose est écrit.
 
-## Déjà là
+## Ce qu'elle apporte
 
 La 0.4 allume la navigation. Un site de quarante pages demandait à son lecteur
 de faire défiler ce qui ne le concernait pas ; il peut désormais replier son
@@ -93,5 +90,5 @@ langue plutôt que servie dans une autre. Voir [Langues](./guide/languages/).
 
 Rien à changer : une configuration 0.3 se génère telle quelle, tous les
 nouveaux champs étant facultatifs.
-[Migrer de latest vers la bêta](./guide/migrate-to-beta/) liste ce qui change
+[Migrer de la 0.3 vers la 0.4](./guide/migrate-from-0-3/) liste ce qui change
 tout seul, et ce qu'il vaut la peine d'activer.

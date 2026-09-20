@@ -1,0 +1,290 @@
+---
+title: Columns
+description: Une grille de colonnes, égales ou en douzièmes.
+---
+
+# Columns
+
+Une **grille** : chaque bloc est placé, avec sa largeur. À ne pas confondre
+avec le multi-colonnes CSS, où le contenu coule d'une colonne à l'autre — voir
+plus bas, il ne demande aucun composant.
+
+## Des colonnes égales
+
+Sans largeur imposée, les colonnes se partagent la place à parts égales, quel
+que soit leur contenu.
+
+<Columns>
+  <Column>
+    <Card>
+      <CardBody>Première</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>
+        Deuxième, avec un texte nettement plus long pour vérifier que les colonnes gardent la même
+        largeur.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>Troisième</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>…</Column>
+  <Column>…</Column>
+</Columns>
+```
+
+## Des largeurs en douzièmes
+
+`span` est le nombre de **pistes** qu'une colonne prend sur douze : `span={6}`
+pour une moitié, `span={8}` pour deux tiers, `span={3}` pour un quart. Douze
+parce que douze se divise par deux, trois, quatre et six — moitiés, tiers,
+quarts et sixièmes tombent tous juste.
+
+Une valeur hors de 1–12 arrête la génération, comme une rangée qui mêle des
+colonnes avec et sans largeur : la colonne sans largeur ne prendrait qu'une
+piste sur douze, un filet là où l'auteur attendait une colonne.
+
+<Columns>
+  <Column span={8}>
+    <Card>
+      <CardBody>span={8}</CardBody>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card>
+      <CardBody>span={4}</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column span={8}>…</Column>
+  <Column span={4}>…</Column>
+</Columns>
+```
+
+Une `Column` écrite hors d'un `Columns` est refusée : seule, elle ne
+produirait rien de visible, et l'erreur serait longue à trouver.
+
+## Espacer les colonnes
+
+`span` règle la **largeur** d'une colonne, `gap` l'**espace entre** les
+colonnes : deux réglages indépendants. La grille soustrait les écarts
+d'elle-même, si bien qu'espacer les colonnes ne déforme aucune largeur.
+
+<ForTheme framework="tailwind">
+
+Avec le thème Tailwind, un utilitaire `gap-*` le règle :
+
+<Columns className="gap-10">
+  <Column>
+    <Card>
+      <CardBody>L'écart s'élargit</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>sans toucher aux largeurs</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns className="gap-10">…</Columns>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Avec le thème custom, une classe à vous le règle — ici `wide-gap`, de
+`theme/99-docpensieve.css` :
+
+<Columns className="wide-gap">
+  <Column>
+    <Card>
+      <CardBody>L'écart s'élargit</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card>
+      <CardBody>sans toucher aux largeurs</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns className="wide-gap">…</Columns>
+```
+
+```css
+.wide-gap {
+  gap: 2.5rem;
+}
+```
+
+</ForTheme>
+
+## Une remarque à côté du texte
+
+La mise en page la plus utile en documentation : le propos large, la remarque
+étroite.
+
+<Columns>
+  <Column span={8}>
+
+Les plugins du compilateur réécrivent les adresses de l'arbre issu du Markdown.
+Ce travail a lieu **avant** que les composants ne soient rendus : une cible
+écrite dans une propriété leur échappe, et doit se résoudre elle-même.
+
+C'est pourquoi chaque page rendue est annoncée aux composants, comme leur est
+annoncée la table des classes.
+
+  </Column>
+  <Column span={4}>
+    <Card
+      style={{
+        height: '100%',
+        borderColor: 'var(--dp-accent)',
+        background: 'var(--dp-accent-soft)',
+      }}
+    >
+      <CardHeader style={{ fontSize: '0.875rem' }}>À retenir</CardHeader>
+      <CardBody style={{ fontSize: '0.875rem' }}>
+        Un composant qui produit une adresse la résout lui-même, en suivant les mêmes règles qu'un
+        lien Markdown.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column span={8}>Le propos</Column>
+  <Column span={4}>La remarque</Column>
+</Columns>
+```
+
+## Deux colonnes de code
+
+Comparez deux écritures côte à côte.
+
+<Columns>
+  <Column span={6}>
+
+```js
+versions: [{ slug: 'v1.0', current: true }];
+```
+
+  </Column>
+  <Column span={6}>
+
+```js
+versions: [
+  { slug: 'v1.1', prerelease: true },
+  { slug: 'v1.0', current: true },
+];
+```
+
+  </Column>
+</Columns>
+
+## Laisser couler le contenu
+
+Pour un texte ou une galerie qui _coule_ d'une colonne à l'autre, la grille
+n'est pas le bon outil et aucun composant n'est nécessaire : le multi-colonnes
+CSS suffit, directement dans la page.
+
+<ForTheme framework="tailwind">
+
+Avec le thème Tailwind, ses utilitaires l'écrivent :
+
+<div className="columns-2 gap-6 sm:columns-3">
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Une</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Deux, un peu plus longue, pour que les hauteurs diffèrent.</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Trois</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Quatre</CardBody>
+  </Card>
+  <Card className="mb-6 break-inside-avoid">
+    <CardBody>Cinq</CardBody>
+  </Card>
+</div>
+
+```mdx
+<div className="columns-2 gap-6 sm:columns-3">…</div>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Avec le thème custom, une classe à vous — ici `flow`, de
+`theme/99-docpensieve.css` :
+
+<div className="flow">
+  <Card>
+    <CardBody>Une</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Deux, un peu plus longue, pour que les hauteurs diffèrent.</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Trois</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Quatre</CardBody>
+  </Card>
+  <Card>
+    <CardBody>Cinq</CardBody>
+  </Card>
+</div>
+
+```mdx
+<div className="flow">…</div>
+```
+
+```css
+.flow {
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .flow {
+    columns: 3;
+  }
+}
+
+.flow > * {
+  break-inside: avoid;
+  margin-block-end: 1.5rem;
+}
+```
+
+</ForTheme>
+
+La différence est là : au-dessus, l'ordre est vertical et le navigateur répartit
+comme il l'entend ; avec `Columns`, chaque bloc reste où vous l'avez mis.
+
+## Sur les petits écrans
+
+Sous la largeur d'une tablette, les colonnes de la grille s'empilent les unes
+sous les autres. Rétrécissez la fenêtre pour le vérifier.
+
+La rangée la plus fréquente est une rangée de cartes ; [Card](./card/) montre
+comment les tenir à la même hauteur, ce qu'une grille seule ne fait pas.

@@ -1,0 +1,171 @@
+/*
+ * Classes of the documentation's examples, for the custom theme.
+ *
+ * The custom theme loads no utility framework: the classes a page uses are
+ * written by the project. These are the ones DocPensieve's own pages use.
+ * "docpensieve init" installs this file as theme/99-docpensieve.css, next to
+ * the documentation in 99-docpensieve/: delete both together.
+ *
+ * Every colour comes from the --dp-* tokens, or is mixed with them, so that
+ * the examples follow the light and dark palettes.
+ */
+
+/* Sizes */
+
+.narrow {
+  max-inline-size: 24rem;
+}
+
+.full-height {
+  block-size: 100%;
+}
+
+/* Text */
+
+.centered {
+  text-align: center;
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+.large {
+  font-size: 1.5rem;
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.muted {
+  color: var(--dp-text-soft);
+}
+
+.accent-text {
+  color: var(--dp-accent);
+}
+
+.figure {
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--dp-accent);
+}
+
+.label {
+  display: block;
+  margin-block: 0.5rem 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Colours, for the text and the gauges alike */
+
+.green {
+  --dp-skill-color: #10b981;
+  color: #10b981;
+}
+
+.amber {
+  --dp-skill-color: #f59e0b;
+  color: #f59e0b;
+}
+
+/* Cards */
+
+.highlight {
+  border-color: var(--dp-accent);
+  background: var(--dp-accent-soft);
+}
+
+.warning {
+  border-color: #f59e0b;
+  background: color-mix(in oklab, #f59e0b 12%, var(--dp-bg));
+}
+
+.warning-title {
+  color: color-mix(in oklab, #d97706 70%, var(--dp-text));
+}
+
+.plain {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.flush {
+  padding-inline: 0;
+}
+
+/* Layout */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.row.align-end {
+  align-items: flex-end;
+}
+
+.plain-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.wide-gap {
+  gap: 2.5rem;
+}
+
+/* Content that flows from one column to the next, as in a newspaper */
+
+.flow {
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .flow {
+    columns: 3;
+  }
+}
+
+.flow > * {
+  break-inside: avoid;
+  margin-block-end: 1.5rem;
+}
+
+/* A back-to-top button placed in the text rather than fixed on the screen */
+
+.inline-button {
+  position: static;
+  display: inline-flex;
+  inline-size: auto;
+  box-shadow: none;
+  padding-inline: 1rem;
+}
+
+/* A page menu set apart from the text, for the custom theme */
+
+.menu-boxed {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg-soft);
+}
+
+/* An admonition held apart by a shadow, for the custom theme */
+
+.admonition-quiet {
+  box-shadow: 0 2px 8px var(--dp-shadow);
+}

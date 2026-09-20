@@ -1,0 +1,94 @@
+---
+title: A first build
+description: Turn the pages into a site, look at it, and read it back for dead links.
+authors: [valentin, pensy]
+date: 2026-09-03
+modified: 2026-09-16
+tags: [course, beginner, build]
+---
+
+# A first build
+
+<Skill name="Module progress" level={100} color="#10b981">
+  Lesson 3 of 3 — the last one of this module.
+</Skill>
+
+## Three commands
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Build</CardHeader>
+      <CardBody>`npx docpensieve build` writes the site into `dist/`.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Serve</CardHeader>
+      <CardBody>`npx docpensieve dev` serves it, and rebuilds on every save.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Check</CardHeader>
+      <CardBody>`npx docpensieve check` reads it back for dead links.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## What comes out
+
+<Tree>
+  <TreeItem label="dist" open>
+    <TreeItem label="index.html — sends the reader to the current version" />
+    <TreeItem label="versions.json — the versions, for the switcher" />
+    <TreeItem label="versions" open>
+      <TreeItem label="v1.0" open>
+        <TreeItem label="index.html — the home page" />
+        <TreeItem label="guide — one folder per page, each with its index.html" />
+        <TreeItem label="assets — the stylesheet, the images, the search index" />
+        <TreeItem label="search — the only page carrying a script" />
+      </TreeItem>
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+Each page is a complete file, served as it is. A page is a **folder** holding
+an `index.html`, which is what gives it an address ending in a slash and
+needs no rule on the server. The <Tooltip text="The only stylesheet of the site, compiled from the classes the pages use.">stylesheet</Tooltip> comes along; no script does.
+
+## When something is wrong
+
+`build` stops on what it cannot do — a missing file, a component used wrongly —
+and names it. It says nothing about a link pointing at a page you renamed:
+that page compiled perfectly, it simply is not there any more.
+
+```bash
+npx docpensieve check
+```
+
+<Admonition type="tip" title="Run it every time">
+  `check` reads the built site back and exits with an error if a link leads nowhere. It costs a
+  second, and it is the difference between finding a dead link yourself and having a reader find it.
+</Admonition>
+
+## While you write
+
+```bash
+npx docpensieve dev
+```
+
+It serves the site and rebuilds on every save — including when you change the
+configuration or a file of the `theme/` folder. Leave it running in a second
+terminal: the loop between writing a sentence and seeing it is what makes a
+documentation get written.
+
+## Well done
+
+You have finished **First steps**. The next module shows how to organise pages
+and use components.
+
+<Card href="/examples/writing/" elevated>
+  <CardHeader>Next module: Writing well</CardHeader>
+  <CardBody>Structure, series, and components in a real page.</CardBody>
+</Card>

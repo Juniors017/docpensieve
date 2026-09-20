@@ -1,0 +1,130 @@
+---
+title: Menu
+description: Un menu de liens posé n'importe où dans une page, replié derrière un bouton sur écran étroit.
+---
+
+# Menu
+
+L'en-tête porte la navigation du site, et la barre latérale celle de la
+documentation. Ce menu-ci appartient à une **page** : les liens qu'une section
+propose là où elle se trouve — un sommaire en tête d'une page d'atterrissage,
+les chapitres d'un guide, les entrées d'un portail.
+
+## Une rangée de liens
+
+<Menu label="Guide">
+  <MenuLink href="../guide/installation/">Installation</MenuLink>
+  <MenuLink href="../guide/first-site/">Premier site</MenuLink>
+  <MenuLink href="../guide/writing-pages/">Écrire des pages</MenuLink>
+</Menu>
+
+```mdx
+<Menu label="Guide">
+  <MenuLink href="../guide/installation/">Installation</MenuLink>
+  <MenuLink href="../guide/first-site/">Premier site</MenuLink>
+</Menu>
+```
+
+Une cible se résout comme partout ailleurs : relative à la page, ou absolue
+depuis la racine de la version. `label` nomme le menu pour les lecteurs
+d'écran, et sert d'étiquette au bouton dans lequel il se replie.
+
+## Les groupes
+
+Une entrée peut ouvrir un groupe plutôt que mener quelque part :
+
+<Menu label="Sections">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuGroup title="Référence">
+    <MenuLink href="../reference/cli/">Commandes</MenuLink>
+    <MenuLink href="../reference/configuration/">Configuration</MenuLink>
+    <MenuLink href="../reference/frontmatter/">Frontmatter</MenuLink>
+  </MenuGroup>
+  <MenuLink href="../components/">Composants</MenuLink>
+</Menu>
+
+```mdx
+<MenuGroup title="Référence">
+  <MenuLink href="../reference/cli/">Commandes</MenuLink>
+</MenuGroup>
+```
+
+Dans la rangée, le groupe s'ouvre en panneau sous son titre. Une fois le menu
+replié, il se déplie sur place : sur un écran étroit, un panneau s'ouvrirait
+hors de l'écran.
+
+## Sur un écran étroit
+
+Sous 40rem, la rangée cède la place à un bouton portant le `label`. Tout est
+écrit une fois et rendu deux fois — une rangée et un repli — dont la feuille de
+style n'affiche qu'un.
+
+Cela coûte un peu de balisage, et achète un menu qui fonctionne JavaScript
+désactivé : le bouton est un élément natif. L'alternative plus légère repose
+sur un pseudo-élément CSS récent, et là où le navigateur ne le connaît pas, les
+liens disparaissent purement et simplement.
+
+**Rétrécissez cette fenêtre** pour voir la rangée devenir un bouton.
+
+## Mise en forme
+
+Le menu prend la palette du thème actif par les jetons `--dp-*`. Ce qu'il ne
+décide pas, c'est sa distance au texte, ni s'il se tient dans un cadre — cela
+se règle à l'emploi.
+
+<ForTheme framework="tailwind">
+
+Un `className` porte des utilitaires :
+
+<Menu className="rounded-lg border border-slate-200 p-3 dark:border-slate-800" label="Encadré">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuLink href="../reference/">Référence</MenuLink>
+</Menu>
+
+```mdx
+<Menu className="rounded-lg border border-slate-200 p-3 dark:border-slate-800">
+  <MenuLink href="../guide/">Guide</MenuLink>
+</Menu>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Un `className` nomme une classe à vous, écrite dans le dossier `theme/` :
+
+<Menu className="menu-boxed" label="Encadré">
+  <MenuLink href="../guide/">Guide</MenuLink>
+  <MenuLink href="../reference/">Référence</MenuLink>
+</Menu>
+
+```mdx
+<Menu className="menu-boxed">
+  <MenuLink href="../guide/">Guide</MenuLink>
+</Menu>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.menu-boxed {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg-soft);
+}
+```
+
+</ForTheme>
+
+Un ajustement ponctuel ne demande aucune classe : `style` comprend les jetons
+sous les deux thèmes.
+
+```mdx
+<Menu style={{ marginBlock: '2.5rem' }}>…</Menu>
+```
+
+## Ce qu'il refuse
+
+Un `MenuLink` ou un `MenuGroup` écrit hors d'un `Menu` arrête la génération, et
+de même une entrée sans cible ou un groupe sans titre. Chacun rendrait sinon
+quelque chose qui ressemble à un menu et ne mène nulle part — le genre de
+défaut qu'une relecture ne rattrape pas.

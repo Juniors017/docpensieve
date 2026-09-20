@@ -1,23 +1,21 @@
 ---
-title: Migrate from latest to beta
-description: Move a project from the latest version, the 0.3, to the 0.4 beta — what changes on its own, and what to turn on.
+title: Migrate from 0.3 to 0.4
+description: Move a project from the 0.3 to the 0.4 — what changes on its own, and what to turn on.
 tags: [guide, migration]
 ---
 
-# Migrate from latest to beta
+# Migrate from 0.3 to 0.4
 
-A project on the latest version — the 0.3 — builds with the 0.4 beta as it is:
-every field the 0.4 adds is optional, and leaving them out keeps the site you
-have.
+A project on the 0.3 builds with the 0.4 as it is: every field the 0.4 adds is
+optional, and leaving them out keeps the site you have.
 
 ## Update
 
 ```bash
-npm install docpensieve@beta
+npm install docpensieve@latest
 ```
 
-Through `npx` alone, `npx docpensieve@beta` runs the beta. Going back is
-`npm install docpensieve@latest`.
+Through `npx` alone, `npx docpensieve` already runs it.
 
 Read your site back once after the update — it is the cheapest check there is:
 
@@ -123,5 +121,5 @@ leaves your reader's browser. See [LogoIcon](../components/logo-icon/).
 - **`npx docpensieve check`**, which reads the built site back and reports dead
   links and invalid markup.
 
-Nothing here is required to stay on the beta. A project that turns none of it
-on is a 0.3 project that happens to be running the 0.4.
+None of this is required. A project that turns none of it on is a 0.3 project
+that happens to be running the 0.4.

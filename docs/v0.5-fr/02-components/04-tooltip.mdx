@@ -1,0 +1,143 @@
+---
+title: Tooltip
+description: Une infobulle au survol et au clavier, sans JavaScript.
+---
+
+# Tooltip
+
+La bulle est un vrai élément que le CSS révèle. Elle apparaît donc au survol
+**et au focus clavier**, et elle est liée au terme par `aria-describedby` : un
+lecteur d'écran l'annonce au lieu de l'ignorer.
+
+## Au survol, au clavier
+
+Survolez le terme à la souris, ou atteignez-le avec la touche Tab.
+
+La <Tooltip text="Transformer les sources en pages HTML prêtes à servir.">génération</Tooltip> produit un dossier complet, et la <Tooltip text="Toutes les pages d'une version de la documentation.">version</Tooltip> en est la racine.
+
+```mdx
+La <Tooltip text="Transformer les sources…">génération</Tooltip> produit un dossier.
+```
+
+## Les quatre côtés
+
+Survolez-les : <Tooltip text="Au-dessus" placement="top">haut</Tooltip>, <Tooltip text="En dessous" placement="bottom">bas</Tooltip>, <Tooltip text="À gauche" placement="left">gauche</Tooltip> et <Tooltip text="À droite" placement="right">droite</Tooltip>.
+
+```mdx
+<Tooltip text="À droite" placement="right">
+  terme
+</Tooltip>
+```
+
+Le côté se choisit selon la place disponible : `top` par défaut, `bottom`
+quand le terme est en haut de la page, `left` ou `right` dans une colonne
+étroite.
+
+## Sur un terme technique
+
+Utile pour expliquer un identifiant sans alourdir la phrase.
+
+Le champ <Tooltip text="Préfixe de déploiement, déduit du sous-chemin de siteUrl quand il n'est pas écrit."><code>baseUrl</code></Tooltip> préfixe chaque lien interne, et <Tooltip text="Version servie par défaut. Au plus une."><code>current</code></Tooltip> désigne celle que sert la racine.
+
+```mdx
+Le champ <Tooltip text="Préfixe de déploiement."><code>baseUrl</code></Tooltip> préfixe les liens.
+```
+
+## Dans un tableau
+
+| Champ        | Rôle                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------- |
+| `slug`       | <Tooltip text="Il apparaît dans /versions/<slug>/ et donne son nom à la branche.">Identifiant</Tooltip> |
+| `current`    | <Tooltip text="La racine du site y redirige.">Version servie par défaut</Tooltip>                       |
+| `prerelease` | <Tooltip text="Bandeau sur chaque page, et noindex dans l'en-tête.">Version en préparation</Tooltip>    |
+
+## Dans une carte
+
+Une carte ne coupe pas ce qui dépasse : la bulle en sort.
+
+<Columns>
+  <Column span={6}>
+    <Card>
+      <CardBody>
+        Un <Tooltip text="La bulle sort de la carte, elle n'est pas coupée.">terme</Tooltip> dans
+        une carte.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card>
+      <CardBody>
+        Et{' '}
+        <Tooltip text="Ouverte vers le bas." placement="bottom">
+          une autre
+        </Tooltip>{' '}
+        en dessous.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Un texte long
+
+La bulle est plafonnée à environ seize rem de large, puis passe à la ligne.
+
+Voyez la <Tooltip text="Une version publiée reste dans l'état où elle a été produite. La regénérer n'est jamais nécessaire, et rien ne garantirait qu'elle donne le même résultat des années plus tard.">raison des branches de version</Tooltip> pour le détail.
+
+## L'apparence par className
+
+Un `className` se pose sur le terme, pas sur la bulle : c'est le terme que le
+lecteur voit avant de survoler quoi que ce soit.
+
+<ForTheme framework="tailwind">
+
+Un terme marqué <Tooltip className="text-indigo-500 font-medium" text="Il porte maintenant la couleur d'accent, et une graisse plus forte.">plus nettement</Tooltip> que les autres.
+
+```mdx
+<Tooltip className="text-indigo-500 font-medium" text="…">
+  plus nettement
+</Tooltip>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Un terme marqué <Tooltip className="accent-text" text="Il porte maintenant la couleur d'accent du thème.">plus nettement</Tooltip> que les autres.
+
+```mdx
+<Tooltip className="accent-text" text="…">
+  plus nettement
+</Tooltip>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.accent-text {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+`style` fonctionne de la même façon, pour un ajustement ponctuel qui ne demande
+aucune classe.
+
+## Ce qu'elle ne peut pas faire
+
+La bulle est positionnée en absolu : dans un conteneur qui **coupe son
+débordement** — un `overflow: hidden` — elle sera coupée. C'est la limite d'une
+infobulle sans JavaScript, et elle est assumée : placer la bulle hors du flux
+demanderait un script sur chaque page.
+
+Les composants livrés évitent ce découpage partout où ils le peuvent — une
+`Card` arrondit les coins de son image un à un plutôt que de couper son
+contenu.
+
+La bulle ne se ferme pas avec la touche Échap : l'écouter demanderait un
+script, et les composants n'en chargent aucun. Elle disparaît quand le pointeur
+ou le focus quitte le terme.
+
+Un `Tooltip` sans texte arrête la génération : un survol sans effet passe
+longtemps inaperçu. Un côté inconnu aussi.
+
+Une infobulle explique un terme sans quitter la phrase. Une remarque qui
+demande sa propre place est une [Admonition](./admonition/).

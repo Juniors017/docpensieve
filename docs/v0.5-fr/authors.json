@@ -1,0 +1,13 @@
+{
+  "valentin": {
+    "name": "Valentin Chevoleau",
+    "bio": "Créateur de DocPensieve.",
+    "avatar": "06-examples/authors/valentin.jpg",
+    "url": "https://github.com/Juniors017"
+  },
+  "pensy": {
+    "name": "Pensy",
+    "bio": "Mascotte du cours. Relit chaque page deux fois, au cas où.",
+    "avatar": "06-examples/authors/pensy.jpg"
+  }
+}

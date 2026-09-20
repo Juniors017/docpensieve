@@ -49,17 +49,25 @@ export default defineConfig({
     {
       slug: 'beta',
       name: published,
-      folder: 'docs/v0.4',
+      folder: 'docs/v0.5',
       prerelease: true,
       // The beta is told apart at a glance: its bowl is on fire.
       logo: 'branding/mark-beta.png',
-      // La traduction française de la bêta, servie sous /fr/. Les pages non
-      // traduites ne sont pas proposées dans cette langue.
-      translations: { fr: 'docs/v0.4-fr' },
       favicon: 'branding/favicon-beta.png',
+      // The 0.5 opens with the French of the 0.4 it was copied from: the two
+      // languages stay iso from the first page of the new cycle.
+      translations: { fr: 'docs/v0.5-fr' },
     },
-    // Frozen at the 0.3 published on npm: main carries the 0.4 now.
-    { slug: 'latest', name: '0.3.0', folder: 'docs/v0.3', current: true },
+    // The 0.4, in both languages: its translation travelled with it.
+    {
+      slug: 'latest',
+      name: '0.4.0',
+      folder: 'docs/v0.4',
+      current: true,
+      translations: { fr: 'docs/v0.4-fr' },
+    },
+    // Archived: its content is frozen, so its address freezes with it.
+    { slug: 'v0.3', name: '0.3.0', folder: 'docs/v0.3', archived: true },
     // Archived: its content is frozen, so its address freezes with it — a
     // numbered slug. A fix released from release/0.2 updates this label by
     // hand.

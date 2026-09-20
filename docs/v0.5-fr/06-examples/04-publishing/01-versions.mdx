@@ -1,0 +1,138 @@
+---
+title: Versions
+description: La version courante et celle qui se prépare, côte à côte — déclarées, générées, et échangées le moment venu.
+authors: [valentin]
+date: 2026-09-10
+modified: 2026-09-20
+tags: [cours, avancé, versions]
+---
+
+# Versions
+
+<Skill name="Progression du module" level={33}>
+  Leçon 1 sur 3.
+</Skill>
+
+Votre produit avance. Vos lecteurs n'avancent pas tous avec lui : certains
+utilisent la version que vous avez livrée au printemps. Une documentation qui
+ne décrit qu'aujourd'hui leur ment.
+
+## Deux voies
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>latest</CardHeader>
+      <CardBody>
+        La version que les lecteurs obtiennent par défaut. Elle ne reçoit que des correctifs.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%', borderColor: 'var(--dp-accent)' }}>
+      <CardHeader>beta</CardHeader>
+      <CardBody>
+        La version en cours d'écriture. Ses pages portent un bandeau et restent hors des moteurs de
+        recherche.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+L'adresse nomme le <Tooltip text="latest ou beta : le rôle de la version, pas son numéro — un lien partagé reste donc juste.">canal</Tooltip>, le menu montre le numéro exact.
+
+## À vous : déclarez-les
+
+Une version est un dossier de pages et une entrée dans la configuration :
+
+```js
+versions: [
+  { slug: 'beta', name: '2.0 (beta)', folder: 'docs/v2.0', prerelease: true },
+  { slug: 'latest', name: '1.4', folder: 'docs/v1.4', current: true },
+  { slug: 'v1.3', name: '1.3', folder: 'docs/v1.3', archived: true },
+],
+```
+
+<Tree>
+  <TreeItem label="mon-cours" open>
+    <TreeItem label="docs" open>
+      <TreeItem label="v1.3 — figée" />
+      <TreeItem label="v1.4 — ce que lisent les lecteurs" />
+      <TreeItem label="v2.0 — ce que vous écrivez" />
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+Chaque dossier se suffit à lui-même : ses pages, ses images, son menu. Un
+correctif qui vaut pour les deux voies s'écrit deux fois — ce qui ressemble à
+une corvée jusqu'à la première fois où une modification de la page du jour
+aurait réécrit l'histoire.
+
+<Admonition type="tip" title="Pourquoi le slug dit le canal, pas le numéro">
+  Un lien vers `/versions/v1.4/guide/` périme le jour où la 1.5 sort. Un lien vers
+  `/versions/latest/guide/` reste juste pour toujours. Le numéro a sa place dans le libellé que
+  montre le menu — et dans l'adresse seulement une fois la version figée, puisqu'elle cesse alors de
+  bouger.
+</Admonition>
+
+## Les échanger, le jour de la sortie
+
+Trois modifications, dans cet ordre :
+
+1. La bêta devient la version courante : `slug: 'latest'`, `current: true`, et
+   `prerelease` disparaît.
+2. La version qu'elle remplace passe aux archives sous son numéro :
+   `slug: 'v1.4'`, `archived: true`.
+3. Un nouveau dossier de bêta s'ouvre, copié de celle qu'on vient de promouvoir.
+
+<Admonition type="attention" title="Le logo de la version promue">
+  Les champs comme `logo` suivent la configuration, mais une image posée **dans** un dossier de
+  version, non : une page d'accueil qui montrait une bannière de bêta continue de la montrer. Ce
+  site l'a appris à ses dépens — il a publié une version promue portant encore le logo de bêta, et
+  c'est un lecteur qui l'a vu le premier.
+</Admonition>
+
+## Une bannière qui suit le calendrier
+
+Une annonce peut se poser pour une sortie et se retirer une fois celle-ci
+passée — aucune note dans un agenda, aucune bannière oubliée :
+
+<TimeTimer start="01/09/2026" duration="60d">
+  <Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+    <CardBody>**Une nouvelle version se prépare.** Essayez-la sur le canal beta.</CardBody>
+  </Card>
+  <FallbackAfter>La nouvelle version est sortie.</FallbackAfter>
+</TimeTimer>
+
+```mdx
+<TimeTimer start="01/09/2026" duration="60d">
+  Une nouvelle version se prépare.
+  <FallbackAfter>La nouvelle version est sortie.</FallbackAfter>
+</TimeTimer>
+```
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Que change une version `prerelease`, en plus du bandeau ?</summary>
+
+Elle reste hors du plan du site et demande aux moteurs de ne pas l'indexer — un
+lecteur venu d'une recherche atterrit sur la version réellement livrée.
+
+</details>
+
+<details>
+<summary>Vous avez renommé le slug d'une version. Qu'arrive-t-il aux liens partagés ?</summary>
+
+Ils cassent : le slug est l'adresse. C'est toute la raison pour laquelle un slug
+de canal — `latest`, `beta` — vaut mieux qu'un numéro, et pourquoi une version
+archivée ne prend son numéro qu'une fois son contenu figé.
+
+</details>
+
+<Card href="../../guide/versions/">
+  <CardBody>
+    Cette leçon emploie **TimeTimer**, **Tooltip**, **Tree**, **Admonition** et **Card** — et le
+    guide des versions parcourt tout le cycle.
+  </CardBody>
+</Card>

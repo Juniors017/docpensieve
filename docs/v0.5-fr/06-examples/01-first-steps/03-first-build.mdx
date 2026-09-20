@@ -1,0 +1,96 @@
+---
+title: Une première génération
+description: Transformer les pages en site, le regarder, et le relire à la recherche de liens morts.
+authors: [valentin, pensy]
+date: 2026-09-03
+modified: 2026-09-20
+tags: [cours, débutant, génération]
+---
+
+# Une première génération
+
+<Skill name="Progression du module" level={100} color="#10b981">
+  Leçon 3 sur 3 — la dernière de ce module.
+</Skill>
+
+## Trois commandes
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Générer</CardHeader>
+      <CardBody>`npx docpensieve build` écrit le site dans `dist/`.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Servir</CardHeader>
+      <CardBody>`npx docpensieve dev` le sert, et régénère à chaque enregistrement.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Relire</CardHeader>
+      <CardBody>`npx docpensieve check` le relit à la recherche de liens morts.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Ce qui sort
+
+<Tree>
+  <TreeItem label="dist" open>
+    <TreeItem label="index.html — envoie le lecteur vers la version courante" />
+    <TreeItem label="versions.json — les versions, pour le sélecteur" />
+    <TreeItem label="versions" open>
+      <TreeItem label="v1.0" open>
+        <TreeItem label="index.html — la page d'accueil" />
+        <TreeItem label="guide — un dossier par page, chacun avec son index.html" />
+        <TreeItem label="assets — la feuille de style, les images, l'index de recherche" />
+        <TreeItem label="search — la seule page qui porte un script" />
+      </TreeItem>
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+Chaque page est un fichier complet, servi tel quel. Une page est un **dossier**
+qui contient un `index.html`, ce qui lui donne une adresse terminée par une
+barre oblique et ne demande aucune règle au serveur. La <Tooltip text="La seule feuille du site, compilée depuis les classes qu'emploient les pages.">feuille de style</Tooltip> suit ; aucun script ne suit.
+
+## Quand quelque chose ne va pas
+
+`build` s'arrête sur ce qu'il ne peut pas faire — un fichier manquant, un
+composant mal employé — et le nomme. Il ne dit rien d'un lien qui vise une page
+que vous avez renommée : cette page compilait parfaitement, elle n'est
+simplement plus là.
+
+```bash
+npx docpensieve check
+```
+
+<Admonition type="tip" title="À lancer à chaque fois">
+  `check` relit le site produit et sort en erreur si un lien ne mène nulle part. Cela coûte une
+  seconde, et c'est la différence entre trouver un lien mort vous-même et le faire trouver par un
+  lecteur.
+</Admonition>
+
+## Pendant que vous écrivez
+
+```bash
+npx docpensieve dev
+```
+
+Il sert le site et régénère à chaque enregistrement — y compris quand vous
+changez la configuration ou un fichier du dossier `theme/`. Laissez-le tourner
+dans un second terminal : la boucle entre écrire une phrase et la voir est ce
+qui fait qu'une documentation s'écrit.
+
+## Bravo
+
+Vous avez terminé **Premiers pas**. Le module suivant montre comment organiser
+les pages et employer les composants.
+
+<Card href="/examples/writing/" elevated>
+  <CardHeader>Module suivant : Bien écrire</CardHeader>
+  <CardBody>Structure, séries et composants dans une vraie page.</CardBody>
+</Card>

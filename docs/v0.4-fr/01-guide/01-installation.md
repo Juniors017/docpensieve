@@ -104,9 +104,8 @@ La documentation installée par `init` dans `99-docpensieve` reste à la version
 qui l'a écrite. Pour la rafraîchir, lancez `init` dans un dossier jetable et
 recopiez ce dossier.
 
-Venant de la 0.3, [Migrer vers la bêta](./migrate-to-beta/) dit ce
-qui change tout seul et ce qu'il faut vérifier. Pour essayer cette bêta,
-installez `docpensieve@beta`, ou lancez `npx docpensieve@beta` seul.
+Venant de la 0.3, [Migrer de la 0.3 vers la 0.4](./migrate-from-0-3/) dit ce
+qui change tout seul et ce qu'il faut vérifier.
 
 ## Vérifier
 

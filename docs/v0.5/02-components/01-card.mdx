@@ -1,0 +1,343 @@
+---
+title: Card
+description: Structured card, with header, body, footer and image.
+---
+
+# Card
+
+## The simplest
+
+<Card style={{ maxWidth: '24rem' }}>
+  <CardBody>A card reduced to its body.</CardBody>
+</Card>
+
+```mdx
+<Card>
+  <CardBody>A card reduced to its body.</CardBody>
+</Card>
+```
+
+The examples of this page narrow some cards through `style`, which every theme
+understands; the look proper comes further down.
+
+## With its three parts
+
+<Card style={{ maxWidth: '24rem' }}>
+  <CardHeader>Header</CardHeader>
+  <CardBody>
+    The body of the card. It takes the remaining space when several cards sit side by side.
+  </CardBody>
+  <CardFooter>Card footer</CardFooter>
+</Card>
+
+## With an image
+
+`CardImage` goes wherever you want in the card. At the top or at the bottom, it
+follows the corners; between two blocks, it stays square.
+
+<Columns>
+  <Column span={6}>
+    <Card>
+      <CardImage src="./icons/banner.svg" alt="" />
+      <CardHeader>Image at the top</CardHeader>
+      <CardBody>The top corners follow those of the card.</CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card>
+      <CardHeader>Image at the bottom</CardHeader>
+      <CardBody>The bottom corners follow those of the card.</CardBody>
+      <CardImage src="./icons/banner.svg" alt="" />
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Card>
+  <CardImage src="./icons/banner.svg" alt="" />
+  <CardBody>…</CardBody>
+</Card>
+```
+
+`alt` defaults to the empty string: a decorative image is thus passed over by
+screen readers, rather than announced by its file name. An image that carries
+meaning deserves a written `alt`.
+
+## A grid of cards
+
+It is the most common use. Stretching each card to the height of its column
+aligns them whatever the content.
+
+<ForTheme framework="tailwind">
+
+With the Tailwind theme, the `h-full` utility does it:
+
+<Columns>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Stateless</CardHeader>
+      <CardBody>
+        Components are rendered at build time. None of them keeps state or listens to events.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Dependency-free</CardHeader>
+      <CardBody>The delivered HTML loads nothing.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>No surprises</CardHeader>
+      <CardBody>
+        What cannot be rendered stops the build rather than disappearing silently.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>
+    <Card className="h-full">…</Card>
+  </Column>
+</Columns>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+With the custom theme, a class of your own does it — here `full-height`, from
+`theme/99-docpensieve.css`:
+
+<Columns>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>Stateless</CardHeader>
+      <CardBody>
+        Components are rendered at build time. None of them keeps state or listens to events.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>Dependency-free</CardHeader>
+      <CardBody>The delivered HTML loads nothing.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>No surprises</CardHeader>
+      <CardBody>
+        What cannot be rendered stops the build rather than disappearing silently.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>
+    <Card className="full-height">…</Card>
+  </Column>
+</Columns>
+```
+
+```css
+.full-height {
+  block-size: 100%;
+}
+```
+
+</ForTheme>
+
+## Elevation
+
+<Card style={{ maxWidth: '24rem' }} elevated>
+  <CardBody>This card carries a shadow.</CardBody>
+</Card>
+
+```mdx
+<Card elevated>…</Card>
+```
+
+## Fully clickable
+
+<Card style={{ maxWidth: '24rem' }} href="./columns/">
+  <CardHeader>Go to the columns</CardHeader>
+  <CardBody>The whole card is a link, not just the title.</CardBody>
+</Card>
+
+```mdx
+<Card href="./columns/">…</Card>
+```
+
+A relative target starts from the page, an absolute target from the version
+root — the same rules as for a Markdown link.
+
+## A highlighted figure
+
+Nothing specific to the component: a card, a little typography, and the footer
+carrying the caption.
+
+<ForTheme framework="tailwind">
+
+<Columns>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">0</div>
+        <div className="text-sm">bytes of JavaScript runtime</div>
+      </CardBody>
+      <CardFooter>on every page</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">12</div>
+        <div className="text-sm">components</div>
+      </CardBody>
+      <CardFooter>usable without an import</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">1</div>
+        <div className="text-sm">stylesheet</div>
+      </CardBody>
+      <CardFooter>per version</CardFooter>
+    </Card>
+  </Column>
+</Columns>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<Columns>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">0</div>
+        <div className="small">bytes of JavaScript runtime</div>
+      </CardBody>
+      <CardFooter>on every page</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">12</div>
+        <div className="small">components</div>
+      </CardBody>
+      <CardFooter>usable without an import</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">1</div>
+        <div className="small">stylesheet</div>
+      </CardBody>
+      <CardFooter>per version</CardFooter>
+    </Card>
+  </Column>
+</Columns>
+
+</ForTheme>
+
+## A warning card
+
+<ForTheme framework="tailwind">
+
+<Card className="border-amber-400 bg-amber-50 dark:bg-amber-950/30">
+  <CardHeader className="text-amber-800 dark:text-amber-200">To check before publishing</CardHeader>
+  <CardBody className="text-sm">
+    A generated site can compile without error and contain dead links.
+    <code>docpensieve check</code> reads the output back.
+  </CardBody>
+</Card>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<Card className="warning">
+  <CardHeader className="warning-title">To check before publishing</CardHeader>
+  <CardBody className="small">
+    A generated site can compile without error and contain dead links.
+    <code>docpensieve check</code> reads the output back.
+  </CardBody>
+</Card>
+
+</ForTheme>
+
+## The look through className
+
+<ForTheme framework="tailwind">
+
+The component offers no typography prop: the theme's utilities take care of
+it, and win over the default style.
+
+<Card className="max-w-sm border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centred, in capitals
+  </CardHeader>
+  <CardBody className="text-sm italic">Small, italic body.</CardBody>
+</Card>
+
+```mdx
+<Card className="border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centred, in capitals
+  </CardHeader>
+  <CardBody className="text-sm italic">Small, italic body.</CardBody>
+</Card>
+```
+
+The component rules live in the `components` layer, below the utilities: a
+`className` set at use always wins, even to undo the default style.
+
+<Card className="max-w-sm border-0 shadow-none bg-transparent">
+  <CardBody className="px-0">No border, no background, no inner padding.</CardBody>
+</Card>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+The component offers no typography prop: the look comes from classes of your
+own, written in the `theme/` folder — here those of `theme/99-docpensieve.css`.
+
+<Card className="narrow highlight">
+  <CardHeader className="centered caps accent-text">Centred, in capitals</CardHeader>
+  <CardBody className="small italic">Small, italic body.</CardBody>
+</Card>
+
+```mdx
+<Card className="highlight">
+  <CardHeader className="centered caps accent-text">Centred, in capitals</CardHeader>
+  <CardBody className="small italic">Small, italic body.</CardBody>
+</Card>
+```
+
+```css
+.highlight {
+  border-color: var(--dp-accent);
+  background: var(--dp-accent-soft);
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+```
+
+The component rules live in the `components` layer, those of the theme folder
+in none: a class of yours always wins, even to undo the default style.
+
+<Card className="narrow plain">
+  <CardBody className="flush">No border, no background, no inner padding.</CardBody>
+</Card>
+
+</ForTheme>

@@ -1,0 +1,174 @@
+---
+title: Navigation
+description: Forty pages a reader can move through — a menu that folds, links in the header, and a row of links inside a page.
+authors: [valentin, pensy]
+date: 2026-09-18
+tags: [course, intermediate, navigation]
+---
+
+# Navigation
+
+<Skill name="Module progress" level={66}>
+  Lesson 2 of 3.
+</Skill>
+
+A site of ten pages needs no navigation: the menu shows everything and the
+reader sees where they are. At forty, the same menu asks them to scroll past
+what does not concern them.
+
+This lesson turns on three things, in the order you will want them.
+
+## 1. Fold the menu
+
+```js
+foldedSidebar: true,
+```
+
+The categories fold, and the branch of the page being read opens on its own —
+the reader lands where they are, not at the top of a list. A category that is
+also a page keeps its page as its first entry: the handle of a fold cannot be a
+link, so it would otherwise become unreachable.
+
+<Admonition type="note">
+  Nothing folds on a phone that was not folding already: on a narrow screen the whole menu folds
+  above the content, whatever this setting says.
+</Admonition>
+
+## 2. Put your own links in the header
+
+```js
+headerLinks: [
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Repository', href: 'https://example.com/repo' },
+],
+```
+
+A target starts from the root of a version — `/blog/` — or is a full address.
+A relative target is refused, because it would mean something different on
+every page.
+
+An entry carrying `columns` opens a **panel** instead of leading anywhere:
+
+```js
+headerLinks: [
+  {
+    label: 'Learn',
+    columns: [
+      {
+        title: 'Start here',
+        items: [
+          { label: 'Install', href: '/guide/install/' },
+          { label: 'First page', href: '/guide/first-page/' },
+        ],
+      },
+      {
+        title: 'Go further',
+        items: [{ label: 'Components', href: '/components/' }],
+      },
+    ],
+  },
+],
+```
+
+<Admonition type="tip" title="Both, with different links">
+  The panel and the documentation menu are declared separately and say different things: the header
+  carries what a visitor looks for first, the menu carries the pages in their order. A site can have
+  one, the other, or both.
+</Admonition>
+
+`href` and `columns` together are refused — an entry either leads somewhere or
+opens a panel.
+
+## 3. A row of links inside a page
+
+Some pages need their own map: a landing page, the opening of a module. `Menu`
+places one where the page needs it, and it is the only navigation that lives
+in your text rather than in the configuration.
+
+<Menu label="This module">
+  <MenuLink href="/examples/making-it-yours/colours/">Colours</MenuLink>
+  <MenuLink href="/examples/making-it-yours/navigation/">Navigation</MenuLink>
+  <MenuLink href="/examples/making-it-yours/callouts/">Callouts</MenuLink>
+</Menu>
+
+```mdx
+<Menu label="This module">
+  <MenuLink href="/examples/making-it-yours/colours/">Colours</MenuLink>
+  <MenuLink href="/examples/making-it-yours/navigation/">Navigation</MenuLink>
+</Menu>
+```
+
+Past a handful of entries, `MenuGroup` puts them under a title — the reader
+stops reading a flat list and starts reading two short ones:
+
+<Menu label="The whole course">
+  <MenuGroup title="Learn">
+    <MenuLink href="/examples/first-steps/">First steps</MenuLink>
+    <MenuLink href="/examples/writing/">Writing well</MenuLink>
+  </MenuGroup>
+  <MenuGroup title="Ship">
+    <MenuLink href="/examples/making-it-yours/">Making it yours</MenuLink>
+    <MenuLink href="/examples/publishing/">Going live</MenuLink>
+  </MenuGroup>
+</Menu>
+
+```mdx
+<Menu label="The whole course">
+  <MenuGroup title="Learn">
+    <MenuLink href="/examples/first-steps/">First steps</MenuLink>
+  </MenuGroup>
+</Menu>
+```
+
+On a narrow screen the row folds behind its label — the same fold as the
+header, and no more script than it.
+
+## On a phone
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>The header</CardHeader>
+      <CardBody>Versions, your links and the search field move into a hamburger.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>The menu</CardHeader>
+      <CardBody>Folded above the content, closed, so the page starts at the page.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>A page menu</CardHeader>
+      <CardBody>The row becomes a single button, opening in place.</CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+Try it the honest way: narrow your browser window until the layout changes.
+Every fold here is a native `details` element — it works with JavaScript
+turned off, and the keyboard opens it like any other.
+
+## Check yourself
+
+<details>
+<summary>Your panel entry has both a `href` and `columns`. What happens?</summary>
+
+The build stops and says so. An entry that both leads somewhere and opens a
+panel would have to choose at the moment of the click, and the reader would
+never know which they get.
+
+</details>
+
+<details>
+<summary>Which of the three needs the reader to load a script?</summary>
+
+None.
+
+</details>
+
+<Card href="/guide/navigation/" elevated>
+  <CardHeader>The guide page</CardHeader>
+  <CardBody>Every field, what it does on a wide screen, and what it does on a narrow one.</CardBody>
+</Card>

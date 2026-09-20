@@ -1,0 +1,168 @@
+---
+title: En ligne
+description: Les deux adresses à poser, la génération qui tourne toute seule, et le contrôle qui arrête une mauvaise publication.
+authors: [valentin, pensy]
+date: 2026-09-12
+modified: 2026-09-20
+tags: [cours, avancé, déploiement]
+---
+
+# En ligne
+
+<Skill name="Progression du module" level={100} color="#10b981">
+  Leçon 3 sur 3 — la dernière du cours.
+</Skill>
+
+Le site est un dossier de fichiers HTML. Le mettre en ligne, c'est copier ce
+dossier quelque part — le travail est dans les deux adresses que vous posez
+avant, et dans le contrôle qui vient après.
+
+## Les deux adresses
+
+Elles répondent à des questions différentes, et les confondre est la façon la
+plus courante de publier un site cassé :
+
+| Champ     | Répond à                              | Ressemble à                     |
+| --------- | ------------------------------------- | ------------------------------- |
+| `baseUrl` | Où le site se trouve chez l'hébergeur | `/` ou `/mon-cours/`            |
+| `siteUrl` | L'adresse publique complète du site   | `https://example.com/mon-cours` |
+
+```js
+siteUrl: 'https://example.com/mon-cours',
+baseUrl: '/mon-cours/',
+```
+
+`baseUrl` préfixe tous les liens internes. Servi depuis un sous-dossier sans
+lui, chaque lien pointe un niveau trop haut — le site marche sur votre machine
+et casse à l'instant où il est en ligne. `siteUrl` est ce qui permet à la
+génération d'écrire un plan du site, des adresses canoniques et des aperçus de
+partage.
+
+<Admonition type="attention" title="Le piège de la machine qui marche">
+  `npx docpensieve dev` sert à la racine : un mauvais `baseUrl` ne s'y voit jamais. Générez et
+  ouvrez `dist/` comme le fera l'hébergeur — c'est la seule répétition honnête.
+</Admonition>
+
+## À vous : générer et relire
+
+```bash
+npx docpensieve build
+npx docpensieve check
+```
+
+La première écrit le site. La seconde le relit et **sort en code 1** si un lien
+ne mène nulle part — c'est ce qui la rend utile dans une chaîne d'intégration :
+une génération réussie ne dit rien d'un lien qui ne l'est pas.
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Adresse du site posée" level={100} shape="circle" color="#10b981" />
+  <Skill name="Aucun lien mort" level={100} shape="circle" color="#10b981" />
+  <Skill name="Pages relues" level={80} shape="circle" color="#f59e0b" />
+</div>
+
+`check` règle la deuxième jauge. La troisième est la vôtre — rien n'automatise
+la relecture de vos propres pages.
+
+## Une génération qui tourne toute seule
+
+La forme de la chaîne compte plus que son dialecte. Chaque hébergeur l'écrit à
+sa façon ; tous font les mêmes quatre choses :
+
+<Tree>
+  <TreeItem label="À chaque poussée sur la branche principale" open>
+    <TreeItem label="1. Installer un environnement récent" />
+    <TreeItem label="2. Générer le site" />
+    <TreeItem label="3. Le relire — un lien mort arrête la publication" />
+    <TreeItem label="4. Envoyer le dossier à l'hébergeur" />
+  </TreeItem>
+</Tree>
+
+```yaml
+- run: npx docpensieve build
+# Une génération réussie ne dit rien d'un lien mort.
+- run: npx docpensieve check
+```
+
+<Admonition type="tip" title="Figer la version quand cela compte">
+  Un projet créé par `init` n'a pas de `package.json` : `npx` prend donc la dernière version publiée
+  — pratique au début, surprenant plus tard. Déclarez l'outil dans un `package.json` et lancez `npm
+  ci` avant la génération, et deux générations à un mois d'écart produisent le même site.
+</Admonition>
+
+## Ce que télécharge le lecteur
+
+<Columns>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Un fichier HTML</CardHeader>
+      <CardBody>Complet à lui seul, servi tel quel — aucun framework à démarrer.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Une feuille de style</CardHeader>
+      <CardBody>Par version, minifiée, ne portant que les règles qu'emploient les pages.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Aucun script</CardHeader>
+      <CardBody>
+        Hormis la page de recherche, et le bouton clair / sombre si vous le gardez.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Votre site est servi depuis `example.com/docs/` et tous les liens tombent en 404. Qu'avez-vous oublié ?</summary>
+
+`baseUrl: '/docs/'`. Sans lui, les liens sont écrits depuis la racine du domaine
+et pointent un niveau au-dessus du site.
+
+</details>
+
+<details>
+<summary>Pourquoi lancer `check` dans la chaîne alors que la génération est déjà passée ?</summary>
+
+Parce qu'ils regardent des choses différentes. La génération compile les pages ;
+`check` relit le site produit et suit ses liens. Une page renommée compile
+parfaitement et laisse morts tous les liens qui la visaient.
+
+</details>
+
+## Séance en direct
+
+<TimeTimer date="15/10/2026">
+  <Card style={{ borderColor: 'var(--dp-accent)', background: 'var(--dp-accent-soft)' }}>
+    <CardBody>**La séance en direct a lieu aujourd'hui.** Apportez vos questions.</CardBody>
+  </Card>
+  <FallbackBefore start="16/09/2026">
+    Prochaine séance en direct : **15 octobre**. Apportez le site construit pendant le cours.
+  </FallbackBefore>
+  <FallbackAfter>La séance est passée — ses questions et réponses sont ci-dessous.</FallbackAfter>
+</TimeTimer>
+
+## Vous y êtes
+
+Vous avez terminé le cours. Votre site est généré, relu, à vos couleurs, et
+prêt à être mis en ligne.
+
+<Columns>
+  <Column>
+    <Card href="/examples/" style={{ height: '100%' }} elevated>
+      <CardHeader>Retour au cours</CardHeader>
+      <CardBody>Tous les modules, et ce que chacun couvre.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card href="../../guide/deployment/" style={{ height: '100%' }}>
+      <CardHeader>Le guide de déploiement</CardHeader>
+      <CardBody>
+        La chaîne complète, une génération programmée, et garder les versions passées en ligne.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>

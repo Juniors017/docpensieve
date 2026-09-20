@@ -15,7 +15,7 @@ import { describe, expect, it } from 'vitest';
  * (2026-09-18), after three such claims had drifted at the same time. These
  * tests are that challenge, run on every suite.
  */
-const DOCS = fileURLToPath(new URL('../../../docs/v0.4/', import.meta.url));
+const DOCS = fileURLToPath(new URL('../../../docs/v0.5/', import.meta.url));
 const read = (/** @type {string} */ file) => readFileSync(DOCS + file, 'utf8');
 
 /** Numbers the pages write out in words, as prose deserves. */

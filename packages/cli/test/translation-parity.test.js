@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest';
  * the language named but not offered.
  */
 const ROOT = fileURLToPath(new URL('../../../docs/', import.meta.url));
-const PAIR = { en: 'v0.4', fr: 'v0.4-fr' };
+const PAIR = { en: 'v0.5', fr: 'v0.5-fr' };
 
 /**
  * @param {string} folder

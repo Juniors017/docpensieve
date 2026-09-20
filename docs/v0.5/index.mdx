@@ -1,0 +1,310 @@
+---
+title: DocPensieve
+description: Static documentation site generator — Markdown and MDX in, runtime-free HTML out, one version per branch.
+layout: home
+authors: [Valentin Chevoleau]
+date: 2026-09-09
+tags: [home]
+draft: false
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: false
+---
+
+<div className="dp-hero">
+
+<div className="inline-block w-80 max-w-full mb-2">
+
+![DocPensieve — Documentation & Magical Memory](./icons/logo.jpg)
+
+</div>
+
+# DocPensieve
+
+Your Markdown and MDX files become a static site. No runtime to load, one version per branch, structured data derived from the frontmatter.
+
+<div className="dp-actions">
+
+[Get started](/guide/installation/) [See the components](/components/) [See an example](/examples/)
+
+</div>
+
+</div>
+
+<Columns>
+  <Column>
+    <Card className="h-full" href="/guide/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/compass.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Guide</strong>
+
+        From installation to deployment, in order.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/components/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/blocks.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Components</strong>
+
+        Twelve components usable without an import, none of them with JavaScript.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/reference/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/list.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Reference</strong>
+
+        Commands, configuration, frontmatter and theme.
+      </CardBody>
+    </Card>
+
+  </Column>
+  <Column>
+    <Card className="h-full" href="/architecture/">
+      <CardBody className="text-sm text-slate-600 dark:text-slate-400">
+        <LogoIcon src="./icons/branch.svg" size="1.75rem" style={{ color: 'var(--dp-accent)' }} />
+        <strong className="block mt-3 mb-1 text-base font-semibold">Architecture</strong>
+
+        How a page becomes HTML, and why it works that way.
+      </CardBody>
+    </Card>
+
+  </Column>
+</Columns>
+
+## New in this beta
+
+Nothing yet: the 0.5 has just opened. What it brings will be listed here as it
+lands.
+
+[Everything that is new](/whats-new/) ·
+[Migrate from latest to beta](/guide/migrate-to-beta/)
+
+## In three commands
+
+<Columns>
+  <Column span={7}>
+
+```bash
+npx docpensieve init my-site
+cd my-site
+npx docpensieve dev
+```
+
+The first one asks a few questions — [detailed below](#what-init-asks) — then
+sets up a configuration and a documentation folder; the last one opens a server
+that rebuilds on every save.
+
+Nothing else to install: the <Tooltip text="Turning the sources into HTML pages ready to serve.">build</Tooltip> runs on your machine, and the produced site only needs a file host.
+
+  </Column>
+  <Column span={5}>
+    <Card className="h-full">
+      <CardHeader>What you get</CardHeader>
+      <CardBody>
+        <Tree>
+          <TreeItem label="dist" open>
+            <TreeItem label="index.html" />
+            <TreeItem label="versions.json" />
+            <TreeItem label="versions" open>
+              <TreeItem label="v1.0">
+                <TreeItem label="index.html" />
+                <TreeItem label="assets" />
+              </TreeItem>
+            </TreeItem>
+          </TreeItem>
+        </Tree>
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## What init asks
+
+`init` sets the project up through five questions. Enter keeps the default,
+listed in the table below; an answer it does not understand is asked again.
+
+```
+$ npx docpensieve init my-site
+Project name [My documentation]: Acme docs
+Public URL of the site (optional): https://acme.github.io/docs
+First version [1.0]:
+
+CSS framework:
+  1. tailwind — Tailwind CSS — ships with the tool, nothing to install
+  2. custom — custom theme, light stylesheet, your own classes in theme/
+Your choice [1-2]: 2
+Install DocPensieve's documentation in the site? [Y/n]:
+```
+
+| Question                    | Default            | What your answer changes                                                                                                                                                               | Answered in advance by |
+| --------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| Project name                | `My documentation` | The name in the header, in the page titles and in the structured data.                                                                                                                 | `--name`               |
+| Public URL of the site      | none               | The canonical links and the structured data. Its path becomes the deployment prefix: `https://acme.github.io/docs` serves the site under `/docs/`. Leave it empty until you know.      | `--site-url`           |
+| First version               | `1.0`              | The folder of your pages, `docs/v1.0/`, and the version in the URLs. `1.0` and `v1.0` are the same answer.                                                                             | `--version-name`       |
+| CSS framework               | `tailwind`         | `tailwind` compiles the utilities your pages use, with nothing more to install. `custom` is a plain stylesheet: your own classes go in a `theme/` folder. Type the number or the name. | `--theme`              |
+| DocPensieve's documentation | yes                | Yes: this documentation joins your menu, in a **DocPensieve** section matching your version. No: the site starts with your pages alone.                                                | `--minimal`, for no    |
+
+### What it writes, depending on your answers
+
+| File                                                             | Written when                                                         |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `docpensieve.config.mjs`                                         | always — every option, each with a comment                           |
+| `docs/v1.0/index.md` and `docs/v1.0/01-guide/01-installation.md` | always — a home page and a first page                                |
+| `.gitignore`                                                     | always — the output folder is added to it                            |
+| `docs/v1.0/99-docpensieve/`                                      | documentation: yes — delete it when you are done                     |
+| `theme/custom.css`                                               | theme: `custom` — where your own classes go                          |
+| `theme/99-docpensieve.css`                                       | theme: `custom` and documentation: yes — the classes of its examples |
+
+The answers end up in `docpensieve.config.mjs`: the name, the URL and the
+theme can be changed there later.
+
+In a script or in continuous integration, `--yes` accepts every default and
+the options answer the rest:
+
+```bash
+npx docpensieve init my-site --yes --name "Acme docs" --theme custom --minimal
+```
+
+Where the terminal cannot take answers, `init` says so, then keeps to the
+options and the defaults.
+
+## What it costs the reader
+
+<div className="flex flex-wrap justify-center gap-6 my-8">
+  <Skill
+    name="JavaScript runtime"
+    level={0}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="Hydration"
+    level={0}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="HTML served as is"
+    level={100}
+    shape="circle"
+    color="var(--dp-accent)"
+    icon={<LogoIcon src="./icons/shield.svg" />}
+  />
+  <Skill
+    name="One stylesheet per version"
+    level={100}
+    shape="circle"
+    color="var(--dp-accent)"
+    icon={<LogoIcon src="./icons/book.svg" />}
+  />
+</div>
+
+Two dials at zero, and that is on purpose: React serves the **build**, not the
+display. What reaches the reader is markup and a stylesheet — and, on this
+site, the few lines of its light / dark switch.
+
+## What sets the tool apart
+
+<Columns>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>Nothing to load</CardHeader>
+      <CardBody className="text-sm">
+        No hydration, no bundle to download before reading. A page stays readable in ten years,
+        because there is nothing that can stop working.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>One version per branch</CardHeader>
+      <CardBody className="text-sm">
+        Each published version lives on its own orphan branch, with its history. Going back to an
+        old version does not require rebuilding it.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>The frontmatter is enough</CardHeader>
+      <CardBody className="text-sm">
+        Title, description, authors and dates produce the JSON-LD, the breadcrumb and the metadata.
+        Nothing to write twice.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card className="h-full">
+      <CardHeader>Nothing fails silently</CardHeader>
+      <CardBody className="text-sm">
+        An unknown value, a missing parent, a dead link: each one stops the build with a message and
+        a hint.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Quality, in figures
+
+<Columns>
+  <Column span={7}>
+
+These gauges are not decorative: they are the repository's own measurements,
+taken by hand — nothing updates them on its own. <Tooltip text="Share of lines executed by the test suite.">Coverage</Tooltip> and <Tooltip text="TypeScript checks the JSDoc of the source code and of the tests.">typing</Tooltip> are checked on every push.
+
+What is not measured does not improve — and what is not checked every time
+degrades.
+
+  </Column>
+  <Column span={5}>
+    <Skill name="Line coverage" level={97} color="#10b981" icon={<LogoIcon src="./icons/shield.svg" />} />
+    <Skill name="Branch coverage" level={87} color="#f59e0b" icon={<LogoIcon src="./icons/shield.svg" />} />
+    <Skill name="Typing of code and tests" level={100} color="var(--dp-accent)" icon={<LogoIcon src="./icons/star.svg" />} />
+  </Column>
+</Columns>
+
+## A page, end to end
+
+<Columns>
+  <Column span={5}>
+
+```mdx
+---
+title: Installation
+description: Install the tool.
+---
+
+# Installation
+
+Node.js 22 or later.
+
+<Tooltip text="Complete new project">init</Tooltip>
+sets up the configuration.
+```
+
+  </Column>
+  <Column span={7}>
+
+The file is read, its frontmatter detached, its content compiled to HTML.
+Components are rendered **at build time**: `Tooltip` becomes two elements and a
+style rule, without a line of script.
+
+The title feeds the `<title>` tag, the description the metadata, and both
+together the JSON-LD. The file name gives the URL, its folder the place in the
+menu.
+
+None of this needs configuration: [writing a page](/guide/writing-pages/) is
+enough.
+
+  </Column>
+</Columns>

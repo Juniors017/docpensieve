@@ -1,0 +1,59 @@
+---
+title: Séries
+description: Un dossier est une série — son index la présente, ses cartes se construisent toutes seules.
+authors: [valentin]
+date: 2026-09-05
+modified: 2026-09-20
+tags: [cours, intermédiaire, structure]
+---
+
+# Séries
+
+<Skill name="Progression du module" level={50}>
+  Leçon 1 sur 2.
+</Skill>
+
+## Un dossier, une série
+
+Ce cours est lui-même construit ainsi :
+
+<Tree>
+  <TreeItem label="examples" open>
+    <TreeItem label="index.mdx — la grille des modules" />
+    <TreeItem label="first-steps" open>
+      <TreeItem label="index.mdx — sa couverture, et la grille de ses leçons" />
+      <TreeItem label="01-install.mdx" />
+      <TreeItem label="02-first-page.mdx" />
+    </TreeItem>
+    <TreeItem label="writing — ce module" />
+  </TreeItem>
+</Tree>
+
+La page d'index d'un dossier écrit une seule ligne, et la grille suit chaque
+page ajoutée, renommée ou retirée :
+
+```mdx
+<Cards />
+```
+
+## Ce que montre une carte
+
+Tout vient des pages. La couverture de **Premiers pas** est le `preview` de son
+index ; le nombre de leçons est compté ; la date de mise à jour est son
+`modified`. Voici les modules de ce cours, tels que la page Exemples les
+montre :
+
+<Cards from="examples" of="series" />
+
+## Vérifiez par vous-même
+
+<details>
+<summary>Que se passe-t-il quand une leçon est renommée ?</summary>
+
+Sa carte suit à la génération suivante. Aucune liste à corriger nulle part.
+
+</details>
+
+<Card href="../../../components/cards/">
+  <CardBody>Cette leçon emploie **Cards**, **Tree** et **Skill**.</CardBody>
+</Card>

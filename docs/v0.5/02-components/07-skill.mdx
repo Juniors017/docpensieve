@@ -1,0 +1,276 @@
+---
+title: Skill
+description: Level gauge, filled in CSS.
+---
+
+# Skill
+
+A measure within a known range: that is exactly what the `meter` role
+describes, which the gauge carries. The value is therefore announced, whether it
+is shown as a figure or not.
+
+## A gauge
+
+<Skill name="Accessibility" level={85} />
+<Skill name="Performance" level={92} />
+<Skill name="Test coverage" level={64}>
+  Target: 90% on the shipped modules.
+</Skill>
+
+```mdx
+<Skill name="Accessibility" level={85} />
+<Skill name="Test coverage" level={64}>
+  Target: 90%.
+</Skill>
+```
+
+Content passed as a child becomes a comment under the bar.
+
+## As a circle
+
+`shape="circle"` draws a dial rather than a bar. Useful when the gauges are
+few and you want them to stand out.
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Accessibility" level={85} shape="circle" />
+  <Skill name="Performance" level={92} shape="circle" />
+  <Skill name="Coverage" level={64} shape="circle" />
+  <Skill name="Types" level={100} shape="circle" />
+</div>
+
+```mdx
+<Skill name="Accessibility" level={85} shape="circle" />
+```
+
+The circle is a decorative SVG: its wrapper carries the role and the value, so
+what is announced does not depend on what is drawn.
+
+Its radius gives it a circumference of exactly a hundred units. The level then
+goes as is into `stroke-dasharray`, with no multiplication or rounding — and
+the entry animation only has to start from zero.
+
+### Size
+
+It is set through `--dp-skill-size`, on the gauge or on what surrounds it.
+
+<div
+  style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', '--dp-skill-size': '4rem' }}
+>
+  <Skill name="Smaller" level={70} shape="circle" />
+  <Skill name="Also smaller" level={45} shape="circle" />
+</div>
+
+```mdx
+<div style={{ '--dp-skill-size': '4rem' }}>
+  <Skill name="Smaller" level={70} shape="circle" />
+</div>
+```
+
+### With a comment
+
+<Skill name="Translations" level={40} shape="circle">
+  Two languages out of five.
+</Skill>
+
+### Without the figure
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill name="Silent" level={55} shape="circle" showValue={false} />
+</div>
+
+There again, the figure leaves the screen but not what the gauge announces.
+
+## With an icon and a colour
+
+`icon` goes before the name — a [LogoIcon](./logo-icon/) fits there.
+`color` tints the fill **and** the icon: both designate the same thing, and
+seeing them match helps read a column of gauges at a glance.
+
+<Skill name="Speed" level={92} color="#f59e0b" icon={<LogoIcon src="./icons/lightning.svg" />} />
+<Skill name="Safety" level={78} color="#10b981" icon={<LogoIcon src="./icons/shield.svg" />} />
+<Skill name="Documentation" level={64} color="#6366f1" icon={<LogoIcon src="./icons/book.svg" />} />
+
+```mdx
+<Skill name="Speed" level={92} color="#f59e0b" icon={<LogoIcon src="./icons/lightning.svg" />} />
+```
+
+`color` accepts any CSS colour. Without it, the theme's accent colour applies.
+
+### As a circle too
+
+<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+  <Skill
+    name="Speed"
+    level={92}
+    shape="circle"
+    color="#f59e0b"
+    icon={<LogoIcon src="./icons/lightning.svg" />}
+  />
+  <Skill
+    name="Safety"
+    level={78}
+    shape="circle"
+    color="#10b981"
+    icon={<LogoIcon src="./icons/shield.svg" />}
+  />
+  <Skill
+    name="Favourite"
+    level={55}
+    shape="circle"
+    color="#ec4899"
+    icon={<LogoIcon src="./icons/star.svg" />}
+  />
+</div>
+
+### Tinting a whole group
+
+The tint goes through `--dp-skill-color`: setting it on a container applies to
+every gauge it holds.
+
+<div style={{ '--dp-skill-color': '#0ea5e9' }}>
+  <Skill name="First" level={70} />
+  <Skill name="Second" level={45} />
+</div>
+
+```mdx
+<div style={{ '--dp-skill-color': '#0ea5e9' }}>
+  <Skill name="First" level={70} />
+</div>
+```
+
+## The bounds
+
+`level` goes from 0 to 100. Both extremes render with no special case.
+
+<Skill name="Not started" level={0} />
+<Skill name="Done" level={100} />
+
+## Without the figure
+
+<Skill name="Restraint" level={70} showValue={false} />
+
+```mdx
+<Skill name="Restraint" level={70} showValue={false} />
+```
+
+`showValue={false}` removes the percentage **from the screen only**: the gauge
+keeps announcing it to screen readers. Hiding a piece of information is not
+deleting it.
+
+## A name that is not a text
+
+`name` accepts more than a string — an icon beside a word, a term carrying a
+tooltip. A screen reader then has nothing to announce, so `label` says in plain
+words what the gauge measures:
+
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Coverage
+    </>
+  }
+  label="Test coverage"
+  level={97}
+/>
+
+```mdx
+<Skill
+  name={
+    <>
+      <LogoIcon src="./icons/shield.svg" /> Coverage
+    </>
+  }
+  label="Test coverage"
+  level={97}
+/>
+```
+
+With a plain string in `name`, `label` is not needed: the name already says it.
+
+## A dashboard
+
+Several gauges in columns, each in its card.
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Quality</CardHeader>
+      <CardBody>
+        <Skill name="Tests" level={88} />
+        <Skill name="Types" level={95} />
+        <Skill name="Documentation" level={72} />
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Delivery</CardHeader>
+      <CardBody>
+        <Skill name="Continuous integration" level={100} />
+        <Skill name="Translations" level={40}>
+          Two languages out of five.
+        </Skill>
+        <Skill name="Site online" level={100} />
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Styling the gauge
+
+<ForTheme framework="tailwind">
+
+The component classes live below the utilities: a `className` set at use wins.
+
+<Skill className="max-w-sm" name="Reduced width" level={55} />
+
+The gauge takes its colour from `--dp-skill-color`, which an arbitrary
+property sets:
+
+<Skill className="[--dp-skill-color:#10b981]" name="Green fill" level={78} />
+
+```mdx
+<Skill className="[--dp-skill-color:#10b981]" name="Green fill" level={78} />
+```
+
+A selector written in a class, such as `[&_.dp-skill-fill]:…`, would not do:
+its `&` reaches the HTML as `&amp;`, and the stylesheet — compiled from the
+rendered pages — never receives the rule.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+The component classes live in the `components` layer, those of the theme
+folder in none: a class of yours set at use wins. The gauge takes its colour
+from `--dp-skill-color`, which a class can set — here `narrow` and `green`,
+from `theme/99-docpensieve.css`:
+
+<Skill className="narrow" name="Reduced width" level={55} />
+
+<Skill className="green" name="Green fill" level={78} />
+
+```mdx
+<Skill className="green" name="Green fill" level={78} />
+```
+
+```css
+.green {
+  --dp-skill-color: #10b981;
+  color: #10b981;
+}
+```
+
+</ForTheme>
+
+## The fill
+
+It animates as it enters the viewport, through `animation-timeline: view()`,
+over a range wide enough for the movement to be seen rather than flicker.
+Where that property is missing, or if the system asks for less motion, the bar
+is full from the start — the value stays readable, which is what matters.
+
+## What it refuses
+
+A level outside 0–100 stops the build, as does a gauge without a name, a level
+that is not a number, or an unknown `shape`. A silent or overflowing bar goes
+unnoticed on review.

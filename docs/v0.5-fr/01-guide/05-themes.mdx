@@ -1,0 +1,203 @@
+---
+title: Thèmes
+description: Habiller le site, et changer les classes sans toucher au HTML.
+tags: [guide, thème]
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: true
+---
+
+# Thèmes
+
+## Deux habillages
+
+```js
+theme: {
+  framework: 'tailwind',
+  darkMode: 'class',
+},
+```
+
+`tailwind` ne compile à la demande que les classes réellement employées dans
+les pages produites. `custom` s'en passe entièrement : une feuille écrite dans
+le paquet habille le site, sans aucune dépendance de style.
+
+Les gabarits sont les mêmes dans les deux cas. Changer de valeur ne demande de
+toucher à aucune page.
+
+## Les images du site
+
+Trois images portent l'identité d'un projet, et aucune n'est affaire de feuille
+de style — elles se déclarent une fois, depuis la racine du projet :
+
+```js
+logo: 'branding/logo.png',
+favicon: 'branding/favicon.png',
+socialImage: 'branding/social.jpg',
+```
+
+| Champ         | Où elle apparaît              | Ce qu'il lui faut                                                                           |
+| ------------- | ----------------------------- | ------------------------------------------------------------------------------------------- |
+| `logo`        | Dans l'en-tête, à côté du nom | Toute image web. Un logo détaillé se lit mal à la taille d'un en-tête : recadrez la marque  |
+| `favicon`     | Dans l'onglet du navigateur   | `.ico`, `.png` ou `.svg` — les navigateurs n'affichent rien d'autre                         |
+| `socialImage` | L'aperçu d'un lien partagé    | Un PNG ou un JPEG, 1200 × 630 pixels en règle générale. Ni SVG ni AVIF côté réseaux sociaux |
+
+Une version peut porter ses propres `logo` et `favicon`, ce qui permet à une
+bêta de se distinguer d'un coup d'œil dans l'onglet.
+
+`socialImage` a besoin de `siteUrl`, et la génération refuse le couple quand il
+manque plutôt que de publier un aperçu que personne ne peut aller chercher :
+
+```
+socialImage needs siteUrl.
+Social networks only read an absolute address: set siteUrl, the public address of the site.
+```
+
+Un aperçu est récupéré par une autre machine, de l'extérieur : un chemin qui
+fonctionne dans votre navigateur ne lui dit rien.
+
+## Le principe : des créneaux, pas des classes
+
+Les gabarits **n'écrivent aucune classe en dur**. Ils demandent au thème la
+classe de chaque créneau — l'en-tête, le menu, un lien de navigation — et le
+thème répond.
+
+Les cinquante créneaux sont listés dans la [référence](../../reference/theme/).
+
+C'est ce qui permet à un habillage utilitaire et à un habillage classique de
+partager le même HTML : l'un répond `dp-nav-link`, l'autre une poignée
+d'utilitaires. Le gabarit, lui, ne change pas.
+
+Les composants suivent la même règle. Quand le thème ne répond pas, ils
+retombent sur une classe `dp-*` que leur feuille habille à partir des jetons
+`--dp-*` : ils suivent donc la palette active sans rien savoir d'elle.
+
+## Changer les couleurs
+
+Les jetons sont listés dans la [référence](../../reference/theme/). Ils se
+redéfinissent depuis la configuration :
+
+```js
+theme: {
+  framework: 'tailwind',
+  tokens: {
+    '--dp-accent': 'oklch(55% 0.2 250)',
+    '--dp-radius': '0.75rem',
+  },
+},
+```
+
+| Jeton                                                          | Ce qu'il règle                                                        |
+| -------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `--dp-bg`, `--dp-bg-soft`                                      | Fonds                                                                 |
+| `--dp-text`, `--dp-text-soft`                                  | Texte                                                                 |
+| `--dp-border`, `--dp-rule`                                     | Bordures et filets                                                    |
+| `--dp-accent`, `--dp-accent-soft`                              | Couleur d'accent                                                      |
+| `--dp-tip`, `--dp-attention`, `--dp-danger` (et leurs `-soft`) | Tons des blocs mis à part du texte                                    |
+| `--dp-radius`                                                  | Arrondi des angles                                                    |
+| `--dp-font`, `--dp-font-mono`                                  | Familles de caractères                                                |
+| `--dp-content-width`                                           | Largeur de lecture. `none` par défaut : le contenu remplit sa colonne |
+| `--dp-sidebar-width`, `--dp-toc-width`                         | Colonnes latérales                                                    |
+
+Un jeton redéfini se propage partout : composants compris, sans qu'aucun ait à
+le savoir. Il règle la palette **claire** ; la sombre est un jeu de jetons à
+part, redéfini dans le dossier `theme/` — voir plus bas. Un site tenu sombre
+par `darkMode: 'dark'` ne montre donc rien d'un jeton posé ici.
+
+## Ajouter du CSS
+
+```js
+theme: {
+  framework: 'tailwind',
+  css: '.dp-article h2 { letter-spacing: -0.01em; }',
+},
+```
+
+Le contenu de `css` est ajouté à la feuille produite.
+
+## Schéma de couleurs
+
+`theme.darkMode` décide de la palette que reçoit le lecteur. `'class'`, le
+défaut, suit son système ; `'dark'` ou `'light'` en impose une quel que soit le
+système — la génération pose alors la classe sur `<html>`.
+
+L'en-tête porte aussi un bouton qui bascule entre clair et sombre, et retient
+le choix du lecteur de page en page — quelques centaines d'octets de script en
+ligne, le seul que portent les pages de contenu. `theme.toggle: false` le
+retire. Sans JavaScript, le bouton ne s'affiche pas.
+
+La palette sombre est un jeu de jetons, le même sous les deux thèmes. Pour la
+changer, redéfinissez-les dans le dossier `theme/`, pour les deux façons d'être
+sombre — le schéma du système, et la classe que pose `darkMode: 'dark'` :
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --dp-bg: #060814;
+  }
+}
+
+:root.dark {
+  --dp-bg: #060814;
+}
+```
+
+<ForTheme framework="tailwind">
+
+Les utilitaires `dark:` de vos pages suivent la même règle : ils s'appliquent
+sous le schéma sombre du système, et toujours dès que `darkMode: 'dark'` est
+posé.
+
+```mdx
+<div className="bg-white dark:bg-slate-900">…</div>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Vos propres classes la suivent par les deux mêmes sélecteurs :
+
+```css
+:root.dark .note {
+  border-color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+## Ordre des couches
+
+Sous le thème `tailwind`, la feuille déclare ses couches dans cet ordre :
+
+```css
+@layer theme, base, components, utilities;
+```
+
+Les règles des composants vivent dans `components`, **sous** les utilitaires.
+Un `className` posé à l'emploi l'emporte donc toujours, quelle que soit la
+place de la règle dans le fichier :
+
+```mdx
+<Card className="border-0 shadow-none">…</Card>
+```
+
+Sans cette couche, une règle de composant écrite après un utilitaire le
+battrait à spécificité égale, et le `className` de l'auteur serait ignoré sans
+un mot.
+
+Le thème `custom` n'a pas d'utilitaires : un `className` y nomme vos propres
+classes. Écrivez-les dans le dossier `theme/`, à la racine du projet : chaque
+fichier `.css` qui s'y trouve est ajouté à la feuille, hors de toute couche,
+donc avant les règles des composants. Sous ce thème, `init` amorce le dossier
+avec `theme/custom.css`.
+
+## La feuille est compilée en dernier
+
+Un thème utilitaire n'émet que les règles des classes réellement employées : il
+lui faut donc les pages rendues avant de compiler. La génération écrit d'abord
+chaque page, en collectant les classes au passage, puis compile la feuille.
+
+C'est aussi pourquoi les classes de créneaux sont disponibles **sans** attendre
+cette compilation : les gabarits en ont besoin pour être rendus. Les deux
+choses sont séparées pour cette seule raison.

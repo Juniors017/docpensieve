@@ -6,19 +6,16 @@ tags: [release]
 
 # What's new in 0.4
 
-This version is **in preparation**. Its betas go out under the npm tag `beta`,
-while the version installed by default stays the 0.3, documented in the
-`latest` pages of this site:
+The 0.4 is out, and installs by default:
 
 ```bash
-npx docpensieve@beta init my-site
+npx docpensieve init my-site
 ```
 
-Each feature is announced here as it lands, with a link to the guide and to the
-reference: this page announces, it is never the only place something is
-written.
+Each feature below links to the guide and to the reference: this page gathers
+them, it is never the only place something is written.
 
-## Already there
+## What it brings
 
 The 0.4 turns on the navigation. A site of forty pages was asking its reader to
 scroll past what did not concern them; it can now fold its menu, carry its own
@@ -91,5 +88,5 @@ served in another. See [Languages](./guide/languages/).
 ## For a 0.3 project
 
 Nothing to change: a 0.3 configuration builds as it is, every new field being
-optional. [Migrate from latest to beta](./guide/migrate-to-beta/) lists what
+optional. [Migrate from 0.3 to 0.4](./guide/migrate-from-0-3/) lists what
 changes on its own, and what is worth turning on.
