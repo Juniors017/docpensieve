@@ -1,0 +1,145 @@
+---
+title: ScrollToTop
+description: Retour en haut de page, posé par la coquille ou à la main.
+---
+
+# ScrollToTop
+
+Un lien vers le fragment `top`, que la spécification HTML réserve au haut du
+document quand aucun élément ne porte cet identifiant. Rien à ajouter au
+gabarit, rien à charger.
+
+## Il est déjà là
+
+**Le bouton est posé sur chaque page**, par la coquille. Le retour en haut est
+du mobilier de page, pas du contenu : l'écrire dans chaque fichier reviendrait
+à le répéter partout, et à l'oublier quelque part.
+
+Regardez en bas à droite de cette page en la faisant défiler : il est là sans
+que rien ne l'ait demandé.
+
+Pour le retirer de tout le site :
+
+```js
+// docpensieve.config.mjs
+scrollToTop: false,
+```
+
+## Le composant, pour les cas particuliers
+
+`ScrollToTop` reste disponible quand on veut un bouton **dans le fil du
+texte**, avec son propre contenu — un renvoi en fin de chapitre, par exemple.
+
+<ForTheme framework="tailwind">
+
+<div className="flex flex-wrap items-center gap-3">
+  <ScrollToTop className="!static !inline-flex !w-auto !shadow-none px-4" label="Haut de page">
+    Haut
+  </ScrollToTop>
+  <ScrollToTop className="!static !inline-flex !w-auto !shadow-none px-4" label="Retour au sommet">
+    ↑ Sommet
+  </ScrollToTop>
+  <ScrollToTop
+    className="!static !inline-flex !w-auto !shadow-none px-4 border-indigo-400 text-indigo-700"
+    label="Reprendre la lecture"
+  >
+    Reprendre
+  </ScrollToTop>
+</div>
+
+```mdx
+<ScrollToTop className="!static !inline-flex !w-auto" label="Haut de page">
+  Haut
+</ScrollToTop>
+```
+
+Les trois portent `!static` : c'est ce qui les sort du coin de l'écran pour
+les poser dans le texte. **Sans cette classe, ils s'empileraient** sur le
+bouton de la coquille, tous au même endroit.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<div className="row">
+  <ScrollToTop className="inline-button" label="Haut de page">
+    Haut
+  </ScrollToTop>
+  <ScrollToTop className="inline-button" label="Retour au sommet">
+    ↑ Sommet
+  </ScrollToTop>
+  <ScrollToTop className="inline-button accent-text" label="Reprendre la lecture">
+    Reprendre
+  </ScrollToTop>
+</div>
+
+```mdx
+<ScrollToTop className="inline-button" label="Haut de page">
+  Haut
+</ScrollToTop>
+```
+
+```css
+.inline-button {
+  position: static;
+  display: inline-flex;
+  inline-size: auto;
+  box-shadow: none;
+  padding-inline: 1rem;
+}
+```
+
+Les trois portent `inline-button`, de `theme/99-docpensieve.css` : son
+`position: static` les sort du coin de l'écran pour les poser dans le texte.
+**Sans cette classe, ils s'empileraient** sur le bouton de la coquille, tous au
+même endroit.
+
+</ForTheme>
+
+Le nom accessible reste posé par `label` : sans lui, le lien s'annoncerait par
+sa seule apparence.
+
+## L'apparition
+
+Elle est pilotée par `animation-timeline: scroll()` : le défilement mène
+l'animation, sans écouteur d'événement. Là où le navigateur ne connaît pas
+encore cette propriété, le bouton reste simplement visible — toujours là vaut
+mieux que jamais là.
+
+Le défilement adouci suit la même prudence : il ne s'applique qu'aux pages qui
+portent ce bouton, et seulement si le système ne demande pas moins de
+mouvement.
+
+## De quoi respirer
+
+Un peu de texte, pour que la page soit assez longue à faire défiler et que
+l'apparition du bouton se remarque.
+
+Le générateur produit un site statique : chaque page est un fichier HTML
+complet, servi tel quel. Aucune étape d'hydratation, aucun paquet à télécharger
+avant de lire. C'est ce qui permet à un composant comme celui-ci de n'être
+qu'un lien et deux règles de style.
+
+Une version vit sur sa propre branche. La branche de travail garde les sources,
+la branche de version garde la sortie. Les deux ne se mélangent jamais, et
+revenir à une ancienne version ne demande de regénérer quoi que ce soit.
+
+Les composants livrés suivent tous la même règle : ils apportent la structure,
+et l'apparence se règle à l'emploi. Aucun n'embarque de couleur en dur ; tous
+lisent les jetons du thème actif.
+
+Quand une page demande une interaction, la réponse se cherche d'abord dans les
+éléments natifs — `details` pour déplier, un lien pour se déplacer, une
+transition CSS pour apparaître. Ce n'est qu'ensuite, et rarement, qu'un script
+se justifierait.
+
+Cette contrainte a un effet heureux : une page reste lisible dans dix ans,
+parce qu'il n'y a rien qui puisse cesser de fonctionner. Aucune dépendance à
+mettre à jour, aucune interface qui casse au navigateur suivant.
+
+Et un effet moins heureux, qu'il vaut mieux connaître à l'avance : ce qui
+dépend du moment est figé à la génération. Une page qui affiche « l'offre se
+termine demain » le dira encore dans six mois si le site n'a pas été regénéré.
+Une génération programmée suffit à le garder juste.
+
+En mettre une en place demande quelques lignes dans la chaîne qui génère déjà
+le site : [Déploiement](../guide/deployment/) en donne la recette.
