@@ -255,7 +255,7 @@ The panel is declared here, not derived from the menu of the documentation: the
 two can stand side by side with different links, or the site can go without a
 sidebar and navigate from the header alone.
 
-## `foldedSidebar`
+## `stickyHeader`
 
 ```js
 stickyHeader: false,
@@ -269,7 +269,7 @@ text — on a phone held in one hand, that height is a third of what is visible.
 The anchors then stop reserving room for it: a link to a heading no longer
 leaves a blank band above it.
 
-## `stickyHeader`
+## `foldedSidebar`
 
 ```js
 foldedSidebar: true,
