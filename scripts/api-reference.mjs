@@ -18,8 +18,85 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Where the page is written: the reference of the version being prepared. */
-export const API_PAGE = path.join(ROOT, 'docs', 'v0.4', '03-reference', '05-api.md');
+/** Where each page is written: the reference of the version being prepared. */
+export const API_PAGES = {
+  en: path.join(ROOT, 'docs', 'v0.4', '03-reference', '05-api.md'),
+  fr: path.join(ROOT, 'docs', 'v0.4-fr', '03-reference', '05-api.md'),
+};
+
+/** The English page, still named on its own by the rest of the repository. */
+export const API_PAGE = API_PAGES.en;
+
+/**
+ * The prose this script writes, by language.
+ *
+ * Only that prose is translated. What comes from the sources — descriptions,
+ * parameter texts, error types — stays as the JSDoc has it, and the JSDoc of
+ * this project is English by rule. A French reader therefore gets a French
+ * page around English signatures, which is what a signature is.
+ *
+ * @type {Record<string, {
+ *   description: string, tags: string, intro: string[],
+ *   parameter: string, type: string, returns: string, throws: string,
+ *   documentedIn: (file: string) => string, roles: Record<string, string>,
+ * }>}
+ */
+const WORDING = {
+  en: {
+    description: 'Every export of the five packages, from their JSDoc.',
+    tags: 'tags: [reference, api]',
+    intro: [
+      'The five packages are published together, at the same version. Most',
+      'projects only need the `docpensieve` command; the packages below are for',
+      'what goes further — a script that builds a site, a theme of your own.',
+      '',
+      'Each entry comes from the JSDoc of the source, which the type checker',
+      'verifies: it cannot drift from the code without the build noticing.',
+      '',
+      'To use the tool rather than call it, start at',
+      '[Installation](../guide/installation/); the fields of a configuration are',
+      'in [Configuration](./configuration/).',
+    ],
+    parameter: 'Parameter',
+    type: 'Type',
+    returns: 'Returns',
+    throws: 'Throws',
+    documentedIn: (file) => `Documented in \`${file}\`.`,
+    roles: {},
+  },
+  fr: {
+    description: 'Tous les exports des cinq paquets, depuis leurs JSDoc.',
+    tags: 'tags: [référence, api]',
+    intro: [
+      'Les cinq paquets se publient ensemble, à la même version. La plupart des',
+      "projets n'ont besoin que de la commande `docpensieve` ; les paquets",
+      'ci-dessous servent à ce qui va plus loin — un script qui génère un site,',
+      'un thème à vous.',
+      '',
+      'Chaque entrée vient des JSDoc des sources, que le vérificateur de types',
+      'contrôle : elle ne peut pas dériver du code sans que la génération le',
+      'voie. **Les signatures et leurs descriptions restent en anglais**, comme',
+      "le code d'où elles sortent.",
+      '',
+      "Pour employer l'outil plutôt que l'appeler, commencez par",
+      "[Installation](../guide/installation/) ; les champs d'une configuration",
+      'sont dans [Configuration](./configuration/).',
+    ],
+    parameter: 'Paramètre',
+    type: 'Type',
+    returns: 'Renvoie',
+    throws: 'Lève',
+    documentedIn: (file) => `Documenté dans \`${file}\`.`,
+    roles: {
+      '@docpensieve/shared': 'Constantes, erreurs et slugs, partagés par tous les paquets.',
+      '@docpensieve/core':
+        'Configuration, chargement, compilation, données structurées et génération.',
+      '@docpensieve/theme': 'Les providers de thème et le moteur qui les compose.',
+      '@docpensieve/components': 'Les composants disponibles dans chaque page.',
+      docpensieve: 'Les commandes, appelables depuis un script comme depuis le terminal.',
+    },
+  },
+};
 
 /** The packages, in the order of their dependency graph. */
 const PACKAGES = [
@@ -209,9 +286,10 @@ function prose(text) {
 
 /**
  * @param {Entry} entry
+ * @param {(typeof WORDING)[string]} words Wording of the page's language.
  * @returns {string}
  */
-function renderEntry(entry) {
+function renderEntry(entry, words) {
   const signature =
     entry.kind === 'function'
       ? `${entry.name}(${entry.params.map((param) => param.name).join(', ')})`
@@ -223,7 +301,7 @@ function renderEntry(entry) {
   if (entry.description) parts.push('', prose(entry.description));
 
   if (entry.params.length > 0) {
-    parts.push('', '| Parameter | Type | |', '| --- | --- | --- |');
+    parts.push('', `| ${words.parameter} | ${words.type} | |`, '| --- | --- | --- |');
     for (const param of entry.params) {
       parts.push(
         `| \`${cell(param.name)}\` | \`${cell(param.type)}\` | ${cell(prose(param.text))} |`,
@@ -232,11 +310,11 @@ function renderEntry(entry) {
   }
   if (entry.returns) {
     const text = entry.returns.text ? ` — ${cell(prose(entry.returns.text))}` : '';
-    parts.push('', `**Returns** \`${cell(entry.returns.type)}\`${text}`);
+    parts.push('', `**${words.returns}** \`${cell(entry.returns.type)}\`${text}`);
   }
   for (const error of entry.throws) {
     const text = error.text ? ` — ${cell(prose(error.text))}` : '';
-    parts.push('', `**Throws** \`${cell(error.type)}\`${text}`);
+    parts.push('', `**${words.throws}** \`${cell(error.type)}\`${text}`);
   }
   return parts.join('\n');
 }
@@ -246,12 +324,13 @@ function renderEntry(entry) {
  *
  * @returns {string}
  */
-export function renderApiReference() {
+export function renderApiReference(lang = 'en') {
+  const words = WORDING[lang] ?? WORDING.en;
   const sections = [
     '---',
     'title: API',
-    'description: Every export of the five packages, from their JSDoc.',
-    'tags: [reference, api]',
+    `description: ${words.description}`,
+    words.tags,
     '---',
     '',
     '# API',
@@ -259,22 +338,13 @@ export function renderApiReference() {
     // MDX reads every page: an HTML comment would stop the build.
     '{/* Generated by scripts/api-reference.mjs from the JSDoc of the sources: run npm run api:docs rather than editing this page. */}',
     '',
-    'The five packages are published together, at the same version. Most',
-    'projects only need the `docpensieve` command; the packages below are for',
-    'what goes further — a script that builds a site, a theme of your own.',
-    '',
-    'Each entry comes from the JSDoc of the source, which the type checker',
-    'verifies: it cannot drift from the code without the build noticing.',
-    '',
     // This page is long and easy to land in from a search: a reader after the
     // tool rather than its API left it with nowhere to go.
-    'To use the tool rather than call it, start at',
-    '[Installation](../guide/installation/); the fields of a configuration are',
-    'in [Configuration](./configuration/).',
+    ...words.intro,
   ];
 
   for (const pkg of PACKAGES) {
-    sections.push('', `## \`${pkg.name}\``, '', pkg.role);
+    sections.push('', `## \`${pkg.name}\``, '', words.roles[pkg.name] ?? pkg.role);
     /** @type {Map<string, Map<string, Entry>>} */
     const cache = new Map();
     const seen = new Set();
@@ -286,8 +356,8 @@ export function renderApiReference() {
       sections.push(
         '',
         entry
-          ? renderEntry(entry)
-          : `### \`${name}\`\n\nDocumented in \`${path.relative(ROOT, file).split(path.sep).join('/')}\`.`,
+          ? renderEntry(entry, words)
+          : `### \`${name}\`\n\n${words.documentedIn(path.relative(ROOT, file).split(path.sep).join('/'))}`,
       );
     }
   }
@@ -296,6 +366,8 @@ export function renderApiReference() {
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  writeFileSync(API_PAGE, renderApiReference(), 'utf8');
-  console.log(`API reference written to ${path.relative(ROOT, API_PAGE)}`);
+  for (const [lang, file] of Object.entries(API_PAGES)) {
+    writeFileSync(file, renderApiReference(lang), 'utf8');
+    console.log(`API reference (${lang}) written to ${path.relative(ROOT, file)}`);
+  }
 }
