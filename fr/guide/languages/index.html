@@ -634,6 +634,14 @@ lecteur dont le site n&#x27;a pas la langue.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>En propre</th><th>Partagé avec la version</th></tr></thead><tbody><tr><td>Pages, menu, page de recherche</td><td>La feuille de style</td></tr><tr><td>Fichier d&#x27;auteurs et images de son dossier</td><td>Le logo et la favicone</td></tr><tr><td>Les mots de la coquille</td><td>Le bandeau de version et son numéro</td></tr></tbody></table></div>
 <p>Le fichier d&#x27;auteurs est lu dans chaque dossier : une biographie peut donc être
 traduite avec les pages qu&#x27;elle signe.</p>
+<h2 id="ce-qui-est-refuse">Ce qui est refusé</h2>
+<p>Trois erreurs arrêtent la génération plutôt que de publier quelque chose de
+faux en silence :</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Écrit</th><th>Pourquoi c&#x27;est refusé</th></tr></thead><tbody><tr><td><code>translations</code> à la racine du fichier</td><td>Il appartient à une version — c&#x27;est une version qui a des pages</td></tr><tr><td><code>lang</code> sur une version</td><td>Le site a une langue ; une version en porte les traductions</td></tr><tr><td>Une étiquette qui ne nomme rien — <code>francais</code></td><td>Elle atterrirait dans le balisage en <code>lang=&quot;francais&quot;</code></td></tr></tbody></table></div>
+<p>La troisième mérite un mot. BCP 47 autorise une sous-étiquette de langue de
+cinq à huit lettres : <code>francais</code> est donc <strong>bien formée</strong> — elle n&#x27;est
+simplement pas une langue. Laissée passer, elle servirait des mots anglais sous
+une adresse française, sans que rien ne le dise.</p>
 <h2 id="ce-quil-faut-verifier">Ce qu&#x27;il faut vérifier</h2>
 <ul>
 <li><strong>Un dossier de traduction nommé mais absent</strong> arrête la génération, en
@@ -674,6 +682,9 @@ sélecteur le dit.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#ce-que-chaque-langue-a-en-propre">Ce que chaque langue a en propre</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-qui-est-refuse">Ce qui est refusé</a>
           </li>
           <li class="dp-toc-item">
             <a href="#ce-quil-faut-verifier">Ce qu&#x27;il faut vérifier</a>

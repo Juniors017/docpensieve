@@ -632,6 +632,13 @@ language the site does not have.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Its own</th><th>Shared with the version</th></tr></thead><tbody><tr><td>Pages, menu, search page</td><td>The stylesheet</td></tr><tr><td>Author file and images of its folder</td><td>The logo and favicon</td></tr><tr><td>The wording of the shell</td><td>The version notice and its number</td></tr></tbody></table></div>
 <p>The author file is read in each folder, so a biography can be translated with
 the pages it signs.</p>
+<h2 id="what-is-refused">What is refused</h2>
+<p>Three mistakes stop the build rather than publish something wrong in silence:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Written</th><th>Why it is refused</th></tr></thead><tbody><tr><td><code>translations</code> at the root of the file</td><td>It belongs to a version — a version is what has pages</td></tr><tr><td><code>lang</code> on a version</td><td>The site has one language; a version carries translations of it</td></tr><tr><td>A tag that names no language — <code>francais</code></td><td>It would land in the markup as <code>lang=&quot;francais&quot;</code></td></tr></tbody></table></div>
+<p>The third deserves a word. BCP 47 allows a language subtag of five to eight
+letters, so <code>francais</code> is <strong>well formed</strong> — it is simply not a language. Left
+to pass, it would serve English wording under a French address, and nothing
+would say so.</p>
 <h2 id="what-to-check">What to check</h2>
 <ul>
 <li><strong>A translation folder named but missing</strong> stops the build, naming the
@@ -671,6 +678,9 @@ file name is a different page: it has no twin, and the switcher says so.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#what-each-language-has-of-its-own">What each language has of its own</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-is-refused">What is refused</a>
           </li>
           <li class="dp-toc-item">
             <a href="#what-to-check">What to check</a>
