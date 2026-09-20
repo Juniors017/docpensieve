@@ -34,6 +34,7 @@ program
   .option('-t, --theme <framework>', 'tailwind | custom')
   .option('-u, --site-url <url>', 'public URL of the site')
   .option('--version-name <version>', 'first version, e.g. 1.0')
+  .option('--translation <code>', 'code of a second language, e.g. fr')
   .option('-y, --yes', 'accept the defaults without a dialogue')
   .option('-f, --force', 'overwrite an existing configuration')
   .option('--minimal', "leave DocPensieve's documentation out of the new site")

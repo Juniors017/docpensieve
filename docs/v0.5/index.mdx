@@ -81,8 +81,9 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
 
 ## New in this beta
 
-Nothing yet: the 0.5 has just opened. What it brings will be listed here as it
-lands.
+- **init asks about languages** — one question, and the project comes out with
+  its second language wired: the folder, the configuration field and a page to
+  start from.
 
 [Everything that is new](/whats-new/) ·
 [Migrate from latest to beta](/guide/migrate-to-beta/)
@@ -128,7 +129,7 @@ Nothing else to install: the <Tooltip text="Turning the sources into HTML pages 
 
 ## What init asks
 
-`init` sets the project up through five questions. Enter keeps the default,
+`init` sets the project up through six questions. Enter keeps the default,
 listed in the table below; an answer it does not understand is asked again.
 
 ```
@@ -136,6 +137,8 @@ $ npx docpensieve init my-site
 Project name [My documentation]: Acme docs
 Public URL of the site (optional): https://acme.github.io/docs
 First version [1.0]:
+Will the site be in several languages? [y/N]: y
+Code of the second language [fr]:
 
 CSS framework:
   1. tailwind — Tailwind CSS — ships with the tool, nothing to install
@@ -149,6 +152,7 @@ Install DocPensieve's documentation in the site? [Y/n]:
 | Project name                | `My documentation` | The name in the header, in the page titles and in the structured data.                                                                                                                 | `--name`               |
 | Public URL of the site      | none               | The canonical links and the structured data. Its path becomes the deployment prefix: `https://acme.github.io/docs` serves the site under `/docs/`. Leave it empty until you know.      | `--site-url`           |
 | First version               | `1.0`              | The folder of your pages, `docs/v1.0/`, and the version in the URLs. `1.0` and `v1.0` are the same answer.                                                                             | `--version-name`       |
+| A second language           | no                 | Yes, then a code: your pages get a folder of their own in that language — `docs/v1.0-fr/`, served under `/fr/`. A page with no twin in it does not exist in that language.             | `--translation fr`     |
 | CSS framework               | `tailwind`         | `tailwind` compiles the utilities your pages use, with nothing more to install. `custom` is a plain stylesheet: your own classes go in a `theme/` folder. Type the number or the name. | `--theme`              |
 | DocPensieve's documentation | yes                | Yes: this documentation joins your menu, in a **DocPensieve** section matching your version. No: the site starts with your pages alone.                                                | `--minimal`, for no    |
 
@@ -158,6 +162,7 @@ Install DocPensieve's documentation in the site? [Y/n]:
 | ---------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `docpensieve.config.mjs`                                         | always — every option, each with a comment                           |
 | `docs/v1.0/index.md` and `docs/v1.0/01-guide/01-installation.md` | always — a home page and a first page                                |
+| `docs/v1.0-fr/index.md`                                          | a second language — the home page, ready to translate                |
 | `.gitignore`                                                     | always — the output folder is added to it                            |
 | `docs/v1.0/99-docpensieve/`                                      | documentation: yes — delete it when you are done                     |
 | `theme/custom.css`                                               | theme: `custom` — where your own classes go                          |

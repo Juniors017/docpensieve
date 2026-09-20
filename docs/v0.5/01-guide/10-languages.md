@@ -13,6 +13,19 @@ jsonld:
 A version can be published in several languages. Each one is a folder of pages
 of its own, standing beside the version it translates.
 
+## Starting from init
+
+`init` asks whether the site will be in several languages. Answer yes, give a
+code, and the project comes out wired: the folder beside your pages, the field
+in the configuration, and a home page in that language to start from.
+
+```bash
+npx docpensieve init my-site --translation fr
+```
+
+Everything below is what that answer sets up — and what to do when you add a
+language to a project that already exists.
+
 ## Declaring a translation
 
 ```js

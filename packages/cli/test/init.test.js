@@ -355,7 +355,7 @@ describe('init — the dialogue', () => {
   });
 
   it('takes the typed answers', async () => {
-    dialogue.answers = ['My project', 'https://example.com/doc', '2.0', 'custom', 'n'];
+    dialogue.answers = ['My project', 'https://example.com/doc', '2.0', 'n', 'custom', 'n'];
     const dir = scratch();
     await init(dir);
 
@@ -378,20 +378,20 @@ describe('init — the dialogue', () => {
   });
 
   it('picks the framework by its number', async () => {
-    dialogue.answers = ['', '', '', '2', 'n'];
+    dialogue.answers = ['', '', '', 'n', '2', 'n'];
     const dir = scratch();
     expect((await init(dir)).theme).toBe('custom');
   });
 
   it('picks the framework by its name', async () => {
     // Typing “custom” is more natural than counting lines.
-    dialogue.answers = ['', '', '', 'CUSTOM', 'n'];
+    dialogue.answers = ['', '', '', 'n', 'CUSTOM', 'n'];
     const dir = scratch();
     expect((await init(dir)).theme).toBe('custom');
   });
 
   it('asks again after an answer it does not understand', async () => {
-    dialogue.answers = ['', '', '', 'bootstrap', '9', 'tailwind', 'maybe', 'n'];
+    dialogue.answers = ['', '', '', 'n', 'bootstrap', '9', 'tailwind', 'maybe', 'n'];
     const dir = scratch();
     const result = await init(dir);
     expect(result.theme).toBe('tailwind');
@@ -402,14 +402,14 @@ describe('init — the dialogue', () => {
   });
 
   it('does not ask for the framework when the option gives it', async () => {
-    dialogue.answers = ['My project', '', '', 'n'];
+    dialogue.answers = ['My project', '', '', 'n', 'n'];
     const dir = scratch();
     expect((await init(dir, { theme: 'custom' })).theme).toBe('custom');
     expect(dialogue.asked.some((q) => q.includes('Your choice'))).toBe(false);
   });
 
   it('asks whether to install the documentation', async () => {
-    dialogue.answers = ['', '', '', '', 'no'];
+    dialogue.answers = ['', '', '', 'n', '', 'no'];
     const dir = scratch();
     expect((await init(dir)).docs).toBe(false);
     expect(existsSync(path.join(dir, 'docs', 'v1.0', '99-docpensieve'))).toBe(false);
@@ -435,6 +435,30 @@ describe('init — the dialogue', () => {
     expect(dialogue.openings).toBe(0);
     expect(printed()).toContain('No interactive terminal');
     expect(printed()).toContain('--name');
+  });
+
+  it('asks about a second language, and for its code', async () => {
+    dialogue.answers = ['', '', '', 'y', 'fr', '', 'n'];
+    const dir = scratch();
+    expect((await init(dir)).translation).toBe('fr');
+    expect(dialogue.asked.some((q) => q.includes('several languages'))).toBe(true);
+  });
+
+  it('asks the code again when it names no language', async () => {
+    // "francais" is well formed for BCP 47 and names nothing: taken as is, it
+    // would land in the markup as lang="francais", under a French address
+    // serving English wording.
+    dialogue.answers = ['', '', '', 'yes', 'francais', 'fr', '', 'n'];
+    const dir = scratch();
+    expect((await init(dir)).translation).toBe('fr');
+    expect(dialogue.asked.filter((q) => q.includes('second language'))).toHaveLength(2);
+  });
+
+  it('asks nothing about languages when the option gives one', async () => {
+    dialogue.answers = ['', '', '', '', 'n'];
+    const dir = scratch();
+    expect((await init(dir, { translation: 'fr' })).translation).toBe('fr');
+    expect(dialogue.asked.some((q) => q.includes('several languages'))).toBe(false);
   });
 
   it('stays quiet about the terminal with --yes', async () => {
@@ -482,5 +506,88 @@ describe('init — the theme folder', () => {
     const dir = scratch();
     await init(dir, { yes: true, minimal: true });
     expect(read(dir, 'docpensieve.config.mjs')).toContain('theme/ folder');
+  });
+});
+
+describe('init — a second language', () => {
+  it('writes the folder, the field and the page that explains them', async () => {
+    const dir = scratch();
+    const result = await init(dir, { yes: true, minimal: true, translation: 'fr' });
+
+    expect(result.translation).toBe('fr');
+    // The field active, not an example left commented: a user who asked for
+    // two languages must find the folder wired to the version.
+    expect(read(dir, 'docpensieve.config.mjs')).toContain("translations: { fr: 'docs/v1.0-fr' }");
+    expect(existsSync(path.join(dir, 'docs', 'v1.0-fr', 'index.md'))).toBe(true);
+
+    const home = read(dir, 'docs/v1.0/index.md');
+    expect(home).toContain('## In French');
+    expect(home).toContain('docs/v1.0-fr/01-guide/01-installation.md');
+  });
+
+  it('leaves the second page untranslated, which is the lesson', async () => {
+    // A page with no twin does not exist in that language. Nothing explains
+    // it as well as the menu that lacks it, so the sample keeps one page out.
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true, translation: 'fr' });
+
+    expect(existsSync(path.join(dir, 'docs', 'v1.0-fr', '01-guide'))).toBe(false);
+    expect(read(dir, 'docs/v1.0-fr/index.md')).toContain("n'existe pas");
+  });
+
+  it('writes French in French, the tool shipping its wording', async () => {
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true, translation: 'fr-CA' });
+
+    const page = read(dir, 'docs/v1.0-fr-CA/index.md');
+    expect(page).toContain('Bienvenue dans la documentation.');
+    expect(page).toContain('description: Documentation de');
+  });
+
+  it('says plainly that any other language is there to be translated', async () => {
+    // A copy passing for a translation is what this invites: the file exists,
+    // the switcher offers it, and the reader gets English.
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true, translation: 'de' });
+
+    const page = read(dir, 'docs/v1.0-de/index.md');
+    expect(page).toContain('Replace this page with your translation.');
+    expect(page).toContain('German');
+  });
+
+  it('quotes a code the configuration could not parse bare', async () => {
+    // "pt-BR" unquoted is a subtraction to JavaScript: the generated file
+    // would not even load.
+    const dir = scratch();
+    await init(dir, { yes: true, minimal: true, translation: 'pt-BR' });
+
+    expect(read(dir, 'docpensieve.config.mjs')).toContain("'pt-BR': 'docs/v1.0-pt-BR'");
+    const config = await loadConfig(dir);
+    expect(config.versions[0].translations).toEqual({ 'pt-BR': 'docs/v1.0-pt-BR' });
+  });
+
+  it('writes nothing about languages when none is asked for', async () => {
+    const dir = scratch();
+    const result = await init(dir, { yes: true, minimal: true });
+
+    expect(result.translation).toBe('');
+    expect(readdirSync(path.join(dir, 'docs'))).toEqual(['v1.0']);
+    expect(read(dir, 'docpensieve.config.mjs')).toContain('// translations: { fr:');
+    expect(read(dir, 'docs/v1.0/index.md')).not.toContain('## In ');
+  });
+
+  it('refuses a code that names no language, before asking anything', async () => {
+    const dir = scratch();
+    try {
+      await init(dir, { yes: true, translation: 'francais' });
+      expect.unreachable('init should have thrown');
+    } catch (error) {
+      const failure = /** @type {DocPensieveError} */ (error);
+      expect(failure).toBeInstanceOf(DocPensieveError);
+      expect(failure.message).toContain('francais');
+      expect(failure.hint).toContain('fr');
+    }
+    // Nothing written: a project left half set up would be worse.
+    expect(existsSync(path.join(dir, 'docpensieve.config.mjs'))).toBe(false);
   });
 });

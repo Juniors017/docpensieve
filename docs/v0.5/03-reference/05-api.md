@@ -346,6 +346,39 @@ a language nobody thought of.
 
 **Returns** `'ltr' \| 'rtl'` — `ltr` when the language is unknown — the safe default, and what every page did before this existed.
 
+### `isLanguageCode`
+
+`isLanguageCode(value)`
+
+Whether a string names a language, as BCP 47 and CLDR understand it.
+
+The standard is BCP 47, and `Intl` carries it: a regex of our own refused
+`zh-Hans-CN`, which is valid, and accepted shapes that are not. Well formed
+is not the same as real, though — BCP 47 allows a language subtag of five
+to eight letters, so `francais` passes that check and would land in the
+markup as `lang="francais"`, a value no browser maps to a language. CLDR
+knows which tags name one; the subtag alone is asked, so that a region, a
+script or a private extension does not get in the way.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `value` | `string` |  |
+
+**Returns** `boolean`
+
+### `languageName`
+
+`languageName(code, [inLang])`
+
+Name of a language, written in a language.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `code` | `string` | Language code. |
+| `[inLang]` | `string` | Language the name is written in. |
+
+**Returns** `string` — The name, or the code itself when nothing names it.
+
 ## `@docpensieve/core`
 
 Configuration, loading, compilation, structured data and generation.
@@ -1211,11 +1244,11 @@ Sets up a documentation project.
 | Parameter | Type | |
 | --- | --- | --- |
 | `[dir]` | `string` | Target folder, created if needed. |
-| `[options]` | `{ name?: string, theme?: string, siteUrl?: string, version?: string, yes?: boolean, force?: boolean, minimal?: boolean, }` | `minimal` leaves DocPensieve's documentation out of the site. |
+| `[options]` | `{ name?: string, theme?: string, siteUrl?: string, version?: string, translation?: string, yes?: boolean, force?: boolean, minimal?: boolean, }` | `minimal` leaves DocPensieve's documentation out of the site; `translation` is the code of a second language, `fr` for instance. |
 
-**Returns** `Promise<{ dir: string, theme: string, docs: boolean }>`
+**Returns** `Promise<{ dir: string, theme: string, docs: boolean, translation: string, }>`
 
-**Throws** `DocPensieveError` — Unknown framework, project already initialised, or documentation to install missing.
+**Throws** `DocPensieveError` — Unknown framework, unknown language, project already initialised, or documentation to install missing.
 
 ### `serve`
 

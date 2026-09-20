@@ -16,6 +16,7 @@ import {
   DEFAULT_OUT_DIR,
   THEME_FRAMEWORKS,
   UI_STRINGS,
+  isLanguageCode,
 } from '@docpensieve/shared';
 
 /**
@@ -197,24 +198,6 @@ export function normalizeConfig(userConfig) {
   // be both. "../../elsewhere" wrote outside the output folder, "a/b" nested
   // the version, "Été" produced an encoded URL.
   const VERSION_SLUG = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
-  // A language code becomes a URL segment and the `lang` of the document. The
-  // standard is BCP 47, and Intl carries it: a regex of our own refused
-  // "zh-Hans-CN", which is valid, and accepted shapes that are not.
-  const isLanguageCode = (/** @type {string} */ value) => {
-    try {
-      Intl.getCanonicalLocales(value);
-      // Well formed is not the same as real: BCP 47 allows a language subtag
-      // of five to eight letters, so "francais" passes that check and would
-      // land in the markup as `lang="francais"` — a value no browser maps to
-      // a language, under a French address serving English wording. CLDR
-      // knows which tags name a language; the subtag alone is asked, so that
-      // a region, a script or a private extension does not get in the way.
-      const names = new Intl.DisplayNames(['en'], { type: 'language', fallback: 'none' });
-      return names.of(new Intl.Locale(value).language) !== undefined;
-    } catch {
-      return false;
-    }
-  };
 
   // A translation belongs to a version, since a version is what has pages.
   // Written at the root, it was read by nobody: the build succeeded, no

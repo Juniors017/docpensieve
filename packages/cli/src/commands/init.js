@@ -18,6 +18,8 @@ import {
   DocPensieveError,
   THEME_FOLDER,
   THEME_FRAMEWORKS,
+  isLanguageCode,
+  languageName,
 } from '@docpensieve/shared';
 
 /**
@@ -30,7 +32,16 @@ const FRAMEWORK_LABELS = {
 };
 
 /** Answers used when there is no dialogue. */
-const DEFAULTS = { name: 'My documentation', siteUrl: '', theme: 'tailwind', version: '1.0' };
+const DEFAULTS = {
+  name: 'My documentation',
+  siteUrl: '',
+  theme: 'tailwind',
+  version: '1.0',
+  translation: '',
+};
+
+/** Second language offered first, being the one whose wording ships too. */
+const DEFAULT_TRANSLATION = 'fr';
 
 /**
  * Folder of the installed DocPensieve documentation, inside the version folder.
@@ -126,14 +137,42 @@ async function askDocumentation(rl) {
 }
 
 /**
+ * Asks whether the site will carry a second language, and which one.
+ *
+ * Asked rather than left to the configuration: a translation changes the
+ * shape of the project — a folder per language beside the pages — and that is
+ * cheaper to set up at the start than to retrofit.
+ *
+ * @param {import('node:readline/promises').Interface} rl
+ * @returns {Promise<string>} Language code, or `''` for a single language.
+ */
+async function askTranslation(rl) {
+  for (;;) {
+    const answer = (await rl.question('Will the site be in several languages? [y/N]: '))
+      .trim()
+      .toLowerCase();
+    if (answer === '' || answer === 'n' || answer === 'no') return '';
+    if (answer === 'y' || answer === 'yes') break;
+    console.log('Answer not understood. Expected: y or n.');
+  }
+
+  for (;;) {
+    const code = (await ask(rl, 'Code of the second language', DEFAULT_TRANSLATION)).trim();
+    if (isLanguageCode(code)) return code;
+    console.log(`"${code}" does not name a language. Expected a code: fr, de, pt-BR, zh-Hans.`);
+  }
+}
+
+/**
  * Gathers the answers, through a dialogue or from the options.
  *
  * @param {{
  *   name?: string, theme?: string, siteUrl?: string, version?: string,
- *   yes?: boolean, minimal?: boolean,
+ *   translation?: string, yes?: boolean, minimal?: boolean,
  * }} options
  * @returns {Promise<{
  *   name: string, theme: string, siteUrl: string, version: string, docs: boolean,
+ *   translation: string,
  * }>}
  */
 async function collect(options) {
@@ -142,6 +181,7 @@ async function collect(options) {
     siteUrl: options.siteUrl ?? DEFAULTS.siteUrl,
     theme: options.theme ?? DEFAULTS.theme,
     version: options.version ?? DEFAULTS.version,
+    translation: options.translation ?? DEFAULTS.translation,
     docs: !options.minimal,
   };
 
@@ -154,7 +194,7 @@ async function collect(options) {
   if (!process.stdin.isTTY) {
     console.log('No interactive terminal: no questions asked, the options and defaults apply.');
     console.log(
-      'To choose, pass --name, --site-url, --theme, --version-name or --minimal; --yes silences this notice.',
+      'To choose, pass --name, --site-url, --theme, --version-name, --translation or --minimal; --yes silences this notice.',
     );
     return fromOptions;
   }
@@ -164,9 +204,10 @@ async function collect(options) {
     const name = await ask(rl, 'Project name', fromOptions.name);
     const siteUrl = await ask(rl, 'Public URL of the site (optional)', fromOptions.siteUrl);
     const version = await ask(rl, 'First version', fromOptions.version);
+    const translation = options.translation ?? (await askTranslation(rl));
     const theme = options.theme ?? (await askFramework(rl));
     const docs = options.minimal ? false : await askDocumentation(rl);
-    return { name, siteUrl, version, theme, docs };
+    return { name, siteUrl, version, theme, docs, translation };
   } finally {
     rl.close();
   }
@@ -184,16 +225,31 @@ async function collect(options) {
 const quote = (value) => `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 
 /**
+ * Writes a language code as a property name.
+ *
+ * `fr` stands on its own; `pt-BR` and `zh-Hans` carry a hyphen, which is a
+ * minus sign to JavaScript — unquoted, the generated configuration would not
+ * parse.
+ *
+ * @param {string} code
+ * @returns {string}
+ */
+const key = (code) => (/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(code) ? code : quote(code));
+
+/**
  * Renders `docpensieve.config.mjs`.
  *
  * Every field the configuration accepts appears in it — set to its default,
  * or commented out with an example — so that the first file a user opens also
  * tells them everything they can change.
  *
- * @param {{ name: string, theme: string, siteUrl: string, version: string }} answers
+ * @param {{
+ *   name: string, theme: string, siteUrl: string, version: string,
+ *   translation?: string,
+ * }} answers
  * @returns {string} Contents of `docpensieve.config.mjs`.
  */
-function renderConfig({ name, theme, siteUrl, version }) {
+function renderConfig({ name, theme, siteUrl, version, translation = '' }) {
   const slug = versionSlug(version);
   // A type annotation rather than an `import`: `defineConfig` transforms
   // nothing, it is only there for autocompletion. Actually importing it would
@@ -233,9 +289,14 @@ function renderConfig({ name, theme, siteUrl, version }) {
     `      name: ${quote(version)}, // label in the version switcher`,
     `      folder: ${quote(`docs/${slug}`)},`,
     '      current: true,',
-    '      // Pages of this version in another language, served under /fr/.',
+    `      // Pages of this version in another language, served under /${translation || 'fr'}/.`,
     '      // Your own language stays where it is, and keeps its addresses.',
-    `      // translations: { fr: ${quote(`docs/${slug}-fr`)} },`,
+    // Written out, not left as an example, once the language is known: the
+    // field is the whole of the feature, and the folder beside it already
+    // holds a page.
+    translation
+      ? `      translations: { ${key(translation)}: ${quote(`docs/${slug}-${translation}`)} },`
+      : `      // translations: { fr: ${quote(`docs/${slug}-fr`)} },`,
     '    },',
     '  ],',
     '',
@@ -353,11 +414,12 @@ function versionSlug(version) {
 }
 
 /**
- * @param {string} name Project name, for the title of the home page.
- * @param {boolean} docs Whether DocPensieve's documentation is installed.
+ * Home page of the project, in the language of the site.
+ *
+ * @param {{ name: string, docs: boolean, slug: string, translation: string }} answers
  * @returns {string}
  */
-const renderIndex = (name, docs) => `---
+const renderIndex = ({ name, docs, slug, translation }) => `---
 title: Introduction
 description: Documentation of ${name}.
 date: ${new Date().toISOString().slice(0, 10)}
@@ -378,6 +440,20 @@ without appearing in the URL.
 
 See the [installation guide](/guide/installation/).
 ${
+  translation
+    ? `
+## In ${languageName(translation)}
+
+The same pages live in \`docs/${slug}-${translation}/\`, and the language switcher
+in the header moves between them.
+
+A page with no twin there does not exist in that language: it stays out of the
+menu and out of the sitemap, and the switcher names the language without
+offering it. The installation page is in that case — write
+\`docs/${slug}-${translation}/01-guide/01-installation.md\` and it appears.
+${docs ? '\nThe [languages guide](/docpensieve/guide/languages/) covers the rest.\n' : ''}`
+    : ''
+}${
   docs
     ? `
 ## Learning DocPensieve
@@ -388,6 +464,70 @@ tool that builds this site, installed along with it. Delete its folder,
 `
     : ''
 }`;
+
+/**
+ * Home page of the second language.
+ *
+ * French is written out, the tool shipping its wording too. Any other
+ * language gets the page in English, saying in its first line that it is
+ * there to be translated: a copy passing for a translation is the one failure
+ * this feature invites — the reader gets English under an address that
+ * promised their language, and nothing reports it.
+ *
+ * Only the home page is written. Its twin, the installation page, is left
+ * untranslated on purpose: it is what shows that an untranslated page does
+ * not exist in that language, which no sentence explains as well as the menu
+ * that lacks it.
+ *
+ * @param {{ name: string, slug: string, translation: string }} answers
+ * @returns {string}
+ */
+function renderTranslatedIndex({ name, slug, translation }) {
+  const french = translation.toLowerCase().split('-')[0] === 'fr';
+  const head = `---
+title: Introduction
+description: ${french ? `Documentation de ${name}.` : `Documentation of ${name}.`}
+date: ${new Date().toISOString().slice(0, 10)}
+
+jsonld:
+  type: TechArticle
+  breadcrumbs: true
+---
+
+# ${name}
+`;
+
+  if (french) {
+    return `${head}
+Bienvenue dans la documentation.
+
+## Une page et sa jumelle
+
+Cette page est la version française de \`docs/${slug}/index.md\`. Le sélecteur
+de langue, dans l'en-tête, passe de l'une à l'autre.
+
+La page d'installation, elle, n'est pas traduite : elle **n'existe pas** en
+français. Elle ne figure ni dans le menu ni dans le plan du site, et le
+sélecteur la nomme sans la proposer. Écrivez
+\`docs/${slug}-${translation}/01-guide/01-installation.md\` pour la voir apparaître.
+`;
+  }
+
+  return `${head}
+**Replace this page with your translation.** It is the ${languageName(translation)}
+twin of \`docs/${slug}/index.md\`, written in English so that the site builds:
+left as it is, a reader who picks ${languageName(translation, translation)} gets English.
+
+## One page, two languages
+
+The language switcher in the header moves between this page and its twin.
+
+The installation page has no twin here, so it does not exist in this language:
+it stays out of the menu and out of the sitemap, and the switcher names the
+language without offering it. Write
+\`docs/${slug}-${translation}/01-guide/01-installation.md\` and it appears.
+`;
+}
 
 /** @returns {string} Sample page, showing ordering and highlighting. */
 const renderGuide = () => `---
@@ -478,11 +618,14 @@ async function installDocumentation(source, target, slug) {
  * @param {string} [dir] Target folder, created if needed.
  * @param {{
  *   name?: string, theme?: string, siteUrl?: string, version?: string,
- *   yes?: boolean, force?: boolean, minimal?: boolean,
- * }} [options] `minimal` leaves DocPensieve's documentation out of the site.
- * @returns {Promise<{ dir: string, theme: string, docs: boolean }>}
- * @throws {DocPensieveError} Unknown framework, project already initialised,
- *   or documentation to install missing.
+ *   translation?: string, yes?: boolean, force?: boolean, minimal?: boolean,
+ * }} [options] `minimal` leaves DocPensieve's documentation out of the site;
+ *   `translation` is the code of a second language, `fr` for instance.
+ * @returns {Promise<{
+ *   dir: string, theme: string, docs: boolean, translation: string,
+ * }>}
+ * @throws {DocPensieveError} Unknown framework, unknown language, project
+ *   already initialised, or documentation to install missing.
  */
 export async function init(dir = '.', options = {}) {
   const target = path.resolve(dir);
@@ -501,6 +644,14 @@ export async function init(dir = '.', options = {}) {
   if (options.theme && !THEME_FRAMEWORKS.includes(options.theme)) {
     throw new DocPensieveError(`Unknown framework: "${options.theme}".`, {
       hint: `Accepted values: ${THEME_FRAMEWORKS.join(', ')}.`,
+    });
+  }
+
+  // Checked here for the same reason as the framework: a code refused after
+  // five questions would be five questions wasted.
+  if (options.translation && !isLanguageCode(options.translation)) {
+    throw new DocPensieveError(`"${options.translation}" does not name a language.`, {
+      hint: 'Write the code, not the name: "fr" for French, "pt-BR", "zh-Hans". It becomes the lang of the document and a segment of the address.',
     });
   }
 
@@ -535,8 +686,21 @@ export async function init(dir = '.', options = {}) {
 
   await mkdir(path.join(docsDir, '01-guide'), { recursive: true });
   await writeFile(configPath, renderConfig(answers), 'utf8');
-  await writeFile(path.join(docsDir, 'index.md'), renderIndex(answers.name, answers.docs), 'utf8');
+  await writeFile(
+    path.join(docsDir, 'index.md'),
+    renderIndex({ name: answers.name, docs: answers.docs, slug, translation: answers.translation }),
+    'utf8',
+  );
   await writeFile(path.join(docsDir, '01-guide', '01-installation.md'), renderGuide(), 'utf8');
+  if (answers.translation) {
+    const folder = path.join(target, 'docs', `${slug}-${answers.translation}`);
+    await mkdir(folder, { recursive: true });
+    await writeFile(
+      path.join(folder, 'index.md'),
+      renderTranslatedIndex({ name: answers.name, slug, translation: answers.translation }),
+      'utf8',
+    );
+  }
   if (documentation) {
     await installDocumentation(documentation, path.join(docsDir, DOCS_FOLDER), slug);
   }
@@ -548,14 +712,31 @@ export async function init(dir = '.', options = {}) {
   console.log(`  ${CONFIG_FILENAME}`);
   console.log(`  docs/${slug}/index.md`);
   console.log(`  docs/${slug}/01-guide/01-installation.md`);
+  if (answers.translation) {
+    const state =
+      answers.translation.toLowerCase().split('-')[0] === 'fr'
+        ? `in ${languageName(answers.translation)}`
+        : 'to translate';
+    console.log(`  docs/${slug}-${answers.translation}/index.md  the home page, ${state}`);
+  }
   if (documentation) {
     console.log(`  docs/${slug}/${DOCS_FOLDER}/  DocPensieve's documentation, to delete when done`);
   }
   for (const line of stylesheets) console.log(`  ${line}`);
   console.log(`\nTheme: ${answers.theme} — ${FRAMEWORK_LABELS[answers.theme]}`);
+  if (answers.translation) {
+    console.log(
+      `Second language: ${languageName(answers.translation)} (${answers.translation}) — served under /${answers.translation}/`,
+    );
+  }
   console.log('\nNext:  npx docpensieve dev');
 
-  return { dir: target, theme: answers.theme, docs: answers.docs };
+  return {
+    dir: target,
+    theme: answers.theme,
+    docs: answers.docs,
+    translation: answers.translation,
+  };
 }
 
 /**

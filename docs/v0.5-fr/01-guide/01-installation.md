@@ -49,6 +49,7 @@ npx docpensieve init mon-site --yes --name "Ma documentation"
 | `-t, --theme <framework>`  | `tailwind` ou `custom`                                   |
 | `-u, --site-url <url>`     | Adresse publique, dont découle le préfixe de déploiement |
 | `--version-name <version>` | Première version, `1.0` par exemple                      |
+| `--translation <code>`     | Code d'une seconde langue, `fr` par exemple              |
 | `-y, --yes`                | Accepte les valeurs par défaut sans dialogue             |
 | `-f, --force`              | Écrase une configuration existante                       |
 | `--minimal`                | Laisse la documentation de DocPensieve hors du site      |

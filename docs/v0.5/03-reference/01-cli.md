@@ -29,6 +29,7 @@ npx docpensieve init [dir]
 | `-t, --theme <framework>`  | `tailwind` or `custom`                  |
 | `-u, --site-url <url>`     | Public URL of the site                  |
 | `--version-name <version>` | First version, `1.0` for instance       |
+| `--translation <code>`     | Code of a second language, `fr`         |
 | `-y, --yes`                | Accepts the defaults without a dialogue |
 | `-f, --force`              | Overwrites an existing configuration    |
 | `--minimal`                | Leaves DocPensieve's documentation out  |

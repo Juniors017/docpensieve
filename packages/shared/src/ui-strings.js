@@ -176,3 +176,45 @@ export function textDirection(lang) {
     return 'ltr';
   }
 }
+
+/**
+ * Whether a string names a language, as BCP 47 and CLDR understand it.
+ *
+ * The standard is BCP 47, and `Intl` carries it: a regex of our own refused
+ * `zh-Hans-CN`, which is valid, and accepted shapes that are not. Well formed
+ * is not the same as real, though — BCP 47 allows a language subtag of five
+ * to eight letters, so `francais` passes that check and would land in the
+ * markup as `lang="francais"`, a value no browser maps to a language. CLDR
+ * knows which tags name one; the subtag alone is asked, so that a region, a
+ * script or a private extension does not get in the way.
+ *
+ * @param {string} value
+ * @returns {boolean}
+ */
+export function isLanguageCode(value) {
+  try {
+    Intl.getCanonicalLocales(value);
+    const names = new Intl.DisplayNames(['en'], { type: 'language', fallback: 'none' });
+    return names.of(new Intl.Locale(value).language) !== undefined;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Name of a language, written in a language.
+ *
+ * @param {string} code Language code.
+ * @param {string} [inLang] Language the name is written in.
+ * @returns {string} The name, or the code itself when nothing names it.
+ */
+export function languageName(code, inLang = DEFAULT_LANGUAGE) {
+  try {
+    // The default fallback returns the code itself rather than nothing, so
+    // `?? code` only answers to the type: `of` is declared as possibly
+    // undefined, which it is only with `fallback: 'none'`.
+    return new Intl.DisplayNames([inLang], { type: 'language' }).of(code) ?? code;
+  } catch {
+    return code;
+  }
+}

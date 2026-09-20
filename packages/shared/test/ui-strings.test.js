@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import {
   DEFAULT_LANGUAGE,
   UI_STRINGS,
+  isLanguageCode,
+  languageName,
   pageCount,
   textDirection,
   uiStrings,
@@ -80,5 +82,36 @@ describe('the wording of the shell', () => {
   it('names the locale a date is written in', () => {
     expect(uiStrings('fr').dateLocale).toBe('fr-FR');
     expect(uiStrings('en').dateLocale).toBe('en-GB');
+  });
+});
+
+describe('what names a language', () => {
+  it('accepts the tags BCP 47 accepts', () => {
+    // A regex of our own refused "zh-Hans-CN", which is valid.
+    expect(isLanguageCode('fr')).toBe(true);
+    expect(isLanguageCode('pt-BR')).toBe(true);
+    expect(isLanguageCode('zh-Hans-CN')).toBe(true);
+  });
+
+  it('refuses a tag that names no language', () => {
+    // Well formed is not the same as real: BCP 47 allows a subtag of five to
+    // eight letters, so "francais" is well formed and would land in the
+    // markup as lang="francais", which no browser maps to a language.
+    expect(isLanguageCode('francais')).toBe(false);
+    expect(isLanguageCode('zz')).toBe(false);
+    expect(isLanguageCode('')).toBe(false);
+    expect(isLanguageCode('a b')).toBe(false);
+  });
+
+  it('names a language, in the language asked for', () => {
+    expect(languageName('fr')).toBe('French');
+    expect(languageName('fr', 'fr')).toBe('français');
+  });
+
+  it('gives the code back when nothing names it', () => {
+    // Used in a message to the user: a throw here would turn a helpful line
+    // into a failed command.
+    expect(languageName('zz')).toBe('zz');
+    expect(languageName('')).toBe('');
   });
 });

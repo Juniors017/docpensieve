@@ -29,6 +29,7 @@ npx docpensieve init [dossier]
 | `-t, --theme <framework>`  | `tailwind` ou `custom`                         |
 | `-u, --site-url <url>`     | Adresse publique du site                       |
 | `--version-name <version>` | Première version, `1.0` par exemple            |
+| `--translation <code>`     | Code d'une seconde langue, `fr`                |
 | `-y, --yes`                | Accepte les valeurs par défaut sans dialogue   |
 | `-f, --force`              | Écrase une configuration existante             |
 | `--minimal`                | Laisse la documentation de DocPensieve de côté |
