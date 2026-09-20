@@ -56,7 +56,7 @@ describe('the examples', () => {
     const { faults } = await check({ cwd });
     expect(faults).toEqual([]);
     const home = readFileSync(path.join(cwd, 'dist', 'versions', 'v1.0', 'index.html'), 'utf8');
-    expect(home).toContain('<html lang="en" class="dark">');
+    expect(home).toContain('<html lang="en" dir="ltr" class="dark">');
     const css = readFileSync(
       path.join(cwd, 'dist', 'versions', 'v1.0', 'assets', 'docpensieve.css'),
       'utf8',

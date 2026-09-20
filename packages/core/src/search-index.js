@@ -58,9 +58,11 @@ function escapeHtml(value) {
  * @param {{ title: string, url: string, description: string }[]} entries
  *   Pages of the version, in reading order.
  * @param {string} indexUrl URL of the version's index.
+ * @param {import('@docpensieve/shared').UiStrings} [strings] Wording of the page.
+ * @param {string} [lang] Language, which decides the plural of a count.
  * @returns {string}
  */
-export function searchPageContent(entries, indexUrl, strings = UI_STRINGS.en) {
+export function searchPageContent(entries, indexUrl, strings = UI_STRINGS.en, lang = 'en') {
   const items = entries.map((entry) => {
     const description = entry.description ? `<p>${escapeHtml(entry.description)}</p>` : '';
     return `<li data-url="${escapeHtml(entry.url)}"><a href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a>${description}</li>`;
@@ -72,8 +74,8 @@ export function searchPageContent(entries, indexUrl, strings = UI_STRINGS.en) {
     // rather than inside the file: one script, every language.
     `<form class="dp-search-page" role="search" data-search-page data-index="${escapeHtml(indexUrl)}" data-strings="${escapeHtml(
       JSON.stringify({
+        lang,
         failed: strings.searchIndexFailed,
-        page: strings.page,
         pages: strings.pages,
         noResultFor: strings.noResultFor,
         resultsFor: strings.resultsFor,
@@ -82,7 +84,7 @@ export function searchPageContent(entries, indexUrl, strings = UI_STRINGS.en) {
     `<label for="dp-search-query">${escapeHtml(strings.searchTheDocumentation)}</label>`,
     '<input id="dp-search-query" type="search" name="q" autocomplete="off" />',
     '</form>',
-    `<p class="dp-search-status" data-search-status aria-live="polite">${escapeHtml(pageCount(entries.length, strings))}.</p>`,
+    `<p class="dp-search-status" data-search-status aria-live="polite">${escapeHtml(pageCount(entries.length, strings, lang))}.</p>`,
     `<ol class="dp-search-results" data-search-results>${items.join('')}</ol>`,
   ].join('');
 }

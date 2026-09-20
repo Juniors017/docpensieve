@@ -88,6 +88,44 @@ page lisible. Une clé qui n'existe pas arrête la génération, en listant cell
 qui existent — une faute de frappe y laisserait le mot livré en place, sans un
 mot.
 
+### Compter, dans les pluriels de la langue
+
+Une clé n'est pas un mot mais un ensemble : `pages`, qui suit un nombre.
+
+```js
+ui: {
+  pl: { pages: { one: 'strona', few: 'strony', many: 'stron', other: 'stron' } },
+},
+```
+
+Les catégories sont celles de **CLDR**, la référence que portent les
+navigateurs et Node : l'anglais en a deux — `one` et `other` —, le français met
+zéro au singulier, le polonais en a quatre et l'arabe six. La génération
+choisit la bonne par `Intl.PluralRules` plutôt qu'en comparant le compte à un,
+ce qui est une règle anglaise.
+
+Remplissez `other` au minimum : c'est la catégorie que toute langue possède, et
+elle répond pour celles qu'une traduction laisse de côté.
+
+## Ce que la langue décide d'elle-même
+
+Trois choses découlent du seul code, sans rien à déclarer :
+
+| Depuis la langue        | Ce qu'elle règle                                            |
+| ----------------------- | ----------------------------------------------------------- |
+| Le sens d'écriture      | `dir="rtl"` sur `<html>` pour l'arabe, l'hébreu, le persan… |
+| Le pluriel d'un compte  | Les catégories CLDR ci-dessus                               |
+| La date d'une signature | Écrite selon les conventions de cette langue                |
+
+Les codes eux-mêmes sont des étiquettes **BCP 47** — `fr`, `pt-BR`, `zh-Hans` —
+la norme qu'attendent `<html lang>` et `hreflang`. Une étiquette qui n'en est
+pas une arrête la génération : elle poserait sinon dans le balisage une valeur
+qu'aucun navigateur ni lecteur d'écran ne sait lire.
+
+Les moteurs de recherche reçoivent aussi `hreflang="x-default"`, qui désigne la
+langue dans laquelle les pages sont écrites : c'est l'adresse à servir à un
+lecteur dont le site n'a pas la langue.
+
 ## Ce que chaque langue a en propre
 
 | En propre                                  | Partagé avec la version             |

@@ -313,16 +313,38 @@ The wording of a language, completed by English for anything it omits.
 
 ### `pageCount`
 
-`pageCount(count, strings)`
+`pageCount(count, strings, [lang])`
 
 Counts pages in the language of the page.
+
+The plural category comes from the language itself, through the CLDR rules
+`Intl` carries: `count === 1` is an English rule and gets French wrong on
+zero — "0 page", not "0 pages" — and has nothing to say about Polish or
+Arabic, which have four and six categories.
 
 | Parameter | Type | |
 | --- | --- | --- |
 | `count` | `number` |  |
 | `strings` | `UiStrings` |  |
+| `[lang]` | `string` | Language of the page. |
 
 **Returns** `string` — For instance `12 pages` or `1 page`.
+
+### `textDirection`
+
+`textDirection([lang])`
+
+Writing direction of a language, for the `dir` attribute.
+
+Read from the language rather than from a list of our own: `Intl` carries
+what CLDR knows, and a list would go stale the day someone translates into
+a language nobody thought of.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `[lang]` | `string` |  |
+
+**Returns** `'ltr' \| 'rtl'` — `ltr` when the language is unknown — the safe default, and what every page did before this existed.
 
 ## `@docpensieve/core`
 

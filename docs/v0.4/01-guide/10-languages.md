@@ -86,6 +86,44 @@ Anything left out stays in English rather than empty: half a translation is
 still a readable page. A key that does not exist stops the build, listing those
 that do — a typo there would leave the shipped word in place without a word.
 
+### Counting, in the plurals of the language
+
+One key is not a word but a set of them: `pages`, which follows a number.
+
+```js
+ui: {
+  pl: { pages: { one: 'strona', few: 'strony', many: 'stron', other: 'stron' } },
+},
+```
+
+The categories are those of **CLDR**, the reference the browsers and Node
+carry: English has two — `one` and `other` — French puts zero in the singular,
+Polish has four and Arabic six. The build picks the right one through
+`Intl.PluralRules` rather than comparing the count with one, which is an
+English rule.
+
+Fill `other` at least: it is the category every language has, and it answers
+for the ones a translation leaves out.
+
+## What the language decides by itself
+
+Three things follow from the code alone, with nothing to declare:
+
+| From the language    | What it sets                                         |
+| -------------------- | ---------------------------------------------------- |
+| Writing direction    | `dir="rtl"` on `<html>` for Arabic, Hebrew, Persian… |
+| Plural of a count    | The CLDR categories above                            |
+| The date of a byline | Written in the conventions of that language          |
+
+The codes themselves are **BCP 47** tags — `fr`, `pt-BR`, `zh-Hans` — the
+standard `<html lang>` and `hreflang` expect. A tag that is not one stops the
+build: it would otherwise put in the markup a value no browser or screen reader
+knows how to read.
+
+Search engines also receive `hreflang="x-default"`, pointing at the language
+the pages are written in: it is the address to serve a reader whose own
+language the site does not have.
+
 ## What each language has of its own
 
 | Its own                              | Shared with the version           |

@@ -18,6 +18,7 @@ import {
   PAGE_LAYOUTS,
   ThemeError,
   VERSIONS_MANIFEST,
+  textDirection,
   uiStrings,
 } from '@docpensieve/shared';
 import Handlebars from 'handlebars';
@@ -340,6 +341,9 @@ export class SiteGenerator {
               base: joinUrl(this.config.baseUrl, 'versions', version.slug, other.suffix),
               slugs: other.slugs,
               current: other.lang === language.lang,
+              // The language the pages are written in answers for the readers
+              // whose own language the site does not have.
+              default: other.suffix === '',
             }))
           : [];
 
@@ -381,6 +385,9 @@ export class SiteGenerator {
 
       const shell = {
         lang: language.lang,
+        // Right-to-left languages need the attribute to be readable at all;
+        // it comes from the language itself rather than from a list of ours.
+        dir: textDirection(language.lang),
         // The words the shell adds around the pages. In the language of the
         // pages: left in English, they would announce the language of the tool
         // rather than the language of the documentation.
@@ -557,6 +564,7 @@ export class SiteGenerator {
             lang: other.lang,
             label: other.label,
             current: other.current,
+            default: other.default,
             url: other.slugs.has(doc.slug) ? this.#absolute(joinUrl(other.base, doc.slug)) : '',
           })),
           byline,
@@ -620,13 +628,14 @@ export class SiteGenerator {
             lang: other.lang,
             label: other.label,
             current: other.current,
+            default: other.default,
             url: this.#absolute(joinUrl(other.base, SEARCH_SLUG)),
           })),
           sidebar,
           toc: [],
           preloads: [],
           scripts: [assetUrl(SEARCH_SCRIPT)],
-          content: searchPageContent(entries, assetUrl(SEARCH_INDEX), shell.ui),
+          content: searchPageContent(entries, assetUrl(SEARCH_INDEX), shell.ui, language.lang),
           jsonld: '',
         });
         for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {

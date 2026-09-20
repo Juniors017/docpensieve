@@ -197,10 +197,16 @@ export function normalizeConfig(userConfig) {
   // be both. "../../elsewhere" wrote outside the output folder, "a/b" nested
   // the version, "Été" produced an encoded URL.
   const VERSION_SLUG = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
-  // A language code becomes a URL segment and the `lang` of the document:
-  // "fr", "pt-BR". Anything else would put in the markup a value no browser
-  // or screen reader knows how to read.
-  const LANGUAGE_CODE = /^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$/;
+  // A language code becomes a URL segment and the `lang` of the document. The
+  // standard is BCP 47, and Intl carries it: a regex of our own refused
+  // "zh-Hans-CN", which is valid, and accepted shapes that are not.
+  const isLanguageCode = (/** @type {string} */ value) => {
+    try {
+      return Intl.getCanonicalLocales(value).length === 1;
+    } catch {
+      return false;
+    }
+  };
 
   const seen = new Set();
   for (const version of config.versions) {
@@ -243,9 +249,9 @@ export function normalizeConfig(userConfig) {
         });
       }
       for (const [lang, folder] of Object.entries(version.translations)) {
-        if (!LANGUAGE_CODE.test(lang)) {
+        if (!isLanguageCode(lang)) {
           throw new ConfigError(`Invalid language code in version "${version.slug}": "${lang}".`, {
-            hint: 'A language code is two or three letters, with an optional region — "fr", "pt-BR".',
+            hint: 'Write a BCP 47 tag: "fr", "pt-BR", "zh-Hans". It becomes the lang of the document and a segment of the address.',
           });
         }
         if (typeof folder !== 'string' || folder === '') {
@@ -357,6 +363,22 @@ export function normalizeConfig(userConfig) {
           throw new ConfigError(`Unknown wording key in "${lang}": "${key}".`, {
             hint: `Keys: ${known.join(', ')}.`,
           });
+        }
+        // `pages` counts, so it is written by plural category rather than as
+        // one word: a language with four of them cannot be served by a pair.
+        if (key === 'pages') {
+          const forms = Object.values(value ?? {});
+          if (typeof value !== 'object' || Array.isArray(value) || forms.length === 0) {
+            throw new ConfigError(`The wording "pages" of "${lang}" must be a set of plurals.`, {
+              hint: "Write pages: { one: 'page', other: 'pages' } — the categories of the language, 'other' at least.",
+            });
+          }
+          if (forms.some((form) => typeof form !== 'string' || form === '')) {
+            throw new ConfigError(`A plural of "pages" in "${lang}" is not a text.`, {
+              hint: 'Every category gives the word that follows the number.',
+            });
+          }
+          continue;
         }
         if (typeof value !== 'string' || value === '') {
           throw new ConfigError(`The wording "${key}" of "${lang}" must be a text.`, {

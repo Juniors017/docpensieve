@@ -831,14 +831,24 @@ describe('colour scheme and version images', () => {
     );
     const out = path.join(config.rootDir, 'out');
     await generatorFor(config).buildVersion('v1.0', out);
-    expect(read(out, 'index.html')).toContain('<html lang="en" class="dark">');
+    expect(read(out, 'index.html')).toContain('<html lang="en" dir="ltr" class="dark">');
   });
 
   it('leaves <html> without a class when the scheme follows the system', async () => {
     const config = project({ 'index.md': page('Home') });
     const out = path.join(config.rootDir, 'out');
     await generatorFor(config).buildVersion('v1.0', out);
-    expect(read(out, 'index.html')).toContain('<html lang="en">');
+    expect(read(out, 'index.html')).toContain('<html lang="en" dir="ltr">');
+  });
+
+  it('writes the direction of the language, so a right-to-left one reads', async () => {
+    // Without it, an Arabic page is rendered left to right: every line of it
+    // is wrong, and the build says nothing.
+    const config = project({ 'index.md': page('Home') }, { lang: 'ar' });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'index.html')).toContain('<html lang="ar" dir="rtl">');
   });
 
   it("puts a version's own logo in place of the project's", async () => {
@@ -1674,6 +1684,19 @@ describe('a version in two languages', () => {
     const switcher = alone.slice(alone.indexOf('dp-languages-list'));
     expect(switcher).toContain('aria-disabled="true"');
     expect(alone).not.toContain('fr/guide/advanced/');
+  });
+
+  it('names the site language as the one to serve when no twin fits', async () => {
+    // x-default is the address a search engine serves a reader whose language
+    // the site does not have. Without it, that choice is left to chance.
+    const config = bilingual({ siteUrl: 'https://acme.example.com' });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const page = read(out, 'guide', 'install', 'index.html');
+    expect(page).toContain(
+      '<link rel="alternate" hreflang="x-default" href="https://acme.example.com/versions/v1.0/guide/install/" />',
+    );
   });
 
   it('announces to search engines only the twins that exist', async () => {

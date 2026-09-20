@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { DEFAULT_LANGUAGE, UI_STRINGS, pageCount, uiStrings } from '../src/ui-strings.js';
+import {
+  DEFAULT_LANGUAGE,
+  UI_STRINGS,
+  pageCount,
+  textDirection,
+  uiStrings,
+} from '../src/ui-strings.js';
 
 describe('the wording of the shell', () => {
   it('ships the same keys in every language', () => {
@@ -42,10 +48,33 @@ describe('the wording of the shell', () => {
     expect(uiStrings('fr', { fr: { search: 'Chercher' } }).onThisPage).toBe('Sur cette page');
   });
 
-  it('counts one page in the singular', () => {
-    expect(pageCount(1, uiStrings('en'))).toBe('1 page');
-    expect(pageCount(12, uiStrings('en'))).toBe('12 pages');
-    expect(pageCount(1, uiStrings('fr'))).toBe('1 page');
+  it('counts in the plural rules of the language, not in English ones', () => {
+    // CLDR, through Intl: French puts zero in the singular, and a language
+    // with four categories cannot be served by a pair of words.
+    expect(pageCount(1, uiStrings('en'), 'en')).toBe('1 page');
+    expect(pageCount(12, uiStrings('en'), 'en')).toBe('12 pages');
+    expect(pageCount(0, uiStrings('en'), 'en')).toBe('0 pages');
+
+    expect(pageCount(1, uiStrings('fr'), 'fr')).toBe('1 page');
+    expect(pageCount(0, uiStrings('fr'), 'fr')).toBe('0 page');
+    expect(pageCount(12, uiStrings('fr'), 'fr')).toBe('12 pages');
+  });
+
+  it('falls back on the category every language has', () => {
+    // A translation that fills only the `other` category still reads.
+    const sparse = uiStrings('pl', { pl: { pages: { other: 'stron' } } });
+
+    expect(pageCount(5, sparse, 'pl')).toBe('5 stron');
+  });
+
+  it('reads the writing direction from the language', () => {
+    expect(textDirection('fr')).toBe('ltr');
+    expect(textDirection('ar')).toBe('rtl');
+    expect(textDirection('he')).toBe('rtl');
+    // An unknown tag must not break a build: left to right is what every
+    // page did before this existed.
+    expect(textDirection('not a language')).toBe('ltr');
+    expect(textDirection(undefined)).toBe('ltr');
   });
 
   it('names the locale a date is written in', () => {

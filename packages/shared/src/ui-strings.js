@@ -31,8 +31,9 @@
  * @property {string} search Placeholder of the header field.
  * @property {string} searchTitle Heading of the search page.
  * @property {string} searchTheDocumentation Label of the search fields.
- * @property {string} page Singular, counting results.
- * @property {string} pages Plural, counting results.
+ * @property {Record<string, string>} pages Counting results, by plural
+ *   category of the language (CLDR): `one`, `other`, and `few`, `many`,
+ *   `two`, `zero` where the language has them.
  * @property {string} searchIndexFailed Shown when the index cannot be loaded.
  * @property {string} noResultFor Shown when a query matches nothing. `{query}` is the query.
  * @property {string} resultsFor Counts the matches. `{count}` reads `3 pages`, `{query}` is the query.
@@ -67,8 +68,7 @@ export const UI_STRINGS = Object.freeze({
     search: 'Search',
     searchTitle: 'Search',
     searchTheDocumentation: 'Search the documentation',
-    page: 'page',
-    pages: 'pages',
+    pages: { one: 'page', other: 'pages' },
     searchIndexFailed: 'The search index could not be loaded: every page is listed below.',
     noResultFor: 'No page matches “{query}”.',
     resultsFor: '{count} for “{query}”.',
@@ -96,8 +96,7 @@ export const UI_STRINGS = Object.freeze({
     search: 'Rechercher',
     searchTitle: 'Recherche',
     searchTheDocumentation: 'Rechercher dans la documentation',
-    page: 'page',
-    pages: 'pages',
+    pages: { one: 'page', other: 'pages' },
     searchIndexFailed:
       "L'index de recherche n'a pas pu être chargé : toutes les pages sont listées ci-dessous.",
     noResultFor: 'Aucune page ne correspond à « {query} ».',
@@ -137,10 +136,43 @@ export function uiStrings(lang, overrides) {
 /**
  * Counts pages in the language of the page.
  *
+ * The plural category comes from the language itself, through the CLDR rules
+ * `Intl` carries: `count === 1` is an English rule and gets French wrong on
+ * zero — "0 page", not "0 pages" — and has nothing to say about Polish or
+ * Arabic, which have four and six categories.
+ *
  * @param {number} count
  * @param {UiStrings} strings
+ * @param {string} [lang] Language of the page.
  * @returns {string} For instance `12 pages` or `1 page`.
  */
-export function pageCount(count, strings) {
-  return `${count} ${count === 1 ? strings.page : strings.pages}`;
+export function pageCount(count, strings, lang = DEFAULT_LANGUAGE) {
+  const category = new Intl.PluralRules(lang).select(count);
+  // `other` is the one category every language has: it answers for the ones a
+  // translation did not fill in.
+  return `${count} ${strings.pages[category] ?? strings.pages.other}`;
+}
+
+/**
+ * Writing direction of a language, for the `dir` attribute.
+ *
+ * Read from the language rather than from a list of our own: `Intl` carries
+ * what CLDR knows, and a list would go stale the day someone translates into
+ * a language nobody thought of.
+ *
+ * @param {string} [lang]
+ * @returns {'ltr' | 'rtl'} `ltr` when the language is unknown — the safe
+ *   default, and what every page did before this existed.
+ */
+export function textDirection(lang) {
+  try {
+    // The Locale Info API is not in the TypeScript library yet, though Node
+    // carries it: the cast says what the runtime actually returns.
+    const locale = /** @type {{ textInfo?: { direction?: string } }} */ (
+      /** @type {unknown} */ (new Intl.Locale(lang ?? DEFAULT_LANGUAGE))
+    );
+    return locale.textInfo?.direction === 'rtl' ? 'rtl' : 'ltr';
+  } catch {
+    return 'ltr';
+  }
 }
