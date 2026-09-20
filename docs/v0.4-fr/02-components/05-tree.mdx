@@ -1,0 +1,197 @@
+---
+title: Tree
+description: Une arborescence repliable, bâtie sur des éléments natifs.
+---
+
+# Tree
+
+Le dépliage est assuré par `<details>` : il fonctionne au clavier, survit à
+l'impression, et ne coûte pas une ligne de JavaScript.
+
+## Une arborescence de fichiers
+
+Cliquez un dossier pour le déplier.
+
+<Tree>
+  <TreeItem label="docpensieve.config.mjs" />
+  <TreeItem label="docs" open>
+    <TreeItem label="v1.0" open>
+      <TreeItem label="index.md" />
+      <TreeItem label="guide">
+        <TreeItem label="installation.md" />
+        <TreeItem label="configuration.md" />
+      </TreeItem>
+      <TreeItem label="components">
+        <TreeItem label="card.mdx" />
+        <TreeItem label="tree.mdx" />
+      </TreeItem>
+    </TreeItem>
+  </TreeItem>
+  <TreeItem label="dist" />
+</Tree>
+
+```mdx
+<Tree>
+  <TreeItem label="docs" open>
+    <TreeItem label="index.md" />
+  </TreeItem>
+</Tree>
+```
+
+## Branche ou feuille
+
+La différence se lit à l'écriture, sans propriété à poser : une entrée **avec
+enfants** est une branche repliable, une entrée **sans enfants** est une
+feuille. `open` déplie la branche dès l'ouverture de la page.
+
+<Columns>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Fermée par défaut</CardHeader>
+      <CardBody>
+        <Tree>
+          <TreeItem label="package">
+            <TreeItem label="index.js" />
+          </TreeItem>
+        </Tree>
+      </CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card style={{ height: '100%' }}>
+      <CardHeader>Ouverte par `open`</CardHeader>
+      <CardBody>
+        <Tree>
+          <TreeItem label="package" open>
+            <TreeItem label="index.js" />
+          </TreeItem>
+        </Tree>
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+## Une simple liste
+
+Sans aucune branche, l'arborescence devient une liste à chasse fixe — utile
+pour lister des fichiers produits.
+
+<Tree>
+  <TreeItem label="index.html" />
+  <TreeItem label="versions.json" />
+  <TreeItem label="assets/docpensieve.css" />
+</Tree>
+
+## Autre chose que des fichiers
+
+Rien n'oblige à décrire une arborescence de fichiers. Une structure de données
+se lit tout aussi bien.
+
+<Tree>
+  <TreeItem label="config" open>
+    <TreeItem label="projectName : string" />
+    <TreeItem label="siteUrl : string" />
+    <TreeItem label="versions" open>
+      <TreeItem label="slug : string" />
+      <TreeItem label="current : boolean" />
+      <TreeItem label="prerelease : boolean" />
+    </TreeItem>
+    <TreeItem label="theme">
+      <TreeItem label="framework : 'tailwind' | 'custom'" />
+      <TreeItem label="tokens : Record&lt;string, string&gt;" />
+    </TreeItem>
+  </TreeItem>
+</Tree>
+
+## Un libellé composé
+
+`label` accepte du contenu, pas seulement du texte.
+
+<Tree>
+  <TreeItem
+    label={
+      <span>
+        📦 <strong>package</strong>
+      </span>
+    }
+    open
+  >
+    <TreeItem label={<code>index.js</code>} />
+    <TreeItem
+      label={
+        <span>
+          <em>types</em> — généré
+        </span>
+      }
+    />
+  </TreeItem>
+</Tree>
+
+```mdx
+<TreeItem
+  label={
+    <span>
+      📦 <strong>package</strong>
+    </span>
+  }
+>
+  …
+</TreeItem>
+```
+
+> Une réserve : ce qui est écrit entre accolades est une **expression**, que le
+> compilateur ne lit pas — son résultat n'existe qu'au rendu. Une adresse posée
+> là n'est donc pas réécrite et ignorera le préfixe de déploiement. Pour un
+> lien dans un libellé, écrivez l'adresse complète.
+
+## Habiller l'arborescence
+
+<ForTheme framework="tailwind">
+
+<Tree className="text-indigo-700 dark:text-indigo-300">
+  <TreeItem label="en couleur" open>
+    <TreeItem label="les enfants héritent" />
+  </TreeItem>
+</Tree>
+
+```mdx
+<Tree className="text-indigo-700 dark:text-indigo-300">…</Tree>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Une classe à vous la colore — ici `accent-text`, de
+`theme/99-docpensieve.css`, qui suit la palette en mode sombre aussi :
+
+<Tree className="accent-text">
+  <TreeItem label="en couleur" open>
+    <TreeItem label="les enfants héritent" />
+  </TreeItem>
+</Tree>
+
+```mdx
+<Tree className="accent-text">…</Tree>
+```
+
+```css
+.accent-text {
+  color: var(--dp-accent);
+}
+```
+
+</ForTheme>
+
+## Ce qu'elle n'annonce pas
+
+La structure est une liste imbriquée, pas un `role="tree"`. Ce rôle promet à un
+lecteur d'écran une navigation aux flèches que rien ici n'implémenterait :
+l'annoncer mentirait sur ce que la page sait faire.
+
+Un `TreeItem` écrit hors d'un `Tree` est refusé — il produirait un `<li>` hors
+de toute liste, du HTML invalide qu'aucun navigateur ne signale. Une entrée
+sans libellé est refusée aussi.
+
+Une arborescence est la façon dont cette documentation montre la forme d'un
+projet. Ce que ces dossiers deviennent une fois générés — l'ordre, les adresses
+— est dans [Écrire des pages](../guide/writing-pages/).
