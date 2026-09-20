@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API · DocPensieve</title>
+    <meta name="description" content="Every export of the five packages, from their JSDoc." />
+    <link rel="canonical" href="https://docpensieve.com/versions/v0.3/reference/api/" />
+    <link rel="icon" href="/versions/v0.3/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="API · DocPensieve" />
+    <meta property="og:description" content="Every export of the five packages, from their JSDoc." />
+    <meta property="og:url" content="https://docpensieve.com/versions/v0.3/reference/api/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/v0.3/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/v0.3/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/v0.3/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/v0.3/reference/api/#article","headline":"API","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/v0.3/reference/api/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Every export of the five packages, from their JSDoc.","keywords":["reference","api"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/v0.3/reference/api/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/v0.3/"},{"@type":"ListItem","position":2,"name":"Reference","item":"https://docpensieve.com/versions/v0.3/reference/"},{"@type":"ListItem","position":3,"name":"API","item":"https://docpensieve.com/versions/v0.3/reference/api/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Skip to content</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/v0.3/"><img class="dp-brand-logo" src="/versions/v0.3/assets/logo.png" alt="" />DocPensieve</a>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.3.0, switch version">0.3.0</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+            <li><a href="/versions/latest/">0.4.0</a></li>
+            <li><a href="/versions/v0.3/" aria-current="true">0.3.0</a></li>
+            <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li>
+            <a href="/versions/latest/examples/">Examples</a>
+          </li>
+          <li>
+            <details class="dp-mega">
+              <summary>Product</summary>
+              <div class="dp-mega-panel">
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Guide</p>
+                  <ul>
+                    <li><a href="/versions/v0.3/guide/installation/">Installation</a></li><li><a href="/versions/v0.3/guide/first-site/">First site</a></li><li><a href="/versions/v0.3/guide/writing-pages/">Writing pages</a></li>
+                  </ul>
+                </div>
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Reference</p>
+                  <ul>
+                    <li><a href="/versions/v0.3/reference/cli/">Commands</a></li><li><a href="/versions/v0.3/reference/configuration/">Configuration</a></li><li><a href="/versions/v0.3/reference/frontmatter/">Frontmatter</a></li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ul>
+        <form class="dp-search" role="search" action="/versions/v0.3/search/">
+          <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.3.0, switch version">0.3.0</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+              <li><a href="/versions/latest/">0.4.0</a></li>
+              <li><a href="/versions/v0.3/" aria-current="true">0.3.0</a></li>
+              <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li>
+              <a href="/versions/latest/examples/">Examples</a>
+            </li>
+            <li>
+              <details class="dp-mega">
+                <summary>Product</summary>
+                <div class="dp-mega-panel">
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Guide</p>
+                    <ul>
+                      <li><a href="/versions/v0.3/guide/installation/">Installation</a></li><li><a href="/versions/v0.3/guide/first-site/">First site</a></li><li><a href="/versions/v0.3/guide/writing-pages/">Writing pages</a></li>
+                    </ul>
+                  </div>
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Reference</p>
+                    <ul>
+                      <li><a href="/versions/v0.3/reference/cli/">Commands</a></li><li><a href="/versions/v0.3/reference/configuration/">Configuration</a></li><li><a href="/versions/v0.3/reference/frontmatter/">Frontmatter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/v0.3/search/">
+            <input type="search" name="q" placeholder="Search" aria-label="Search the documentation" />
+          </form>
+        </nav>
+      </details>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Switch the colour scheme">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Documentation navigation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Guide</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/">Guide</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/installation/">Installation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/first-site/">First site</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/writing-pages/">Writing pages</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/versions/">Versions</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/themes/">Themes</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/deployment/">Deployment</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/migrate-from-0-2/">Migrate from 0.2 to 0.3</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/when-it-breaks/">When it breaks</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Components</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/">Components</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/card/">Card</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/columns/">Columns</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/time-timer/">TimeTimer</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/tooltip/">Tooltip</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/tree/">Tree</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/scroll-to-top/">ScrollToTop</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/skill/">Skill</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/logo-icon/">LogoIcon</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/for-theme/">ForTheme</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/cards/">Cards</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group" open>
+              <summary class="dp-nav-summary">Reference</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/">Reference</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/cli/">Commands</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/configuration/">Configuration</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/frontmatter/">Frontmatter</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/theme/">Theme</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/api/" aria-current="page">API</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/architecture/">Architecture</a>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/whats-new/">What&#x27;s new in 0.3</a>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Examples</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/">Examples</a>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">First steps</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/">First steps</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/install/">Install</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/first-page/">A first page</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/first-build/">A first build</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Writing well</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/">Writing well</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/series/">Series</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/components/">Components</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Going live</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/">Going live</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/versions/">Versions</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/being-found/">Being found</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/going-live/">Going live</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <details class="dp-sidebar-menu">
+        <summary>Documentation menu</summary>
+        <nav aria-label="Documentation navigation">
+          <ul class="dp-nav">
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Guide</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/">Guide</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/installation/">Installation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/first-site/">First site</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/writing-pages/">Writing pages</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/versions/">Versions</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/themes/">Themes</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/deployment/">Deployment</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/migrate-from-0-2/">Migrate from 0.2 to 0.3</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/guide/when-it-breaks/">When it breaks</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Components</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/">Components</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/card/">Card</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/columns/">Columns</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/time-timer/">TimeTimer</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/tooltip/">Tooltip</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/tree/">Tree</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/scroll-to-top/">ScrollToTop</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/skill/">Skill</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/logo-icon/">LogoIcon</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/for-theme/">ForTheme</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/components/cards/">Cards</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group" open>
+                <summary class="dp-nav-summary">Reference</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/">Reference</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/cli/">Commands</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/configuration/">Configuration</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/frontmatter/">Frontmatter</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/theme/">Theme</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/reference/api/" aria-current="page">API</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item">
+              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/architecture/">Architecture</a>
+            </li>
+            <li class="dp-nav-item">
+              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/whats-new/">What&#x27;s new in 0.3</a>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Examples</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/">Examples</a>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">First steps</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/">First steps</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/install/">Install</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/first-page/">A first page</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/first-steps/first-build/">A first build</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Writing well</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/">Writing well</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/series/">Series</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/writing/components/">Components</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Going live</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/">Going live</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/versions/">Versions</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/being-found/">Being found</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/v0.3/examples/publishing/going-live/">Going live</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </details>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <aside class="dp-notice" role="note">
+          This version is no longer maintained.
+          The current version is <a href="/versions/latest/">0.4.0</a>.
+        </aside>
+        <article class="dp-article"><h1 id="api">API</h1>
+
+<p>The five packages are published together, at the same version. Most
+projects only need the <code>docpensieve</code> command; the packages below are for
+what goes further — a script that builds a site, a theme of your own.</p>
+<p>Each entry comes from the JSDoc of the source, which the type checker
+verifies: it cannot drift from the code without the build noticing.</p>
+<h2 id="docpensieve-shared"><code>@docpensieve/shared</code></h2>
+<p>Constants, errors and slugs, shared by every package.</p>
+<h3 id="doc-extensions"><code>DOC_EXTENSIONS</code></h3>
+<p><code>DOC_EXTENSIONS</code></p>
+<p>File extensions recognised as documentation pages.</p>
+<h3 id="config-filename"><code>CONFIG_FILENAME</code></h3>
+<p><code>CONFIG_FILENAME</code></p>
+<p>Name of the configuration file <code>init</code> writes at the project root.</p>
+<p><code>.mjs</code> rather than <code>.js</code>: the file is an ES module, and Node reads a <code>.js</code>
+file as one only when the nearest package.json declares &quot;type&quot;: &quot;module&quot;.
+Elsewhere it warns on every build — or refuses the file outright when that
+package.json says &quot;commonjs&quot;, as <code>npm init -y</code> now writes.</p>
+<h3 id="config-filenames"><code>CONFIG_FILENAMES</code></h3>
+<p><code>CONFIG_FILENAMES</code></p>
+<p>Names accepted for the configuration file, in the order they are looked for.
+The <code>.js</code> spelling still works in a project whose package.json declares
+&quot;type&quot;: &quot;module&quot;.</p>
+<h3 id="theme-folder"><code>THEME_FOLDER</code></h3>
+<p><code>THEME_FOLDER</code></p>
+<p>Folder of the project&#x27;s own stylesheets, at its root. Every <code>.css</code> file in
+it is appended to the site&#x27;s stylesheet, after the theme&#x27;s.</p>
+<h3 id="default-out-dir"><code>DEFAULT_OUT_DIR</code></h3>
+<p><code>DEFAULT_OUT_DIR</code></p>
+<p>Default output directory of a build.</p>
+<h3 id="versions-manifest"><code>VERSIONS_MANIFEST</code></h3>
+<p><code>VERSIONS_MANIFEST</code></p>
+<p>Version manifest written by every build.</p>
+<h3 id="index-slugs"><code>INDEX_SLUGS</code></h3>
+<p><code>INDEX_SLUGS</code></p>
+<p>Page slugs treated as the root of their folder (they take the folder&#x27;s own URL).</p>
+<h3 id="jsonld-types"><code>JSONLD_TYPES</code></h3>
+<p><code>JSONLD_TYPES</code></p>
+<p>JSON-LD types supported by the <code>jsonld.type</code> frontmatter field.</p>
+<h3 id="theme-frameworks"><code>THEME_FRAMEWORKS</code></h3>
+<p><code>THEME_FRAMEWORKS</code></p>
+<p>CSS frameworks known to the ThemeEngine.</p>
+<h3 id="page-layouts"><code>PAGE_LAYOUTS</code></h3>
+<p><code>PAGE_LAYOUTS</code></p>
+<p>Layouts accepted in a page&#x27;s frontmatter.</p>
+<p><code>doc</code> is the documentation layout: menu on the left, table of contents on
+the right, content held to reading width. <code>home</code> removes all three, which
+is what a landing page expects.</p>
+<h3 id="default-theme-classes"><code>DEFAULT_THEME_CLASSES</code></h3>
+<p><code>DEFAULT_THEME_CLASSES</code></p>
+<p>Class slots of the page shell.</p>
+<p>Templates hard-code no class: they ask the theme for the class of each
+slot. A provider only redefines what it wants to change; everything else
+falls back to these values. That is what lets a single template render
+either <code>dp-nav</code> or a string of Tailwind utilities.</p>
+<p>This table is shared: <code>core</code> reads it in its templates, <code>theme</code> extends it
+in its providers.</p>
+<h3 id="docpensieveerror"><code>DocPensieveError</code></h3>
+<p><code>class DocPensieveError</code></p>
+<p>Expected domain error — the CLI prints it without a stack trace.</p>
+<h3 id="configerror"><code>ConfigError</code></h3>
+<p><code>class ConfigError</code></p>
+<p>Configuration missing, unreadable or invalid.</p>
+<h3 id="loadererror"><code>LoaderError</code></h3>
+<p><code>class LoaderError</code></p>
+<p>A source file could not be read or parsed.</p>
+<h3 id="compileerror"><code>CompileError</code></h3>
+<p><code>class CompileError</code></p>
+<p>MDX/Markdown compilation failed.</p>
+<h3 id="structureddataerror"><code>StructuredDataError</code></h3>
+<p><code>class StructuredDataError</code></p>
+<p>Invalid <code>jsonld</code> frontmatter or inconsistent structured data.</p>
+<h3 id="themeerror"><code>ThemeError</code></h3>
+<p><code>class ThemeError</code></p>
+<p>Theme provider missing, invalid, or whose compilation failed.</p>
+<h3 id="generatorerror"><code>GeneratorError</code></h3>
+<p><code>class GeneratorError</code></p>
+<p>The site could not be generated or written.</p>
+<h3 id="notimplementederror"><code>NotImplementedError</code></h3>
+<p><code>class NotImplementedError</code></p>
+<p>Milestone not implemented yet — points to the roadmap section.</p>
+<h3 id="slugify"><code>slugify</code></h3>
+<p><code>slugify(input)</code></p>
+<p>Turns free text into a URL-safe slug.</p>
+<p>Accents are decomposed then dropped (<code>Crème</code> → <code>creme</code>), which keeps URLs
+readable instead of percent-encoded.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>input</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — Lowercase slug, dash-separated.</p>
+<h3 id="filepathtoslug"><code>filePathToSlug</code></h3>
+<p><code>filePathToSlug(relativePath)</code></p>
+<p>Converts a file path, relative to the version folder, into a page slug.</p>
+<p>Ordering prefixes are removed from every segment: they sort the sidebar,
+they do not build the URL.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>relativePath</code></td><td><code>string</code></td><td>Path relative to the version folder.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — Slug with no leading or trailing slash.</p>
+<h3 id="assetpathtoslug"><code>assetPathToSlug</code></h3>
+<p><code>assetPathToSlug(relativePath)</code></p>
+<p>Maps an asset path into URL space.</p>
+<p>Folders follow the page rule — ordering prefix removed, segment slugified —
+so that <code>02-guide/diagram.png</code> lands under <code>/guide/</code>, where the pages of the
+same folder expect it. Otherwise the sorting prefix, which never shows in a
+page URL, would show in the URL of its images.</p>
+<p>The file name itself stays untouched: it is the one the author writes in
+their Markdown, and rewriting it would break the reference.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>relativePath</code></td><td><code>string</code></td><td>Path relative to the version folder.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — Output path, slash-separated.</p>
+<h3 id="blanksegments"><code>blankSegments</code></h3>
+<p><code>blankSegments(relativePath)</code></p>
+<p>Segments of a path that leave nothing behind once slugified.</p>
+<p><code>slugify</code> only keeps Latin letters and digits: a name made entirely of
+ideograms, or of punctuation, vanishes. For a page, that meant taking the
+home page&#x27;s URL; for a folder, disappearing from the address.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>relativePath</code></td><td><code>string</code></td><td>Path relative to the version folder.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string[]</code> — The offending segments, extension removed.</p>
+<h3 id="dirpathtoslug"><code>dirPathToSlug</code></h3>
+<p><code>dirPathToSlug(relativePath)</code></p>
+<p>Maps a <strong>folder</strong> path into URL space.</p>
+<p>Sibling of <code>assetPathToSlug</code>, but with no file name to spare: every segment
+goes through the page rule. Applying <code>assetPathToSlug</code> to a folder left its
+last segment untouched — <code>02-guide</code> stayed <code>02-guide</code> — and every relative
+target of a page in that folder missed the file actually copied.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>relativePath</code></td><td><code>string</code></td><td>Path relative to the version folder.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — Output path, slash-separated.</p>
+<h3 id="slugtourl"><code>slugToUrl</code></h3>
+<p><code>slugToUrl(slug, [versionSlug])</code></p>
+<p>Converts a page slug into an absolute site URL (trailing slash included).</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>slug</code></td><td><code>string</code></td><td>Slug produced by {@link filePathToSlug}.</td></tr><tr><td><code>[versionSlug]</code></td><td><code>string</code></td><td>When given, prefixes <code>/versions/&lt;version&gt;</code>.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — URL starting and ending with <code>/</code>.</p>
+<h3 id="humanizeslug"><code>humanizeSlug</code></h3>
+<p><code>humanizeSlug(segment)</code></p>
+<p>Turns a slug segment back into a readable label.</p>
+<p>A deliberate, imperfect fallback: since <code>slugify</code> dropped the accents,
+<code>creme-brulee</code> comes back as “Creme brulee”. Only use it when there is no
+real title — the sidebar and the breadcrumb prefer the frontmatter title.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>segment</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="orderof"><code>orderOf</code></h3>
+<p><code>orderOf(filename)</code></p>
+<p>Reads the ordering weight of a prefixed file name.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>filename</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>number</code> — The prefix number, or <code>Infinity</code> when absent (sorted last).</p>
+<h2 id="docpensieve-core"><code>@docpensieve/core</code></h2>
+<p>Configuration, loading, compilation, structured data and generation.</p>
+<h3 id="default-config"><code>DEFAULT_CONFIG</code></h3>
+<p><code>DEFAULT_CONFIG</code></p>
+<p>Values applied when the user config leaves them out.</p>
+<p>The type is spelled out: without it, TypeScript would infer
+<code>versions: never[]</code> from the empty array and refuse every read of its
+elements elsewhere in the file.</p>
+<h3 id="defineconfig"><code>defineConfig</code></h3>
+<p><code>defineConfig(config)</code></p>
+<p>Identity over the config, used only for autocompletion and type checking
+in the editor.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>config</code></td><td><code>T</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>T</code></p>
+<h3 id="loadconfig"><code>loadConfig</code></h3>
+<p><code>loadConfig([cwd])</code></p>
+<p>Loads the configuration file of a project folder.</p>
+<p><code>docpensieve.config.mjs</code> is looked for first, then <code>docpensieve.config.js</code>,
+which a project whose package.json declares &quot;type&quot;: &quot;module&quot; can still use.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[cwd]</code></td><td><code>string</code></td><td>Project root. Default: <code>process.cwd()</code>.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;DocPensieveConfig&gt;</code> — Normalised config.</p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When no file, or two, are found, or when the file does not load or exports no object.</p>
+<h3 id="normalizeconfig"><code>normalizeConfig</code></h3>
+<p><code>normalizeConfig(userConfig)</code></p>
+<p>Merges the user config with the defaults and validates it.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>userConfig</code></td><td><code>Record&lt;string, unknown&gt;</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>DocPensieveConfig</code> — Normalised config.</p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When the config is structurally invalid.</p>
+<h3 id="resolveversion"><code>resolveVersion</code></h3>
+<p><code>resolveVersion(config, [slug])</code></p>
+<p>Finds a declared version by its slug.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>config</code></td><td><code>DocPensieveConfig</code></td><td>Normalised config.</td></tr><tr><td><code>[slug]</code></td><td><code>string</code></td><td>Slug to look for. Omitted: the &quot;current&quot; version.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Version</code> — The requested version.</p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When the slug does not exist.</p>
+<h3 id="docloader"><code>DocLoader</code></h3>
+<p><code>class DocLoader</code></p>
+<p>Walks a version folder and produces the list of documents.</p>
+<h3 id="compiler"><code>Compiler</code></h3>
+<p><code>class Compiler</code></p>
+<p>Compiles an MDX/Markdown source into an HTML fragment.</p>
+<h3 id="structureddatabuilder"><code>StructuredDataBuilder</code></h3>
+<p><code>class StructuredDataBuilder</code></p>
+<p>Assembles a schema.org graph for a page.</p>
+<h3 id="sitegenerator"><code>SiteGenerator</code></h3>
+<p><code>class SiteGenerator</code></p>
+<p>Generates the static site of one or more versions.</p>
+<h3 id="buildsidebar"><code>buildSidebar</code></h3>
+<p><code>buildSidebar(docs, [toUrl], [options])</code></p>
+<p>Builds the navigation tree of a version.</p>
+<p>The order is the <code>DocLoader</code>&#x27;s, which has already sorted: index page first,
+then numeric prefixes, then alphabetical. Nothing is re-sorted here, which
+guarantees that the sidebar follows the reading order of the files exactly.</p>
+<p>That order has a useful consequence: since <code>guide/index.md</code> is loaded
+before <code>guide/installation.md</code>, the “guide” category receives its real
+title before a child page creates it with a default one.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>docs</code></td><td><code>import(&#x27;./loader.js&#x27;).Doc[]</code></td><td>Documents in loader order.</td></tr><tr><td><code>[toUrl]</code></td><td><code>(doc: import(&#x27;./loader.js&#x27;).Doc) =&gt; string</code></td><td>Turns a document into a URL. By default, the document&#x27;s URL as is.</td></tr><tr><td><code>[options]</code></td><td><code>{ brand?: string }</code></td><td><code>brand</code> is the name shown in the header: a root entry carrying exactly that title is dropped, since the brand already leads to that page. The same word twice, an inch apart, tells the reader nothing.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>SidebarNode[]</code></p>
+<h3 id="buildsidebarfromdescription"><code>buildSidebarFromDescription</code></h3>
+<p><code>buildSidebarFromDescription(description, docs, [toUrl], [options])</code></p>
+<p>Builds the navigation tree of a version from a description.</p>
+<p>The description is an array of entries, kept in the order written:</p>
+<ul>
+<li><code>&quot;guide/installation&quot;</code> — a page, by its path within the version, as in
+its URL; <code>&quot;/&quot;</code> is the home page. Its title becomes the label.</li>
+<li><code>{ &quot;page&quot;: &quot;guide/installation&quot;, &quot;label&quot;: &quot;Install&quot; }</code> — the same, with a
+label of its own.</li>
+<li><code>{ &quot;label&quot;: &quot;Guide&quot;, &quot;items&quot;: [ … ], &quot;page&quot;: &quot;guide&quot; }</code> — a category,
+clickable when it names a page.</li>
+<li><code>{ &quot;label&quot;: &quot;Repository&quot;, &quot;href&quot;: &quot;https://…&quot; }</code> — a link outside the site.</li>
+<li><code>{ &quot;auto&quot;: &quot;docpensieve&quot; }</code> — the automatic tree of a folder: a section
+keeps its own menu without listing its pages one by one.</li>
+</ul>
+<p>A page left out stays published: it is only absent from the menu, which is
+how a page is kept off it.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>description</code></td><td><code>unknown</code></td><td>Parsed content of the description file.</td></tr><tr><td><code>docs</code></td><td><code>import(&#x27;./loader.js&#x27;).Doc[]</code></td><td>Documents of the version.</td></tr><tr><td><code>[toUrl]</code></td><td><code>(doc: import(&#x27;./loader.js&#x27;).Doc) =&gt; string</code></td><td>As for <code>buildSidebar</code>.</td></tr><tr><td><code>[options]</code></td><td><code>{ source?: string }</code></td><td><code>source</code> names the file in messages.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>SidebarNode[]</code></p>
+<p><strong>Throws</strong> <code>ConfigError</code> — For a path that names no page, a page listed twice, or an entry of no known kind.</p>
+<h3 id="collectsectiontitles"><code>collectSectionTitles</code></h3>
+<p><code>collectSectionTitles(docs)</code></p>
+<p>Collects folder titles, for the breadcrumb.</p>
+<p>Only folders with an index page have a known title; the others will be
+humanised from their slug by <code>StructuredDataBuilder</code>.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>docs</code></td><td><code>import(&#x27;./loader.js&#x27;).Doc[]</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Record&lt;string, string&gt;</code> — Full folder slug to title.</p>
+<h3 id="buildfeed"><code>buildFeed</code></h3>
+<p><code>buildFeed(pages, site)</code></p>
+<p>Builds the RSS feed of the dated pages, newest first.</p>
+<p>Only a page with a <code>date</code> enters it: a documentation page without one is
+reference material, not news, and dating it at build time would announce
+every page again at every build.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pages</code></td><td><code>PublishedPage[]</code></td><td>Pages of the current version.</td></tr><tr><td><code>site</code></td><td><code>{ projectName: string, siteUrl: string, homeUrl: string, feedUrl: string, lang?: string, }</code></td><td><code>homeUrl</code> and <code>feedUrl</code> are absolute.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="buildrobots"><code>buildRobots</code></h3>
+<p><code>buildRobots(sitemapUrl)</code></p>
+<p>Builds <code>robots.txt</code>, which lets every crawler in and names the sitemap.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>sitemapUrl</code></td><td><code>string</code></td><td>Absolute address of the sitemap.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="buildsitemap"><code>buildSitemap</code></h3>
+<p><code>buildSitemap(pages, siteUrl)</code></p>
+<p>Builds <code>sitemap.xml</code>.</p>
+<p><code>lastmod</code> is the page&#x27;s <code>modified</code> date, or failing that its <code>date</code>; a page
+that carries neither is listed without one rather than with a made-up date.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pages</code></td><td><code>PublishedPage[]</code></td><td>Pages of the versions to list.</td></tr><tr><td><code>siteUrl</code></td><td><code>string</code></td><td>Public address of the site: the sitemap only holds absolute addresses.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="buildauthortable"><code>buildAuthorTable</code></h3>
+<p><code>buildAuthorTable(description, options)</code></p>
+<p>Turns the JSON description of a version into a table of authors.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>description</code></td><td><code>unknown</code></td><td>Parsed content of the file.</td></tr><tr><td><code>options</code></td><td><code>{ source: string }</code></td><td><code>source</code> names the file in errors.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Map&lt;string, Author&gt;</code></p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When the shape is wrong, naming the offending entry.</p>
+<h3 id="buildbyline"><code>buildByline</code></h3>
+<p><code>buildByline(frontmatter, [table], [where])</code></p>
+<p>Assembles what the head of a page shows, or nothing when it has none of it.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>frontmatter</code></td><td><code>Record&lt;string, any&gt;</code></td><td></td></tr><tr><td><code>[table]</code></td><td><code>Map&lt;string, Author&gt;</code></td><td></td></tr><tr><td><code>[where]</code></td><td><code>string</code></td><td>Page named in a date error.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Byline \| null</code></p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When a date cannot be read.</p>
+<h3 id="readdate"><code>readDate</code></h3>
+<p><code>readDate(value, field, where)</code></p>
+<p>Reads a date of the frontmatter, and gives it in both forms: the machine one
+for <code>&lt;time datetime&gt;</code>, the readable one for the reader.</p>
+<p>A date is often written unquoted in YAML, which parses it as a Date; quoted,
+it arrives as text. Both are accepted, anything unreadable is refused rather
+than shown as <code>Invalid Date</code>.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>unknown</code></td><td></td></tr><tr><td><code>field</code></td><td><code>string</code></td><td>Name of the field, for the error message.</td></tr><tr><td><code>where</code></td><td><code>string</code></td><td>Page the date comes from.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>{ iso: string, label: string } \| null</code> — <code>null</code> when absent.</p>
+<p><strong>Throws</strong> <code>ConfigError</code> — When the value is not a date.</p>
+<h3 id="resolvepageauthors"><code>resolvePageAuthors</code></h3>
+<p><code>resolvePageAuthors(value, [table])</code></p>
+<p>The authors of a page, in the order the frontmatter names them.</p>
+<p>A key the table does not describe is not an error: the name is shown as
+written. It is what lets a project name its authors before describing them,
+and what keeps pages written before the file working.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>unknown</code></td><td><code>authors</code> from the frontmatter: one name or a list.</td></tr><tr><td><code>[table]</code></td><td><code>Map&lt;string, Author&gt;</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Author[]</code></p>
+<h2 id="docpensieve-theme"><code>@docpensieve/theme</code></h2>
+<p>The theme providers and the engine that composes them.</p>
+<h3 id="basethemeprovider"><code>BaseThemeProvider</code></h3>
+<p><code>class BaseThemeProvider</code></p>
+<p>Base class to extend in order to plug in a CSS framework.</p>
+<p>A provider generates no HTML: it supplies CSS, variables and a table of
+class aliases. That is what lets a single template render correctly under
+Tailwind as well as under the custom theme.</p>
+<h3 id="customprovider"><code>CustomProvider</code></h3>
+<p><code>class CustomProvider</code></p>
+<p>Custom theme: hand-written CSS, no dependency.</p>
+<h3 id="default-tokens"><code>DEFAULT_TOKENS</code></h3>
+<p><code>DEFAULT_TOKENS</code></p>
+<p>Palette and measures of the light theme.</p>
+<p>Dark mode does not live here: it fits in two blocks of <code>custom.css</code>, since
+a flat table of variables cannot express a media query.</p>
+<h3 id="tailwindprovider"><code>TailwindProvider</code></h3>
+<p><code>class TailwindProvider</code></p>
+<p>Tailwind theme: on-demand compilation of the classes actually used.</p>
+<h3 id="themeengine"><code>ThemeEngine</code></h3>
+<p><code>class ThemeEngine</code></p>
+<p>Combines several providers into a single CSS output.</p>
+<h2 id="docpensieve-components"><code>@docpensieve/components</code></h2>
+<p>The components available in every page.</p>
+<h3 id="classnames"><code>classNames</code></h3>
+<p><code>classNames(parts)</code></p>
+<p>Joins classes while ignoring falsy values.</p>
+<p>A minimal equivalent of <code>clsx</code>: one more dependency is not worth it for six
+lines.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>parts</code></td><td><code>...unknown</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string \| undefined</code> — <code>undefined</code> when nothing is left, to avoid a <code>class=&quot;&quot;</code> in the produced HTML.</p>
+<h3 id="cls"><code>cls</code></h3>
+<p><code>cls(slot, modifiers)</code></p>
+<p>Class of a slot, variants included.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>slot</code></td><td><code>string</code></td><td>Slot name.</td></tr><tr><td><code>modifiers</code></td><td><code>...unknown</code></td><td>Variants, each one suffixed as <code>--variant</code>. Falsy values are ignored, which allows writing <code>cls(&#x27;card&#x27;, shadow &amp;&amp; shadow)</code>.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="fallbackclass"><code>fallbackClass</code></h3>
+<p><code>fallbackClass(slot)</code></p>
+<p>Converts a slot name into a fallback class.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>slot</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="getthemeclasses"><code>getThemeClasses</code></h3>
+<p><code>getThemeClasses()</code></p>
+<p>@returns {Record&lt;string, string&gt;} The current table, for inspection.</p>
+<h3 id="getthemeframework"><code>getThemeFramework</code></h3>
+<p><code>getThemeFramework()</code></p>
+<p>@returns {string} The active framework, or <code>&#x27;&#x27;</code> when none was announced.</p>
+<h3 id="setthemeclasses"><code>setThemeClasses</code></h3>
+<p><code>setThemeClasses([classes])</code></p>
+<p>Declares the theme table for the whole compilation.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[classes]</code></td><td><code>Record&lt;string, string&gt;</code></td><td></td></tr></tbody></table></div>
+<h3 id="setthemeframework"><code>setThemeFramework</code></h3>
+<p><code>setThemeFramework([framework])</code></p>
+<p>Declares the framework of the active theme, which <code>ForTheme</code> reads.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[framework]</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<h3 id="card"><code>Card</code></h3>
+<p><code>Card(props)</code></p>
+<p>Card container.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>PartProps &amp; { elevated?: boolean, href?: string }</code></td><td><code>elevated</code> adds a shadow. <code>href</code> makes the whole card clickable, rather than a link on the title alone that would leave the rest inert.</td></tr></tbody></table></div>
+<h3 id="cardbody"><code>CardBody</code></h3>
+<p>Documented in <code>packages/components/src/card.js</code>.</p>
+<h3 id="cardfooter"><code>CardFooter</code></h3>
+<p>Documented in <code>packages/components/src/card.js</code>.</p>
+<h3 id="cardheader"><code>CardHeader</code></h3>
+<p>Documented in <code>packages/components/src/card.js</code>.</p>
+<h3 id="cardimage"><code>CardImage</code></h3>
+<p><code>CardImage(props)</code></p>
+<p>Image at the top of a card.</p>
+<p><code>src</code> resolves as in Markdown — relative to the page, absolute from the
+version root. The compiler plugins cannot handle it: they work on the
+Markdown tree, before React renders anything. So the component does it
+itself (ADR-006).</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, src?: string, alt?: string, title?: string, srcSet?: string, sizes?: string, loading?: &#x27;lazy&#x27; | &#x27;eager&#x27;, }</code></td><td><code>alt</code> defaults to the empty string: without that attribute, a screen reader would announce the file URL.</td></tr></tbody></table></div>
+<h3 id="cards"><code>Cards</code></h3>
+<p><code>Cards(props)</code></p>
+<p>Grid of cards for the children of a folder.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, of?: &#x27;all&#x27; | &#x27;series&#x27; | &#x27;pages&#x27;, from?: string, }</code></td><td><code>of</code> narrows the grid to the sub-folders (<code>&#x27;series&#x27;</code>) or to the pages beside the index (<code>&#x27;pages&#x27;</code>); <code>from</code> reads another folder, named by its slug, instead of the one holding the page.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>Error</code> — When the page list is missing, or <code>from</code> names nothing.</p>
+<h3 id="column"><code>Column</code></h3>
+<p><code>Column(props)</code></p>
+<p>Column of a row.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, span?: number }</code></td><td><code>span</code> is the number of tracks taken out of twelve — <code>span={6}</code> for a half, <code>span={8}</code> for two thirds. Twelve because twelve divides by two, three, four and six. Without <code>span</code>, the columns share the space equally.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Outside a <code>Columns</code>, or when the row mixes columns with and without a width.</p>
+<h3 id="columns"><code>Columns</code></h3>
+<p><code>Columns(props)</code></p>
+<p>Row of columns.</p>
+<p>The gap is set through <code>className</code> or <code>style</code>, with the theme&#x27;s utilities:
+the grid recomputes the widths by itself.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
+<h3 id="fallbackafter"><code>FallbackAfter</code></h3>
+<p><code>FallbackAfter(props)</code></p>
+<p>Content shown after the period.</p>
+<p>Without a wrapper, for the same reason as {@link FallbackBefore}.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ children?: any, end?: string }</code></td><td></td></tr></tbody></table></div>
+<h3 id="fallbackbefore"><code>FallbackBefore</code></h3>
+<p><code>FallbackBefore(props)</code></p>
+<p>Content shown before the period.</p>
+<p>No wrapper: a <code>span</code> around the author&#x27;s content would become invalid
+markup as soon as they write a paragraph in it — which happens as soon as a
+blank line separates their text. The content therefore keeps its nature,
+inline or block.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ children?: any, start?: string }</code></td><td></td></tr></tbody></table></div>
+<h3 id="timetimer"><code>TimeTimer</code></h3>
+<p><code>TimeTimer(props)</code></p>
+<p>Shows its content during a period, with fallbacks before and after.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ date?: string, start?: string, duration?: string, strict?: boolean, children?: any, now?: Date, }</code></td><td><code>now</code> only exists for tests: without it, the build moment stands.</td></tr></tbody></table></div>
+<h3 id="tooltip-placements"><code>TOOLTIP_PLACEMENTS</code></h3>
+<p><code>TOOLTIP_PLACEMENTS</code></p>
+<p>Sides the bubble can sit on.</p>
+<h3 id="tooltip"><code>Tooltip</code></h3>
+<p><code>Tooltip(props)</code></p>
+<p>Term with a tooltip.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, text?: string, placement?: string, }</code></td><td><code>text</code> is the content of the bubble; the children are the term it explains.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Without text, or with an unknown side.</p>
+<h3 id="tree"><code>Tree</code></h3>
+<p><code>Tree(props)</code></p>
+<p>Root of a tree.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
+<h3 id="treeitem"><code>TreeItem</code></h3>
+<p><code>TreeItem(props)</code></p>
+<p>Entry of a tree.</p>
+<p>With children, it is a collapsible branch; without, a leaf. The difference
+is read from the writing, with no prop to set.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, label?: any, open?: boolean, }</code></td><td><code>open</code> expands the branch as soon as the page opens.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Outside a <code>Tree</code>, or without a label.</p>
+<h3 id="scrolltotop"><code>ScrollToTop</code></h3>
+<p><code>ScrollToTop(props)</code></p>
+<p>Back-to-top button.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, label?: string, }</code></td><td><code>label</code> is read by screen readers. The children replace the arrow with whatever you want.</td></tr></tbody></table></div>
+<h3 id="skill-shapes"><code>SKILL_SHAPES</code></h3>
+<p><code>SKILL_SHAPES</code></p>
+<p>Shapes accepted by the gauge.</p>
+<h3 id="skill"><code>Skill</code></h3>
+<p><code>Skill(props)</code></p>
+<p>Named gauge, from 0 to 100.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, name?: any, level?: number, showValue?: boolean, shape?: string, icon?: any, color?: string, label?: string, }</code></td><td><code>children</code> stands as a comment under the gauge. <code>showValue</code> hides the numeric percentage without touching what the gauge announces. <code>shape</code> picks between the bar and the circle. <code>icon</code> goes before the name — a <code>LogoIcon</code> fits there. <code>color</code> tints the fill: any CSS colour, the accent colour by default. <code>label</code> names the gauge for screen readers when <code>name</code> is not text.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Without a name, outside 0–100, or with an unknown shape.</p>
+<h3 id="logoicon"><code>LogoIcon</code></h3>
+<p><code>LogoIcon(props)</code></p>
+<p>Project SVG icon, inlined in the page.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, src?: string, label?: string, size?: string, }</code></td><td><code>label</code> describes the icon; without it the icon is treated as decorative and hidden from screen readers — which is right when nearby text already says the same thing. <code>size</code> accepts any CSS length.</td></tr></tbody></table></div>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Without <code>src</code>, or when the file cannot be read.</p>
+<h3 id="fortheme"><code>ForTheme</code></h3>
+<p><code>ForTheme(props)</code></p>
+<p>Renders its children only when the site&#x27;s theme is <code>framework</code>.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ framework?: string, children?: any }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>any</code></p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — For a framework the configuration does not know, or when no theme was announced.</p>
+<h3 id="componentscss"><code>componentsCss</code></h3>
+<p><code>componentsCss()</code></p>
+<p>Reads the default look of the components.</p>
+<p>It is concatenated with the theme&#x27;s by the caller: a provider that
+redefines a slot replaces the <code>dp-*</code> class with its own, and these rules
+then stop applying by themselves.</p>
+<p><strong>Returns</strong> <code>Promise&lt;string&gt;</code> — CSS, trimmed.</p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — When the stylesheet is missing.</p>
+<h3 id="getsitecontext"><code>getSiteContext</code></h3>
+<p><code>getSiteContext()</code></p>
+<p>@returns {SiteContext} The current context.</p>
+<h3 id="resolvefile"><code>resolveFile</code></h3>
+<p><code>resolveFile(target)</code></p>
+<p>Resolves a target into a file path, for a resource read at build time.</p>
+<p>Same landmarks as for a URL, mapped to the disk: a relative target starts
+from the page&#x27;s file, an absolute one from the version folder. Nothing can
+leave that folder — a page does not read the rest of the machine.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>target</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code> — Absolute path, inside the source folder.</p>
+<p><strong>Throws</strong> <code>Error</code> — When the context is missing or the target escapes it.</p>
+<h3 id="resolveurl"><code>resolveUrl</code></h3>
+<p><code>resolveUrl(target)</code></p>
+<p>Resolves a target written by an author into a site URL.</p>
+<p>Same rules as for Markdown content: a relative target resolves against the
+page&#x27;s folder, an absolute target starts from the version root.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>target</code></td><td><code>string | undefined</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string \| undefined</code> — The resolved target, or as is when external.</p>
+<h3 id="setsitecontext"><code>setSiteContext</code></h3>
+<p><code>setSiteContext([page])</code></p>
+<p>Declares the page being rendered.</p>
+<p>Set by the generator before every page, like the class table.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[page]</code></td><td><code>Partial&lt;SiteContext&gt;</code></td><td></td></tr></tbody></table></div>
+<h3 id="builtincomponents"><code>builtinComponents</code></h3>
+<p><code>builtinComponents</code></p>
+<p>Components shipped with DocPensieve.</p>
+<h3 id="createregistry"><code>createRegistry</code></h3>
+<p><code>createRegistry([userComponents])</code></p>
+<p>Builds the component table passed to the MDX compiler.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[userComponents]</code></td><td><code>Record&lt;string, Function&gt;</code></td><td>Project components, which override the built-in components of the same name.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Record&lt;string, Function&gt;</code> — Table ready for @mdx-js/mdx.</p>
+<h3 id="listcomponentnames"><code>listComponentNames</code></h3>
+<p><code>listComponentNames(registry)</code></p>
+<p>Lists the available component names — useful for a readable error message
+when an <code>.mdx</code> references an unknown component.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>registry</code></td><td><code>Record&lt;string, Function&gt;</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string[]</code> — Names sorted alphabetically.</p>
+<h2 id="docpensieve"><code>docpensieve</code></h2>
+<p>The commands, callable from a script as well as from the terminal.</p>
+<h3 id="build"><code>build</code></h3>
+<p><code>build(versionSlug, [options])</code></p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>versionSlug</code></td><td><code>string | undefined</code></td><td>Version to generate, or all of them when omitted.</td></tr><tr><td><code>[options]</code></td><td><code>{ out?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;void&gt;</code></p>
+<h3 id="check"><code>check</code></h3>
+<p><code>check([options])</code></p>
+<p>Reads the produced site back and reports what is wrong.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ dir?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ root: string, pages: number, faults: Fault[] }&gt;</code></p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — When the folder does not exist, or when something is left to fix — the exit code is then that of an expected error, which is enough to fail a continuous integration run.</p>
+<h3 id="verifylinks"><code>verifyLinks</code></h3>
+<p><code>verifyLinks(root, [baseUrl])</code></p>
+<p>Checks the internal links of a generated site.</p>
+<p>Exported apart from the command: it reads no configuration and addresses no
+one, which makes it usable elsewhere and testable on its own.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>root</code></td><td><code>string</code></td><td>Folder of the produced site.</td></tr><tr><td><code>[baseUrl]</code></td><td><code>string</code></td><td>Deployment prefix, slashes included.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ pages: number, faults: Fault[] }&gt;</code></p>
+<h3 id="verifymarkup"><code>verifyMarkup</code></h3>
+<p><code>verifyMarkup(root)</code></p>
+<p>Checks the markup of a generated site.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>root</code></td><td><code>string</code></td><td>Folder of the produced site.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ pages: number, faults: Fault[] }&gt;</code></p>
+<h3 id="dev"><code>dev</code></h3>
+<p><code>dev([options])</code></p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ server: import(&#x27;node:http&#x27;).Server, watcher: import(&#x27;chokidar&#x27;).FSWatcher, port: number, url: string, close: () =&gt; Promise&lt;void&gt;, }&gt;</code></p>
+<h3 id="init"><code>init</code></h3>
+<p><code>init([dir], [options])</code></p>
+<p>Sets up a documentation project.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[dir]</code></td><td><code>string</code></td><td>Target folder, created if needed.</td></tr><tr><td><code>[options]</code></td><td><code>{ name?: string, theme?: string, siteUrl?: string, version?: string, yes?: boolean, force?: boolean, minimal?: boolean, }</code></td><td><code>minimal</code> leaves DocPensieve&#x27;s documentation out of the site.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ dir: string, theme: string, docs: boolean }&gt;</code></p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — Unknown framework, project already initialised, or documentation to install missing.</p>
+<h3 id="serve"><code>serve</code></h3>
+<p><code>serve([options])</code></p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, dir?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;{ server: import(&#x27;node:http&#x27;).Server, port: number, url: string }&gt;</code></p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — When the folder to serve does not exist.</p>
+<h3 id="createstaticserver"><code>createStaticServer</code></h3>
+<p><code>createStaticServer(options)</code></p>
+<p>Creates a static file server.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>options</code></td><td><code>{ root: string, basePath?: string, inject?: string | null, onReload?: (send: () =&gt; void) =&gt; void, }</code></td><td><code>basePath</code> is the prefix under which the site is mounted: it must reflect the configuration&#x27;s <code>baseUrl</code>, otherwise the links of the pages do not resolve locally. <code>inject</code> is an HTML fragment inserted before <code>&lt;/body&gt;</code> — the development server uses it for its reload script, which leaves the generated output intact.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>import(&#x27;node:http&#x27;).Server</code></p>
+<h3 id="listen"><code>listen</code></h3>
+<p><code>listen(server, port, [attempts])</code></p>
+<p>Starts listening, looking for a free port if needed.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>server</code></td><td><code>import(&#x27;node:http&#x27;).Server</code></td><td></td></tr><tr><td><code>port</code></td><td><code>number</code></td><td>Desired port.</td></tr><tr><td><code>[attempts]</code></td><td><code>number</code></td><td>Number of ports tried from <code>port</code> on.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>Promise&lt;number&gt;</code> — The port actually used.</p>
+<p><strong>Throws</strong> <code>DocPensieveError</code> — When no port is free in the range.</p>
+<h3 id="resolverequestpath"><code>resolveRequestPath</code></h3>
+<p><code>resolveRequestPath(pathname, root)</code></p>
+<p>Resolves a request URL into a file path, without leaving the root.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pathname</code></td><td><code>string</code></td><td>Request path, <code>basePath</code> already removed.</td></tr><tr><td><code>root</code></td><td><code>string</code></td><td>Served folder.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string \| null</code> — Absolute path, or <code>null</code> when the target escapes <code>root</code>.</p></article>
+        <ul class="dp-tags" aria-label="Tags">
+          <li class="dp-tag">reference</li><li class="dp-tag">api</li>
+        </ul>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="On this page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">On this page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#docpensieve-shared">@docpensieve/shared</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#doc-extensions">DOC_EXTENSIONS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#config-filename">CONFIG_FILENAME</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#config-filenames">CONFIG_FILENAMES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#theme-folder">THEME_FOLDER</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#default-out-dir">DEFAULT_OUT_DIR</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#versions-manifest">VERSIONS_MANIFEST</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#index-slugs">INDEX_SLUGS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#jsonld-types">JSONLD_TYPES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#theme-frameworks">THEME_FRAMEWORKS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#page-layouts">PAGE_LAYOUTS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#default-theme-classes">DEFAULT_THEME_CLASSES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#docpensieveerror">DocPensieveError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#configerror">ConfigError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#loadererror">LoaderError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#compileerror">CompileError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#structureddataerror">StructuredDataError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#themeerror">ThemeError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#generatorerror">GeneratorError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#notimplementederror">NotImplementedError</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#slugify">slugify</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#filepathtoslug">filePathToSlug</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#assetpathtoslug">assetPathToSlug</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#blanksegments">blankSegments</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#dirpathtoslug">dirPathToSlug</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#slugtourl">slugToUrl</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#humanizeslug">humanizeSlug</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#orderof">orderOf</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#docpensieve-core">@docpensieve/core</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#default-config">DEFAULT_CONFIG</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#defineconfig">defineConfig</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#loadconfig">loadConfig</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#normalizeconfig">normalizeConfig</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#resolveversion">resolveVersion</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#docloader">DocLoader</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#compiler">Compiler</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#structureddatabuilder">StructuredDataBuilder</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#sitegenerator">SiteGenerator</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildsidebar">buildSidebar</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildsidebarfromdescription">buildSidebarFromDescription</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#collectsectiontitles">collectSectionTitles</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildfeed">buildFeed</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildrobots">buildRobots</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildsitemap">buildSitemap</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildauthortable">buildAuthorTable</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildbyline">buildByline</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#readdate">readDate</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#resolvepageauthors">resolvePageAuthors</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#docpensieve-theme">@docpensieve/theme</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#basethemeprovider">BaseThemeProvider</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#customprovider">CustomProvider</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#default-tokens">DEFAULT_TOKENS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#tailwindprovider">TailwindProvider</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#themeengine">ThemeEngine</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#docpensieve-components">@docpensieve/components</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#classnames">classNames</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cls">cls</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#fallbackclass">fallbackClass</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#getthemeclasses">getThemeClasses</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#getthemeframework">getThemeFramework</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#setthemeclasses">setThemeClasses</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#setthemeframework">setThemeFramework</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#card">Card</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cardbody">CardBody</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cardfooter">CardFooter</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cardheader">CardHeader</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cardimage">CardImage</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#cards">Cards</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#column">Column</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#columns">Columns</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#fallbackafter">FallbackAfter</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#fallbackbefore">FallbackBefore</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#timetimer">TimeTimer</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#tooltip-placements">TOOLTIP_PLACEMENTS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#tooltip">Tooltip</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#tree">Tree</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#treeitem">TreeItem</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#scrolltotop">ScrollToTop</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#skill-shapes">SKILL_SHAPES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#skill">Skill</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#logoicon">LogoIcon</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#fortheme">ForTheme</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#componentscss">componentsCss</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#getsitecontext">getSiteContext</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#resolvefile">resolveFile</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#resolveurl">resolveUrl</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#setsitecontext">setSiteContext</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#builtincomponents">builtinComponents</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#createregistry">createRegistry</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#listcomponentnames">listComponentNames</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#docpensieve">docpensieve</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#build">build</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#check">check</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#verifylinks">verifyLinks</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#verifymarkup">verifyMarkup</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#dev">dev</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#init">init</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#serve">serve</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#createstaticserver">createStaticServer</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#listen">listen</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#resolverequestpath">resolveRequestPath</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.3.0</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Back to top">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>
