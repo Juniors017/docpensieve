@@ -89,6 +89,8 @@ the `dp-*` class below.
 | `brandLogo`     | `dp-brand-logo`               | Logo beside the project name                    |
 | `versions`      | `dp-versions`                 | Version switcher                                |
 | `versionsList`  | `dp-versions-list`            | Open list of the switcher                       |
+| `languages`     | `dp-languages`                | Language switcher, when a version is translated |
+| `languagesList` | `dp-languages-list`           | Open list of that switcher                      |
 | `shell`         | `dp-shell`                    | Menu / content / table of contents grid         |
 | `shellWide`     | `dp-shell dp-shell--wide`     | The same, without menu or table of contents     |
 | `sidebar`       | `dp-sidebar`                  | Menu column                                     |

@@ -63,6 +63,18 @@ describe('what the documentation counts out loud', () => {
     expect(claimed(reference, 'tokens')).toBe(rows.size);
   });
 
+  it('lists every slot the templates can ask for', () => {
+    // A slot missing from this table is a class a project cannot find, and
+    // nothing reports it: the site builds, the slot works, the reader looking
+    // for it does not. Two language slots drifted out of it that way.
+    const reference = read('03-reference/04-theme.md');
+    const missing = Object.keys(DEFAULT_THEME_CLASSES).filter(
+      (slot) => !reference.includes(`| \`${slot}\``),
+    );
+
+    expect(missing).toEqual([]);
+  });
+
   it('lists every token both themes define', () => {
     const reference = read('03-reference/04-theme.md');
     // The tones of an admonition were reachable and listed nowhere: a token
