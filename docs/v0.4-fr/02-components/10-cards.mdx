@@ -1,0 +1,77 @@
+---
+title: Cards
+description: Des grilles de cartes cliquables, construites depuis les pages de la version.
+---
+
+# Cards
+
+Un dossier est une **série** : sa page `index` la présente, et les pages
+voisines de cet index en sont les épisodes. `Cards` transforme cette structure
+en grille, plutôt qu'une liste écrite à la main — un index écrit à la main
+périme à la première page renommée, et rien ne le dit.
+
+## Sur cette page
+
+Posé dans une page, le composant liste ce qui se trouve à côté d'elle. Ici, les
+autres pages de composants :
+
+<Cards />
+
+```mdx
+<Cards />
+```
+
+Écrit dans la page `index` d'un dossier, il liste ce dossier : une page de
+série montre ses propres épisodes, pas ses voisines.
+
+## Ce que porte une carte
+
+Tout vient des pages elles-mêmes, rien n'est déclaré deux fois :
+
+| Affiché             | Lu depuis                                                     |
+| ------------------- | ------------------------------------------------------------- |
+| Titre               | Le `title` de la page                                         |
+| Description         | La `description` de la page                                   |
+| Image               | Le `preview` de la page, résolu depuis la page qui le déclare |
+| Nombre de pages     | Compté sous le dossier — sur une carte de série seulement     |
+| Date de mise à jour | `modified`, ou à défaut `date`                                |
+
+**La carte entière est le lien**, jamais le seul titre : une carte dont la
+surface ne fait rien invite un clic qui se perd.
+
+## Restreindre la grille
+
+| Propriété   | Effet                                                                    |
+| ----------- | ------------------------------------------------------------------------ |
+| `of`        | `series` garde les dossiers, `pages` garde les pages voisines de l'index |
+| `from`      | Lit un autre dossier, nommé par son chemin dans la version               |
+| `className` | Classes ajoutées à la grille                                             |
+| `style`     | Mise en forme en ligne, pour un ajustement ponctuel                      |
+
+```mdx
+<Cards of="series" />
+<Cards from="guide" />
+```
+
+`from` nomme un dossier de **cette** version, tel qu'il apparaît dans une
+adresse : `guide`, ou `guide/advanced`. Il arrête la génération quand rien ne
+vit sous ce chemin, ce qui attrape une faute de frappe au lieu de rendre une
+grille vide.
+
+## Dimensions
+
+La grille remplit la largeur qu'on lui donne, avec autant de colonnes qu'il en
+tient. Pour la tenir plus étroite, posez une largeur sur le bloc — jetons et
+longueurs fonctionnent sous les deux thèmes, donc sans variante :
+
+```mdx
+<div style={{ maxWidth: '32rem' }}>
+  <Cards of="series" />
+</div>
+```
+
+## Sans JavaScript
+
+Comme tous les composants d'ici, la grille est construite à la génération. Ce
+qui parvient au lecteur est une liste de liens : elle fonctionne JavaScript
+désactivé, et une carte n'attend jamais rien pour devenir cliquable.
