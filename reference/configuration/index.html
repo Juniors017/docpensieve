@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/reference/configuration/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/reference/configuration/" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/beta/assets/logo.png"},{"@type":"TechArticle","@id":"https://docpensieve.com/versions/beta/reference/configuration/#article","headline":"Configuration","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/beta/reference/configuration/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Every field of docpensieve.config.mjs, its default value and its effect.","keywords":["reference","configuration"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/beta/reference/configuration/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/beta/"},{"@type":"ListItem","position":2,"name":"Reference","item":"https://docpensieve.com/versions/beta/reference/"},{"@type":"ListItem","position":3,"name":"Configuration","item":"https://docpensieve.com/versions/beta/reference/configuration/"}]}]}</script>
   </head>
   <body>
@@ -43,7 +44,7 @@
               <a href="https://docpensieve.com/versions/beta/reference/configuration/" aria-current="true">EN</a>
             </li>
             <li>
-              <span aria-disabled="true">FR</span>
+              <a href="https://docpensieve.com/versions/beta/fr/reference/configuration/">FR</a>
             </li>
           </ul>
         </details>
@@ -95,7 +96,7 @@
                 <a href="https://docpensieve.com/versions/beta/reference/configuration/" aria-current="true">EN</a>
               </li>
               <li>
-                <span aria-disabled="true">FR</span>
+                <a href="https://docpensieve.com/versions/beta/fr/reference/configuration/">FR</a>
               </li>
             </ul>
           </details>
@@ -698,7 +699,7 @@ either leads somewhere or opens a panel, never both.</p>
 <p>The panel is declared here, not derived from the menu of the documentation: the
 two can stand side by side with different links, or the site can go without a
 sidebar and navigate from the header alone.</p>
-<h2 id="foldedsidebar"><code>foldedSidebar</code></h2>
+<h2 id="stickyheader"><code>stickyHeader</code></h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">stickyHeader</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">false</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
 <p>The header holds to the top of the screen by default: the search field, the
 version switcher and the menu stay in reach wherever the reader is in the page.</p>
@@ -706,7 +707,7 @@ version switcher and the menu stay in reach wherever the reader is in the page.<
 text — on a phone held in one hand, that height is a third of what is visible.
 The anchors then stop reserving room for it: a link to a heading no longer
 leaves a blank band above it.</p>
-<h2 id="stickyheader"><code>stickyHeader</code></h2>
+<h2 id="foldedsidebar"><code>foldedSidebar</code></h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">foldedSidebar</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
 <p>Every category of the menu becomes a fold. The branch holding the page being
 read is open, the others closed: a menu of a hundred pages stops asking the
@@ -786,10 +787,10 @@ starts to matter from the second version on.</p></article>
             </ul>
           </li>
           <li class="dp-toc-item">
-            <a href="#foldedsidebar">foldedSidebar</a>
+            <a href="#stickyheader">stickyHeader</a>
           </li>
           <li class="dp-toc-item">
-            <a href="#stickyheader">stickyHeader</a>
+            <a href="#foldedsidebar">foldedSidebar</a>
           </li>
           <li class="dp-toc-item">
             <a href="#sidebar">sidebar</a>
