@@ -514,3 +514,66 @@ describe('dangerous values', () => {
     expect(() => normalizeConfig(frozen)).not.toThrow();
   });
 });
+
+describe('languages of a version', () => {
+  /** @param {Record<string, any>} extra */
+  const withVersion = (extra) =>
+    normalizeConfig({
+      projectName: 'Docs',
+      versions: [{ slug: 'v1.0', name: '1.0', folder: 'docs/v1.0', current: true, ...extra }],
+    });
+
+  it('accepts the tags that name a language, variants included', () => {
+    for (const lang of ['fr', 'pt-BR', 'zh-Hans', 'de-CH']) {
+      expect(() => withVersion({ translations: { [lang]: 'docs/v1.0-x' } })).not.toThrow();
+    }
+  });
+
+  it('refuses a tag that is well formed but names no language', () => {
+    // BCP 47 allows a language subtag of five to eight letters, so
+    // "francais" is well formed. Published, it would land in the markup as
+    // lang="francais" and serve English wording under a French address.
+    /** @type {any} */
+    let failure;
+    try {
+      withVersion({ translations: { francais: 'docs/v1.0-fr' } });
+    } catch (error) {
+      failure = error;
+    }
+
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure.message).toContain('does not name a language');
+    expect(failure.hint).toContain('Write the code, not the name');
+  });
+
+  it('refuses translations written at the root, where nobody reads them', () => {
+    /** @type {any} */
+    let failure;
+    try {
+      normalizeConfig({
+        projectName: 'Docs',
+        versions: [{ slug: 'v1.0', name: '1.0', folder: 'docs/v1.0', current: true }],
+        translations: { fr: 'docs/v1.0-fr' },
+      });
+    } catch (error) {
+      failure = error;
+    }
+
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure.hint).toContain('Move it into the version');
+  });
+
+  it('refuses a language declared on a version', () => {
+    // The site has one language; a version carries translations of it.
+    /** @type {any} */
+    let failure;
+    try {
+      withVersion({ lang: 'fr' });
+    } catch (error) {
+      failure = error;
+    }
+
+    expect(failure).toBeInstanceOf(ConfigError);
+    expect(failure.hint).toContain('one language');
+  });
+});

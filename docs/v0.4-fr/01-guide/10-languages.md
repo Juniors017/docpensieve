@@ -137,6 +137,22 @@ lecteur dont le site n'a pas la langue.
 Le fichier d'auteurs est lu dans chaque dossier : une biographie peut donc être
 traduite avec les pages qu'elle signe.
 
+## Ce qui est refusé
+
+Trois erreurs arrêtent la génération plutôt que de publier quelque chose de
+faux en silence :
+
+| Écrit                                        | Pourquoi c'est refusé                                           |
+| -------------------------------------------- | --------------------------------------------------------------- |
+| `translations` à la racine du fichier        | Il appartient à une version — c'est une version qui a des pages |
+| `lang` sur une version                       | Le site a une langue ; une version en porte les traductions     |
+| Une étiquette qui ne nomme rien — `francais` | Elle atterrirait dans le balisage en `lang="francais"`          |
+
+La troisième mérite un mot. BCP 47 autorise une sous-étiquette de langue de
+cinq à huit lettres : `francais` est donc **bien formée** — elle n'est
+simplement pas une langue. Laissée passer, elle servirait des mots anglais sous
+une adresse française, sans que rien ne le dise.
+
 ## Ce qu'il faut vérifier
 
 - **Un dossier de traduction nommé mais absent** arrête la génération, en

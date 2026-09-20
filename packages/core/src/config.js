@@ -202,14 +202,38 @@ export function normalizeConfig(userConfig) {
   // "zh-Hans-CN", which is valid, and accepted shapes that are not.
   const isLanguageCode = (/** @type {string} */ value) => {
     try {
-      return Intl.getCanonicalLocales(value).length === 1;
+      Intl.getCanonicalLocales(value);
+      // Well formed is not the same as real: BCP 47 allows a language subtag
+      // of five to eight letters, so "francais" passes that check and would
+      // land in the markup as `lang="francais"` — a value no browser maps to
+      // a language, under a French address serving English wording. CLDR
+      // knows which tags name a language; the subtag alone is asked, so that
+      // a region, a script or a private extension does not get in the way.
+      const names = new Intl.DisplayNames(['en'], { type: 'language', fallback: 'none' });
+      return names.of(new Intl.Locale(value).language) !== undefined;
     } catch {
       return false;
     }
   };
 
+  // A translation belongs to a version, since a version is what has pages.
+  // Written at the root, it was read by nobody: the build succeeded, no
+  // language appeared, and nothing said why.
+  if (userConfig.translations !== undefined) {
+    throw new ConfigError('"translations" belongs to a version, not to the configuration root.', {
+      hint: "Move it into the version it translates: { slug: 'v1.0', folder: 'docs/v1.0', translations: { fr: 'docs/v1.0-fr' } }.",
+    });
+  }
+
   const seen = new Set();
   for (const version of config.versions) {
+    // The language of the site is declared once, at the root: a version
+    // carries translations, not a language of its own.
+    if (/** @type {Record<string, unknown>} */ (version)?.lang !== undefined) {
+      throw new ConfigError(`The version "${version.slug}" declares a language of its own.`, {
+        hint: 'The site has one language, set by "lang" at the root; a version names its translations in "translations".',
+      });
+    }
     for (const field of /** @type {const} */ (['slug', 'name', 'folder'])) {
       if (typeof version?.[field] !== 'string' || version[field].length === 0) {
         throw new ConfigError(
@@ -250,9 +274,12 @@ export function normalizeConfig(userConfig) {
       }
       for (const [lang, folder] of Object.entries(version.translations)) {
         if (!isLanguageCode(lang)) {
-          throw new ConfigError(`Invalid language code in version "${version.slug}": "${lang}".`, {
-            hint: 'Write a BCP 47 tag: "fr", "pt-BR", "zh-Hans". It becomes the lang of the document and a segment of the address.',
-          });
+          throw new ConfigError(
+            `"${lang}" does not name a language, in version "${version.slug}".`,
+            {
+              hint: 'Write the code, not the name: "fr" for French, "pt-BR", "zh-Hans". It becomes the lang of the document and a segment of the address.',
+            },
+          );
         }
         if (typeof folder !== 'string' || folder === '') {
           throw new ConfigError(

@@ -135,6 +135,21 @@ language the site does not have.
 The author file is read in each folder, so a biography can be translated with
 the pages it signs.
 
+## What is refused
+
+Three mistakes stop the build rather than publish something wrong in silence:
+
+| Written                                   | Why it is refused                                               |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| `translations` at the root of the file    | It belongs to a version — a version is what has pages           |
+| `lang` on a version                       | The site has one language; a version carries translations of it |
+| A tag that names no language — `francais` | It would land in the markup as `lang="francais"`                |
+
+The third deserves a word. BCP 47 allows a language subtag of five to eight
+letters, so `francais` is **well formed** — it is simply not a language. Left
+to pass, it would serve English wording under a French address, and nothing
+would say so.
+
 ## What to check
 
 - **A translation folder named but missing** stops the build, naming the
