@@ -1,0 +1,351 @@
+---
+title: Card
+description: Une carte structurée, avec en-tête, corps, pied et image.
+---
+
+# Card
+
+## La plus simple
+
+<Card style={{ maxWidth: '24rem' }}>
+  <CardBody>Une carte réduite à son corps.</CardBody>
+</Card>
+
+```mdx
+<Card>
+  <CardBody>Une carte réduite à son corps.</CardBody>
+</Card>
+```
+
+Les exemples de cette page rétrécissent certaines cartes par `style`, que tous
+les thèmes comprennent ; l'apparence proprement dite vient plus bas.
+
+## Avec ses trois parties
+
+<Card style={{ maxWidth: '24rem' }}>
+  <CardHeader>En-tête</CardHeader>
+  <CardBody>
+    Le corps de la carte. Il prend la place restante quand plusieurs cartes se tiennent côte à côte.
+  </CardBody>
+  <CardFooter>Pied de carte</CardFooter>
+</Card>
+
+## Avec une image
+
+`CardImage` se place où vous voulez dans la carte. En haut ou en bas, elle suit
+les angles ; entre deux blocs, elle reste carrée.
+
+<Columns>
+  <Column span={6}>
+    <Card>
+      <CardImage src="./icons/banner.svg" alt="" />
+      <CardHeader>Image en haut</CardHeader>
+      <CardBody>Les angles hauts suivent ceux de la carte.</CardBody>
+    </Card>
+  </Column>
+  <Column span={6}>
+    <Card>
+      <CardHeader>Image en bas</CardHeader>
+      <CardBody>Les angles bas suivent ceux de la carte.</CardBody>
+      <CardImage src="./icons/banner.svg" alt="" />
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Card>
+  <CardImage src="./icons/banner.svg" alt="" />
+  <CardBody>…</CardBody>
+</Card>
+```
+
+`alt` vaut la chaîne vide par défaut : une image décorative est ainsi passée
+sous silence par les lecteurs d'écran, plutôt qu'annoncée par son nom de
+fichier. Une image porteuse de sens mérite un `alt` écrit.
+
+## Une grille de cartes
+
+C'est l'usage le plus courant. Étirer chaque carte à la hauteur de sa colonne
+les aligne quel que soit leur contenu.
+
+<ForTheme framework="tailwind">
+
+Avec le thème Tailwind, l'utilitaire `h-full` s'en charge :
+
+<Columns>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Sans état</CardHeader>
+      <CardBody>
+        Les composants sont rendus à la génération. Aucun ne garde d'état ni n'écoute d'événement.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Sans dépendance</CardHeader>
+      <CardBody>Le HTML livré ne charge rien.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="h-full">
+      <CardHeader>Sans surprise</CardHeader>
+      <CardBody>
+        Ce qui ne peut pas être rendu arrête la génération plutôt que de disparaître en silence.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>
+    <Card className="h-full">…</Card>
+  </Column>
+</Columns>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Avec le thème custom, une classe à vous s'en charge — ici `full-height`, de
+`theme/99-docpensieve.css` :
+
+<Columns>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>Sans état</CardHeader>
+      <CardBody>
+        Les composants sont rendus à la génération. Aucun ne garde d'état ni n'écoute d'événement.
+      </CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>Sans dépendance</CardHeader>
+      <CardBody>Le HTML livré ne charge rien.</CardBody>
+    </Card>
+  </Column>
+  <Column>
+    <Card className="full-height">
+      <CardHeader>Sans surprise</CardHeader>
+      <CardBody>
+        Ce qui ne peut pas être rendu arrête la génération plutôt que de disparaître en silence.
+      </CardBody>
+    </Card>
+  </Column>
+</Columns>
+
+```mdx
+<Columns>
+  <Column>
+    <Card className="full-height">…</Card>
+  </Column>
+</Columns>
+```
+
+```css
+.full-height {
+  block-size: 100%;
+}
+```
+
+</ForTheme>
+
+## Élévation
+
+<Card style={{ maxWidth: '24rem' }} elevated>
+  <CardBody>Cette carte porte une ombre.</CardBody>
+</Card>
+
+```mdx
+<Card elevated>…</Card>
+```
+
+## Entièrement cliquable
+
+<Card style={{ maxWidth: '24rem' }} href="./columns/">
+  <CardHeader>Aller aux colonnes</CardHeader>
+  <CardBody>La carte entière est un lien, pas seulement le titre.</CardBody>
+</Card>
+
+```mdx
+<Card href="./columns/">…</Card>
+```
+
+Une cible relative part de la page, une cible absolue de la racine de la
+version — les mêmes règles que pour un lien Markdown.
+
+## Un chiffre mis en avant
+
+Rien de propre au composant : une carte, un peu de typographie, et le pied qui
+porte la légende.
+
+<ForTheme framework="tailwind">
+
+<Columns>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">0</div>
+        <div className="text-sm">octet de runtime JavaScript</div>
+      </CardBody>
+      <CardFooter>sur chaque page</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">12</div>
+        <div className="text-sm">composants</div>
+      </CardBody>
+      <CardFooter>utilisables sans import</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="h-full text-center">
+      <CardBody>
+        <div className="text-4xl font-semibold text-indigo-600">1</div>
+        <div className="text-sm">feuille de style</div>
+      </CardBody>
+      <CardFooter>par version</CardFooter>
+    </Card>
+  </Column>
+</Columns>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<Columns>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">0</div>
+        <div className="small">octet de runtime JavaScript</div>
+      </CardBody>
+      <CardFooter>sur chaque page</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">12</div>
+        <div className="small">composants</div>
+      </CardBody>
+      <CardFooter>utilisables sans import</CardFooter>
+    </Card>
+  </Column>
+  <Column span={4}>
+    <Card className="full-height centered">
+      <CardBody>
+        <div className="figure">1</div>
+        <div className="small">feuille de style</div>
+      </CardBody>
+      <CardFooter>par version</CardFooter>
+    </Card>
+  </Column>
+</Columns>
+
+</ForTheme>
+
+## Une carte d'avertissement
+
+<ForTheme framework="tailwind">
+
+<Card className="border-amber-400 bg-amber-50 dark:bg-amber-950/30">
+  <CardHeader className="text-amber-800 dark:text-amber-200">
+    À vérifier avant de publier
+  </CardHeader>
+  <CardBody className="text-sm">
+    Un site généré peut compiler sans erreur et contenir des liens morts.
+    <code>docpensieve check</code> relit la sortie.
+  </CardBody>
+</Card>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+<Card className="warning">
+  <CardHeader className="warning-title">À vérifier avant de publier</CardHeader>
+  <CardBody className="small">
+    Un site généré peut compiler sans erreur et contenir des liens morts.
+    <code>docpensieve check</code> relit la sortie.
+  </CardBody>
+</Card>
+
+</ForTheme>
+
+## L'apparence par className
+
+<ForTheme framework="tailwind">
+
+Le composant n'offre aucune propriété de typographie : les utilitaires du thème
+s'en chargent, et l'emportent sur le style par défaut.
+
+<Card className="max-w-sm border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centré, en capitales
+  </CardHeader>
+  <CardBody className="text-sm italic">Corps petit, en italique.</CardBody>
+</Card>
+
+```mdx
+<Card className="border-indigo-400 bg-indigo-50">
+  <CardHeader className="text-center uppercase tracking-wide text-indigo-700">
+    Centré, en capitales
+  </CardHeader>
+  <CardBody className="text-sm italic">Corps petit, en italique.</CardBody>
+</Card>
+```
+
+Les règles du composant vivent dans la couche `components`, sous les
+utilitaires : un `className` posé à l'emploi l'emporte toujours, même pour
+défaire le style par défaut.
+
+<Card className="max-w-sm border-0 shadow-none bg-transparent">
+  <CardBody className="px-0">Sans bordure, sans fond, sans marge intérieure.</CardBody>
+</Card>
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Le composant n'offre aucune propriété de typographie : l'apparence vient de
+classes à vous, écrites dans le dossier `theme/` — ici celles de
+`theme/99-docpensieve.css`.
+
+<Card className="narrow highlight">
+  <CardHeader className="centered caps accent-text">Centré, en capitales</CardHeader>
+  <CardBody className="small italic">Corps petit, en italique.</CardBody>
+</Card>
+
+```mdx
+<Card className="highlight">
+  <CardHeader className="centered caps accent-text">Centré, en capitales</CardHeader>
+  <CardBody className="small italic">Corps petit, en italique.</CardBody>
+</Card>
+```
+
+```css
+.highlight {
+  border-color: var(--dp-accent);
+  background: var(--dp-accent-soft);
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+```
+
+Les règles du composant vivent dans la couche `components`, celles du dossier
+de thème dans aucune : une classe à vous l'emporte toujours, même pour défaire
+le style par défaut.
+
+<Card className="narrow plain">
+  <CardBody className="flush">Sans bordure, sans fond, sans marge intérieure.</CardBody>
+</Card>
+
+</ForTheme>
+
+La rangée la plus fréquente est une rangée de cartes ; [Columns](./columns/)
+montre comment les tenir à la même hauteur, ce qu'une grille seule ne fait pas.
