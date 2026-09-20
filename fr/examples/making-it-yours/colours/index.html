@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="fr" dir="ltr" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Couleurs · DocPensieve</title>
+    <meta name="description" content="Donner votre palette au site — un jeton dans la configuration, le schéma sombre dans un fichier à vous." />
+    <link rel="canonical" href="https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/" />
+    <link rel="icon" href="/versions/latest/assets/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DocPensieve" />
+    <meta property="og:title" content="Couleurs · DocPensieve" />
+    <meta property="og:description" content="Donner votre palette au site — un jeton dans la configuration, le schéma sombre dans un fichier à vous." />
+    <meta property="og:url" content="https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/" />
+    <meta property="og:image" content="https://docpensieve.com/versions/latest/assets/social-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/versions/latest/assets/docpensieve.css" />
+    <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/latest/examples/making-it-yours/colours/" />
+    <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/latest/examples/making-it-yours/colours/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/latest/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/#article","headline":"Couleurs","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Donner votre palette au site — un jeton dans la configuration, le schéma sombre dans un fichier à vous.","datePublished":"2026-09-18","dateModified":"2026-09-20","author":[{"@type":"Person","name":"Valentin Chevoleau","description":"Créateur de DocPensieve.","url":"https://github.com/Juniors017"}],"keywords":["cours","intermédiaire","thèmes"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/latest/fr/"},{"@type":"ListItem","position":2,"name":"Exemples","item":"https://docpensieve.com/versions/latest/fr/examples/"},{"@type":"ListItem","position":3,"name":"À votre main","item":"https://docpensieve.com/versions/latest/fr/examples/making-it-yours/"},{"@type":"ListItem","position":4,"name":"Couleurs","item":"https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/"}]}]}</script>
+  </head>
+  <body>
+    <a class="dp-skip" href="#content">Aller au contenu</a>
+
+    <div id="top" tabindex="-1"></div>
+
+    <header class="dp-header border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/latest/fr/"><img class="dp-brand-logo" src="/versions/latest/assets/logo.png" alt="" />DocPensieve</a>
+      <nav class="dp-header-nav" aria-label="Site">
+        <details class="dp-versions">
+          <summary aria-label="Version 0.4.0, changer de version">0.4.0</summary>
+          <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+            <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
+            <li><a href="/versions/v0.3/">0.3.0</a></li>
+            <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Langue">Langue</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/latest/examples/making-it-yours/colours/">EN</a>
+            </li>
+            <li>
+              <a href="https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/" aria-current="true">FR</a>
+            </li>
+          </ul>
+        </details>
+        <ul class="dp-header-links">
+          <li>
+            <a href="/versions/latest/examples/">Examples</a>
+          </li>
+          <li>
+            <details class="dp-mega">
+              <summary>Product</summary>
+              <div class="dp-mega-panel">
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Guide</p>
+                  <ul>
+                    <li><a href="/versions/latest/guide/installation/">Installation</a></li><li><a href="/versions/latest/guide/first-site/">First site</a></li><li><a href="/versions/latest/guide/writing-pages/">Writing pages</a></li>
+                  </ul>
+                </div>
+                <div class="dp-mega-column">
+                  <p class="dp-mega-title">Reference</p>
+                  <ul>
+                    <li><a href="/versions/latest/reference/cli/">Commands</a></li><li><a href="/versions/latest/reference/configuration/">Configuration</a></li><li><a href="/versions/latest/reference/frontmatter/">Frontmatter</a></li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ul>
+        <form class="dp-search" role="search" action="/versions/latest/fr/search/">
+          <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+        </form>
+      </nav>
+      <details class="dp-menu">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </summary>
+        <nav class="dp-menu-panel" aria-label="Site">
+          <details class="dp-versions">
+            <summary aria-label="Version 0.4.0, changer de version">0.4.0</summary>
+            <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+              <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
+              <li><a href="/versions/v0.3/">0.3.0</a></li>
+              <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Langue">Langue</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/latest/examples/making-it-yours/colours/">EN</a>
+              </li>
+              <li>
+                <a href="https://docpensieve.com/versions/latest/fr/examples/making-it-yours/colours/" aria-current="true">FR</a>
+              </li>
+            </ul>
+          </details>
+          <ul class="dp-header-links">
+            <li>
+              <a href="/versions/latest/examples/">Examples</a>
+            </li>
+            <li>
+              <details class="dp-mega">
+                <summary>Product</summary>
+                <div class="dp-mega-panel">
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Guide</p>
+                    <ul>
+                      <li><a href="/versions/latest/guide/installation/">Installation</a></li><li><a href="/versions/latest/guide/first-site/">First site</a></li><li><a href="/versions/latest/guide/writing-pages/">Writing pages</a></li>
+                    </ul>
+                  </div>
+                  <div class="dp-mega-column">
+                    <p class="dp-mega-title">Reference</p>
+                    <ul>
+                      <li><a href="/versions/latest/reference/cli/">Commands</a></li><li><a href="/versions/latest/reference/configuration/">Configuration</a></li><li><a href="/versions/latest/reference/frontmatter/">Frontmatter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </li>
+          </ul>
+          <form class="dp-search" role="search" action="/versions/latest/fr/search/">
+            <input type="search" name="q" placeholder="Rechercher" aria-label="Rechercher dans la documentation" />
+          </form>
+        </nav>
+      </details>
+      <button class="dp-scheme-toggle" type="button" data-scheme-toggle hidden aria-label="Basculer entre clair et sombre">
+        <svg class="dp-scheme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        <svg class="dp-scheme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <div class="dp-shell">
+      <nav class="dp-sidebar text-sm" aria-label="Navigation de la documentation">
+        <ul class="dp-nav">
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Guide</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/">Guide</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/installation/">Installation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/first-site/">Premier site</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/writing-pages/">Écrire des pages</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/versions/">Versions</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/themes/">Thèmes</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/deployment/">Déploiement</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/migrate-from-0-3/">Migrer de la 0.3 vers la 0.4</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/navigation/">Navigation</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/when-it-breaks/">Quand ça casse</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/languages/">Langues</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Composants</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/">Composants</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/card/">Card</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/columns/">Columns</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/time-timer/">TimeTimer</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/tooltip/">Tooltip</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/tree/">Tree</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/scroll-to-top/">ScrollToTop</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/skill/">Skill</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/logo-icon/">LogoIcon</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/for-theme/">ForTheme</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/cards/">Cards</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/menu/">Menu</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/admonition/">Admonition</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group">
+              <summary class="dp-nav-summary">Référence</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/">Référence</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/cli/">Commandes</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/configuration/">Configuration</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/frontmatter/">Frontmatter</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/theme/">Thème</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/api/">API</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/architecture/">Architecture</a>
+          </li>
+          <li class="dp-nav-item">
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/whats-new/">Nouveautés de la 0.4</a>
+          </li>
+          <li class="dp-nav-item dp-nav-item--parent">
+            <details class="dp-nav-group" open>
+              <summary class="dp-nav-summary">Exemples</summary>
+              <ul class="dp-nav">
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/">Exemples</a>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Premiers pas</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/">Premiers pas</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/install/">Installer</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/first-page/">Une première page</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/first-build/">Une première génération</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Bien écrire</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/">Bien écrire</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/series/">Séries</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/components/">Composants</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group" open>
+                    <summary class="dp-nav-summary">À votre main</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/">À votre main</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/colours/" aria-current="page">Couleurs</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/navigation/">Navigation</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/callouts/">Alertes</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Mise en ligne</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/">Mise en ligne</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/versions/">Versions</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/being-found/">Se faire trouver</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/going-live/">En ligne</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <details class="dp-sidebar-menu">
+        <summary>Menu de la documentation</summary>
+        <nav aria-label="Navigation de la documentation">
+          <ul class="dp-nav">
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Guide</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/">Guide</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/installation/">Installation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/first-site/">Premier site</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/writing-pages/">Écrire des pages</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/versions/">Versions</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/themes/">Thèmes</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/deployment/">Déploiement</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/migrate-from-0-3/">Migrer de la 0.3 vers la 0.4</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/navigation/">Navigation</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/when-it-breaks/">Quand ça casse</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/guide/languages/">Langues</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Composants</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/">Composants</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/card/">Card</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/columns/">Columns</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/time-timer/">TimeTimer</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/tooltip/">Tooltip</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/tree/">Tree</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/scroll-to-top/">ScrollToTop</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/skill/">Skill</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/logo-icon/">LogoIcon</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/for-theme/">ForTheme</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/cards/">Cards</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/menu/">Menu</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/components/admonition/">Admonition</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group">
+                <summary class="dp-nav-summary">Référence</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/">Référence</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/cli/">Commandes</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/configuration/">Configuration</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/frontmatter/">Frontmatter</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/theme/">Thème</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/reference/api/">API</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li class="dp-nav-item">
+              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/architecture/">Architecture</a>
+            </li>
+            <li class="dp-nav-item">
+              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/whats-new/">Nouveautés de la 0.4</a>
+            </li>
+            <li class="dp-nav-item dp-nav-item--parent">
+              <details class="dp-nav-group" open>
+                <summary class="dp-nav-summary">Exemples</summary>
+                <ul class="dp-nav">
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/">Exemples</a>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Premiers pas</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/">Premiers pas</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/install/">Installer</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/first-page/">Une première page</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/first-steps/first-build/">Une première génération</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Bien écrire</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/">Bien écrire</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/series/">Séries</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/writing/components/">Composants</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group" open>
+                      <summary class="dp-nav-summary">À votre main</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/">À votre main</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/colours/" aria-current="page">Couleurs</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/navigation/">Navigation</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/making-it-yours/callouts/">Alertes</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Mise en ligne</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/">Mise en ligne</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/versions/">Versions</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/being-found/">Se faire trouver</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/fr/examples/publishing/going-live/">En ligne</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </details>
+
+      <main class="dp-main" id="content" tabindex="-1">
+        <div class="dp-byline">
+          <ul class="dp-byline-authors">
+            <li class="dp-byline-author">
+              <img class="dp-byline-avatar" src="/versions/latest/fr/examples/authors/valentin.jpg" alt="" width="128" height="128" loading="lazy" decoding="async" />
+              <span class="dp-byline-name"><a href="https://github.com/Juniors017">Valentin Chevoleau</a></span>
+              <span class="dp-byline-bio">Créateur de DocPensieve.</span>
+            </li>
+          </ul>
+          <p class="dp-byline-dates">
+            <span>Écrit <time datetime="2026-09-18">18 septembre 2026</time></span><span>Mis à jour <time datetime="2026-09-20">20 septembre 2026</time></span>
+          </p>
+        </div>
+        <article class="dp-article"><h1 id="couleurs">Couleurs</h1>
+<div class="dp-skill"><div class="dp-skill-head"><span class="dp-skill-name">Progression du module</span><span class="dp-skill-value">33%</span></div><div class="dp-skill-track" role="meter" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Progression du module"><div class="dp-skill-fill" style="--dp-skill-level:33%"></div></div><div class="dp-skill-note"><p>Leçon 1 sur 3.</p></div></div>
+<p>Un composant, ici, n&#x27;écrit jamais une couleur. Il demande un <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_45_">jeton</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_45_" role="tooltip">Une variable CSS nommée --dp-quelque-chose, définie une fois et lue par chaque composant.</span></span>, et le thème répond — c&#x27;est pourquoi une ligne change tout le site, y compris les parties que vous n&#x27;avez pas encore écrites.</p>
+<h2 id="a-vous">À vous</h2>
+<p>Ouvrez <code>docpensieve.config.mjs</code> et donnez à l&#x27;accent une couleur à vous :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">theme</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  framework</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;tailwind&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  tokens</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">    &#x27;--dp-accent&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;#7c5cff&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">    &#x27;--dp-radius&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;0.75rem&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
+<p>Regénérez, puis regardez un lien, une jauge, l&#x27;entrée courante du menu, la
+bordure d&#x27;une carte que vous n&#x27;avez jamais touchée. Tout a bougé.</p>
+<aside class="dp-admonition dp-admonition--attention" role="note"><p class="dp-admonition-title"><svg class="dp-admonition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>Un site tenu sombre ne montrera rien</p><div class="dp-admonition-body"><p><code>tokens</code> règle la palette <strong>claire</strong>. Si votre configuration porte <code>darkMode: &#x27;dark&#x27;</code>, le lecteur
+ne la voit jamais — les valeurs sombres viennent de la feuille du thème. C&#x27;est alors la section
+suivante qui compte.</p></div></aside>
+<h2 id="le-schema-sombre">Le schéma sombre</h2>
+<p>La palette sombre est un second jeu de valeurs pour les mêmes jetons. Elle se
+redéfinit dans le dossier <code>theme/</code>, à la racine du projet — chaque fichier
+<code>.css</code> qui s&#x27;y trouve est lu dans l&#x27;ordre des noms et ajouté <strong>en dernier</strong>, ce
+qui en fait le dernier mot du projet :</p>
+<ul class="dp-tree"><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">mon-cours</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">docpensieve.config.mjs</span></li><li class="dp-tree-item dp-tree-item--branch"><details class="dp-tree-details" open=""><summary class="dp-tree-label">theme</summary><ul class="dp-tree"><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">10-sombre.css — le vôtre</span></li><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">99-docpensieve.css — écrit par init, sous le thème custom</span></li></ul></details></li><li class="dp-tree-item dp-tree-item--leaf"><span class="dp-tree-label">docs</span></li></ul></details></li></ul>
+<p>Créez <code>theme/10-sombre.css</code>. Le sombre arrive de deux façons — le système du
+lecteur, et la classe que pose une configuration — donc les deux s&#x27;écrivent :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">@media</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (prefers-color-scheme: dark) {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  :root:not</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#6F42C1;--shiki-dark:#B392F0">.light</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    --dp-accent</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">#a78bfa</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    --dp-bg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">#0b0b14</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">:root.dark</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">  --dp-accent</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">#a78bfa</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">  --dp-bg</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">#0b0b14</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>L&#x27;en-tête porte un bouton qui bascule entre les deux et retient le choix. C&#x27;est
+le seul script que charge une page de contenu, et <code>theme.toggle: false</code> le
+retire.</p>
+<h2 id="ce-que-vous-devriez-voir">Ce que vous devriez voir</h2>
+<div class="dp-columns"><div class="dp-column"><div class="dp-card" style="height:100%"><div class="dp-card-header">En clair</div><div class="dp-card-body"><p>Votre accent sur les liens, les jauges, l&#x27;entrée courante du menu et l&#x27;anneau de focus.</p></div></div></div><div class="dp-column"><div class="dp-card" style="height:100%"><div class="dp-card-header">En sombre</div><div class="dp-card-body"><p>Le même, aux valeurs de votre fichier <code>theme/</code> — et le reste de la palette aussi.</p></div></div></div></div>
+<h2 id="ce-qui-suit-laccent-tout-seul">Ce qui suit l&#x27;accent tout seul</h2>
+<p>Une icône posée dans la page prend la couleur du texte qui l&#x27;entoure : elle
+suit donc votre palette sans qu&#x27;on le lui dise.</p>
+<p><span class="dp-logo-icon" style="--dp-logo-icon-size:1.5rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <path d="m12 2 2.9 6.26 6.85.7-5.1 4.6 1.44 6.72L12 16.9l-6.09 3.38 1.44-6.72-5.1-4.6 6.85-.7z" />
+</svg></span> sur
+l&#x27;accent,
+<span class="dp-logo-icon" style="--dp-logo-icon-size:1.5rem;color:var(--dp-text-soft)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  <path d="m9 12 2 2 4-4" />
+</svg></span> sur
+le texte discret.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">LogoIcon</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> src</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;./icons/star.svg&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> size</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;1.5rem&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> style</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8">{{ color: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;var(--dp-accent)&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> }} /&gt;</span></span></code></pre>
+<p>La seule chose qui ne suit <strong>pas</strong> d&#x27;elle-même, c&#x27;est une classe que vous
+écrivez, et sa forme dépend du thème choisi à la première leçon du cours :</p>
+<p>Sous le thème <code>tailwind</code>, une couleur ponctuelle est un utilitaire, écrit là où
+il sert :</p><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#22863A;--shiki-dark:#85E89D">div</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;text-indigo-500&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;Une ligne à vous&lt;/</span><span style="color:#22863A;--shiki-dark:#85E89D">div</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+
+<p>Cette page vous montre la variante du thème que ce site emploie — c&#x27;est
+<code>ForTheme</code>, et c&#x27;est ainsi que toute la documentation reste juste sous les deux.</p>
+<h2 id="verifiez-par-vous-meme">Vérifiez par vous-même</h2>
+<details><summary>Vous avez posé <code>--dp-accent</code> dans la configuration et rien n&#x27;a changé. Pourquoi ?</summary><p>Soit le site est tenu sombre — <code>darkMode: &#x27;dark&#x27;</code> — et c&#x27;est la palette sombre
+qui répond, soit le jeton a été écrit hors de l&#x27;objet <code>tokens</code>. La génération
+n&#x27;aurait rien dit dans les deux cas : la feuille se compile de toute façon.</p></details>
+<details><summary>Où poser une classe à vous, employée dans une page avec <code>className</code> ?</summary><p>Dans un fichier <code>.css</code> du dossier <code>theme/</code>. Il est ajouté après les règles des
+composants, donc il l&#x27;emporte — et sous le thème <code>custom</code>, c&#x27;est le seul
+endroit où ces classes existent.</p></details>
+<a class="dp-card" href="/versions/latest/fr/guide/themes/"><div class="dp-card-body"><p>Le tableau complet : les créneaux, l&#x27;ordre des couches, et pourquoi la feuille est compilée en
+dernier.</p></div></a></article>
+        <ul class="dp-tags" aria-label="Étiquettes">
+          <li class="dp-tag">cours</li><li class="dp-tag">intermédiaire</li><li class="dp-tag">thèmes</li>
+        </ul>
+      </main>
+
+      <nav class="dp-toc text-sm" aria-label="Sur cette page">
+        <p class="dp-toc-title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Sur cette page</p>
+        <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+          <li class="dp-toc-item">
+            <a href="#a-vous">À vous</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#le-schema-sombre">Le schéma sombre</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-que-vous-devriez-voir">Ce que vous devriez voir</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-qui-suit-laccent-tout-seul">Ce qui suit l&#x27;accent tout seul</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#verifiez-par-vous-meme">Vérifiez par vous-même</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
+      <p>DocPensieve — version 0.4.0</p>
+    </footer>
+
+    <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">
+      <svg
+        class="dp-scroll-top-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M12 19V5" />
+        <path d="m5 12 7-7 7 7" />
+      </svg>
+    </a>
+    <script>(function(){var b=document.querySelector('[data-scheme-toggle]');if(!b)return;var r=document.documentElement.classList;function dark(){return r.contains('dark')||(!r.contains('light')&&matchMedia('(prefers-color-scheme: dark)').matches)}function label(){b.setAttribute('aria-label',dark()?'Switch to light mode':'Switch to dark mode')}b.hidden=false;label();b.addEventListener('click',function(){var next=dark()?'light':'dark';r.remove('dark','light');r.add(next);try{localStorage.setItem('dp-scheme',next)}catch(e){}label()})})();</script>
+  </body>
+</html>

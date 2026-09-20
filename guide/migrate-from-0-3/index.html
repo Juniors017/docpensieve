@@ -3,20 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Migrate from 0.2 to 0.3 · DocPensieve</title>
-    <meta name="description" content="Move a project from the 0.2 to the 0.3 — what changes on its own, and what to turn on." />
-    <link rel="canonical" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-2/" />
+    <title>Migrate from 0.3 to 0.4 · DocPensieve</title>
+    <meta name="description" content="Move a project from the 0.3 to the 0.4 — what changes on its own, and what to turn on." />
+    <link rel="canonical" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
     <link rel="icon" href="/versions/latest/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
-    <meta property="og:title" content="Migrate from 0.2 to 0.3 · DocPensieve" />
-    <meta property="og:description" content="Move a project from the 0.2 to the 0.3 — what changes on its own, and what to turn on." />
-    <meta property="og:url" content="https://docpensieve.com/versions/latest/guide/migrate-from-0-2/" />
+    <meta property="og:title" content="Migrate from 0.3 to 0.4 · DocPensieve" />
+    <meta property="og:description" content="Move a project from the 0.3 to the 0.4 — what changes on its own, and what to turn on." />
+    <meta property="og:url" content="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
     <meta property="og:image" content="https://docpensieve.com/versions/latest/assets/social-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/latest/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/latest/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-2/#article","headline":"Migrate from 0.2 to 0.3","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-2/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Move a project from the 0.2 to the 0.3 — what changes on its own, and what to turn on.","keywords":["guide","migration"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-2/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/latest/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/latest/guide/"},{"@type":"ListItem","position":3,"name":"Migrate from 0.2 to 0.3","item":"https://docpensieve.com/versions/latest/guide/migrate-from-0-2/"}]}]}</script>
+    <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
+    <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
+    <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/latest/fr/guide/migrate-from-0-3/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://docpensieve.com/#organization","name":"DocPensieve","url":"https://docpensieve.com","logo":"https://docpensieve.com/versions/latest/assets/logo.png"},{"@type":"Article","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-3/#article","headline":"Migrate from 0.3 to 0.4","mainEntityOfPage":{"@type":"WebPage","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-3/"},"publisher":{"@id":"https://docpensieve.com/#organization"},"description":"Move a project from the 0.3 to the 0.4 — what changes on its own, and what to turn on.","keywords":["guide","migration"]},{"@type":"BreadcrumbList","@id":"https://docpensieve.com/versions/latest/guide/migrate-from-0-3/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://docpensieve.com/versions/latest/"},{"@type":"ListItem","position":2,"name":"Guide","item":"https://docpensieve.com/versions/latest/guide/"},{"@type":"ListItem","position":3,"name":"Migrate from 0.3 to 0.4","item":"https://docpensieve.com/versions/latest/guide/migrate-from-0-3/"}]}]}</script>
   </head>
   <body>
     <a class="dp-skip" href="#content">Skip to content</a>
@@ -27,11 +30,23 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/latest/"><img class="dp-brand-logo" src="/versions/latest/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.3.0, switch version">0.3.0</summary>
+          <summary aria-label="Version 0.4.0, switch version">0.4.0</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/">0.4.0-beta.2</a></li>
-            <li><a href="/versions/latest/" aria-current="true">0.3.0</a></li>
+            <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+            <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
+            <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
+          </ul>
+        </details>
+        <details class="dp-languages">
+          <summary aria-label="Language">Language</summary>
+          <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+            <li>
+              <a href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" aria-current="true">EN</a>
+            </li>
+            <li>
+              <a href="https://docpensieve.com/versions/latest/fr/guide/migrate-from-0-3/">FR</a>
+            </li>
           </ul>
         </details>
         <ul class="dp-header-links">
@@ -68,11 +83,23 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.3.0, switch version">0.3.0</summary>
+            <summary aria-label="Version 0.4.0, switch version">0.4.0</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/">0.4.0-beta.2</a></li>
-              <li><a href="/versions/latest/" aria-current="true">0.3.0</a></li>
+              <li><a href="/versions/beta/">0.5.0-beta.1</a></li>
+              <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
+              <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
+            </ul>
+          </details>
+          <details class="dp-languages">
+            <summary aria-label="Language">Language</summary>
+            <ul class="dp-languages-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <li>
+                <a href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" aria-current="true">EN</a>
+              </li>
+              <li>
+                <a href="https://docpensieve.com/versions/latest/fr/guide/migrate-from-0-3/">FR</a>
+              </li>
             </ul>
           </details>
           <ul class="dp-header-links">
@@ -139,10 +166,16 @@
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/deployment/">Deployment</a>
                 </li>
                 <li class="dp-nav-item">
-                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/migrate-from-0-2/" aria-current="page">Migrate from 0.2 to 0.3</a>
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/migrate-from-0-3/" aria-current="page">Migrate from 0.3 to 0.4</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/navigation/">Navigation</a>
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/when-it-breaks/">When it breaks</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/languages/">Languages</a>
                 </li>
               </ul>
             </details>
@@ -184,6 +217,12 @@
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/cards/">Cards</a>
                 </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/menu/">Menu</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/admonition/">Admonition</a>
+                </li>
               </ul>
             </details>
           </li>
@@ -216,7 +255,7 @@
             <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/architecture/">Architecture</a>
           </li>
           <li class="dp-nav-item">
-            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/whats-new/">What&#x27;s new in 0.3</a>
+            <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/whats-new/">What&#x27;s new in 0.4</a>
           </li>
           <li class="dp-nav-item dp-nav-item--parent">
             <details class="dp-nav-group">
@@ -256,6 +295,25 @@
                       </li>
                       <li class="dp-nav-item">
                         <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/writing/components/">Components</a>
+                      </li>
+                    </ul>
+                  </details>
+                </li>
+                <li class="dp-nav-item dp-nav-item--parent">
+                  <details class="dp-nav-group">
+                    <summary class="dp-nav-summary">Making it yours</summary>
+                    <ul class="dp-nav">
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/">Making it yours</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/colours/">Colours</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/navigation/">Navigation</a>
+                      </li>
+                      <li class="dp-nav-item">
+                        <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/callouts/">Callouts</a>
                       </li>
                     </ul>
                   </details>
@@ -314,10 +372,16 @@
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/deployment/">Deployment</a>
                   </li>
                   <li class="dp-nav-item">
-                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/migrate-from-0-2/" aria-current="page">Migrate from 0.2 to 0.3</a>
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/migrate-from-0-3/" aria-current="page">Migrate from 0.3 to 0.4</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/navigation/">Navigation</a>
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/when-it-breaks/">When it breaks</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/guide/languages/">Languages</a>
                   </li>
                 </ul>
               </details>
@@ -359,6 +423,12 @@
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/cards/">Cards</a>
                   </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/menu/">Menu</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/components/admonition/">Admonition</a>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -391,7 +461,7 @@
               <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/architecture/">Architecture</a>
             </li>
             <li class="dp-nav-item">
-              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/whats-new/">What&#x27;s new in 0.3</a>
+              <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/whats-new/">What&#x27;s new in 0.4</a>
             </li>
             <li class="dp-nav-item dp-nav-item--parent">
               <details class="dp-nav-group">
@@ -437,6 +507,25 @@
                   </li>
                   <li class="dp-nav-item dp-nav-item--parent">
                     <details class="dp-nav-group">
+                      <summary class="dp-nav-summary">Making it yours</summary>
+                      <ul class="dp-nav">
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/">Making it yours</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/colours/">Colours</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/navigation/">Navigation</a>
+                        </li>
+                        <li class="dp-nav-item">
+                          <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/latest/examples/making-it-yours/callouts/">Callouts</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li class="dp-nav-item dp-nav-item--parent">
+                    <details class="dp-nav-group">
                       <summary class="dp-nav-summary">Going live</summary>
                       <ul class="dp-nav">
                         <li class="dp-nav-item">
@@ -462,30 +551,73 @@
       </details>
 
       <main class="dp-main" id="content" tabindex="-1">
-        <article class="dp-article"><h1 id="migrate-from-0-2-to-0-3">Migrate from 0.2 to 0.3</h1>
-<p>A project on the 0.2 builds with the 0.3 as it is: every new field is optional.</p>
+        <article class="dp-article"><h1 id="migrate-from-0-3-to-0-4">Migrate from 0.3 to 0.4</h1>
+<p>A project on the 0.3 builds with the 0.4 as it is: every field the 0.4 adds is
+optional, and leaving them out keeps the site you have.</p>
 <h2 id="update">Update</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve@latest</span></span></code></pre>
-<p>Through <code>npx</code> alone, <code>npx docpensieve</code> fetches the 0.3 by itself. Going back is
-<code>npm install docpensieve@0.2.0</code>.</p>
+<p>Through <code>npx</code> alone, <code>npx docpensieve</code> already runs it.</p>
+<p>Read your site back once after the update — it is the cheapest check there is:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> check</span></span></code></pre>
 <h2 id="what-changes-on-its-own">What changes on its own</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>What</th><th>In 0.3</th></tr></thead><tbody><tr><td>Pages with <code>authors</code>, <code>date</code> or <code>modified</code></td><td>Open with a byline naming the authors and dates</td></tr></tbody></table></div>
-<p>Nothing to change, but something to know: those three fields already existed,
-read by the sitemap and the page data without ever being shown. They are now
-shown, so a page that carries them gains a block it did not have. A page that
-carries none of them looks exactly as before.</p>
-<p><code>tags</code> follows the same path: read until now only by the page data, it now
-shows at the bottom of every page that carries it.</p>
-<p>One constraint is gone, too. A <code>sidebar</code> or <code>authors</code> file named in the
-configuration no longer has to exist in every version folder: a version
-without it keeps the menu of its folders, or shows the names alone.</p>
-<p>On a narrow screen, the header changes for every site: the version switcher and
-the search field move behind a menu button. Nothing to configure — <code>headerLinks</code>
-only adds links to that menu.</p>
-<h2 id="what-to-turn-on">What to turn on</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Gives</th></tr></thead><tbody><tr><td><code>authors: &#x27;authors.json&#x27;</code></td><td>Biographies, avatars and links, described per version</td></tr><tr><td><code>&lt;Cards /&gt;</code> in an index page</td><td>A grid of cards built from the pages of the folder</td></tr></tbody></table></div>
-<p>Both are described where they are used: authors and dates in
-<a href="/versions/latest/guide/writing-pages/">Writing pages</a>, the grid in <a href="/versions/latest/components/cards/">Cards</a>.</p></article>
+<p><strong>On a narrow screen, the documentation menu now folds above the content</strong>
+instead of standing open between the header and the text. Nothing to
+configure, and nothing to undo: on a wide screen the menu is unchanged.</p>
+<p>Nothing else moves. Your pages, your configuration and your theme folder are
+read exactly as before.</p>
+<h2 id="what-is-worth-turning-on">What is worth turning on</h2>
+<p>Each of these is one line of <code>docpensieve.config.mjs</code>. None depends on
+another.</p>
+<h3 id="a-menu-that-folds">A menu that folds</h3>
+<p>Past twenty or so pages, a menu that shows everything asks the reader to scroll
+past what does not concern them:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">foldedSidebar</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>The categories fold, and the branch of the page being read opens on its own.
+A category that is also a page keeps its page as the first entry — the handle
+of a fold cannot be a link.</p>
+<h3 id="links-in-the-header">Links in the header</h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">headerLinks</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { label: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;Blog&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, href: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;/blog/&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { label: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;Repository&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, href: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;https://example.com/repo&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">],</span></span></code></pre>
+<p>A target starts from the root of a version, or is a full address. An entry
+carrying <code>columns</code> opens a panel instead of leading anywhere; <code>href</code> and
+<code>columns</code> together are refused, an entry doing one thing or the other.</p>
+<p>See <a href="/versions/latest/guide/navigation/">Navigation</a> for the panel and for what happens on a phone.</p>
+<h3 id="a-header-that-scrolls-away">A header that scrolls away</h3>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">stickyHeader</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">false</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>The header gives its height back to the text instead of holding to the top of
+the screen. It stays held by default.</p>
+<h3 id="blocks-that-stand-apart">Blocks that stand apart</h3>
+<p>Six kinds ship — <code>note</code>, <code>info</code>, <code>tip</code>, <code>attention</code>, <code>alert</code>, <code>danger</code> — and
+need no configuration:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Admonition</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> type</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;attention&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;Read this before upgrading.&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Admonition</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>Kinds of your own take a label and a tone:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">admonitions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  review</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">label</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;To review&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#6F42C1;--shiki-dark:#B392F0">tone</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;attention&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
+<p>A kind nobody declared stops the build rather than rendering a block with no
+colour and no label. See <a href="/versions/latest/components/admonition/">Admonition</a>.</p>
+<h3 id="icons-from-a-set">Icons from a set</h3>
+<p>Beside a file of your project, <code>LogoIcon</code> accepts the name of an icon from a
+collection:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --save-dev</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @iconify-json/simple-icons</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">LogoIcon</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> src</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;simple-icons:github&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Repository&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>The set is read at the build and the drawing placed in the page: no request
+leaves your reader&#x27;s browser. See <a href="/versions/latest/components/logo-icon/">LogoIcon</a>.</p>
+<h2 id="what-to-check-afterwards">What to check afterwards</h2>
+<ul>
+<li><strong>Your own CSS</strong>, if the theme folder styles the header or the menu: the
+folded menu adds <code>details</code> and <code>summary</code> elements where there were only
+links, and a static header no longer carries <code>position: sticky</code>.</li>
+<li><strong>A link to a heading</strong>, if you turned the sticky header off: the space kept
+above an anchor goes away with it, which is the point.</li>
+<li><strong><code>npx docpensieve check</code></strong>, which reads the built site back and reports dead
+links and invalid markup.</li>
+</ul>
+<p>None of this is required. A project that turns none of it on is a 0.3 project
+that happens to be running the 0.4.</p></article>
         <ul class="dp-tags" aria-label="Tags">
           <li class="dp-tag">guide</li><li class="dp-tag">migration</li>
         </ul>
@@ -501,14 +633,34 @@ only adds links to that menu.</p>
             <a href="#what-changes-on-its-own">What changes on its own</a>
           </li>
           <li class="dp-toc-item">
-            <a href="#what-to-turn-on">What to turn on</a>
+            <a href="#what-is-worth-turning-on">What is worth turning on</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#a-menu-that-folds">A menu that folds</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#links-in-the-header">Links in the header</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#a-header-that-scrolls-away">A header that scrolls away</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#blocks-that-stand-apart">Blocks that stand apart</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#icons-from-a-set">Icons from a set</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-to-check-afterwards">What to check afterwards</a>
           </li>
         </ul>
       </nav>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.3.0</p>
+      <p>DocPensieve — version 0.4.0</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">
