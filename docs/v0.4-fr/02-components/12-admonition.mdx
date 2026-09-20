@@ -1,0 +1,158 @@
+---
+title: Admonition
+description: Un bloc mis à part du texte, qui dit comment le lire — et les types qu'un projet ajoute.
+---
+
+# Admonition
+
+Une admonition met un passage à part et dit comment le lire : un conseil, une
+mise en garde, un danger. Six types sont livrés avec l'outil, et un projet
+déclare les siens plutôt que d'attendre que cette liste grandisse.
+
+## Les six types
+
+<Admonition type="note">Une remarque à côté du texte. Rien n'est en jeu.</Admonition>
+
+<Admonition type="info">
+  Un élément de contexte bon à savoir, dont la phrase qui précède n'avait pas besoin.
+</Admonition>
+
+<Admonition type="tip">
+  Un raccourci, une habitude à prendre. Le lecteur ne perd rien à le sauter.
+</Admonition>
+
+<Admonition type="attention">
+  Quelque chose de facile à rater. Continuer sans le savoir coûte du temps.
+</Admonition>
+
+<Admonition type="alert">
+  Quelque chose qui se passe maintenant : une version qui n'est plus maintenue, un service qui
+  s'arrête.
+</Admonition>
+
+<Admonition type="danger">
+  Ce que coûte un faux pas : des données perdues, un site hors ligne.
+</Admonition>
+
+```mdx
+<Admonition type="tip">Un raccourci, une habitude à prendre.</Admonition>
+```
+
+Sans `type`, le bloc est une **note**.
+
+## Un titre à soi
+
+<Admonition type="attention" title="À lire avant de mettre à jour">
+  Le libellé du type cède la place au titre que vous écrivez.
+</Admonition>
+
+```mdx
+<Admonition type="attention" title="À lire avant de mettre à jour">
+  …
+</Admonition>
+```
+
+## Des types à vous
+
+Un type est un **libellé** et un **ton**. Le ton porte la couleur, prise au
+thème : un nouveau type ne demande donc aucune feuille de style et suit le
+thème actif, quel qu'il soit.
+
+```js
+// docpensieve.config.mjs
+admonitions: {
+  review: { label: 'À relire', tone: 'attention' },
+  legal: { label: 'Mention légale', tone: 'info' },
+},
+```
+
+```mdx
+<Admonition type="review">Cette section attend une seconde paire d'yeux.</Admonition>
+```
+
+### Une marque à soi
+
+Un type peut porter une icône à la place du dessin de son ton — le logo d'un
+outil, la marque d'une équipe. Il nomme un SVG du dossier de version, ou une
+icône d'un jeu, et les deux sont posés dans la page à la génération :
+
+```js
+admonitions: {
+  review: { label: 'À relire', tone: 'attention', icon: '/icons/review.svg' },
+  shipped: { label: 'Livré', tone: 'tip', icon: 'simple-icons:github' },
+},
+```
+
+Un fichier qui n'existe pas arrête la génération, en nommant le chemin
+cherché. Un jeu d'icônes est un paquet que le projet installe — voir
+[LogoIcon](./logo-icon/) — et un jeu absent l'arrête aussi.
+
+Les tons sont `note`, `info`, `tip`, `attention` et `danger`. Un type que
+personne n'a déclaré arrête la génération, en listant ceux qui existent : rendu
+quand même, le bloc sortirait sans couleur ni libellé, et rien ne dirait
+pourquoi.
+
+## Mise en forme
+
+Le bloc prend ses couleurs aux jetons du thème — `--dp-tip`, `--dp-attention`,
+`--dp-danger` et leurs fonds `-soft` — et suit donc les schémas clair et sombre
+tout seul.
+
+<ForTheme framework="tailwind">
+
+Un `className` ajoute des utilitaires par-dessus :
+
+<Admonition type="tip" className="shadow-sm">
+  Tenue à part par une ombre.
+</Admonition>
+
+```mdx
+<Admonition type="tip" className="shadow-sm">
+  …
+</Admonition>
+```
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Un `className` nomme une classe à vous, écrite dans le dossier `theme/` :
+
+<Admonition type="tip" className="admonition-quiet">
+  Tenue à part par une ombre.
+</Admonition>
+
+```mdx
+<Admonition type="tip" className="admonition-quiet">
+  …
+</Admonition>
+```
+
+```css
+/* theme/99-docpensieve.css */
+.admonition-quiet {
+  box-shadow: 0 2px 8px var(--dp-shadow);
+}
+```
+
+</ForTheme>
+
+## Ce qu'elle porte
+
+Un bloc contient ce que contient une page — plusieurs paragraphes, une liste,
+un bloc de code :
+
+<Admonition type="danger" title="Avant de supprimer une version">
+  Retirer une version de la configuration retire ses pages du site.
+
+- son adresse cesse de répondre ;
+- les liens qui la visaient depuis ailleurs ne mènent nulle part.
+
+Sa branche orpheline garde ce qui a été généré, et l'historique garde les sources.
+
+</Admonition>
+
+## Sans JavaScript
+
+Comme tous les composants d'ici, elle est rendue à la génération. C'est un
+`aside` annoncé comme une note, avec son icône masquée aux lecteurs d'écran —
+le titre à côté dit déjà le type, et le dire deux fois n'aide personne.
