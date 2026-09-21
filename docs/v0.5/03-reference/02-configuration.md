@@ -65,6 +65,7 @@ can change.
 | `stickyHeader`     | `true`              | The header stays at the top of the screen; `false` lets it scroll away                             |
 | `globalComponents` | `true`              | Shipped components available without an import                                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                                   |
+| `copyCode`         | `false`             | A button copying each block of code — the one field that makes a content page load a script        |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                                                    |
 | `lang`             | `'en'`              | Language of the site: `<html lang>`, and the wording of the shell                                  |
 | `ui`               | `{}`                | Wording of the shell, by language — corrects a word, or adds a language                            |
@@ -134,6 +135,23 @@ JavaScript, the page stays the full list of pages.
 The search page is kept out of search engines (`noindex`) and out of the
 sitemap. A page of your own at `/search/` would take its place: the build
 refuses it, and `search: false` frees the address.
+
+## `copyCode`
+
+`copyCode: true` puts a button on every block of code, which copies it.
+
+It is off by default, because it is the one field that makes an ordinary page
+load a script. Turned on, the behaviour is written **once per version**, in
+`assets/client.js` beside the stylesheet, and shared by every page and every
+language — a reader who has it in cache pays for it once. Only the pages that
+hold a block of code load it; the others go on loading nothing.
+
+About two kilobytes, compressed. No framework, no hydration: the code is plain
+DOM, and the button is drawn by the script itself. Without JavaScript the
+block is exactly what it was, text you can select — nothing is missing but
+the button.
+
+The label follows the language of the page, in English and in French.
 
 ## `versions`
 

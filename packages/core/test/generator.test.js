@@ -1753,3 +1753,75 @@ describe('a version in two languages', () => {
     expect(failure.hint).toContain('docs/v1.0-fr');
   });
 });
+
+describe('the client script a version may carry', () => {
+  const code = ['# Title', '', '```js', 'const a = 1;', '```'].join('\n');
+  const withCode = `---\ntitle: Guide\n---\n\n${code}\n`;
+
+  it('is loaded only by the pages that have something for it to do', async () => {
+    // What replaced the rule of no script at all (ADR-021): the reader pays
+    // for what the page uses, and a page with no code block uses nothing.
+    const config = project({ 'index.md': page('Home'), 'guide.md': withCode }, { copyCode: true });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(read(out, 'guide', 'index.html')).toContain('assets/client.js');
+    expect(read(out, 'index.html')).not.toContain('client.js');
+  });
+
+  it('is written once for the version, beside the stylesheet', async () => {
+    const config = project({ 'guide.md': withCode }, { copyCode: true });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(existsSync(path.join(out, 'assets', 'client.js'))).toBe(true);
+    expect(read(out, 'assets', 'client.js')).toContain('dp-copy');
+  });
+
+  it('is addressed from the version root, not from the language', async () => {
+    // The stylesheet made this mistake once: a translated page looked for it
+    // under /fr/, where it was never written, and every French page came out
+    // unstyled without a single test noticing.
+    const rootDir = mkdtempSync(path.join(tmpdir(), 'docpensieve-gen-'));
+    created.push(rootDir);
+    for (const [folder, body] of [
+      ['docs/v1.0', withCode],
+      ['docs/v1.0-fr', `---\ntitle: Guide\n---\n\n${code}\n`],
+    ]) {
+      mkdirSync(path.join(rootDir, folder), { recursive: true });
+      writeFileSync(path.join(rootDir, folder, 'guide.md'), body, 'utf8');
+    }
+
+    const config = normalizeConfig({
+      projectName: 'My docs',
+      copyCode: true,
+      versions: [
+        {
+          slug: 'v1.0',
+          name: '1.0',
+          folder: 'docs/v1.0',
+          current: true,
+          translations: { fr: 'docs/v1.0-fr' },
+        },
+      ],
+    });
+    config.rootDir = rootDir;
+    const out = path.join(rootDir, 'out');
+    await generatorFor(/** @type {any} */ (config)).buildVersion('v1.0', out);
+
+    const french = read(out, 'fr', 'guide', 'index.html');
+    expect(french).toContain('/versions/v1.0/assets/client.js');
+    expect(french).not.toContain('/fr/assets/client.js');
+  });
+
+  it('is not written at all when the project did not ask for it', async () => {
+    // The default: a site upgrading to this version must not start making its
+    // readers download something it never asked for.
+    const config = project({ 'guide.md': withCode });
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    expect(existsSync(path.join(out, 'assets', 'client.js'))).toBe(false);
+    expect(read(out, 'guide', 'index.html')).not.toContain('client.js');
+  });
+});

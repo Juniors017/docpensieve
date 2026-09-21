@@ -20,6 +20,19 @@ endroit où quelque chose est écrit.
 
 ## Déjà là
 
+### Un bouton qui copie un bloc de code
+
+`copyCode: true` pose un bouton de copie sur chaque bloc de code. C'est la
+première chose qu'une page DocPensieve demande à un lecteur de charger : elle
+reste donc éteinte tant que vous ne la demandez pas — et alors le comportement
+est écrit une fois par version, partagé par toutes les pages et toutes les
+langues, et chargé par les seules pages qui contiennent du code. Deux
+kilooctets environ, compressés ; aucun framework, aucune hydratation.
+
+C'est la règle du zéro script qui cède la place à une règle qui se mesure :
+une page ne charge que ce qu'elle emploie.
+[Le champ](./reference/configuration/)
+
 ### Un bloc de code qui désigne un fichier
 
 `Snippet` montre un vrai fichier de votre projet, lu à la génération de la

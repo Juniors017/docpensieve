@@ -108,6 +108,52 @@
   font-size: inherit;
 }
 
+/*
+ * Copy button on a block of code. Drawn by the client script, so these rules
+ * only ever meet an element that already works: nothing here appears on a
+ * page that loads no script.
+ */
+.dp-article pre.dp-has-copy {
+  position: relative;
+}
+
+.dp-article .dp-copy {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--dp-border);
+  border-radius: var(--dp-radius);
+  background: var(--dp-bg);
+  color: var(--dp-text-soft);
+  font-family: var(--dp-font);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  cursor: pointer;
+  /* Out of the way until the reader goes near the block, and always there for
+     the keyboard: hiding it outright would put it out of reach. */
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.dp-article pre:hover .dp-copy,
+.dp-article .dp-copy:focus-visible {
+  opacity: 1;
+}
+
+.dp-article .dp-copy--done {
+  opacity: 1;
+  border-color: var(--dp-accent);
+  color: var(--dp-accent);
+}
+
+/* A pointer that cannot hover — a touch screen — would never reveal it. */
+@media (hover: none) {
+  .dp-article .dp-copy {
+    opacity: 1;
+  }
+}
+
 /* Search: the field of the header, then the search page. */
 .dp-search input,
 .dp-search-page input {

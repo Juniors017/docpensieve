@@ -20,6 +20,17 @@ written.
 
 ## Already there
 
+### A button that copies a block of code
+
+`copyCode: true` puts a copy button on every block of code. It is the first
+thing a DocPensieve page asks a reader to load, so it is off until you ask for
+it — and then the behaviour is written once per version, shared by every page
+and every language, and loaded only by the pages that hold code. About two
+kilobytes, compressed; no framework, no hydration.
+
+This is the rule of no script at all giving way to one that can be measured:
+a page loads only what it uses. [The field](./reference/configuration/)
+
 ### A code block that names a file
 
 `Snippet` shows a real file of your project, read when the page is generated.

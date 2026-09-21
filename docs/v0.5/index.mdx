@@ -81,6 +81,8 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
 
 ## New in this beta
 
+- **A button that copies a block of code** — `copyCode`, off by default: a
+  page loads only what it uses.
 - **A code block that names a file** — `Snippet` reads a real file of your
   project at generation, so an example cannot go stale.
 - **init asks about languages** — one question, and the project comes out with
@@ -218,7 +220,11 @@ options and the defaults.
 
 Two dials at zero, and that is on purpose: React serves the **build**, not the
 display. What reaches the reader is markup and a stylesheet — and, on this
-site, the few lines of its light / dark switch.
+site, the light / dark switch and the button that copies a block of code:
+about two kilobytes, on the pages that have code, and nowhere else.
+
+That is the promise, and it is the one to hold: not that a page loads nothing,
+but that it loads only what it uses.
 
 ## What sets the tool apart
 

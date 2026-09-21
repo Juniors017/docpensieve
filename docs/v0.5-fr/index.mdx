@@ -82,6 +82,8 @@ Vos fichiers Markdown et MDX deviennent un site statique. Aucun runtime à charg
 
 ## Nouveautés de cette bêta
 
+- **Un bouton qui copie un bloc de code** — `copyCode`, éteint par défaut :
+  une page ne charge que ce qu'elle emploie.
 - **Un bloc de code qui désigne un fichier** — `Snippet` lit un vrai fichier
   de votre projet à la génération : un exemple ne peut plus se périmer.
 - **init demande la langue** — une question, et le projet sort avec sa seconde
@@ -220,7 +222,12 @@ tient aux options et aux défauts.
 
 Deux cadrans à zéro, et c'est voulu : React sert à la **génération**, pas à
 l'affichage. Ce qui parvient au lecteur, c'est du balisage et une feuille de
-style — et, sur ce site, les quelques lignes de son bouton clair / sombre.
+style — et, sur ce site, le bouton clair / sombre et celui qui copie un bloc
+de code : deux kilooctets environ, sur les pages qui ont du code, et nulle
+part ailleurs.
+
+C'est là la promesse, et c'est elle qu'il faut tenir : non pas qu'une page ne
+charge rien, mais qu'elle ne charge que ce qu'elle emploie.
 
 ## Ce qui distingue l'outil
 

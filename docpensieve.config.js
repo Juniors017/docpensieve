@@ -151,5 +151,10 @@ export default defineConfig({
 
   globalComponents: true,
 
+  // A button copying each block of code. It is what makes a page of this site
+  // load a script — one small file, shared by every page of the version, and
+  // only on the pages that have code to copy.
+  copyCode: true,
+
   jsonld: { enabled: true },
 });

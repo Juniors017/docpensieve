@@ -65,6 +65,7 @@ que vous pouvez changer.
 | `stickyHeader`     | `true`              | L'en-tête reste en haut de l'écran ; `false` le laisse défiler                                     |
 | `globalComponents` | `true`              | Composants livrés, disponibles sans import                                                         |
 | `scrollToTop`      | `true`              | Bouton de retour en haut sur chaque page                                                           |
+| `copyCode`         | `false`             | Un bouton copiant chaque bloc de code — le seul champ qui fasse charger un script à une page       |
 | `jsonld`           | `{ enabled: true }` | Données structurées                                                                                |
 | `lang`             | `'en'`              | Langue du site : `<html lang>`, et les mots de la coquille                                         |
 | `ui`               | `{}`                | Mots de la coquille, par langue — corrige un mot, ou ajoute une langue                             |
@@ -136,6 +137,24 @@ un extrait de chacune. Sans JavaScript, la page reste la liste complète.
 La page de recherche est tenue hors des moteurs (`noindex`) et hors du plan du
 site. Une page à vous sous `/search/` prendrait sa place : la génération la
 refuse, et `search: false` libère l'adresse.
+
+## `copyCode`
+
+`copyCode: true` pose sur chaque bloc de code un bouton qui le copie.
+
+Il est éteint par défaut, parce que c'est le seul champ qui fasse charger un
+script à une page ordinaire. Activé, le comportement est écrit **une fois par
+version**, dans `assets/client.js` à côté de la feuille de style, et partagé
+par toutes les pages et toutes les langues — un lecteur qui l'a en cache ne le
+paie qu'une fois. Seules les pages qui contiennent un bloc de code le
+chargent ; les autres continuent de ne rien charger.
+
+Deux kilooctets environ, compressés. Aucun framework, aucune hydratation : le
+code est du DOM nu, et le bouton est dessiné par le script lui-même. Sans
+JavaScript, le bloc est exactement ce qu'il était, du texte qu'on sélectionne
+— il n'y manque que le bouton.
+
+L'étiquette suit la langue de la page, en anglais comme en français.
 
 ## `versions`
 

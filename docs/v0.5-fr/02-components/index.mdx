@@ -70,6 +70,11 @@ Aucun composant ne charge de script. Tout ce qui demande une interaction passe
 donc par des éléments natifs ou par le CSS : `details` pour déplier, un lien
 pour se déplacer, `animation-timeline` pour apparaître au défilement.
 
+Le site, lui, peut ajouter un comportement à une page — `copyCode` pose un
+bouton de copie sur chaque bloc de code — mais c'est un champ que vous activez,
+il arrive dans un fichier partagé par la version, et seules les pages qui
+l'emploient le chargent.
+
 Quand le navigateur ne connaît pas encore l'une de ces propriétés, le composant
 reste utilisable dans son état le plus simple — visible, plein, déplié. Aucun
 n'attend une capacité pour fonctionner.

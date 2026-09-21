@@ -51,8 +51,19 @@ const SEARCH_INDEX = 'assets/search-index.json';
 /** Script of the search page, the only one a site loads. */
 const SEARCH_SCRIPT = 'assets/search.js';
 
+/**
+ * The client file a version may carry (ADR-021).
+ *
+ * One file per version, beside the stylesheet and addressed like it, so that
+ * every language shares the one a reader has already cached. A page that
+ * needs none of its behaviours does not load it: the reader pays for what the
+ * page uses, which is what replaced the rule of no script at all.
+ */
+const CLIENT_SCRIPT = 'assets/client.js';
+
 /** Source of that script, shipped with this package. */
 const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.url));
+const CLIENT_COPY = fileURLToPath(new URL('../client/copy.js', import.meta.url));
 
 /**
  * Targets a preview keeps as they are: another site, an anchor, a data URI.
@@ -91,6 +102,9 @@ const FAVICON_TYPES = { '.ico': 'image/x-icon', '.png': 'image/png', '.svg': 'im
 
 /** Collects the values of the `class` attributes of an HTML document. */
 const CLASS_ATTRIBUTE = /class="([^"]*)"/g;
+
+/** A rendered page that has a block of code for the copy button to fit. */
+const CODE_BLOCK = /<pre[\s>]/;
 
 /** Folders never copied from the sources. */
 const IGNORED_DIRS = new Set(['node_modules', 'dist', 'coverage']);
@@ -290,6 +304,13 @@ export class SiteGenerator {
     const notice = versionNotice(version, current, this.config.baseUrl);
 
     const folded = this.config.foldedSidebar === true;
+    // The client file is addressed from the version root, like the
+    // stylesheet: a translated page must not look for it under its own
+    // language, where it was never written.
+    const copyCode = this.config.copyCode === true;
+    const clientHref =
+      joinUrl(versionRoot, path.dirname(CLIENT_SCRIPT)) + path.basename(CLIENT_SCRIPT);
+    let needsClient = false;
     const layout = await this.#loadLayout();
     const classes = this.#classes();
 
@@ -578,9 +599,13 @@ export class SiteGenerator {
           foldedSidebar: folded,
           toc: wide ? [] : toc,
           preloads,
+          // Only where a behaviour has something to work on: a page without a
+          // block of code has nothing to copy, and loads nothing.
+          scripts: copyCode && CODE_BLOCK.test(html) ? [clientHref] : [],
           content: html,
           jsonld,
         });
+        if (copyCode && CODE_BLOCK.test(html)) needsClient = true;
 
         for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
           for (const token of value.split(/\s+/)) if (token) candidates.add(token);
@@ -653,6 +678,15 @@ export class SiteGenerator {
 
       published.push(...docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })));
       pageTotal += docs.length;
+    }
+
+    // Written once for the version, and only if a page of it asked: a site
+    // whose pages carry no code block ships no script at all.
+    if (needsClient) {
+      const clientFile = path.join(target, ...CLIENT_SCRIPT.split('/'));
+      await mkdir(path.dirname(clientFile), { recursive: true });
+      await copyFile(CLIENT_COPY, clientFile);
+      written.set(clientFile, 'the client script');
     }
 
     // The stylesheet is compiled last: it needs the classes of every language.

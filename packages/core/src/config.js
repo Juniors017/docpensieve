@@ -56,6 +56,9 @@ import {
  *   SVG of the version folder, inlined in place of the tone's drawing.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
+ * @property {boolean} copyCode A button copying each block of code. It is the
+ *   first thing a DocPensieve page asks a reader to load, so it is off until
+ *   a project asks for it.
  * @property {boolean} [stickyHeader] Header held at the top of the screen.
  *   `false` lets it scroll away with the page.
  * @property {{ enabled: boolean }} jsonld
@@ -104,6 +107,7 @@ export const DEFAULT_CONFIG = Object.freeze({
   admonitions: {},
   globalComponents: true,
   scrollToTop: true,
+  copyCode: false,
   // The header stays in reach: search, versions and menu are in it. A site
   // that would rather give the height back to the text turns this off.
   stickyHeader: true,
