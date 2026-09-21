@@ -17,6 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/beta/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/examples/making-it-yours/navigation/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/examples/making-it-yours/navigation/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/examples/making-it-yours/navigation/" />
@@ -31,9 +32,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +85,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -223,6 +224,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
                 </li>
               </ul>
             </details>
@@ -430,6 +434,9 @@
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
                   </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -631,6 +638,11 @@ la seule navigation qui vit dans votre texte plutôt que dans la configuration.<
 <p>Passé une poignée d&#x27;entrées, <code>MenuGroup</code> les range sous un titre — le lecteur
 cesse de lire une liste plate et en lit deux courtes :</p>
 <div class="dp-page-menu"><nav class="dp-page-menu-row" aria-label="Tout le cours"><details class="dp-page-menu-group"><summary class="dp-page-menu-title">Apprendre</summary><div class="dp-page-menu-panel"><a class="dp-page-menu-link" href="/versions/beta/fr/examples/first-steps/">Premiers pas</a><a class="dp-page-menu-link" href="/versions/beta/fr/examples/writing/">Bien écrire</a></div></details><details class="dp-page-menu-group"><summary class="dp-page-menu-title">Publier</summary><div class="dp-page-menu-panel"><a class="dp-page-menu-link" href="/versions/beta/fr/examples/making-it-yours/">À votre main</a><a class="dp-page-menu-link" href="/versions/beta/fr/examples/publishing/">Mise en ligne</a></div></details></nav><details class="dp-page-menu-fold"><summary>Tout le cours</summary><nav class="dp-page-menu-fold-list" aria-label="Tout le cours"><details class="dp-page-menu-group"><summary class="dp-page-menu-title">Apprendre</summary><div class="dp-page-menu-panel"><a class="dp-page-menu-link" href="/versions/beta/fr/examples/first-steps/">Premiers pas</a><a class="dp-page-menu-link" href="/versions/beta/fr/examples/writing/">Bien écrire</a></div></details><details class="dp-page-menu-group"><summary class="dp-page-menu-title">Publier</summary><div class="dp-page-menu-panel"><a class="dp-page-menu-link" href="/versions/beta/fr/examples/making-it-yours/">À votre main</a><a class="dp-page-menu-link" href="/versions/beta/fr/examples/publishing/">Mise en ligne</a></div></details></nav></details></div>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Menu</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Tout le cours&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">MenuGroup</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> title</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Apprendre&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">MenuLink</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> href</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;/examples/first-steps/&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;Premiers pas&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">MenuLink</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">MenuGroup</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Menu</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
 <p>Sur un écran étroit, la rangée se replie derrière son libellé — le même repli
 que l&#x27;en-tête, et pas plus de script que lui.</p>
 <h2 id="sur-un-telephone">Sur un téléphone</h2>
@@ -672,7 +684,7 @@ ce qu&#x27;il obtient.</p></details>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

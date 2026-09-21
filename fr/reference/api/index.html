@@ -31,9 +31,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +84,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -223,6 +223,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
                 </li>
               </ul>
             </details>
@@ -430,6 +433,9 @@
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
                   </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -622,6 +628,16 @@ is what a landing page expects.</p>
 <p>Tones an admonition can take: what colours it, nothing more.</p>
 <p>Here rather than with the component: the configuration validates the kinds a
 project declares, and <code>core</code> never imports <code>components</code> (ADR-002).</p>
+<h3 id="snippet-languages"><code>SNIPPET_LANGUAGES</code></h3>
+<p><code>SNIPPET_LANGUAGES</code></p>
+<p>What a block of code shows of its language: a short mark, and a colour.</p>
+<p>The colour is the one that language is known by. It is used as an accent —
+a rule above the block and the mark beside its name — never as a
+background or a text colour, so it cannot fight the theme or fail a
+contrast check. A project that wants none of it sets its own.</p>
+<p>The icon name is the slug of an icon collection. It is only ever read when
+a project declares a set to take it from: a documentation installed in a
+project that has none must still build.</p>
 <h3 id="docpensieveerror"><code>DocPensieveError</code></h3>
 <p><code>class DocPensieveError</code></p>
 <p>Expected domain error — the CLI prints it without a stack trace.</p>
@@ -889,6 +905,36 @@ written. It is what lets a project name its authors before describing them,
 and what keeps pages written before the file working.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>unknown</code></td><td><code>authors</code> from the frontmatter: one name or a list.</td></tr><tr><td><code>[table]</code></td><td><code>Map&lt;string, Author&gt;</code></td><td></td></tr></tbody></table></div>
 <p><strong>Renvoie</strong> <code>Author[]</code></p>
+<h3 id="snippet-languages-1"><code>SNIPPET_LANGUAGES</code></h3>
+<p><code>SNIPPET_LANGUAGES</code></p>
+<p>Languages an extension announces, where the extension is not the name Shiki
+knows. Anything absent is passed on as it is written: Shiki knows far more
+languages than this table needs to repeat.</p>
+<h3 id="snippetlanguage"><code>snippetLanguage</code></h3>
+<p><code>snippetLanguage(file)</code></p>
+<p>Language of a file, from its name.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>file</code></td><td><code>string</code></td><td>Path or name of the file.</td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>string</code> — A language for the highlighter, or <code>&#x27;text&#x27;</code> when the name says nothing — an extensionless file is not a reason to fail.</p>
+<h3 id="snippetlines"><code>snippetLines</code></h3>
+<p><code>snippetLines(text, [what])</code></p>
+<p>The lines a snippet keeps, of the whole file.</p>
+<p>A range is quick to write and ages badly: it means line 12 of the file as
+it is today. A region is a marker left in the source itself — the comment
+convention editors already fold on — and it follows the code when it moves,
+which is the whole point of naming a file rather than copying it.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>text</code></td><td><code>string</code></td><td>Content of the file.</td></tr><tr><td><code>[what]</code></td><td><code>{ lines?: string, region?: string, file?: string }</code></td><td><code>lines</code> is <code>12</code>, <code>12-40</code>, <code>12-</code> or <code>-40</code>; <code>region</code> is the name marked in the file.</td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>string</code> — The lines kept, their common indentation removed.</p>
+<p><strong>Lève</strong> <code>CompileError</code> — A range that reads backwards, or a region no marker opens or closes.</p>
+<h3 id="snippetpath"><code>snippetPath</code></h3>
+<p><code>snippetPath(source, context)</code></p>
+<p>The file a snippet names, as an absolute path.</p>
+<p>Two ways to write it, and they read differently on purpose: <code>./</code> and <code>../</code>
+start from the page, as a link does, while anything else starts from the
+root of the project — <code>src/index.js</code> means the same thing from every page,
+which is what a file of source code needs.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>source</code></td><td><code>string</code></td><td>What the page wrote.</td></tr><tr><td><code>context</code></td><td><code>{ filepath?: string, rootDir?: string }</code></td><td>Page being compiled, and root of the project.</td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>string</code> — Absolute path of the file to read.</p>
+<p><strong>Lève</strong> <code>CompileError</code> — Empty source, a relative path with no page to start from, or a file outside the project.</p>
 <h2 id="docpensieve-theme"><code>@docpensieve/theme</code></h2>
 <p>Les providers de thème et le moteur qui les compose.</p>
 <h3 id="basethemeprovider"><code>BaseThemeProvider</code></h3>
@@ -1060,6 +1106,18 @@ is read from the writing, with no prop to set.</p>
 <p>Named gauge, from 0 to 100.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, name?: any, level?: number, showValue?: boolean, shape?: string, icon?: any, color?: string, label?: string, }</code></td><td><code>children</code> stands as a comment under the gauge. <code>showValue</code> hides the numeric percentage without touching what the gauge announces. <code>shape</code> picks between the bar and the circle. <code>icon</code> goes before the name — a <code>LogoIcon</code> fits there. <code>color</code> tints the fill: any CSS colour, the accent colour by default. <code>label</code> names the gauge for screen readers when <code>name</code> is not text.</td></tr></tbody></table></div>
 <p><strong>Lève</strong> <code>DocPensieveError</code> — Without a name, outside 0–100, or with an unknown shape.</p>
+<h3 id="snippet"><code>Snippet</code></h3>
+<p><code>Snippet(props)</code></p>
+<p>A code block, framed and labelled.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, source?: string, title?: string, lang?: string, lines?: string, region?: string, collapsed?: boolean, icon?: string, }</code></td><td><code>source</code> names a file of the project, read at generation; <code>lines</code> or <code>region</code> keep part of it; <code>title</code> replaces the file name shown above the block. Without <code>source</code>, the block is the one written in the page.</td></tr></tbody></table></div>
+<p><strong>Lève</strong> <code>DocPensieveError</code> — With neither a file nor a block of its own.</p>
+<h3 id="getsnippeticons"><code>getSnippetIcons</code></h3>
+<p><code>getSnippetIcons()</code></p>
+<p>@returns {string} The collection in use, or <code>&#x27;&#x27;</code>.</p>
+<h3 id="setsnippeticons"><code>setSnippetIcons</code></h3>
+<p><code>setSnippetIcons([prefix])</code></p>
+<p>Declares the collection snippet icons are taken from.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[prefix]</code></td><td><code>string</code></td><td>Prefix of an icon collection, <code>simple-icons</code>.</td></tr></tbody></table></div>
 <h3 id="logoicon"><code>LogoIcon</code></h3>
 <p><code>LogoIcon(props)</code></p>
 <p>Project SVG icon, inlined in the page.</p>
@@ -1220,6 +1278,9 @@ one, which makes it usable elsewhere and testable on its own.</p>
                 <a href="#admonition-tones">ADMONITION_TONES</a>
               </li>
               <li class="dp-toc-item">
+                <a href="#snippet-languages">SNIPPET_LANGUAGES</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#docpensieveerror">DocPensieveError</a>
               </li>
               <li class="dp-toc-item">
@@ -1353,6 +1414,18 @@ one, which makes it usable elsewhere and testable on its own.</p>
               <li class="dp-toc-item">
                 <a href="#resolvepageauthors">resolvePageAuthors</a>
               </li>
+              <li class="dp-toc-item">
+                <a href="#snippet-languages-1">SNIPPET_LANGUAGES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#snippetlanguage">snippetLanguage</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#snippetlines">snippetLines</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#snippetpath">snippetPath</a>
+              </li>
             </ul>
           </li>
           <li class="dp-toc-item">
@@ -1475,6 +1548,15 @@ one, which makes it usable elsewhere and testable on its own.</p>
                 <a href="#skill">Skill</a>
               </li>
               <li class="dp-toc-item">
+                <a href="#snippet">Snippet</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#getsnippeticons">getSnippetIcons</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#setsnippeticons">setSnippetIcons</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#logoicon">LogoIcon</a>
               </li>
               <li class="dp-toc-item">
@@ -1546,7 +1628,7 @@ one, which makes it usable elsewhere and testable on its own.</p>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

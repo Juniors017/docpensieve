@@ -18,6 +18,7 @@
     <link rel="preload" as="image" href="/versions/beta/fr/icons/logo.jpg" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/beta/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -155,7 +156,7 @@
   <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
   <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
   <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
-</svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Composants</strong><p>Douze composants utilisables sans import, aucun avec du JavaScript.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/fr/reference/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+</svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Composants</strong><p>Treize composants utilisables sans import, aucun avec du JavaScript.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/fr/reference/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M8 6h13M8 12h13M8 18h13" />
   <path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" />
 </svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Référence</strong><p>Commandes, configuration, frontmatter et thème.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/fr/architecture/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -166,6 +167,10 @@
 </svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Architecture</strong><p>Comment une page devient du HTML, et pourquoi ainsi.</p></div></a></div></div>
 <h2 id="nouveautes-de-cette-beta">Nouveautés de cette bêta</h2>
 <ul>
+<li><strong>Un bouton qui copie un bloc de code</strong> — <code>copyCode</code>, éteint par défaut :
+une page ne charge que ce qu&#x27;elle emploie.</li>
+<li><strong>Un bloc de code qui désigne un fichier</strong> — <code>Snippet</code> lit un vrai fichier
+de votre projet à la génération : un exemple ne peut plus se périmer.</li>
 <li><strong>init demande la langue</strong> — une question, et le projet sort avec sa seconde
 langue câblée : le dossier, le champ de configuration et une page pour
 démarrer.</li>
@@ -219,7 +224,11 @@ tient aux options et aux défauts.</p>
 </svg></span></span>Une feuille par version</div></div></div>
 <p>Deux cadrans à zéro, et c&#x27;est voulu : React sert à la <strong>génération</strong>, pas à
 l&#x27;affichage. Ce qui parvient au lecteur, c&#x27;est du balisage et une feuille de
-style — et, sur ce site, les quelques lignes de son bouton clair / sombre.</p>
+style — et, sur ce site, le bouton clair / sombre et celui qui copie un bloc
+de code : deux kilooctets environ, sur les pages qui ont du code, et nulle
+part ailleurs.</p>
+<p>C&#x27;est là la promesse, et c&#x27;est elle qu&#x27;il faut tenir : non pas qu&#x27;une page ne
+charge rien, mais qu&#x27;elle ne charge que ce qu&#x27;elle emploie.</p>
 <h2 id="ce-qui-distingue-loutil">Ce qui distingue l&#x27;outil</h2>
 <div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">Rien à charger</div><div class="dp-card-body text-sm"><p>Aucune hydratation, aucun paquet à télécharger avant de lire. Une page reste lisible dans
 dix ans, parce que rien ne peut cesser de fonctionner.</p></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">Une version par branche</div><div class="dp-card-body text-sm"><p>Chaque version publiée vit sur sa branche orpheline, avec son historique. Revenir à une
@@ -228,7 +237,7 @@ métadonnées. Rien à écrire deux fois.</p></div></div></div><div class="dp-co
 message et une piste.</p></div></div></div></div>
 <h2 id="la-qualite-en-chiffres">La qualité, en chiffres</h2>
 <div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-7"><p>Ces jauges ne décorent pas : ce sont les mesures du dépôt, relevées à la main —
-rien ne les met à jour tout seul. La <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2bf_">couverture</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2bf_" role="tooltip">Part des lignes exécutées par la suite de tests.</span></span> et le <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4bf_">typage</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4bf_" role="tooltip">TypeScript vérifie les JSDoc du code source et des tests.</span></span> sont contrôlés à chaque poussée.</p><p>Ce qui ne se mesure pas ne s&#x27;améliore pas — et ce qui ne se vérifie pas à
+rien ne les met à jour tout seul. La <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2bh_">couverture</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2bh_" role="tooltip">Part des lignes exécutées par la suite de tests.</span></span> et le <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4bh_">typage</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4bh_" role="tooltip">TypeScript vérifie les JSDoc du code source et des tests.</span></span> sont contrôlés à chaque poussée.</p><p>Ce qui ne se mesure pas ne s&#x27;améliore pas — et ce qui ne se vérifie pas à
 chaque fois se dégrade.</p></div><div class="dp-column dp-column--span-5"><div class="dp-skill" style="--dp-skill-color:#10b981"><div class="dp-skill-head"><span class="dp-skill-name"><span class="dp-skill-icon"><span class="dp-logo-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
   <path d="m9 12 2 2 4-4" />
@@ -260,7 +269,7 @@ suffit.</p></div></div></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

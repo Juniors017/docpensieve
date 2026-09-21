@@ -17,6 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/beta/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/whats-new/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/whats-new/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/whats-new/" />
@@ -31,9 +32,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +85,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -223,6 +224,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/admonition/">Admonition</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/snippet/">Snippet</a>
                 </li>
               </ul>
             </details>
@@ -430,6 +434,9 @@
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/admonition/">Admonition</a>
                   </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/components/snippet/">Snippet</a>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -565,6 +572,23 @@ while the version installed by default stays the 0.4, documented in the
 reference: this page announces, it is never the only place something is
 written.</p>
 <h2 id="already-there">Already there</h2>
+<h3 id="a-button-that-copies-a-block-of-code">A button that copies a block of code</h3>
+<p><code>copyCode: true</code> puts a copy button on every block of code. It is the first
+thing a DocPensieve page asks a reader to load, so it is off until you ask for
+it — and then the behaviour is written once per version, shared by every page
+and every language, and loaded only by the pages that hold code. About two
+kilobytes, compressed; no framework, no hydration.</p>
+<p>This is the rule of no script at all giving way to one that can be measured:
+a page loads only what it uses. <a href="/versions/beta/reference/configuration/">The field</a></p>
+<h3 id="a-code-block-that-names-a-file">A code block that names a file</h3>
+<p><code>Snippet</code> shows a real file of your project, read when the page is generated.
+An example written by hand is a copy, and a copy stops being true the day the
+code changes, with nothing to report it. A range of lines or a <code>#region</code>
+marker keeps part of the file; <code>collapsed</code> folds a long one into a <code>details</code>,
+still without a script.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Snippet</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> source</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;src/index.js&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> region</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;guard&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>The idea comes from Christophe Avonture.</p>
+<p><a href="/versions/beta/components/snippet/">The component</a></p>
 <h3 id="init-asks-about-languages">init asks about languages</h3>
 <p><code>init</code> now asks whether the site will be in several languages, and sets the
 answer up: the folder beside your pages, <code>translations</code> written out in the
@@ -593,6 +617,12 @@ its own, and what is worth turning on.</p></article>
             <a href="#already-there">Already there</a>
             <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
               <li class="dp-toc-item">
+                <a href="#a-button-that-copies-a-block-of-code">A button that copies a block of code</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#a-code-block-that-names-a-file">A code block that names a file</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#init-asks-about-languages">init asks about languages</a>
               </li>
             </ul>
@@ -605,7 +635,7 @@ its own, and what is worth turning on.</p></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

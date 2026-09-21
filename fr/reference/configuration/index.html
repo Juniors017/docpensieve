@@ -17,6 +17,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/beta/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/reference/configuration/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/reference/configuration/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/reference/configuration/" />
@@ -31,9 +32,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +85,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, changer de version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -223,6 +224,9 @@
                 </li>
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
                 </li>
               </ul>
             </details>
@@ -430,6 +434,9 @@
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/admonition/">Admonition</a>
                   </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
+                  </li>
                 </ul>
               </details>
             </li>
@@ -588,7 +595,7 @@ ne tourne que par <code>npx</code>. Dans un projet qui l&#x27;installe en dépen
 par défaut, ou en commentaire avec un exemple — pour qu&#x27;il vous dise aussi ce
 que vous pouvez changer.</p>
 <h2 id="les-champs">Les champs</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Champ</th><th>Défaut</th><th>Effet</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Nom affiché dans l&#x27;en-tête et dans le JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Adresse publique. Sert au <code>canonical</code> et au JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Préfixe de déploiement. Découle de <code>siteUrl</code> quand il est omis</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Dossier de sortie, relatif à la racine</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>Au moins une entrée</td></tr><tr><td><code>theme</code></td><td>voir plus bas</td><td>Habillage</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code> : le menu suit l&#x27;arborescence. Ou un fichier <code>.json</code> de chaque dossier de version</td></tr><tr><td><code>authors</code></td><td><code>&#x27;&#x27;</code></td><td>Un fichier <code>.json</code> décrivant les auteurs, dans chaque dossier de version qui en a un</td></tr><tr><td><code>headerLinks</code></td><td><code>[]</code></td><td>Liens de l&#x27;en-tête, à côté du sélecteur de version</td></tr><tr><td><code>foldedSidebar</code></td><td><code>false</code></td><td>Les catégories du menu se replient, ouvertes là où se trouve le lecteur</td></tr><tr><td><code>admonitions</code></td><td><code>{}</code></td><td>Types d&#x27;admonition que le projet ajoute aux six livrés : un libellé, un ton, une icône facultative</td></tr><tr><td><code>stickyHeader</code></td><td><code>true</code></td><td>L&#x27;en-tête reste en haut de l&#x27;écran ; <code>false</code> le laisse défiler</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Composants livrés, disponibles sans import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Bouton de retour en haut sur chaque page</td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Données structurées</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Langue du site : <code>&lt;html lang&gt;</code>, et les mots de la coquille</td></tr><tr><td><code>ui</code></td><td><code>{}</code></td><td>Mots de la coquille, par langue — corrige un mot, ou ajoute une langue</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image à côté du nom du projet, dans l&#x27;en-tête</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icône de l&#x27;onglet : <code>.ico</code>, <code>.png</code> ou <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Aperçu d&#x27;une page partagée. A besoin de <code>siteUrl</code></td></tr><tr><td><code>sitemap</code></td><td><code>true</code></td><td><code>sitemap.xml</code> des versions publiées, dès que <code>siteUrl</code> est posé</td></tr><tr><td><code>feed</code></td><td><code>false</code></td><td>Flux RSS des pages datées. A besoin de <code>siteUrl</code></td></tr><tr><td><code>search</code></td><td><code>true</code></td><td>Champ de recherche dans l&#x27;en-tête, et une page de recherche générée avec le site</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Champ</th><th>Défaut</th><th>Effet</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Nom affiché dans l&#x27;en-tête et dans le JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Adresse publique. Sert au <code>canonical</code> et au JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Préfixe de déploiement. Découle de <code>siteUrl</code> quand il est omis</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Dossier de sortie, relatif à la racine</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>Au moins une entrée</td></tr><tr><td><code>theme</code></td><td>voir plus bas</td><td>Habillage</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code> : le menu suit l&#x27;arborescence. Ou un fichier <code>.json</code> de chaque dossier de version</td></tr><tr><td><code>authors</code></td><td><code>&#x27;&#x27;</code></td><td>Un fichier <code>.json</code> décrivant les auteurs, dans chaque dossier de version qui en a un</td></tr><tr><td><code>headerLinks</code></td><td><code>[]</code></td><td>Liens de l&#x27;en-tête, à côté du sélecteur de version</td></tr><tr><td><code>foldedSidebar</code></td><td><code>false</code></td><td>Les catégories du menu se replient, ouvertes là où se trouve le lecteur</td></tr><tr><td><code>admonitions</code></td><td><code>{}</code></td><td>Types d&#x27;admonition que le projet ajoute aux six livrés : un libellé, un ton, une icône facultative</td></tr><tr><td><code>stickyHeader</code></td><td><code>true</code></td><td>L&#x27;en-tête reste en haut de l&#x27;écran ; <code>false</code> le laisse défiler</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Composants livrés, disponibles sans import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Bouton de retour en haut sur chaque page</td></tr><tr><td><code>copyCode</code></td><td><code>false</code></td><td>Un bouton copiant chaque bloc de code — le seul champ qui fasse charger un script à une page</td></tr><tr><td><code>snippetIcons</code></td><td><code>&#x27;&#x27;</code></td><td>Jeu d&#x27;icônes où un bloc de code prend la marque de son langage, <code>&#x27;simple-icons&#x27;</code></td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Données structurées</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Langue du site : <code>&lt;html lang&gt;</code>, et les mots de la coquille</td></tr><tr><td><code>ui</code></td><td><code>{}</code></td><td>Mots de la coquille, par langue — corrige un mot, ou ajoute une langue</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image à côté du nom du projet, dans l&#x27;en-tête</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icône de l&#x27;onglet : <code>.ico</code>, <code>.png</code> ou <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Aperçu d&#x27;une page partagée. A besoin de <code>siteUrl</code></td></tr><tr><td><code>sitemap</code></td><td><code>true</code></td><td><code>sitemap.xml</code> des versions publiées, dès que <code>siteUrl</code> est posé</td></tr><tr><td><code>feed</code></td><td><code>false</code></td><td>Flux RSS des pages datées. A besoin de <code>siteUrl</code></td></tr><tr><td><code>search</code></td><td><code>true</code></td><td>Champ de recherche dans l&#x27;en-tête, et une page de recherche générée avec le site</td></tr></tbody></table></div>
 <h2 id="les-images">Les images</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">logo</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/logo.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">favicon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/favicon.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
@@ -634,6 +641,19 @@ un extrait de chacune. Sans JavaScript, la page reste la liste complète.</p>
 <p>La page de recherche est tenue hors des moteurs (<code>noindex</code>) et hors du plan du
 site. Une page à vous sous <code>/search/</code> prendrait sa place : la génération la
 refuse, et <code>search: false</code> libère l&#x27;adresse.</p>
+<h2 id="copycode"><code>copyCode</code></h2>
+<p><code>copyCode: true</code> pose sur chaque bloc de code un bouton qui le copie.</p>
+<p>Il est éteint par défaut, parce que c&#x27;est le seul champ qui fasse charger un
+script à une page ordinaire. Activé, le comportement est écrit <strong>une fois par
+version</strong>, dans <code>assets/client.js</code> à côté de la feuille de style, et partagé
+par toutes les pages et toutes les langues — un lecteur qui l&#x27;a en cache ne le
+paie qu&#x27;une fois. Seules les pages qui contiennent un bloc de code le
+chargent ; les autres continuent de ne rien charger.</p>
+<p>Deux kilooctets environ, compressés. Aucun framework, aucune hydratation : le
+code est du DOM nu, et le bouton est dessiné par le script lui-même. Sans
+JavaScript, le bloc est exactement ce qu&#x27;il était, du texte qu&#x27;on sélectionne
+— il n&#x27;y manque que le bouton.</p>
+<p>L&#x27;étiquette suit la langue de la page, en anglais comme en français.</p>
 <h2 id="versions"><code>versions</code></h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">versions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { slug: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;v2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, folder: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v2.0&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, current: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
@@ -783,6 +803,9 @@ champ ne commence à compter qu&#x27;à partir de la deuxième.</p></article>
             <a href="#la-recherche">La recherche</a>
           </li>
           <li class="dp-toc-item">
+            <a href="#copycode">copyCode</a>
+          </li>
+          <li class="dp-toc-item">
             <a href="#versions">versions</a>
           </li>
           <li class="dp-toc-item">
@@ -822,7 +845,7 @@ champ ne commence à compter qu&#x27;à partir de la deuxième.</p></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

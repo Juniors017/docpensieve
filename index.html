@@ -18,6 +18,7 @@
     <link rel="preload" as="image" href="/versions/beta/icons/logo.jpg" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/beta/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/beta/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/beta/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/beta/fr/" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
+          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.2, switch version">0.5.0-beta.2</summary>
+            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -155,7 +156,7 @@
   <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
   <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
   <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
-</svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Components</strong><p>Twelve components usable without an import, none of them with JavaScript.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/reference/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+</svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Components</strong><p>Thirteen components usable without an import, none of them with JavaScript.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/reference/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M8 6h13M8 12h13M8 18h13" />
   <path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" />
 </svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Reference</strong><p>Commands, configuration, frontmatter and theme.</p></div></a></div><div class="dp-column"><a class="dp-card h-full" href="/versions/beta/architecture/"><div class="dp-card-body text-sm text-slate-600 dark:text-slate-400"><span class="dp-logo-icon" style="--dp-logo-icon-size:1.75rem;color:var(--dp-accent)" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -166,6 +167,10 @@
 </svg></span><strong class="block mt-3 mb-1 text-base font-semibold">Architecture</strong><p>How a page becomes HTML, and why it works that way.</p></div></a></div></div>
 <h2 id="new-in-this-beta">New in this beta</h2>
 <ul>
+<li><strong>A button that copies a block of code</strong> — <code>copyCode</code>, off by default: a
+page loads only what it uses.</li>
+<li><strong>A code block that names a file</strong> — <code>Snippet</code> reads a real file of your
+project at generation, so an example cannot go stale.</li>
 <li><strong>init asks about languages</strong> — one question, and the project comes out with
 its second language wired: the folder, the configuration field and a page to
 start from.</li>
@@ -218,7 +223,10 @@ options and the defaults.</p>
 </svg></span></span>One stylesheet per version</div></div></div>
 <p>Two dials at zero, and that is on purpose: React serves the <strong>build</strong>, not the
 display. What reaches the reader is markup and a stylesheet — and, on this
-site, the few lines of its light / dark switch.</p>
+site, the light / dark switch and the button that copies a block of code:
+about two kilobytes, on the pages that have code, and nowhere else.</p>
+<p>That is the promise, and it is the one to hold: not that a page loads nothing,
+but that it loads only what it uses.</p>
 <h2 id="what-sets-the-tool-apart">What sets the tool apart</h2>
 <div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">Nothing to load</div><div class="dp-card-body text-sm"><p>No hydration, no bundle to download before reading. A page stays readable in ten years,
 because there is nothing that can stop working.</p></div></div></div><div class="dp-column dp-column--span-6"><div class="dp-card h-full"><div class="dp-card-header">One version per branch</div><div class="dp-card-body text-sm"><p>Each published version lives on its own orphan branch, with its history. Going back to an
@@ -227,7 +235,7 @@ Nothing to write twice.</p></div></div></div><div class="dp-column dp-column--sp
 a hint.</p></div></div></div></div>
 <h2 id="quality-in-figures">Quality, in figures</h2>
 <div class="dp-columns dp-columns--twelfths"><div class="dp-column dp-column--span-7"><p>These gauges are not decorative: they are the repository&#x27;s own measurements,
-taken by hand — nothing updates them on its own. <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2bf_">Coverage</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2bf_" role="tooltip">Share of lines executed by the test suite.</span></span> and <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4bf_">typing</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4bf_" role="tooltip">TypeScript checks the JSDoc of the source code and of the tests.</span></span> are checked on every push.</p><p>What is not measured does not improve — and what is not checked every time
+taken by hand — nothing updates them on its own. <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_2bh_">Coverage</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_2bh_" role="tooltip">Share of lines executed by the test suite.</span></span> and <span class="dp-tooltip dp-tooltip--top"><span class="dp-tooltip-trigger" tabindex="0" aria-describedby="dp-tooltip-_R_4bh_">typing</span><span class="dp-tooltip-bubble" id="dp-tooltip-_R_4bh_" role="tooltip">TypeScript checks the JSDoc of the source code and of the tests.</span></span> are checked on every push.</p><p>What is not measured does not improve — and what is not checked every time
 degrades.</p></div><div class="dp-column dp-column--span-5"><div class="dp-skill" style="--dp-skill-color:#10b981"><div class="dp-skill-head"><span class="dp-skill-name"><span class="dp-skill-icon"><span class="dp-logo-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
   <path d="m9 12 2 2 4-4" />
@@ -259,7 +267,7 @@ enough.</p></div></div></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.2</p>
+      <p>DocPensieve — version 0.5.0-beta.3</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">
