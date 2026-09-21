@@ -117,6 +117,21 @@ Tones an admonition can take: what colours it, nothing more.
 Here rather than with the component: the configuration validates the kinds a
 project declares, and `core` never imports `components` (ADR-002).
 
+### `SNIPPET_LANGUAGES`
+
+`SNIPPET_LANGUAGES`
+
+What a block of code shows of its language: a short mark, and a colour.
+
+The colour is the one that language is known by. It is used as an accent —
+a rule above the block and the mark beside its name — never as a
+background or a text colour, so it cannot fight the theme or fail a
+contrast check. A project that wants none of it sets its own.
+
+The icon name is the slug of an icon collection. It is only ever read when
+a project declares a set to take it from: a documentation installed in a
+project that has none must still build.
+
 ### `DocPensieveError`
 
 `class DocPensieveError`
@@ -1117,9 +1132,25 @@ A code block, framed and labelled.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `props` | `{ className?: string, style?: object, children?: any, source?: string, title?: string, lang?: string, lines?: string, region?: string, collapsed?: boolean, }` | `source` names a file of the project, read at generation; `lines` or `region` keep part of it; `title` replaces the file name shown above the block. Without `source`, the block is the one written in the page. |
+| `props` | `{ className?: string, style?: object, children?: any, source?: string, title?: string, lang?: string, lines?: string, region?: string, collapsed?: boolean, icon?: string, }` | `source` names a file of the project, read at generation; `lines` or `region` keep part of it; `title` replaces the file name shown above the block. Without `source`, the block is the one written in the page. |
 
 **Lève** `DocPensieveError` — With neither a file nor a block of its own.
+
+### `getSnippetIcons`
+
+`getSnippetIcons()`
+
+@returns \{string\} The collection in use, or `''`.
+
+### `setSnippetIcons`
+
+`setSnippetIcons([prefix])`
+
+Declares the collection snippet icons are taken from.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `[prefix]` | `string` | Prefix of an icon collection, `simple-icons`. |
 
 ### `LogoIcon`
 

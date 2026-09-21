@@ -15,9 +15,34 @@
 
 import { createElement as h } from 'react';
 
-import { DocPensieveError } from '@docpensieve/shared';
+import { DocPensieveError, SNIPPET_LANGUAGES } from '@docpensieve/shared';
 
 import { classNames, cls } from './classes.js';
+import { iconSvg, isIconName } from './iconify.js';
+import { LogoIcon } from './logo-icon.js';
+
+/**
+ * Icon collection a project lends to its snippets, set once by the CLI.
+ *
+ * Module state rather than a context, as the theme table is: `core` must not
+ * have to know this package (ADR-002). Empty until a project declares one,
+ * and then the short mark of the language stands in.
+ */
+let iconSet = '';
+
+/**
+ * Declares the collection snippet icons are taken from.
+ *
+ * @param {string} [prefix] Prefix of an icon collection, `simple-icons`.
+ */
+export function setSnippetIcons(prefix = '') {
+  iconSet = String(prefix ?? '');
+}
+
+/** @returns {string} The collection in use, or `''`. */
+export function getSnippetIcons() {
+  return iconSet;
+}
 
 /**
  * A code block, framed and labelled.
@@ -35,7 +60,7 @@ import { classNames, cls } from './classes.js';
  * @param {{
  *   className?: string, style?: object, children?: any,
  *   source?: string, title?: string, lang?: string,
- *   lines?: string, region?: string, collapsed?: boolean,
+ *   lines?: string, region?: string, collapsed?: boolean, icon?: string,
  * }} props `source` names a file of the project, read at generation; `lines`
  *   or `region` keep part of it; `title` replaces the file name shown above
  *   the block. Without `source`, the block is the one written in the page.
@@ -47,10 +72,11 @@ export function Snippet({
   children,
   source,
   title,
+  lang,
+  icon,
   collapsed = false,
   // Read while compiling, and named here so that they never reach the markup
   // as attributes of an unknown element.
-  lang: _lang,
   lines: _lines,
   region: _region,
 }) {
@@ -64,23 +90,71 @@ export function Snippet({
   }
 
   const label = title ?? source;
+  const known = SNIPPET_LANGUAGES[String(lang ?? '').toLowerCase()];
   const body = h('div', { className: cls('snippetBody') }, children);
+
+  // The colour of the language is an accent — a rule above the block, the
+  // mark beside its name — never a background: it must not be able to fight
+  // the theme, nor to fail a contrast check.
+  const framed = {
+    className: classNames(cls('snippet', collapsed && 'collapsed'), className),
+    style: known ? { '--dp-snippet-color': known.color, ...style } : style,
+  };
+
+  const head = label
+    ? [mark(known, icon), h('span', { className: cls('snippetName'), key: 'name' }, label)]
+    : null;
 
   // A folded snippet is a <details>, which needs no script: a long file can
   // then sit in a page without burying what follows it.
   if (collapsed) {
     return h(
       'details',
-      { className: classNames(cls('snippet', 'collapsed'), className), style },
-      label ? h('summary', { className: cls('snippetTitle') }, label) : null,
+      framed,
+      head ? h('summary', { className: cls('snippetTitle') }, head) : null,
       body,
     );
   }
 
   return h(
     'figure',
-    { className: classNames(cls('snippet'), className), style },
-    label ? h('figcaption', { className: cls('snippetTitle') }, label) : null,
+    framed,
+    head ? h('figcaption', { className: cls('snippetTitle') }, head) : null,
     body,
   );
+}
+
+/**
+ * What stands for the language beside the file name.
+ *
+ * The drawing of an icon collection when the project declares one and holds
+ * that icon, the short mark of the language otherwise. Never a failure: the
+ * icon is the engine's idea, not something the page asked for, and a
+ * documentation installed in a project without that collection must still
+ * build.
+ *
+ * @param {{ label: string, icon: string } | undefined} known
+ * @param {string} [icon] Icon named by the page, which wins over both.
+ * @returns {any}
+ */
+function mark(known, icon) {
+  const named = icon ?? (iconSet && known ? `${iconSet}:${known.icon}` : '');
+  if (named && available(named)) {
+    return h(LogoIcon, { className: cls('snippetIcon'), src: named, key: 'mark' });
+  }
+  return known ? h('span', { className: cls('snippetMark'), key: 'mark' }, known.label) : null;
+}
+
+/**
+ * @param {string} name
+ * @returns {boolean} Whether that icon can be drawn at all.
+ */
+function available(name) {
+  if (!isIconName(name)) return true;
+  try {
+    iconSvg(name);
+    return true;
+  } catch {
+    return false;
+  }
 }

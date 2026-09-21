@@ -822,8 +822,15 @@
     overflow: hidden;
   }
 
+  /* The colour of the language, as a rule above the block. An accent, never a
+     background: a component does not get to fight the theme, and a brand
+     colour behind text would fail a contrast check somewhere. */
   .dp-snippet-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     padding: 0.5rem 0.9rem;
+    border-top: 3px solid var(--dp-snippet-color, var(--dp-accent));
     border-bottom: 1px solid var(--dp-border);
     background: var(--dp-bg-soft);
     color: var(--dp-text-soft);
@@ -831,12 +838,28 @@
     font-size: 0.8125rem;
   }
 
-  /* The block already carries the spacing a page gives it; inside the frame
-     it would push the rule away from the code it belongs to. */
-  .dp-snippet-body > pre {
-    margin: 0;
-    border: 0;
-    border-radius: 0;
+  .dp-snippet-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Stands in for the icon where no collection is installed: the same room,
+     the same colour, so the two never look like different components. */
+  .dp-snippet-mark {
+    flex-shrink: 0;
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--dp-snippet-color, var(--dp-accent));
+    border-radius: calc(var(--dp-radius) / 2);
+    color: var(--dp-snippet-color, var(--dp-accent));
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+  }
+
+  .dp-snippet-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   .dp-snippet--collapsed > summary {

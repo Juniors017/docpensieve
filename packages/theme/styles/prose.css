@@ -109,6 +109,19 @@
 }
 
 /*
+ * A block inside a snippet frame: the frame already draws the border and the
+ * spacing. Written here rather than with the component, because the rule it
+ * has to beat is this file's own `.dp-article pre` — and an unlayered rule
+ * wins over a layered one whatever their order. Left in the component layer,
+ * it showed a box inside a box.
+ */
+.dp-article .dp-snippet-body > pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+/*
  * Copy button on a block of code. Drawn by the client script, so these rules
  * only ever meet an element that already works: nothing here appears on a
  * page that loads no script.

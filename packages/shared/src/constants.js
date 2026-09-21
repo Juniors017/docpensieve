@@ -137,3 +137,41 @@ export const DEFAULT_THEME_CLASSES = Object.freeze({
   megaColumn: 'dp-mega-column',
   megaTitle: 'dp-mega-title',
 });
+
+/**
+ * What a block of code shows of its language: a short mark, and a colour.
+ *
+ * The colour is the one that language is known by. It is used as an accent —
+ * a rule above the block and the mark beside its name — never as a
+ * background or a text colour, so it cannot fight the theme or fail a
+ * contrast check. A project that wants none of it sets its own.
+ *
+ * The icon name is the slug of an icon collection. It is only ever read when
+ * a project declares a set to take it from: a documentation installed in a
+ * project that has none must still build.
+ *
+ * @type {Record<string, { label: string, color: string, icon: string }>}
+ */
+export const SNIPPET_LANGUAGES = Object.freeze({
+  javascript: { label: 'JS', color: '#f0d91e', icon: 'javascript' },
+  jsx: { label: 'JSX', color: '#61dafb', icon: 'react' },
+  typescript: { label: 'TS', color: '#3178c6', icon: 'typescript' },
+  tsx: { label: 'TSX', color: '#3178c6', icon: 'typescript' },
+  json: { label: 'JSON', color: '#8a8a8a', icon: 'json' },
+  html: { label: 'HTML', color: '#e34f26', icon: 'html5' },
+  css: { label: 'CSS', color: '#1572b6', icon: 'css' },
+  mdx: { label: 'MDX', color: '#fcb32c', icon: 'mdx' },
+  markdown: { label: 'MD', color: '#5c6ac4', icon: 'markdown' },
+  python: { label: 'PY', color: '#2c628d', icon: 'python' },
+  ruby: { label: 'RB', color: '#cc342d', icon: 'ruby' },
+  rust: { label: 'RS', color: '#b7410e', icon: 'rust' },
+  go: { label: 'GO', color: '#00add8', icon: 'go' },
+  java: { label: 'JAVA', color: '#e76f00', icon: 'openjdk' },
+  php: { label: 'PHP', color: '#7a87b9', icon: 'php' },
+  bash: { label: 'SH', color: '#4eaa25', icon: 'gnubash' },
+  powershell: { label: 'PS', color: '#5391fe', icon: 'powershell' },
+  yaml: { label: 'YAML', color: '#cb171e', icon: 'yaml' },
+  docker: { label: 'DOCKER', color: '#0aa2ce', icon: 'docker' },
+  sql: { label: 'SQL', color: '#dad8d8', icon: 'postgresql' },
+  handlebars: { label: 'HBS', color: '#f0772b', icon: 'handlebarsdotjs' },
+});

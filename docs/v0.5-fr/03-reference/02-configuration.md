@@ -66,6 +66,7 @@ que vous pouvez changer.
 | `globalComponents` | `true`              | Composants livrés, disponibles sans import                                                         |
 | `scrollToTop`      | `true`              | Bouton de retour en haut sur chaque page                                                           |
 | `copyCode`         | `false`             | Un bouton copiant chaque bloc de code — le seul champ qui fasse charger un script à une page       |
+| `snippetIcons`     | `''`                | Jeu d'icônes où un bloc de code prend la marque de son langage, `'simple-icons'`                   |
 | `jsonld`           | `{ enabled: true }` | Données structurées                                                                                |
 | `lang`             | `'en'`              | Langue du site : `<html lang>`, et les mots de la coquille                                         |
 | `ui`               | `{}`                | Mots de la coquille, par langue — corrige un mot, ou ajoute une langue                             |

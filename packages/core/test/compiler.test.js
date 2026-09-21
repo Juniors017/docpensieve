@@ -407,6 +407,30 @@ describe('a snippet, which names a file rather than copying it', () => {
     expect(html).toContain('<figcaption>who.py</figcaption>');
   });
 
+  it('hands the frame the language, whoever said it', async () => {
+    // The frame shows the mark and the colour of the language; it never sees
+    // the file, only what the compiler hands it. A fenced block said its
+    // language and the frame came out unmarked.
+    const Framed = (/** @type {{ lang?: string, children?: any }} */ { lang, children }) =>
+      createElement('figure', { 'data-lang': lang }, children);
+    const withFrame = plain({ components: { Snippet: Framed } });
+
+    const named = await withFrame.compile('<Snippet source="src/add.js" />', { rootDir: root });
+    expect(named.html).toContain('data-lang="javascript"');
+
+    const fenced = await withFrame.compile(
+      ['<Snippet title="a.py">', '', '```python', 'x = 1', '```', '', '</Snippet>'].join('\n'),
+      { rootDir: root },
+    );
+    expect(fenced.html).toContain('data-lang="python"');
+
+    const bare = await withFrame.compile(
+      ['<Snippet title="run.sh">', 'npm run build', '</Snippet>'].join('\n'),
+      { rootDir: root },
+    );
+    expect(bare.html).toContain('data-lang="bash"');
+  });
+
   it('stops the build on a file that is not there, and says where it looked', async () => {
     // A snippet resolving to nothing would leave an empty frame that looks
     // deliberate: it is the one outcome to refuse.

@@ -66,6 +66,7 @@ can change.
 | `globalComponents` | `true`              | Shipped components available without an import                                                     |
 | `scrollToTop`      | `true`              | Back-to-top button on every page                                                                   |
 | `copyCode`         | `false`             | A button copying each block of code — the one field that makes a content page load a script        |
+| `snippetIcons`     | `''`                | Icon collection a code block takes the mark of its language from, `'simple-icons'`                 |
 | `jsonld`           | `{ enabled: true }` | Structured data                                                                                    |
 | `lang`             | `'en'`              | Language of the site: `<html lang>`, and the wording of the shell                                  |
 | `ui`               | `{}`                | Wording of the shell, by language — corrects a word, or adds a language                            |

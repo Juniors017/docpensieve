@@ -156,5 +156,10 @@ export default defineConfig({
   // only on the pages that have code to copy.
   copyCode: true,
 
+  // The mark of a language on a code block comes from the icon collection
+  // installed beside this site. Without it, the short name of the language
+  // stands in — which is what a project that installs none gets.
+  snippetIcons: 'simple-icons',
+
   jsonld: { enabled: true },
 });

@@ -12,6 +12,7 @@ import {
   createRegistry,
   setSiteContext,
   setAdmonitionKinds,
+  setSnippetIcons,
 } from '@docpensieve/components';
 import { SiteGenerator, loadConfig } from '@docpensieve/core';
 import { CONFIG_FILENAME, DocPensieveError, THEME_FOLDER } from '@docpensieve/shared';
@@ -62,6 +63,7 @@ export async function dev(options = {}) {
     // Read again with the rest: a kind added to the configuration must show
     // without restarting the command.
     setAdmonitionKinds(current.admonitions);
+    setSnippetIcons(current.snippetIcons);
     const generator = new SiteGenerator(current, {
       // `globalComponents: false` removes the shipped components: a project
       // that defines its own thus avoids a name collision. The option was

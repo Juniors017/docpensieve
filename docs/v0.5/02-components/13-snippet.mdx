@@ -140,6 +140,24 @@ a syntax error. And a formatter run over your pages reflows what it takes for
 prose: two lines of shell come back as one. Where either applies — which is
 most real code — use the fenced form above.
 
+## The mark of the language
+
+A block carries the colour of its language — a rule above it, and a short mark
+beside the file name. The colour is set as a variable on the frame, so the
+theme decides what it paints and a project can set another.
+
+Where a project installs an icon collection and names it, the drawing replaces
+the mark:
+
+```js
+snippetIcons: 'simple-icons',
+```
+
+It is never a reason to fail. The icon is the tool's idea, not something your
+page asked for: a collection you do not have, or a language it does not draw,
+brings back the mark. `icon="simple-icons:docker"` on a single block wins over
+both.
+
 ## What it refuses
 
 Nothing fails quietly, because a snippet that resolved to nothing would leave
@@ -162,6 +180,7 @@ an empty frame — and an empty frame looks deliberate.
 | `region`    | `string`  | Name marked by `#region` and `#endregion` in the file.                      |
 | `lang`      | `string`  | Language for the highlighting, when the extension says the wrong thing.     |
 | `collapsed` | `boolean` | Folds the block into a `details`.                                           |
+| `icon`      | `string`  | An icon for this block, instead of the mark of its language.                |
 | `className` | `string`  | Classes added to the frame.                                                 |
 | `style`     | `object`  | Inline styles on the frame.                                                 |
 

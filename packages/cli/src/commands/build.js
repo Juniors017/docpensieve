@@ -11,6 +11,7 @@ import {
   createRegistry,
   setSiteContext,
   setAdmonitionKinds,
+  setSnippetIcons,
 } from '@docpensieve/components';
 import { SiteGenerator, loadConfig, resolveVersion } from '@docpensieve/core';
 
@@ -28,6 +29,7 @@ export async function build(versionSlug, options = {}) {
 
   // The kinds a project declares, beside the ones shipped.
   setAdmonitionKinds(config.admonitions);
+  setSnippetIcons(config.snippetIcons);
 
   const generator = new SiteGenerator(config, {
     // `globalComponents: false` removes the shipped components: a project that

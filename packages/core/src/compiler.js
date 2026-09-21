@@ -406,7 +406,12 @@ function remarkSnippets({ filepath, rootDir }) {
       // No file named: the code is written in the page itself.
       const source = read('source');
       if (source === undefined) {
-        inlineCode(node, page, read('lang'), read('title'));
+        const written = inlineCode(node, page, read('lang'), read('title'));
+        // The frame shows the language; without this it knew it only when the
+        // page happened to say so, and a fenced block came out unmarked.
+        if (written && read('lang') === undefined) {
+          attributes.push({ type: 'mdxJsxAttribute', name: 'lang', value: written });
+        }
         return;
       }
 
@@ -429,9 +434,15 @@ function remarkSnippets({ filepath, rootDir }) {
 
       // Put back as a code block: the highlighter, the stylesheet and the
       // table of contents then treat it like any block a page writes itself.
-      node.children = [{ type: 'code', lang: read('lang') ?? snippetLanguage(file), value }];
+      const language = read('lang') ?? snippetLanguage(file);
+      node.children = [{ type: 'code', lang: language, value }];
       if (read('title') === undefined) {
         attributes.push({ type: 'mdxJsxAttribute', name: 'title', value: path.basename(file) });
+      }
+      // Written back so that the frame can show which language this is: the
+      // component never sees the file, only what is handed to it.
+      if (read('lang') === undefined) {
+        attributes.push({ type: 'mdxJsxAttribute', name: 'lang', value: language });
       }
     });
   };
@@ -453,28 +464,29 @@ function remarkSnippets({ filepath, rootDir }) {
  * @param {string} page Source of the page being compiled.
  * @param {string | undefined} lang Language the page declared.
  * @param {string | undefined} title Label, whose extension names a language.
+ * @returns {string | undefined} The language of the block, for the frame.
  */
 function inlineCode(node, page, lang, title) {
   const children = node.children ?? [];
-  if (children.length === 0 || children.some((/** @type {any} */ child) => child.type === 'code')) {
-    return;
-  }
+  if (children.length === 0) return undefined;
+
+  // A fence already says its language: take it rather than rewrite the block.
+  const fenced = children.find((/** @type {any} */ child) => child.type === 'code');
+  if (fenced) return lang ?? fenced.lang ?? undefined;
 
   const first = children[0]?.position?.start?.offset;
   const last = children[children.length - 1]?.position?.end?.offset;
-  if (typeof first !== 'number' || typeof last !== 'number') return;
+  if (typeof first !== 'number' || typeof last !== 'number') return undefined;
 
   // From the start of the line: the indentation of the first line is part of
   // the code, and Markdown has already eaten it once.
   const lineStart = page.lastIndexOf('\n', first - 1) + 1;
 
+  const language = lang ?? snippetLanguage(title ?? '');
   node.children = [
-    {
-      type: 'code',
-      lang: lang ?? snippetLanguage(title ?? ''),
-      value: snippetLines(page.slice(lineStart, last)),
-    },
+    { type: 'code', lang: language, value: snippetLines(page.slice(lineStart, last)) },
   ];
+  return language;
 }
 
 /** Compiles an MDX/Markdown source into an HTML fragment. */

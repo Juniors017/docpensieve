@@ -144,6 +144,25 @@ lignes de shell reviennent collées en une. Dès que l'un des deux s'applique �
 c'est-à-dire pour la plupart du vrai code — employez la forme clôturée
 ci-dessus.
 
+## La marque du langage
+
+Un bloc porte la couleur de son langage — un filet au-dessus, et une courte
+marque à côté du nom de fichier. La couleur est posée en variable sur le
+cadre : c'est donc le thème qui décide de ce qu'elle peint, et un projet peut
+en mettre une autre.
+
+Là où un projet installe un jeu d'icônes et le nomme, le dessin remplace la
+marque :
+
+```js
+snippetIcons: 'simple-icons',
+```
+
+Ce n'est jamais une raison d'échouer. L'icône est l'idée de l'outil, pas une
+demande de votre page : un jeu que vous n'avez pas, ou un langage qu'il ne
+dessine pas, ramène la marque. `icon="simple-icons:docker"` sur un bloc
+l'emporte sur les deux.
+
 ## Ce qu'il refuse
 
 Rien n'échoue en silence : un snippet qui ne trouverait rien laisserait un
@@ -166,6 +185,7 @@ cadre vide — et un cadre vide a l'air voulu.
 | `region`    | `string`  | Nom repéré par `#region` et `#endregion` dans le fichier.                  |
 | `lang`      | `string`  | Langage de la coloration, quand l'extension dit autre chose que la vérité. |
 | `collapsed` | `boolean` | Replie le bloc dans un `details`.                                          |
+| `icon`      | `string`  | Une icône pour ce bloc, à la place de la marque de son langage.            |
 | `className` | `string`  | Classes ajoutées au cadre.                                                 |
 | `style`     | `object`  | Styles en ligne sur le cadre.                                              |
 

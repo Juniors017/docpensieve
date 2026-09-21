@@ -56,6 +56,9 @@ import {
  *   SVG of the version folder, inlined in place of the tone's drawing.
  * @property {boolean} globalComponents
  * @property {boolean} scrollToTop Back-to-top button on every page.
+ * @property {string} snippetIcons Icon collection a snippet takes the mark of
+ *   its language from, `'simple-icons'`. Empty: the short name of the
+ *   language stands in, which needs nothing installed.
  * @property {boolean} copyCode A button copying each block of code. It is the
  *   first thing a DocPensieve page asks a reader to load, so it is off until
  *   a project asks for it.
@@ -108,6 +111,7 @@ export const DEFAULT_CONFIG = Object.freeze({
   globalComponents: true,
   scrollToTop: true,
   copyCode: false,
+  snippetIcons: '',
   // The header stays in reach: search, versions and menu are in it. A site
   // that would rather give the height back to the text turns this off.
   stickyHeader: true,
