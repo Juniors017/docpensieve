@@ -16,6 +16,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="/versions/latest/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
+    <script type="module" src="/versions/latest/assets/client.js"></script>
     <link rel="alternate" hreflang="en" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
     <link rel="alternate" hreflang="x-default" href="https://docpensieve.com/versions/latest/guide/migrate-from-0-3/" />
     <link rel="alternate" hreflang="fr" href="https://docpensieve.com/versions/latest/fr/guide/migrate-from-0-3/" />
@@ -32,7 +33,7 @@
         <details class="dp-versions">
           <summary aria-label="Version 0.4.0, switch version">0.4.0</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/">0.5.0-beta.2</a></li>
+            <li><a href="/versions/beta/">0.5.0-beta.3</a></li>
             <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,7 +86,7 @@
           <details class="dp-versions">
             <summary aria-label="Version 0.4.0, switch version">0.4.0</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/">0.5.0-beta.2</a></li>
+              <li><a href="/versions/beta/">0.5.0-beta.3</a></li>
               <li><a href="/versions/latest/" aria-current="true">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -606,6 +607,12 @@ collection:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">LogoIcon</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> src</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;simple-icons:github&quot;</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;Repository&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
 <p>The set is read at the build and the drawing placed in the page: no request
 leaves your reader&#x27;s browser. See <a href="/versions/latest/components/logo-icon/">LogoIcon</a>.</p>
+<h3 id="a-site-in-several-languages">A site in several languages</h3>
+<p>A version declares the folder of each translation, served under its code:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">translations</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: { </span><span style="color:#6F42C1;--shiki-dark:#B392F0">fr</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;docs/v1.0-fr&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span></code></pre>
+<p>The language of the site keeps its addresses, and a page nobody translated is
+not offered in that language rather than served in another. See
+<a href="/versions/latest/guide/languages/">Languages</a>.</p>
 <h2 id="what-to-check-afterwards">What to check afterwards</h2>
 <ul>
 <li><strong>Your own CSS</strong>, if the theme folder styles the header or the menu: the
@@ -649,6 +656,9 @@ that happens to be running the 0.4.</p></article>
               </li>
               <li class="dp-toc-item">
                 <a href="#icons-from-a-set">Icons from a set</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#a-site-in-several-languages">A site in several languages</a>
               </li>
             </ul>
           </li>
