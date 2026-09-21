@@ -856,10 +856,19 @@
     letter-spacing: 0.04em;
   }
 
+  /*
+   * The logo takes the colour of its language. A brand colour is chosen
+   * against a white page, so some — the yellow of JavaScript — vanish on one
+   * theme or the other: the halo is drawn from the text colour, which means
+   * it darkens on a light page and lightens on a dark one, without either
+   * theme having to know about it.
+   */
   .dp-snippet-icon {
     flex-shrink: 0;
     width: 1.25rem;
     height: 1.25rem;
+    color: var(--dp-snippet-color, var(--dp-text-soft));
+    filter: drop-shadow(0 0 0.5px color-mix(in srgb, var(--dp-text) 55%, transparent));
   }
 
   .dp-snippet--collapsed > summary {

@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { ADMONITION_KINDS } from '@docpensieve/components';
-import { DEFAULT_THEME_CLASSES } from '@docpensieve/shared';
+import { DEFAULT_THEME_CLASSES, SNIPPET_LANGUAGES } from '@docpensieve/shared';
 import { CustomProvider, TailwindProvider } from '@docpensieve/theme';
 import { describe, expect, it } from 'vitest';
 
@@ -94,6 +94,11 @@ describe('what the documentation counts out loud', () => {
       (file) => file.endsWith('.mdx') && file !== 'index.mdx',
     );
     expect(claimed(home, 'components')).toBe(pages.length);
+  });
+
+  it('announces as many marked languages as the table holds', () => {
+    const page = read('02-components/13-snippet.mdx');
+    expect(claimed(page, 'languages')).toBe(Object.keys(SNIPPET_LANGUAGES).length);
   });
 
   it('announces as many admonition kinds as the component ships', () => {

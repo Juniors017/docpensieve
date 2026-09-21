@@ -197,6 +197,15 @@ describe('syntax highlighting', () => {
     expect(html).toContain('--shiki-dark');
   }, 30_000);
 
+  it('does not stop on a language it never heard of', async () => {
+    // It knows several hundred, and a project may well be written in one it
+    // does not. A block it cannot colour must come out as plain text: a build
+    // that stopped here would stop on a word nobody chose.
+    const { html } = await new Compiler().compile('```zzz-not-a-language\nx\n```');
+    expect(html).toContain('zzz-not-a-language');
+    expect(html).toContain('<code');
+  }, 30_000);
+
   it('leaves a raw block when highlighting is off', async () => {
     const { html } = await plain().compile('```js\nconst x = 1;\n```');
     expect(html).not.toContain('shiki');

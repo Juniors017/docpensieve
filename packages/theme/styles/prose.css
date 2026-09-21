@@ -92,7 +92,14 @@
   font-size: 0.86em;
 }
 
+/*
+ * The highlighter knows some three hundred languages and inlines a background
+ * on the blocks it does. Beyond them a block came out on the bare page,
+ * looking like the only one that was not code: this background is what they
+ * fall back to, and an inline style still wins over it.
+ */
 .dp-article pre {
+  background: var(--dp-bg-soft);
   margin: 0 0 1.3rem;
   padding: 0.95rem 1.1rem;
   border: 1px solid var(--dp-border);
