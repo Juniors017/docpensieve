@@ -14,6 +14,34 @@ const ROOT = fileURLToPath(new URL('../../../docs/', import.meta.url));
 const PAIR = { en: 'v0.5', fr: 'v0.5-fr' };
 
 /**
+ * The published version is guarded too: a fix written on one side only is the
+ * way a translation drifts once nobody is watching it any more.
+ */
+const PUBLISHED = { en: 'v0.4', fr: 'v0.4-fr' };
+
+/**
+ * What a page is made of, beyond its words.
+ *
+ * Counting files caught a missing page; it never saw a missing paragraph. A
+ * lesson of the course showed the menu it teaches and, in English only, the
+ * MDX that produces it — the French reader got the result without the code,
+ * and every test passed. These numbers are what that gap looks like.
+ *
+ * @param {string} text
+ * @returns {Record<string, number>}
+ */
+function shapeOf(text) {
+  const count = (/** @type {RegExp} */ pattern) => (text.match(pattern) ?? []).length;
+  return {
+    headings: count(/^#{1,4}\s/gm),
+    fences: count(/^```/gm),
+    bullets: count(/^\s*[-*]\s/gm),
+    rows: count(/^\|/gm),
+    links: count(/\]\(/g),
+  };
+}
+
+/**
  * @param {string} folder
  * @param {RegExp} [keep]
  * @returns {string[]} Paths within the folder, sorted.
@@ -58,5 +86,29 @@ describe('the French translation of the beta', () => {
     });
 
     expect(copied).toEqual([]);
+  });
+});
+
+describe('what the two sides are made of', () => {
+  for (const { name, pair } of [
+    { name: 'the beta', pair: PAIR },
+    { name: 'the published version', pair: PUBLISHED },
+  ]) {
+    it(`matches page by page, in ${name}`, () => {
+      const drifted = pagesOf(pair.en)
+        .map((page) => ({
+          page,
+          en: shapeOf(readFileSync(`${ROOT}${pair.en}/${page}`, 'utf8')),
+          fr: shapeOf(readFileSync(`${ROOT}${pair.fr}/${page}`, 'utf8')),
+        }))
+        .filter(({ en, fr }) => JSON.stringify(en) !== JSON.stringify(fr))
+        .map(({ page, en, fr }) => `${page}: ${JSON.stringify(en)} vs ${JSON.stringify(fr)}`);
+
+      expect(drifted).toEqual([]);
+    });
+  }
+
+  it('has the same pages on both sides of the published version', () => {
+    expect(pagesOf(PUBLISHED.fr)).toEqual(pagesOf(PUBLISHED.en));
   });
 });

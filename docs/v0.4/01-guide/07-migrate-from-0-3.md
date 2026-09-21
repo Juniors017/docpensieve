@@ -111,6 +111,18 @@ npm install --save-dev @iconify-json/simple-icons
 The set is read at the build and the drawing placed in the page: no request
 leaves your reader's browser. See [LogoIcon](../components/logo-icon/).
 
+### A site in several languages
+
+A version declares the folder of each translation, served under its code:
+
+```js
+translations: { fr: 'docs/v1.0-fr' },
+```
+
+The language of the site keeps its addresses, and a page nobody translated is
+not offered in that language rather than served in another. See
+[Languages](./languages/).
+
 ## What to check afterwards
 
 - **Your own CSS**, if the theme folder styles the header or the menu: the
