@@ -33,14 +33,15 @@ Deux façons, et elles ne vieillissent pas pareil.
 Un **intervalle de lignes** s'écrit vite et veut dire « la ligne 12 du fichier
 tel qu'il est aujourd'hui » :
 
-<Snippet source="./snippet-example.js" lines="8" title="Une seule ligne" />
+<Snippet source="./snippet-example.js" lines="9-10" title="Les mots qu'il écarte" />
 
 ```mdx
-<Snippet source="./snippet-example.js" lines="8" title="Une seule ligne" />
+<Snippet source="./snippet-example.js" lines="9-10" title="Les mots qu'il écarte" />
 ```
 
-Écrivez `lines="8"` pour une ligne, `"8-14"` pour un intervalle, `"8-"` de là
-jusqu'à la fin, `"-14"` depuis le début.
+Écrivez `lines="9"` pour une ligne, `"9-10"` pour un intervalle, `"9-"` de là
+jusqu'à la fin, `"-10"` depuis le début. Cela dit ce que le fichier contient
+aujourd'hui, et rien de plus.
 
 Une **région** est un repère laissé dans le fichier source lui-même, dans un
 commentaire. Elle suit le code quand il bouge — ce qui est tout l'intérêt de
@@ -150,6 +151,37 @@ Un bloc porte la couleur de son langage — un filet au-dessus, et une courte
 marque à côté du nom de fichier. La couleur est posée en variable sur le
 cadre : c'est donc le thème qui décide de ce qu'elle peint, et un projet peut
 en mettre une autre.
+
+La même fonction, dans l'autre fichier que lit cette page. Rien n'a été dit du
+langage : l'extension le portait, et avec lui la marque et la couleur.
+
+<Snippet source="./snippet-example.py" region="guard" title="Le même garde-fou, en Python" />
+
+```mdx
+<Snippet source="./snippet-example.py" region="guard" title="Le même garde-fou, en Python" />
+```
+
+Un bloc que la page écrit dit son langage dans sa clôture, et se marque de la
+même façon :
+
+<Snippet title="deploy.yml">
+
+```yaml
+steps:
+  - run: npx docpensieve build
+  - run: npx docpensieve check
+```
+
+</Snippet>
+
+<Snippet title="Une première génération" lang="bash">
+
+```bash
+npx docpensieve init mon-site
+npx docpensieve dev
+```
+
+</Snippet>
 
 Là où un projet installe un jeu d'icônes et le nomme, le dessin remplace la
 marque :

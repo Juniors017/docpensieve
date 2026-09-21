@@ -32,14 +32,15 @@ Two ways, and they do not age the same.
 A **range of lines** is quick to write and means line 12 of the file as it is
 today:
 
-<Snippet source="./snippet-example.js" lines="8" title="A single line" />
+<Snippet source="./snippet-example.js" lines="9-10" title="The words it drops" />
 
 ```mdx
-<Snippet source="./snippet-example.js" lines="8" title="A single line" />
+<Snippet source="./snippet-example.js" lines="9-10" title="The words it drops" />
 ```
 
-Write `lines="8"` for one line, `"8-14"` for a range, `"8-"` from there to the
-end, `"-14"` from the start.
+Write `lines="9"` for one line, `"9-10"` for a range, `"9-"` from there to the
+end, `"-10"` from the start. It says what the file holds today, and only
+today.
 
 A **region** is a marker left in the source file itself, in a comment. It
 follows the code when the code moves, which is the whole point of naming a
@@ -145,6 +146,37 @@ most real code — use the fenced form above.
 A block carries the colour of its language — a rule above it, and a short mark
 beside the file name. The colour is set as a variable on the frame, so the
 theme decides what it paints and a project can set another.
+
+The same function, in the other file this page reads. Nothing was said about
+the language: the extension carried it, and with it the mark and the colour.
+
+<Snippet source="./snippet-example.py" region="guard" title="The same guard, in Python" />
+
+```mdx
+<Snippet source="./snippet-example.py" region="guard" title="The same guard, in Python" />
+```
+
+A block the page writes says its language in the fence, and is marked the same
+way:
+
+<Snippet title="deploy.yml">
+
+```yaml
+steps:
+  - run: npx docpensieve build
+  - run: npx docpensieve check
+```
+
+</Snippet>
+
+<Snippet title="A first build" lang="bash">
+
+```bash
+npx docpensieve init my-site
+npx docpensieve dev
+```
+
+</Snippet>
 
 Where a project installs an icon collection and names it, the drawing replaces
 the mark:
