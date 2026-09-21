@@ -371,6 +371,31 @@ describe('a snippet, which names a file rather than copying it', () => {
     expect(html).toContain('<figcaption>The sum</figcaption>');
   });
 
+  it('takes code typed straight into it, indentation and all', async () => {
+    // Read from the page source, not from the parsed tree: Markdown collapses
+    // the indentation and reads *args as emphasis. The result would be wrong
+    // code, printed as if it were right.
+    const { html } = await withSnippet().compile(
+      ['<Snippet title="who.py">', 'def f(*args):', '    return args', '</Snippet>'].join('\n'),
+      { rootDir: root },
+    );
+
+    expect(html).toContain('def f(*args):');
+    expect(html).toContain('    return args');
+    expect(html).not.toContain('<em>');
+    // The extension of the label says the language when nothing else does.
+    expect(html).toContain('language-python');
+  });
+
+  it('lets the page name the language of code it typed', async () => {
+    const { html } = await withSnippet().compile(
+      ['<Snippet title="A shell" lang="bash">', 'npm run build', '</Snippet>'].join('\n'),
+      { rootDir: root },
+    );
+
+    expect(html).toContain('language-bash');
+  });
+
   it('leaves a block the page wrote itself alone', async () => {
     // Without a file named, the component only asked for the frame.
     const { html } = await withSnippet().compile(

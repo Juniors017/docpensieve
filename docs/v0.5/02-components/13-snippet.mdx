@@ -76,29 +76,69 @@ in a page without burying what follows it.
 <Snippet source="./snippet-example.js" collapsed title="The whole file" />
 ```
 
-## A block you write yourself
+## Code you write yourself
 
-Without `source`, the component only draws the frame around the block the page
-writes. Useful to put a file name above a block that exists nowhere:
+Without `source`, the component frames the code written in the page. A fenced
+block inside the tag is the dependable way to write it: it carries anything,
+braces and `<` included, and no formatter touches what is inside it.
 
-<Snippet title="who_are_you.py">
+<Snippet title="greet.py">
 
 ```python
-name = input("What's your name? ")
-print(f"Hello, {name}!")
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
 ```
 
 </Snippet>
 
 ````mdx
-<Snippet title="who_are_you.py">
+<Snippet title="greet.py">
 
 ```python
-name = input("What's your name? ")
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
 ```
 
 </Snippet>
 ````
+
+The extension of the title names the language; `lang` says it where the title
+does not, as for a shell:
+
+<Snippet title="Build the site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="Build the site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+````
+
+### Code typed straight into the tag
+
+Code written bare inside the tag is read too, from the page as you typed it —
+indentation kept, nothing taken for Markdown:
+
+```mdx
+<Snippet title="who_are_you.py">name = input("What's your name? ")</Snippet>
+```
+
+Two things it cannot carry, both of which happen before any component sees the
+code. A page is MDX, so `{`, `}` and `<` are read as MDX and stop the build on
+a syntax error. And a formatter run over your pages reflows what it takes for
+prose: two lines of shell come back as one. Where either applies — which is
+most real code — use the fenced form above.
 
 ## What it refuses
 

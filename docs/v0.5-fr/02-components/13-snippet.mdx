@@ -77,30 +77,72 @@ ainsi tenir dans une page sans enterrer ce qui la suit.
 <Snippet source="./snippet-example.js" collapsed title="Le fichier entier" />
 ```
 
-## Un bloc que vous écrivez
+## Du code que vous écrivez
 
-Sans `source`, le composant ne dessine que le cadre autour du bloc écrit dans
-la page. Utile pour poser un nom de fichier au-dessus d'un bloc qui n'existe
-nulle part :
+Sans `source`, le composant encadre le code écrit dans la page. Un bloc
+clôturé à l'intérieur de la balise est la façon sûre de l'écrire : il porte
+n'importe quoi, accolades et `<` compris, et aucun formateur ne touche à ce
+qu'il contient.
 
-<Snippet title="who_are_you.py">
+<Snippet title="greet.py">
 
 ```python
-name = input("What's your name? ")
-print(f"Hello, {name}!")
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
 ```
 
 </Snippet>
 
 ````mdx
-<Snippet title="who_are_you.py">
+<Snippet title="greet.py">
 
 ```python
-name = input("What's your name? ")
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
 ```
 
 </Snippet>
 ````
+
+L'extension du titre nomme le langage ; `lang` le dit là où le titre ne le dit
+pas, pour un shell par exemple :
+
+<Snippet title="Générer le site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="Générer le site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+````
+
+### Du code tapé à nu dans la balise
+
+Le code écrit à nu dans la balise est lu lui aussi, dans la page telle que vous
+l'avez tapée — indentation gardée, rien de pris pour du Markdown :
+
+```mdx
+<Snippet title="who_are_you.py">name = input("What's your name? ")</Snippet>
+```
+
+Deux choses qu'il ne peut pas porter, et toutes deux arrivent avant qu'aucun
+composant ne voie le code. Une page est du MDX : `{`, `}` et `<` y sont lus
+comme du MDX et arrêtent la génération sur une erreur de syntaxe. Et un
+formateur passé sur vos pages reflue ce qu'il prend pour de la prose : deux
+lignes de shell reviennent collées en une. Dès que l'un des deux s'applique —
+c'est-à-dire pour la plupart du vrai code — employez la forme clôturée
+ci-dessus.
 
 ## Ce qu'il refuse
 

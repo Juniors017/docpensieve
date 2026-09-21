@@ -386,10 +386,11 @@ function compileError(cause, filepath) {
  *
  * @param {{ filepath?: string, rootDir?: string }} context Page being
  *   compiled, and root of the project.
- * @returns {() => (tree: any) => void}
+ * @returns {() => (tree: any, file: any) => void}
  */
 function remarkSnippets({ filepath, rootDir }) {
-  return () => (tree) => {
+  return () => (/** @type {any} */ tree, /** @type {any} */ file) => {
+    const page = String(file?.value ?? '');
     walk(tree, (node) => {
       if (node.type !== 'mdxJsxFlowElement' || node.name !== 'Snippet') return;
 
@@ -402,10 +403,12 @@ function remarkSnippets({ filepath, rootDir }) {
         return typeof found?.value === 'string' ? found.value : undefined;
       };
 
-      // No file named: the page wrote the block itself, and only asked for
-      // the frame around it.
+      // No file named: the code is written in the page itself.
       const source = read('source');
-      if (source === undefined) return;
+      if (source === undefined) {
+        inlineCode(node, page, read('lang'), read('title'));
+        return;
+      }
 
       const file = snippetPath(source, { filepath, rootDir });
       let content;
@@ -432,6 +435,46 @@ function remarkSnippets({ filepath, rootDir }) {
       }
     });
   };
+}
+
+/**
+ * Turns code typed straight into a `<Snippet>` back into a code block.
+ *
+ * Read from the page source, not from the parsed tree: MDX reads the children
+ * of a tag as Markdown, so indentation is collapsed and `*args` comes out in
+ * italics. The offsets of the nodes say where the content sits in the file,
+ * and the file tells the truth.
+ *
+ * A fenced block is left alone — it already carries anything, braces and `<`
+ * included, which bare code cannot: MDX reads those as expressions before any
+ * plugin runs.
+ *
+ * @param {any} node The `<Snippet>` element.
+ * @param {string} page Source of the page being compiled.
+ * @param {string | undefined} lang Language the page declared.
+ * @param {string | undefined} title Label, whose extension names a language.
+ */
+function inlineCode(node, page, lang, title) {
+  const children = node.children ?? [];
+  if (children.length === 0 || children.some((/** @type {any} */ child) => child.type === 'code')) {
+    return;
+  }
+
+  const first = children[0]?.position?.start?.offset;
+  const last = children[children.length - 1]?.position?.end?.offset;
+  if (typeof first !== 'number' || typeof last !== 'number') return;
+
+  // From the start of the line: the indentation of the first line is part of
+  // the code, and Markdown has already eaten it once.
+  const lineStart = page.lastIndexOf('\n', first - 1) + 1;
+
+  node.children = [
+    {
+      type: 'code',
+      lang: lang ?? snippetLanguage(title ?? ''),
+      value: snippetLines(page.slice(lineStart, last)),
+    },
+  ];
 }
 
 /** Compiles an MDX/Markdown source into an HTML fragment. */
