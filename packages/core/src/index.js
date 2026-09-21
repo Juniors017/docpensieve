@@ -43,3 +43,4 @@ export {
 } from './sidebar.js';
 export { buildFeed, buildRobots, buildSitemap } from './discovery.js';
 export { buildAuthorTable, buildByline, readDate, resolvePageAuthors } from './authors.js';
+export { SNIPPET_LANGUAGES, snippetLanguage, snippetLines, snippetPath } from './snippet.js';

@@ -1,0 +1,131 @@
+---
+title: Snippet
+description: Un bloc de code qui désigne un vrai fichier de votre projet, lu à la génération de la page, pour que l'exemple ne puisse pas se périmer.
+---
+
+# Snippet
+
+Un exemple écrit à la main est une copie. Il cesse d'être vrai le jour où le
+code change, et rien ne le signale : la page continue de montrer quelque chose
+qui a marché une fois. `Snippet` désigne le fichier à la place, et le fichier
+est lu à la génération de la page — il ne reste aucune copie pour dériver.
+
+L'idée vient de **Christophe Avonture**, qui l'a construite pour son site.
+
+## Désigner un fichier
+
+<Snippet source="./snippet-example.js" />
+
+```mdx
+<Snippet source="./snippet-example.js" />
+```
+
+Le nom du fichier sert d'étiquette au bloc, et la coloration est celle de
+n'importe quel bloc de code. Un chemin qui commence par `./` ou `../` est lu
+**depuis la page**, comme un lien ; tout autre chemin est lu **depuis la racine
+de votre projet**, si bien que `src/index.js` désigne le même fichier depuis
+n'importe quelle page.
+
+## Une partie d'un fichier
+
+Deux façons, et elles ne vieillissent pas pareil.
+
+Un **intervalle de lignes** s'écrit vite et veut dire « la ligne 12 du fichier
+tel qu'il est aujourd'hui » :
+
+<Snippet source="./snippet-example.js" lines="8" title="Une seule ligne" />
+
+```mdx
+<Snippet source="./snippet-example.js" lines="8" title="Une seule ligne" />
+```
+
+Écrivez `lines="8"` pour une ligne, `"8-14"` pour un intervalle, `"8-"` de là
+jusqu'à la fin, `"-14"` depuis le début.
+
+Une **région** est un repère laissé dans le fichier source lui-même, dans un
+commentaire. Elle suit le code quand il bouge — ce qui est tout l'intérêt de
+désigner un fichier plutôt que de le recopier :
+
+<Snippet source="./snippet-example.js" region="guard" title="Le garde-fou" />
+
+```mdx
+<Snippet source="./snippet-example.js" region="guard" title="Le garde-fou" />
+```
+
+Dans le fichier, le repère est un commentaire ordinaire — celui-là même sur
+lequel les éditeurs savent déjà replier :
+
+```js
+// #region guard
+if (!name) {
+  throw new Error('greet needs a name');
+}
+// #endregion
+```
+
+L'indentation commune aux lignes gardées est retirée : une région repérée à
+l'intérieur d'une fonction ne ressort donc pas décalée.
+
+## Replier un long fichier
+
+`collapsed` met le bloc dans un `details`. Sans script : un long fichier peut
+ainsi tenir dans une page sans enterrer ce qui la suit.
+
+<Snippet source="./snippet-example.js" collapsed title="Le fichier entier" />
+
+```mdx
+<Snippet source="./snippet-example.js" collapsed title="Le fichier entier" />
+```
+
+## Un bloc que vous écrivez
+
+Sans `source`, le composant ne dessine que le cadre autour du bloc écrit dans
+la page. Utile pour poser un nom de fichier au-dessus d'un bloc qui n'existe
+nulle part :
+
+<Snippet title="who_are_you.py">
+
+```python
+name = input("What's your name? ")
+print(f"Hello, {name}!")
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="who_are_you.py">
+
+```python
+name = input("What's your name? ")
+```
+
+</Snippet>
+````
+
+## Ce qu'il refuse
+
+Rien n'échoue en silence : un snippet qui ne trouverait rien laisserait un
+cadre vide — et un cadre vide a l'air voulu.
+
+| Écrit                                     | Ce qui se passe                                                       |
+| ----------------------------------------- | --------------------------------------------------------------------- |
+| un fichier absent                         | La génération s'arrête en disant quel chemin a été cherché.           |
+| un chemin qui sort du projet              | Refusé : une page est du contenu, et le contenu ne lit pas le disque. |
+| une région qu'aucun repère ouvre ou ferme | La génération s'arrête en nommant la région et le fichier.            |
+| un intervalle qui se lit à l'envers       | La génération s'arrête.                                               |
+
+## Propriétés
+
+| Propriété   | Type      | Effet                                                                      |
+| ----------- | --------- | -------------------------------------------------------------------------- |
+| `source`    | `string`  | Fichier à lire. Depuis la page avec `./` ou `../`, depuis le projet sinon. |
+| `title`     | `string`  | Étiquette au-dessus du bloc. Par défaut, le nom du fichier.                |
+| `lines`     | `string`  | `8`, `8-14`, `8-` ou `-14`.                                                |
+| `region`    | `string`  | Nom repéré par `#region` et `#endregion` dans le fichier.                  |
+| `lang`      | `string`  | Langage de la coloration, quand l'extension dit autre chose que la vérité. |
+| `collapsed` | `boolean` | Replie le bloc dans un `details`.                                          |
+| `className` | `string`  | Classes ajoutées au cadre.                                                 |
+| `style`     | `object`  | Styles en ligne sur le cadre.                                              |
+
+Le fichier que lit cette page est installé avec elle : chaque exemple ci-dessus
+fonctionne donc dans votre projet comme il fonctionne ici.

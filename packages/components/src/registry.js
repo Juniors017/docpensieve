@@ -16,6 +16,7 @@ import { LogoIcon } from './logo-icon.js';
 import { Menu, MenuGroup, MenuLink } from './menu.js';
 import { ScrollToTop } from './scroll-to-top.js';
 import { Skill } from './skill.js';
+import { Snippet } from './snippet.js';
 import { FallbackAfter, FallbackBefore, TimeTimer } from './time-timer.js';
 import { Tooltip } from './tooltip.js';
 import { Tree, TreeItem } from './tree.js';
@@ -45,6 +46,7 @@ export const builtinComponents = {
   TreeItem,
   ScrollToTop,
   Skill,
+  Snippet,
   LogoIcon,
   ForTheme,
 };

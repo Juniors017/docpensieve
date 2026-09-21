@@ -809,4 +809,42 @@
       }
     }
   }
+
+  /*
+   * A code block that names a file. The frame is the whole of it: the block
+   * inside is an ordinary one, highlighted like any other, so a snippet and a
+   * fenced block never drift apart in looks.
+   */
+  .dp-snippet {
+    margin: 1.5rem 0;
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    overflow: hidden;
+  }
+
+  .dp-snippet-title {
+    padding: 0.5rem 0.9rem;
+    border-bottom: 1px solid var(--dp-border);
+    background: var(--dp-bg-soft);
+    color: var(--dp-text-soft);
+    font-family: var(--dp-font-mono);
+    font-size: 0.8125rem;
+  }
+
+  /* The block already carries the spacing a page gives it; inside the frame
+     it would push the rule away from the code it belongs to. */
+  .dp-snippet-body > pre {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .dp-snippet--collapsed > summary {
+    cursor: pointer;
+  }
+
+  .dp-snippet--collapsed > summary::marker,
+  .dp-snippet--collapsed > summary::-webkit-details-marker {
+    color: var(--dp-text-soft);
+  }
 }

@@ -675,6 +675,66 @@ and what keeps pages written before the file working.
 
 **Renvoie** `Author[]`
 
+### `SNIPPET_LANGUAGES`
+
+`SNIPPET_LANGUAGES`
+
+Languages an extension announces, where the extension is not the name Shiki
+knows. Anything absent is passed on as it is written: Shiki knows far more
+languages than this table needs to repeat.
+
+### `snippetLanguage`
+
+`snippetLanguage(file)`
+
+Language of a file, from its name.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `file` | `string` | Path or name of the file. |
+
+**Renvoie** `string` — A language for the highlighter, or `'text'` when the name says nothing — an extensionless file is not a reason to fail.
+
+### `snippetLines`
+
+`snippetLines(text, [what])`
+
+The lines a snippet keeps, of the whole file.
+
+A range is quick to write and ages badly: it means line 12 of the file as
+it is today. A region is a marker left in the source itself — the comment
+convention editors already fold on — and it follows the code when it moves,
+which is the whole point of naming a file rather than copying it.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `text` | `string` | Content of the file. |
+| `[what]` | `{ lines?: string, region?: string, file?: string }` | `lines` is `12`, `12-40`, `12-` or `-40`; `region` is the name marked in the file. |
+
+**Renvoie** `string` — The lines kept, their common indentation removed.
+
+**Lève** `CompileError` — A range that reads backwards, or a region no marker opens or closes.
+
+### `snippetPath`
+
+`snippetPath(source, context)`
+
+The file a snippet names, as an absolute path.
+
+Two ways to write it, and they read differently on purpose: `./` and `../`
+start from the page, as a link does, while anything else starts from the
+root of the project — `src/index.js` means the same thing from every page,
+which is what a file of source code needs.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `source` | `string` | What the page wrote. |
+| `context` | `{ filepath?: string, rootDir?: string }` | Page being compiled, and root of the project. |
+
+**Renvoie** `string` — Absolute path of the file to read.
+
+**Lève** `CompileError` — Empty source, a relative path with no page to start from, or a file outside the project.
+
 ## `@docpensieve/theme`
 
 Les providers de thème et le moteur qui les compose.
@@ -1048,6 +1108,18 @@ Named gauge, from 0 to 100.
 | `props` | `{ className?: string, style?: object, children?: any, name?: any, level?: number, showValue?: boolean, shape?: string, icon?: any, color?: string, label?: string, }` | `children` stands as a comment under the gauge. `showValue` hides the numeric percentage without touching what the gauge announces. `shape` picks between the bar and the circle. `icon` goes before the name — a `LogoIcon` fits there. `color` tints the fill: any CSS colour, the accent colour by default. `label` names the gauge for screen readers when `name` is not text. |
 
 **Lève** `DocPensieveError` — Without a name, outside 0–100, or with an unknown shape.
+
+### `Snippet`
+
+`Snippet(props)`
+
+A code block, framed and labelled.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, source?: string, title?: string, lang?: string, lines?: string, region?: string, collapsed?: boolean, }` | `source` names a file of the project, read at generation; `lines` or `region` keep part of it; `title` replaces the file name shown above the block. Without `source`, the block is the one written in the page. |
+
+**Lève** `DocPensieveError` — With neither a file nor a block of its own.
 
 ### `LogoIcon`
 

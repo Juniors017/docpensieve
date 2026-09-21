@@ -1,7 +1,10 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import { createElement } from 'react';
 
 import { CompileError } from '@docpensieve/shared';
-import { describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vitest';
 
 import { Compiler } from '../src/index.js';
 
@@ -321,5 +324,83 @@ describe('tables', () => {
     expect(html).toContain('tabindex="0"');
     expect(html).toContain('role="region"');
     expect(html).toMatch(/dp-table-scroll[^>]*><table/);
+  });
+});
+
+describe('a snippet, which names a file rather than copying it', () => {
+  /** Minimal frame, standing in for the shipped component. */
+  const Snippet = (/** @type {{ title?: any, children?: any }} */ { title, children }) =>
+    createElement('figure', null, createElement('figcaption', null, title), children);
+
+  const root = mkdtempSync(path.join(tmpdir(), 'docpensieve-snippet-'));
+  const file = path.join(root, 'src', 'add.js');
+  mkdirSync(path.dirname(file), { recursive: true });
+  writeFileSync(
+    file,
+    [
+      'export function add(a, b) {',
+      '  // #region sum',
+      '  return a + b;',
+      '  // #endregion',
+      '}',
+    ].join('\n'),
+    'utf8',
+  );
+  afterAll(() => rmSync(root, { recursive: true, force: true }));
+
+  const withSnippet = (options = {}) => plain({ components: { Snippet }, ...options });
+
+  it('reads the file it names and shows it as a block', async () => {
+    const { html } = await withSnippet().compile('<Snippet source="src/add.js" />', {
+      rootDir: root,
+    });
+
+    expect(html).toContain('export function add(a, b)');
+    // The file name labels the block, so that a reader can go and open it.
+    expect(html).toContain('<figcaption>add.js</figcaption>');
+  });
+
+  it('keeps only the region asked for, indentation removed', async () => {
+    const { html } = await withSnippet().compile(
+      '<Snippet source="src/add.js" region="sum" title="The sum" />',
+      { rootDir: root },
+    );
+
+    expect(html).toContain('return a + b;');
+    expect(html).not.toContain('export function');
+    expect(html).toContain('<figcaption>The sum</figcaption>');
+  });
+
+  it('leaves a block the page wrote itself alone', async () => {
+    // Without a file named, the component only asked for the frame.
+    const { html } = await withSnippet().compile(
+      '<Snippet title="who.py">\n\n```python\nname = input()\n```\n\n</Snippet>',
+      { rootDir: root },
+    );
+
+    expect(html).toContain('name = input()');
+    expect(html).toContain('<figcaption>who.py</figcaption>');
+  });
+
+  it('stops the build on a file that is not there, and says where it looked', async () => {
+    // A snippet resolving to nothing would leave an empty frame that looks
+    // deliberate: it is the one outcome to refuse.
+    try {
+      await withSnippet().compile('<Snippet source="src/absent.js" />', { rootDir: root });
+      expect.unreachable('compile should have thrown');
+    } catch (error) {
+      const failure = /** @type {CompileError} */ (error);
+      expect(failure).toBeInstanceOf(CompileError);
+      expect(failure.hint).toContain('absent.js');
+    }
+  });
+
+  it('refuses a file outside the project', async () => {
+    await expect(
+      withSnippet().compile('<Snippet source="../../../secrets.txt" />', {
+        rootDir: root,
+        filepath: path.join(root, 'docs', 'page.md'),
+      }),
+    ).rejects.toThrow(CompileError);
   });
 });

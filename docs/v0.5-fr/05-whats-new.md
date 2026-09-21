@@ -20,6 +20,22 @@ endroit où quelque chose est écrit.
 
 ## Déjà là
 
+### Un bloc de code qui désigne un fichier
+
+`Snippet` montre un vrai fichier de votre projet, lu à la génération de la
+page. Un exemple écrit à la main est une copie, et une copie cesse d'être
+vraie le jour où le code change, sans que rien ne le signale. Un intervalle de
+lignes ou un repère `#region` en garde une partie ; `collapsed` replie un long
+fichier dans un `details`, toujours sans script.
+
+```mdx
+<Snippet source="src/index.js" region="guard" />
+```
+
+L'idée vient de Christophe Avonture.
+
+[Le composant](./components/snippet/)
+
 ### init demande la langue
 
 `init` demande désormais si le site sera en plusieurs langues, et met la

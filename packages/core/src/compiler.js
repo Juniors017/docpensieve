@@ -8,18 +8,19 @@
  * @module @docpensieve/core/compiler
  */
 
-import { closeSync, openSync, readSync } from 'node:fs';
+import { closeSync, openSync, readFileSync, readSync } from 'node:fs';
 import path from 'node:path';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import * as runtime from 'react/jsx-runtime';
 
-import { CompileError, slugify } from '@docpensieve/shared';
+import { CompileError, DocPensieveError, slugify } from '@docpensieve/shared';
 import { evaluate } from '@mdx-js/mdx';
 import rehypeShiki from '@shikijs/rehype';
 import remarkGfm from 'remark-gfm';
 
 import { imageSize } from './image-size.js';
+import { snippetLanguage, snippetLines, snippetPath } from './snippet.js';
 
 /**
  * Default Shiki themes: the dual theme follows dark mode without JS.
@@ -374,6 +375,65 @@ function compileError(cause, filepath) {
   });
 }
 
+/**
+ * Fills a `<Snippet>` with the file it names.
+ *
+ * A remark plugin, not a rehype one: by the time the tree is HTML the
+ * attributes of a JSX element are gone — the same reason a `<Card href>`
+ * escapes the link rewriting. Here the element is still `mdxJsxFlowElement`,
+ * and the file can be read into a code block, which the highlighter then
+ * treats like any other.
+ *
+ * @param {{ filepath?: string, rootDir?: string }} context Page being
+ *   compiled, and root of the project.
+ * @returns {() => (tree: any) => void}
+ */
+function remarkSnippets({ filepath, rootDir }) {
+  return () => (tree) => {
+    walk(tree, (node) => {
+      if (node.type !== 'mdxJsxFlowElement' || node.name !== 'Snippet') return;
+
+      const attributes = (node.attributes ??= []);
+      /** @param {string} name @returns {string | undefined} */
+      const read = (name) => {
+        const found = attributes.find(
+          (/** @type {any} */ item) => item.type === 'mdxJsxAttribute' && item.name === name,
+        );
+        return typeof found?.value === 'string' ? found.value : undefined;
+      };
+
+      // No file named: the page wrote the block itself, and only asked for
+      // the frame around it.
+      const source = read('source');
+      if (source === undefined) return;
+
+      const file = snippetPath(source, { filepath, rootDir });
+      let content;
+      try {
+        content = readFileSync(file, 'utf8');
+      } catch (cause) {
+        throw new CompileError(`The snippet "${source}" reads no file.`, {
+          cause,
+          hint: `Looked for ${file}. A path starting with "./" or "../" is read from the page, any other from the root of the project.`,
+        });
+      }
+
+      const value = snippetLines(content, {
+        lines: read('lines'),
+        region: read('region'),
+        file: source,
+      });
+
+      // Put back as a code block: the highlighter, the stylesheet and the
+      // table of contents then treat it like any block a page writes itself.
+      node.children = [{ type: 'code', lang: read('lang') ?? snippetLanguage(file), value }];
+      if (read('title') === undefined) {
+        attributes.push({ type: 'mdxJsxAttribute', name: 'title', value: path.basename(file) });
+      }
+    });
+  };
+}
+
 /** Compiles an MDX/Markdown source into an HTML fragment. */
 export class Compiler {
   /**
@@ -402,14 +462,18 @@ export class Compiler {
    * Compiles a source into an HTML fragment and a table of contents.
    *
    * @param {string} source Markdown/MDX content, frontmatter already removed.
-   * @param {{ filepath?: string, url?: string, dirUrl?: string, basePath?: string, sourceDir?: string }} [context]
+   * @param {{
+   *   filepath?: string, url?: string, dirUrl?: string, basePath?: string,
+   *   sourceDir?: string, rootDir?: string,
+   * }} [context]
    *   `filepath` locates errors, `dirUrl` is the base of relative targets and
-   *   `basePath` prefixes absolute targets (the version root).
+   *   `basePath` prefixes absolute targets (the version root). `rootDir` is
+   *   the project a snippet may read a file from.
    * @returns {Promise<CompileResult>}
    * @throws {CompileError} Invalid syntax, or a component unknown at use.
    */
   async compile(source, context = {}) {
-    const { filepath, url, dirUrl, basePath, sourceDir } = context;
+    const { filepath, url, dirUrl, basePath, sourceDir, rootDir } = context;
 
     /** @type {{ id: string, text: string, depth: number }[]} */
     const headings = [];
@@ -428,10 +492,14 @@ export class Compiler {
     try {
       ({ default: MDXContent } = await evaluate(source, {
         ...runtime,
-        remarkPlugins: [remarkGfm, ...this.remarkPlugins],
+        remarkPlugins: [remarkGfm, remarkSnippets({ filepath, rootDir }), ...this.remarkPlugins],
         rehypePlugins,
       }));
     } catch (cause) {
+      // An error of ours already says what to do: re-wrapped, it would come
+      // out as a generic syntax complaint and lose its hint. A snippet naming
+      // a file that is not there is the case that showed it.
+      if (cause instanceof DocPensieveError) throw cause;
       throw compileError(cause, filepath);
     }
 

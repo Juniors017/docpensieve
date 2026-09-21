@@ -25,6 +25,7 @@ const WORDS = /** @type {Record<string, number>} */ ({
   ten: 10,
   eleven: 11,
   twelve: 12,
+  thirteen: 13,
   fifteen: 15,
   twenty: 20,
   'twenty-one': 21,

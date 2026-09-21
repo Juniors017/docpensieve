@@ -20,6 +20,22 @@ written.
 
 ## Already there
 
+### A code block that names a file
+
+`Snippet` shows a real file of your project, read when the page is generated.
+An example written by hand is a copy, and a copy stops being true the day the
+code changes, with nothing to report it. A range of lines or a `#region`
+marker keeps part of the file; `collapsed` folds a long one into a `details`,
+still without a script.
+
+```mdx
+<Snippet source="src/index.js" region="guard" />
+```
+
+The idea comes from Christophe Avonture.
+
+[The component](./components/snippet/)
+
 ### init asks about languages
 
 `init` now asks whether the site will be in several languages, and sets the

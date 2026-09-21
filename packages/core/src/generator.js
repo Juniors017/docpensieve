@@ -502,6 +502,9 @@ export class SiteGenerator {
           dirUrl,
           basePath: versionBase,
           sourceDir,
+          // A snippet names a file of the project, not of the version: the
+          // point is to show the code the documentation talks about.
+          rootDir: path.resolve(this.config.rootDir ?? process.cwd()),
         });
 
         // Who wrote the page, and when. Read before the structured data, which
