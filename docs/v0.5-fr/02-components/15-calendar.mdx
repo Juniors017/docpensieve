@@ -66,10 +66,15 @@ autres comportements qu'emploie la version. Voir
 
 ## Le modèle réduit
 
-`compact` dessine la grille en petit et écrit les événements au-dessous. Il se
-lit pareil à côté d'un paragraphe sur grand écran et sur un téléphone — où le
-modèle complet devient une liste de jours, sept colonnes n'y laissant que
-quelques millimètres à chacun.
+`compact` dessine la grille en petit et écrit les événements au-dessous, à
+toute largeur — à côté d'un paragraphe, ou dans une colonne à lui.
+
+**Un écran étroit prend ce modèle, quoi que la page ait demandé.** Sept
+colonnes de cellules pleines sur un téléphone ne laissent que quelques
+millimètres à chaque jour, et un libellé écrit dedans fait un mot par ligne.
+Les deux formes sont dans la page et la feuille de style n'en montre qu'une,
+comme le menu de l'en-tête est écrit deux fois : aucun script n'en décide, et
+rien n'est lu deux fois par un lecteur d'écran.
 
 <Calendar compact>
   <Event date="2026-10-14" label="Sortie 0.5" href="../whats-new/" />
@@ -111,12 +116,12 @@ anglaise `October` — rien à déclarer.
 
 `Calendar` :
 
-| Propriété   | Type      | Effet                                                        |
-| ----------- | --------- | ------------------------------------------------------------ |
-| `label`     | `string`  | Nom annoncé à un lecteur d'écran. Par défaut : `Calendrier`. |
-| `compact`   | `boolean` | Le modèle réduit : grille serrée, et les événements listés.  |
-| `className` | `string`  | Classes ajoutées au calendrier.                              |
-| `style`     | `object`  | Styles en ligne sur le calendrier.                           |
+| Propriété   | Type      | Effet                                                                      |
+| ----------- | --------- | -------------------------------------------------------------------------- |
+| `label`     | `string`  | Nom annoncé à un lecteur d'écran. Par défaut : `Calendrier`.               |
+| `compact`   | `boolean` | Le modèle réduit à toute largeur. Un écran étroit le prend de toute façon. |
+| `className` | `string`  | Classes ajoutées au calendrier.                                            |
+| `style`     | `object`  | Styles en ligne sur le calendrier.                                         |
 
 `Event` :
 
@@ -126,6 +131,5 @@ anglaise `October` — rien à déclarer.
 | `label`   | `string` | Ce qui se passe ce jour-là. Obligatoire.     |
 | `href`    | `string` | Où mène l'événement. Résolu comme tout lien. |
 
-Sur un écran étroit, les sept colonnes deviennent une liste de jours : une
-semaine en colonnes sur un téléphone laisse quelques millimètres à chacun. Le
-même choix est fait par [Columns](./columns/).
+Écrire un bloc deux fois et n'en montrer qu'un, c'est ainsi que ce site traite
+partout les écrans étroits — [Columns](./columns/) fait le même choix.

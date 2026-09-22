@@ -1140,7 +1140,17 @@
    * carry a mark and the events are written out under the grid, so that
    * nothing is only a colour — which no screen reader reads and no
    * colour-blind reader sees.
+   *
+   * Both forms are in the page and the stylesheet shows one, as the header
+   * menu and the sidebar are written twice. That is what lets a narrow screen
+   * take this model on its own, and `display: none` keeps the hidden form out
+   * of the reading order rather than read twice.
    */
+  .dp-calendar-mark,
+  .dp-calendar-list {
+    display: none;
+  }
+
   .dp-calendar--compact .dp-calendar-day,
   .dp-calendar--compact .dp-calendar-empty {
     height: auto;
@@ -1150,6 +1160,18 @@
 
   .dp-calendar--compact .dp-calendar-empty {
     background: none;
+  }
+
+  .dp-calendar--compact .dp-calendar-events {
+    display: none;
+  }
+
+  .dp-calendar--compact .dp-calendar-mark {
+    display: block;
+  }
+
+  .dp-calendar--compact .dp-calendar-list {
+    display: block;
   }
 
   .dp-calendar--compact .dp-calendar-number {
@@ -1171,7 +1193,6 @@
   /* One event is a dot, several are their number: a day that holds three
      things should say three, not look like a day that holds one. */
   .dp-calendar-mark {
-    display: block;
     min-width: 1rem;
     height: 0.9rem;
     color: var(--dp-accent);
@@ -1205,66 +1226,47 @@
   }
 
   /*
-   * Narrow, the full model becomes a list of days — seven columns on a phone
-   * give each day a few millimetres. The small model keeps its grid, which is
-   * exactly what it was drawn to do: a month at a glance, at any width.
+   * A phone takes the small model whatever the page asked for: seven columns
+   * of full cells there give each day a few millimetres, and a label written
+   * in one is a word per line.
    */
   @media (max-width: 40rem) {
-    .dp-calendar--compact .dp-calendar-grid,
-    .dp-calendar--compact .dp-calendar-grid tbody,
-    .dp-calendar--compact .dp-calendar-grid tr {
-      display: table-row-group;
-    }
-
-    .dp-calendar--compact .dp-calendar-grid {
-      display: table;
-    }
-
-    .dp-calendar--compact .dp-calendar-grid tr {
-      display: table-row;
-    }
-
-    .dp-calendar--compact .dp-calendar-grid thead {
-      display: table-header-group;
-    }
-
-    .dp-calendar--compact .dp-calendar-day,
-    .dp-calendar--compact .dp-calendar-empty {
-      display: table-cell;
-      border-width: 1px;
-    }
-
-    .dp-calendar--compact .dp-calendar-empty {
-      display: table-cell;
-    }
-  }
-
-  /* A seven-column grid on a phone gives each day a few millimetres: the cells
-     become a list, which is what a narrow screen can actually read. */
-  @media (max-width: 40rem) {
-    .dp-calendar-grid,
-    .dp-calendar-grid tbody,
-    .dp-calendar-grid tr {
-      display: block;
-    }
-
-    .dp-calendar-grid thead {
-      display: none;
-    }
-
-    .dp-calendar-empty {
-      display: none;
-    }
-
-    .dp-calendar-day {
-      display: block;
+    .dp-calendar .dp-calendar-day,
+    .dp-calendar .dp-calendar-empty {
       height: auto;
-      border-width: 0 0 1px;
+      aspect-ratio: 1;
+      padding: 0;
+      border-color: transparent;
+      text-align: center;
     }
 
-    .dp-calendar-number {
-      display: inline-block;
-      min-width: 2rem;
+    .dp-calendar .dp-calendar-empty {
+      background: none;
+    }
+
+    .dp-calendar .dp-calendar-events {
+      display: none;
+    }
+
+    .dp-calendar .dp-calendar-mark,
+    .dp-calendar .dp-calendar-list {
+      display: block;
+    }
+
+    .dp-calendar .dp-calendar-number {
+      display: block;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .dp-calendar .dp-calendar-day--busy {
+      border-radius: var(--dp-radius);
+      background: var(--dp-accent-soft);
+    }
+
+    .dp-calendar .dp-calendar-day--busy .dp-calendar-number {
+      color: var(--dp-text);
+      font-weight: 700;
     }
   }
 }

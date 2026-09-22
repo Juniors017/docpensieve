@@ -177,9 +177,9 @@ export function Event(props) {
  * @param {{
  *   className?: string, style?: object, children?: any, label?: string,
  *   compact?: boolean,
- * }} props `label` names the calendar for screen readers. `compact` draws the
- *   grid small and lists the events under it, which reads the same on a phone
- *   and beside a paragraph on a wide screen.
+ * }} props `label` names the calendar for screen readers. `compact` asks for
+ *   the small model at every width; a narrow screen takes it anyway, since
+ *   seven columns of full cells there give each day a few millimetres.
  * @throws {DocPensieveError} Without an event, or with a child that is not one.
  */
 export function Calendar({ className, style, children, label, compact = false }) {
@@ -209,10 +209,12 @@ export function Calendar({ className, style, children, label, compact = false })
       h('span', { className: cls('calendarCurrent') }),
       h('button', { type: 'button', className: cls('calendarStep'), 'data-step': '1' }, '→'),
     ),
-    months.map((month) => renderMonth(month, events, lang, ui, compact)),
-    // Small, a cell has room for a mark and nothing else: the events are
-    // written out under the grid, so that nothing is only a colour.
-    compact ? renderList(events, lang, ui) : null,
+    months.map((month) => renderMonth(month, events, lang, ui)),
+    // Both forms are written, and the stylesheet shows one — as the header
+    // menu and the sidebar are written twice. It is what lets a narrow screen
+    // take the small model without a script, and `display: none` keeps the
+    // hidden one out of the reading order rather than read twice.
+    renderList(events, lang, ui),
   );
 }
 
@@ -297,10 +299,9 @@ function monthsBetween(events) {
  * @param {{ date: string, label: string, href: string }[]} events
  * @param {string} lang
  * @param {any} ui
- * @param {boolean} compact
  * @returns {any}
  */
-function renderMonth(month, events, lang, ui, compact) {
+function renderMonth(month, events, lang, ui) {
   const weeks = monthGrid(month.year, month.month);
   const title = monthName(month.year, month.month, ui.dateLocale ?? lang);
 
@@ -329,7 +330,7 @@ function renderMonth(month, events, lang, ui, compact) {
           h(
             'tr',
             { key: index },
-            week.map((day, cell) => renderDay(month, day, cell, events, compact)),
+            week.map((day, cell) => renderDay(month, day, cell, events)),
           ),
         ),
       ),
@@ -342,10 +343,9 @@ function renderMonth(month, events, lang, ui, compact) {
  * @param {number | null} day
  * @param {number} cell
  * @param {{ date: string, label: string, href: string }[]} events
- * @param {boolean} compact
  * @returns {any}
  */
-function renderDay(month, day, cell, events, compact) {
+function renderDay(month, day, cell, events) {
   if (day === null) return h('td', { className: cls('calendarEmpty'), key: cell });
 
   const date = `${month.key}-${String(day).padStart(2, '0')}`;
@@ -362,16 +362,17 @@ function renderDay(month, day, cell, events, compact) {
       'data-date': date,
     },
     h('time', { className: cls('calendarNumber'), dateTime: date }, String(day)),
-    // Small, the day carries a mark and its count, and the list below says
-    // what they are: a cell of a few millimetres cannot hold a sentence.
-    compact && onThisDay.length > 0
+    // The mark of the small model: a dot, or how many things the day holds.
+    // Hidden from a reader of the markup, since the list under the grid says
+    // the same thing in words.
+    onThisDay.length > 0
       ? h(
           'span',
           { className: cls('calendarMark'), 'aria-hidden': 'true' },
           onThisDay.length > 1 ? String(onThisDay.length) : '',
         )
       : null,
-    !compact && onThisDay.length > 0
+    onThisDay.length > 0
       ? h(
           'ul',
           { className: cls('calendarEvents') },

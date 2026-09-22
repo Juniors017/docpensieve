@@ -63,10 +63,14 @@ file is.
 
 ## The small model
 
-`compact` draws the grid small and writes the events out under it. It reads
-the same beside a paragraph on a wide screen and on a phone — where the full
-model becomes a list of days, since seven columns there give each day a few
-millimetres.
+`compact` draws the grid small and writes the events out under it, at every
+width — beside a paragraph, or in a column of its own.
+
+**A narrow screen takes this model whatever the page asked for.** Seven columns
+of full cells on a phone give each day a few millimetres, and a label written
+in one is a word per line. Both forms are in the page and the stylesheet shows
+one, as the menu of the header is written twice: no script decides it, and
+nothing is read twice by a screen reader.
 
 <Calendar compact>
   <Event date="2026-10-14" label="Release 0.5" href="../whats-new/" />
@@ -107,12 +111,12 @@ name a screen reader announces. A French page says `octobre`, an English one
 
 `Calendar`:
 
-| Property    | Type      | Effect                                                  |
-| ----------- | --------- | ------------------------------------------------------- |
-| `label`     | `string`  | Name announced to a screen reader. Default: `Calendar`. |
-| `compact`   | `boolean` | The small model: a tight grid, and the events listed.   |
-| `className` | `string`  | Classes added to the calendar.                          |
-| `style`     | `object`  | Inline styles on the calendar.                          |
+| Property    | Type      | Effect                                                           |
+| ----------- | --------- | ---------------------------------------------------------------- |
+| `label`     | `string`  | Name announced to a screen reader. Default: `Calendar`.          |
+| `compact`   | `boolean` | The small model at every width. A narrow screen takes it anyway. |
+| `className` | `string`  | Classes added to the calendar.                                   |
+| `style`     | `object`  | Inline styles on the calendar.                                   |
 
 `Event`:
 
@@ -122,6 +126,5 @@ name a screen reader announces. A French page says `octobre`, an English one
 | `label`  | `string` | What happens that day. Required.               |
 | `href`   | `string` | Where the event leads. Resolved like any link. |
 
-On a narrow screen the seven columns become a list of days, since a week of
-columns on a phone gives each day a few millimetres. The same choice is made
-by [Columns](./columns/).
+Writing a block twice and showing one is how this site handles a narrow screen
+throughout — [Columns](./columns/) makes the same choice.

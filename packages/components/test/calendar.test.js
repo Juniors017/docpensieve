@@ -123,6 +123,52 @@ describe('Calendar', () => {
   });
 });
 
+describe('the small model', () => {
+  const events = [
+    h(Event, { date: '2026-10-14', label: 'Release', key: 1 }),
+    h(Event, { date: '2026-10-14', label: 'Post', key: 2 }),
+    h(Event, { date: '2026-10-28', label: 'Workshop', key: 3 }),
+  ];
+
+  it('is the same markup, and only a class', () => {
+    // Both forms are written and the stylesheet shows one — as the header
+    // menu and the sidebar are. It is what lets a narrow screen take this
+    // model with no script, and the markup must therefore not differ.
+    const full = render(h(Calendar, null, events));
+    const small = render(h(Calendar, { compact: true }, events));
+
+    expect(small).toBe(
+      full.replace('class="dp-calendar"', 'class="dp-calendar dp-calendar--compact"'),
+    );
+  });
+
+  it('writes both the events of a cell and the list under the grid', () => {
+    const html = render(h(Calendar, null, events));
+
+    expect(html).toContain('dp-calendar-events');
+    expect(html).toContain('dp-calendar-list');
+    // One mark per busy day, and the count where a day holds several.
+    expect(html.match(/dp-calendar-mark/g)).toHaveLength(2);
+    expect(html).toContain('>2</span>');
+  });
+
+  it('lists every event once, in the order of the days', () => {
+    const html = render(h(Calendar, null, events));
+    const listed = [...html.matchAll(/dp-calendar-list-date"[^>]*>([^<]*)</g)].map((m) => m[1]);
+
+    expect(listed).toHaveLength(3);
+    expect(listed[0]).toContain('14');
+    expect(listed[2]).toContain('28');
+  });
+
+  it('hides the mark from a reader of the markup, the list saying it in words', () => {
+    // A dot is not a sentence: what it stands for is written below, and the
+    // dot itself is left out of the reading order.
+    const html = render(h(Calendar, null, events));
+    expect(html).toMatch(/class="dp-calendar-mark" aria-hidden="true"/);
+  });
+});
+
 describe('what a calendar refuses', () => {
   it('an empty one, which would show nothing', () => {
     try {

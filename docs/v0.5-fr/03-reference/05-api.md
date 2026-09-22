@@ -1136,7 +1136,7 @@ reader should see.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `props` | `{ className?: string, style?: object, children?: any, label?: string, compact?: boolean, }` | `label` names the calendar for screen readers. `compact` draws the grid small and lists the events under it, which reads the same on a phone and beside a paragraph on a wide screen. |
+| `props` | `{ className?: string, style?: object, children?: any, label?: string, compact?: boolean, }` | `label` names the calendar for screen readers. `compact` asks for the small model at every width; a narrow screen takes it anyway, since seven columns of full cells there give each day a few millimetres. |
 
 **Lève** `DocPensieveError` — Without an event, or with a child that is not one.
 
