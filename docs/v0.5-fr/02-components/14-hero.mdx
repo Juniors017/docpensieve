@@ -69,6 +69,55 @@ Les valeurs acceptées sont `center`, par défaut, et `start`. Toute autre arrê
 la génération en listant les deux — un bandeau qui ignorerait son alignement en
 silence aurait l'air d'une feuille de style en panne.
 
+## La place qu'il prend
+
+`size` décide de l'air autour des mots, pas de l'allure : `small`, `medium` —
+par défaut — `large`, et `full`, qui prend la hauteur de l'écran et y centre
+son contenu.
+
+<Hero size="small">
+
+### Un petit
+
+Pour une section qu'il suffit d'annoncer.
+
+</Hero>
+
+```mdx
+<Hero size="small">...</Hero>
+<Hero size="large">...</Hero>
+<Hero size="full">...</Hero>
+```
+
+`full` mesure l'écran tel que le navigateur le montre vraiment : un téléphone
+dont la barre d'adresse va et vient ne pousse donc pas le bandeau dessous.
+
+## La teinte dont il est éclairé
+
+`tone` nomme une couleur que le thème porte déjà — les mêmes tons qu'une
+admonition, parce qu'un thème définit une couleur par ton, et non une couleur
+par composant. Un projet qui donne sa couleur à `attention` la donne aux deux
+d'un coup.
+
+<Hero tone="tip" align="start" size="small">
+
+### Éclairé par un ton
+
+Le lavis derrière les mots, et la première entrée, le suivent.
+
+<HeroActions>[Lire la suite](../guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero tone="tip">...</Hero>
+```
+
+Acceptés : `note` — par défaut, c'est l'accent du thème — `info`, `tip`,
+`attention` et `danger`. Toute autre valeur arrête la génération en les
+listant, comme une taille ou un alignement inconnus : un bandeau qui ignorerait
+en silence ce qu'on lui demande aurait l'air d'une feuille de style en panne.
+
 ## Sur une page à vous
 
 Un bandeau va sur une page qui ouvre quelque chose : l'accueil d'une version,

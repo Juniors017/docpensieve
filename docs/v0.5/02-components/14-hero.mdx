@@ -68,6 +68,54 @@ Accepted values are `center`, the default, and `start`. Anything else stops the
 build and lists the two — a banner silently ignoring its alignment would look
 like a stylesheet that failed.
 
+## How much room it takes
+
+`size` decides the air around the words, not the look: `small`, `medium` —
+the default — `large`, and `full`, which takes the height of the screen and
+centres its content in it.
+
+<Hero size="small">
+
+### A small one
+
+For a section that only needs announcing.
+
+</Hero>
+
+```mdx
+<Hero size="small">...</Hero>
+<Hero size="large">...</Hero>
+<Hero size="full">...</Hero>
+```
+
+`full` measures the screen as the browser really shows it, so a phone whose
+address bar comes and goes does not push the banner under it.
+
+## The tone it is lit with
+
+`tone` names a colour the theme already carries — the same tones an admonition
+takes, because a theme defines a colour per tone, not a colour per component.
+A project that gives `attention` its own colour gives it to both at once.
+
+<Hero tone="tip" align="start" size="small">
+
+### Lit by a tone
+
+The wash behind the words, and the first way in, follow it.
+
+<HeroActions>[Read on](../guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero tone="tip">...</Hero>
+```
+
+Accepted: `note` — the default, which is the accent of the theme — `info`,
+`tip`, `attention` and `danger`. Anything else stops the build and lists them,
+as an unknown size or alignment does: a banner silently ignoring what it was
+asked would look like a stylesheet that failed.
+
 ## On a page of your own
 
 A banner belongs on a page that opens something: the home page of a version, a

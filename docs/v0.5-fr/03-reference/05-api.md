@@ -1136,7 +1136,7 @@ reader should see.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `props` | `{ className?: string, style?: object, children?: any, label?: string, }` | `label` names the calendar for screen readers. |
+| `props` | `{ className?: string, style?: object, children?: any, label?: string, compact?: boolean, }` | `label` names the calendar for screen readers. `compact` draws the grid small and lists the events under it, which reads the same on a phone and beside a paragraph on a wide screen. |
 
 **Lève** `DocPensieveError` — Without an event, or with a child that is not one.
 
@@ -1203,7 +1203,7 @@ an event a day early in another.
 
 `HERO_ALIGNMENTS`
 
-How the banner sits, and what the templates are asked for.
+How the banner sits within its page.
 
 ### `Hero`
 
@@ -1213,9 +1213,9 @@ Head of a page: a name, a sentence, and the way in.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `props` | `{ className?: string, style?: object, children?: any, align?: string, }` | `align` is `center` (the default) or `start`. |
+| `props` | `{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, }` | `align` is `center` (the default) or `start`; `size` is `small`, `medium`, `large` or `full`; `tone` names the colour the banner is lit with. |
 
-**Lève** `DocPensieveError` — With an alignment that does not exist.
+**Lève** `DocPensieveError` — With an alignment, a size or a tone that does not exist.
 
 ### `HeroActions`
 

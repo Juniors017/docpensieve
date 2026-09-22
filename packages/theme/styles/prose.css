@@ -116,6 +116,74 @@
 }
 
 /*
+ * Components met inside prose.
+ *
+ * A component styles itself in the `components` layer of its own package, and
+ * an unlayered rule beats a layered one whatever their order: everything a
+ * component says about an element this file also styles — a heading, a
+ * paragraph, a table cell — is therefore said here, or it is not said at all.
+ * The snippet frame showed it first, as a box inside a box; the banner showed
+ * it again, its title carrying the rule that divides a page.
+ */
+
+/* A banner opens a page rather than dividing one: the heading of a section
+   has a rule under it and room above, and neither belongs here. */
+.dp-article .dp-hero > :is(h1, h2, h3) {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  border: 0;
+  font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.dp-article .dp-hero > p {
+  max-width: 42rem;
+  margin: 0 auto;
+  color: var(--dp-text-soft);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.dp-article .dp-hero--start > p {
+  margin-inline: 0;
+}
+
+/* The grid of a calendar is a table, and the tables of prose are written to
+   be read line by line: padded cells, headers to the left, a background on
+   every header. A month wants none of that. */
+.dp-article .dp-calendar-grid {
+  margin: 0;
+  font-size: inherit;
+}
+
+.dp-article .dp-calendar-grid th {
+  padding: 0.35rem 0.2rem;
+  border: 0;
+  background: none;
+  color: var(--dp-text-soft);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.dp-article .dp-calendar-day,
+.dp-article .dp-calendar-empty {
+  padding: 0.3rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.dp-article .dp-calendar--compact .dp-calendar-day,
+.dp-article .dp-calendar--compact .dp-calendar-empty {
+  padding: 0;
+  text-align: center;
+}
+
+.dp-article .dp-calendar-list {
+  margin: 0.9rem 0 0;
+}
+
+/*
  * A block inside a snippet frame: the frame already draws the border and the
  * spacing. Written here rather than with the component, because the rule it
  * has to beat is this file's own `.dp-article pre` — and an unlayered rule

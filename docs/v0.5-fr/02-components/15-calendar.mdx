@@ -64,6 +64,32 @@ chargé par les seules pages qui contiennent un calendrier, et partagé avec les
 autres comportements qu'emploie la version. Voir
 [copyCode](../reference/configuration/) pour ce qu'est ce fichier.
 
+## Le modèle réduit
+
+`compact` dessine la grille en petit et écrit les événements au-dessous. Il se
+lit pareil à côté d'un paragraphe sur grand écran et sur un téléphone — où le
+modèle complet devient une liste de jours, sept colonnes n'y laissant que
+quelques millimètres à chacun.
+
+<Calendar compact>
+  <Event date="2026-10-14" label="Sortie 0.5" href="../whats-new/" />
+  <Event date="2026-10-14" label="Billet de blog" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+
+```mdx
+<Calendar compact>
+  <Event date="2026-10-14" label="Sortie 0.5" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+```
+
+Un jour qui porte quelque chose reçoit un point, ou le nombre de choses qu'il
+porte — un jour qui en a trois doit dire trois plutôt que ressembler à un jour
+qui en a une. La liste au-dessous est ce qui dit lesquelles : **rien n'est
+seulement une couleur**, qu'aucun lecteur d'écran ne lit et qu'aucun lecteur
+daltonien ne voit.
+
 ## La langue de la page
 
 Les noms de mois et de jours viennent de la langue de la page, et le nom
@@ -85,11 +111,12 @@ anglaise `October` — rien à déclarer.
 
 `Calendar` :
 
-| Propriété   | Type     | Effet                                                        |
-| ----------- | -------- | ------------------------------------------------------------ |
-| `label`     | `string` | Nom annoncé à un lecteur d'écran. Par défaut : `Calendrier`. |
-| `className` | `string` | Classes ajoutées au calendrier.                              |
-| `style`     | `object` | Styles en ligne sur le calendrier.                           |
+| Propriété   | Type      | Effet                                                        |
+| ----------- | --------- | ------------------------------------------------------------ |
+| `label`     | `string`  | Nom annoncé à un lecteur d'écran. Par défaut : `Calendrier`. |
+| `compact`   | `boolean` | Le modèle réduit : grille serrée, et les événements listés.  |
+| `className` | `string`  | Classes ajoutées au calendrier.                              |
+| `style`     | `object`  | Styles en ligne sur le calendrier.                           |
 
 `Event` :
 

@@ -176,10 +176,13 @@ export function Event(props) {
  *
  * @param {{
  *   className?: string, style?: object, children?: any, label?: string,
- * }} props `label` names the calendar for screen readers.
+ *   compact?: boolean,
+ * }} props `label` names the calendar for screen readers. `compact` draws the
+ *   grid small and lists the events under it, which reads the same on a phone
+ *   and beside a paragraph on a wide screen.
  * @throws {DocPensieveError} Without an event, or with a child that is not one.
  */
-export function Calendar({ className, style, children, label }) {
+export function Calendar({ className, style, children, label, compact = false }) {
   const events = eventsOf(children);
   if (events.length === 0) {
     throw new DocPensieveError('A calendar with no event shows nothing.', {
@@ -194,7 +197,7 @@ export function Calendar({ className, style, children, label }) {
   return h(
     'section',
     {
-      className: classNames(cls('calendar'), className),
+      className: classNames(cls('calendar', compact && 'compact'), className),
       style,
       'aria-label': label ?? ui.calendar,
       'data-calendar': months.map((month) => month.key).join(' '),
@@ -206,8 +209,61 @@ export function Calendar({ className, style, children, label }) {
       h('span', { className: cls('calendarCurrent') }),
       h('button', { type: 'button', className: cls('calendarStep'), 'data-step': '1' }, '→'),
     ),
-    months.map((month) => renderMonth(month, events, lang, ui)),
+    months.map((month) => renderMonth(month, events, lang, ui, compact)),
+    // Small, a cell has room for a mark and nothing else: the events are
+    // written out under the grid, so that nothing is only a colour.
+    compact ? renderList(events, lang, ui) : null,
   );
+}
+
+/**
+ * The events of a compact calendar, written out under its grid.
+ *
+ * @param {{ date: string, label: string, href: string }[]} events
+ * @param {string} lang
+ * @param {any} ui
+ * @returns {any}
+ */
+function renderList(events, lang, ui) {
+  const ordered = [...events].sort((a, b) => a.date.localeCompare(b.date));
+
+  return h(
+    'ul',
+    { className: cls('calendarList') },
+    ordered.map((event, index) =>
+      h(
+        'li',
+        { className: cls('calendarListItem'), key: index },
+        h(
+          'time',
+          { className: cls('calendarListDate'), dateTime: event.date },
+          dayLabel(event.date, ui.dateLocale ?? lang),
+        ),
+        event.href
+          ? h('a', { href: resolveUrl(event.href) }, event.label)
+          : h('span', null, event.label),
+      ),
+    ),
+  );
+}
+
+/**
+ * @param {string} date
+ * @param {string} locale
+ * @returns {string} `14 Oct`, in the language of the page.
+ */
+function dayLabel(date, locale) {
+  const day = readDay(date);
+  if (!day) return date;
+  try {
+    return new Intl.DateTimeFormat(locale, {
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'UTC',
+    }).format(new Date(Date.UTC(day.year, day.month - 1, day.day)));
+  } catch {
+    return date;
+  }
 }
 
 /**
@@ -241,9 +297,10 @@ function monthsBetween(events) {
  * @param {{ date: string, label: string, href: string }[]} events
  * @param {string} lang
  * @param {any} ui
+ * @param {boolean} compact
  * @returns {any}
  */
-function renderMonth(month, events, lang, ui) {
+function renderMonth(month, events, lang, ui, compact) {
   const weeks = monthGrid(month.year, month.month);
   const title = monthName(month.year, month.month, ui.dateLocale ?? lang);
 
@@ -272,7 +329,7 @@ function renderMonth(month, events, lang, ui) {
           h(
             'tr',
             { key: index },
-            week.map((day, cell) => renderDay(month, day, cell, events)),
+            week.map((day, cell) => renderDay(month, day, cell, events, compact)),
           ),
         ),
       ),
@@ -285,9 +342,10 @@ function renderMonth(month, events, lang, ui) {
  * @param {number | null} day
  * @param {number} cell
  * @param {{ date: string, label: string, href: string }[]} events
+ * @param {boolean} compact
  * @returns {any}
  */
-function renderDay(month, day, cell, events) {
+function renderDay(month, day, cell, events, compact) {
   if (day === null) return h('td', { className: cls('calendarEmpty'), key: cell });
 
   const date = `${month.key}-${String(day).padStart(2, '0')}`;
@@ -304,7 +362,16 @@ function renderDay(month, day, cell, events) {
       'data-date': date,
     },
     h('time', { className: cls('calendarNumber'), dateTime: date }, String(day)),
-    onThisDay.length > 0
+    // Small, the day carries a mark and its count, and the list below says
+    // what they are: a cell of a few millimetres cannot hold a sentence.
+    compact && onThisDay.length > 0
+      ? h(
+          'span',
+          { className: cls('calendarMark'), 'aria-hidden': 'true' },
+          onThisDay.length > 1 ? String(onThisDay.length) : '',
+        )
+      : null,
+    !compact && onThisDay.length > 0
       ? h(
           'ul',
           { className: cls('calendarEvents') },

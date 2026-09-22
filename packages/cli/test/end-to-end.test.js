@@ -149,6 +149,53 @@ describe('init, build, check', () => {
     expect(faults).toEqual([]);
   });
 
+  /**
+   * What a component says about a heading, a paragraph or a table cell has to
+   * be said outside the `components` layer, since an unlayered rule of
+   * prose.css beats a layered one whatever their order. Left inside it, the
+   * snippet frame drew a box inside a box, the banner's title carried the
+   * rule that divides a page, and the calendar's cells took the padding of a
+   * table of prose — three times the same fault, none of them reported.
+   */
+  const OVER_PROSE = [
+    '.dp-article .dp-hero >',
+    '.dp-article .dp-calendar-grid th',
+    '.dp-article .dp-calendar-day',
+    '.dp-article .dp-snippet-body >',
+  ];
+
+  /** Rules a component owns, which both themes must carry all the same. */
+  const OWNED = ['.dp-hero', '.dp-hero-actions', '.dp-calendar', '.dp-calendar--compact'];
+
+  for (const framework of ['tailwind', 'custom']) {
+    it(
+      `styles its components the same way under the ${framework} theme`,
+      { timeout: 120_000 },
+      async () => {
+        const cwd = scratch();
+        await init(cwd, { yes: true, name: 'Both themes', theme: framework });
+        await build(undefined, { cwd });
+
+        const css = read(path.join(cwd, 'dist'), 'versions', 'v1.0', 'assets', 'docpensieve.css');
+        const flat = css.replace(/\s*\{/g, '{');
+
+        for (const selector of [...OWNED, ...OVER_PROSE]) {
+          expect(flat, `${selector} is missing under ${framework}`).toContain(selector);
+        }
+
+        // And they must sit where they can win: before the layer, or outside
+        // any layer at all.
+        const layer = flat.indexOf('@layer components');
+        for (const selector of OVER_PROSE) {
+          const at = flat.indexOf(selector);
+          expect(layer === -1 || at < layer, `${selector} is layered under ${framework}`).toBe(
+            true,
+          );
+        }
+      },
+    );
+  }
+
   it('also checks a site served under a sub-path', { timeout: 120_000 }, async () => {
     // It is the setting that breaks the most sites: every internal link must
     // carry the prefix, and "check" is what verifies it.
