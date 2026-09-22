@@ -4,6 +4,7 @@ import { gzipSync } from 'node:zlib';
 
 import { describe, expect, it } from 'vitest';
 
+import { openingMonth, todayKey } from '../client/calendar.js';
 import { addCopyButtons, codeOf, wordsFor } from '../client/copy.js';
 
 /**
@@ -120,6 +121,24 @@ describe('fitting the buttons', () => {
   });
 });
 
+describe('the month a calendar opens on', () => {
+  it('the one holding today, when the calendar reaches that far', () => {
+    // A calendar is read to answer "what now": opening three months before
+    // today would make the reader press an arrow to reach the obvious.
+    expect(openingMonth(['2026-09', '2026-10', '2026-11'], '2026-10-14')).toBe('2026-10');
+  });
+
+  it('the first one otherwise, rather than none', () => {
+    expect(openingMonth(['2027-03', '2027-04'], '2026-10-14')).toBe('2027-03');
+  });
+
+  it('writes today as the calendar writes its days', () => {
+    // Local rather than UTC: a reader whose evening is still yesterday
+    // elsewhere should see their own day marked.
+    expect(todayKey(new Date(2026, 9, 4))).toBe('2026-10-04');
+  });
+});
+
 describe('what a page makes the reader download', () => {
   /**
    * Budgets, in bytes once compressed, as a server sends them.
@@ -129,7 +148,7 @@ describe('what a page makes the reader download', () => {
    * months. These fail loudly rather than drift — raising one is a decision,
    * and it should be taken on purpose.
    */
-  const BUDGET = { 'copy.js': 2048, 'search.js': 3072 };
+  const BUDGET = { 'copy.js': 2048, 'calendar.js': 2048, 'search.js': 3072 };
 
   for (const [file, budget] of Object.entries(BUDGET)) {
     it(`keeps ${file} under ${budget} bytes compressed`, () => {

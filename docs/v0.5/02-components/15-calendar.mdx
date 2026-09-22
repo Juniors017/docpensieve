@@ -1,0 +1,101 @@
+---
+title: Calendar
+description: A month of dates and what happens on them — built at generation, navigable once the page has loaded its script.
+---
+
+# Calendar
+
+Dates read badly as a list. A release plan, a course schedule, the weeks of a
+migration: what matters is where they fall, and how far apart. `Calendar`
+draws the months, and puts each event on its day.
+
+## Days and what is on them
+
+<Calendar>
+  <Event date="2026-10-14" label="Release 0.5" href="../whats-new/" />
+  <Event date="2026-10-14" label="Blog post" />
+  <Event date="2026-10-28" label="Workshop" />
+</Calendar>
+
+```mdx
+<Calendar>
+  <Event date="2026-10-14" label="Release 0.5" href="/whats-new/" />
+  <Event date="2026-10-14" label="Blog post" />
+  <Event date="2026-10-28" label="Workshop" />
+</Calendar>
+```
+
+A day is written `2026-10-14` — four digits, two, two. Several events may fall
+on the same day, and they are drawn in the order they are written. `href` is
+resolved like any other link of a page: relative to the page, or from the
+version root.
+
+The events are written in the page. Nothing is read from the frontmatter of
+other pages: a calendar says what its author put in it, and says it where it
+is read.
+
+## Several months
+
+Every month between the first event and the last is drawn — including the ones
+with nothing in them, because a gap is something a reader should see.
+
+<Calendar>
+  <Event date="2026-11-18" label="Beta" />
+  <Event date="2027-01-06" label="Release" />
+</Calendar>
+
+```mdx
+<Calendar>
+  <Event date="2026-11-18" label="Beta" />
+  <Event date="2027-01-06" label="Release" />
+</Calendar>
+```
+
+Without JavaScript, the months are stacked one after the other and the whole
+calendar is readable. With it, they fold into one, two arrows move between
+them, and today is outlined. The arrows are **written hidden** and revealed by
+the script, so they never appear without the code that makes them work.
+
+That script is the client file of the version: a couple of kilobytes, loaded
+only by the pages that hold a calendar, and shared with any other behaviour
+the version uses. See [copyCode](../reference/configuration/) for what that
+file is.
+
+## The language of the page
+
+Month and weekday names come from the language of the page, and so does the
+name a screen reader announces. A French page says `octobre`, an English one
+`October` — nothing to declare.
+
+## What it refuses
+
+| Written                       | What happens                                                       |
+| ----------------------------- | ------------------------------------------------------------------ |
+| a calendar with no event      | The build stops: an empty calendar shows nothing.                  |
+| `2026-10` or `14/10/2026`     | The build stops, saying how a day is written.                      |
+| `2026-09-31`                  | Refused: September has thirty days, so this is a typo, not a date. |
+| an event without a label      | The build stops, naming its day.                                   |
+| an `Event` outside a calendar | The build stops: nothing would know which month to draw it in.     |
+| anything else inside          | The build stops: a calendar holds events.                          |
+
+## Properties
+
+`Calendar`:
+
+| Property    | Type     | Effect                                                  |
+| ----------- | -------- | ------------------------------------------------------- |
+| `label`     | `string` | Name announced to a screen reader. Default: `Calendar`. |
+| `className` | `string` | Classes added to the calendar.                          |
+| `style`     | `object` | Inline styles on the calendar.                          |
+
+`Event`:
+
+| Property | Type     | Effect                                         |
+| -------- | -------- | ---------------------------------------------- |
+| `date`   | `string` | The day, `2026-10-14`. Required.               |
+| `label`  | `string` | What happens that day. Required.               |
+| `href`   | `string` | Where the event leads. Resolved like any link. |
+
+On a narrow screen the seven columns become a list of days, since a week of
+columns on a phone gives each day a few millimetres. The same choice is made
+by [Columns](./columns/).

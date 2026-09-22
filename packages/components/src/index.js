@@ -33,6 +33,8 @@ export { TOOLTIP_PLACEMENTS, Tooltip } from './tooltip.js';
 export { Tree, TreeItem } from './tree.js';
 export { ScrollToTop } from './scroll-to-top.js';
 export { SKILL_SHAPES, Skill } from './skill.js';
+export { Calendar, Event, firstWeekday, monthGrid, readDay } from './calendar.js';
+export { HERO_ALIGNMENTS, Hero, HeroActions } from './hero.js';
 export { Snippet, getSnippetIcons, setSnippetIcons } from './snippet.js';
 export { LogoIcon } from './logo-icon.js';
 export { ForTheme } from './for-theme.js';

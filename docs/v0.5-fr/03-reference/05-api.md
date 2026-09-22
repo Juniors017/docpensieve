@@ -1124,6 +1124,112 @@ Named gauge, from 0 to 100.
 
 **Lève** `DocPensieveError` — Without a name, outside 0–100, or with an unknown shape.
 
+### `Calendar`
+
+`Calendar(props)`
+
+A calendar of the days its events fall on.
+
+Every month from the first event to the last is drawn, so that an empty
+month between two others is not silently skipped — a gap is something a
+reader should see.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, label?: string, }` | `label` names the calendar for screen readers. |
+
+**Lève** `DocPensieveError` — Without an event, or with a child that is not one.
+
+### `Event`
+
+`Event(props)`
+
+One event of a calendar. Rendered by its calendar, never on its own.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ date?: string, label?: string, href?: string }` |  |
+
+**Renvoie** `any` — Never: it is the calendar that draws its events, and this function exists to be recognised among a calendar children — and to say so when it stands anywhere else.
+
+**Lève** `DocPensieveError` — Always, outside a calendar.
+
+### `firstWeekday`
+
+`firstWeekday(year, month)`
+
+The weekday a month starts on, counted from Monday.
+
+Zeller's congruence rather than `Date`: no time zone can move a day that was
+never a moment.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `year` | `number` |  |
+| `month` | `number` |  |
+
+**Renvoie** `number` — 0 for Monday, 6 for Sunday.
+
+### `monthGrid`
+
+`monthGrid(year, month)`
+
+The weeks of a month, each of seven cells.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `year` | `number` |  |
+| `month` | `number` |  |
+
+**Renvoie** `(number \| null)[][]` — `null` where the cell belongs to no day.
+
+### `readDay`
+
+`readDay(value)`
+
+Reads a `YYYY-MM` or `YYYY-MM-DD`.
+
+Parsed rather than handed to `new Date()`: that reads a bare date as UTC and
+a dated-and-timed one as local, so a calendar built in one time zone showed
+an event a day early in another.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `value` | `string` |  |
+
+**Renvoie** `{ year: number, month: number, day: number } \| null`
+
+### `HERO_ALIGNMENTS`
+
+`HERO_ALIGNMENTS`
+
+How the banner sits, and what the templates are asked for.
+
+### `Hero`
+
+`Hero(props)`
+
+Head of a page: a name, a sentence, and the way in.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any, align?: string, }` | `align` is `center` (the default) or `start`. |
+
+**Lève** `DocPensieveError` — With an alignment that does not exist.
+
+### `HeroActions`
+
+`HeroActions(props)`
+
+Row of ways in, under the sentence of a banner.
+
+Its children are links, which Markdown writes as links: the row is what
+turns them into something to press, and the first one into the one meant.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any }` |  |
+
 ### `Snippet`
 
 `Snippet(props)`

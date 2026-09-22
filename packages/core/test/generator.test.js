@@ -1814,6 +1814,37 @@ describe('the client script a version may carry', () => {
     expect(french).not.toContain('/fr/assets/client.js');
   });
 
+  it('carries only the behaviours the version actually uses', async () => {
+    // One file per version, cached between pages — and nothing in it that no
+    // page of that version needs.
+    const calendar = [
+      '---',
+      'title: Dates',
+      '---',
+      '',
+      '<Calendar>',
+      '  <Event date="2026-10-14" label="Release" />',
+      '</Calendar>',
+    ].join('\n');
+    const config = project({ 'dates.mdx': calendar }, { copyCode: true });
+    const out = path.join(config.rootDir, 'out');
+
+    const { Calendar, Event, setSiteContext } = await import('@docpensieve/components');
+    const generator = new SiteGenerator(config, {
+      compiler: new Compiler({ highlight: false, components: { Calendar, Event } }),
+      theme: stubTheme,
+      onPage: setSiteContext,
+    });
+    await generator.buildVersion('v1.0', out);
+
+    const client = read(out, 'assets', 'client.js');
+    expect(client).toContain('foldCalendar');
+    // No page of this version holds a block of code: the copy behaviour has
+    // nothing to do here and is not shipped.
+    expect(client).not.toContain('addCopyButtons');
+    expect(read(out, 'dates', 'index.html')).toContain('assets/client.js');
+  });
+
   it('is not written at all when the project did not ask for it', async () => {
     // The default: a site upgrading to this version must not start making its
     // readers download something it never asked for.

@@ -1,0 +1,104 @@
+---
+title: Hero
+description: Le bandeau en tête de page — un nom, une phrase, et par où commencer.
+---
+
+# Hero
+
+Une page d'accueil s'ouvre sur trois choses : ce que c'est, ce que ça fait, et
+par où commencer. `Hero` est le bloc qui les tient, pour que la tête d'une page
+soit un composant plutôt qu'un `div` et un tas de classes.
+
+## Un bandeau
+
+<Hero>
+
+## DocPensieve
+
+Vos fichiers Markdown et MDX deviennent un site statique. Aucun runtime à
+charger, une version par branche.
+
+<HeroActions>[Commencer](../guide/installation/) [Voir les composants](./)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero>
+
+# Mon projet
+
+Ce qu'il fait, en une phrase.
+
+<HeroActions>[Commencer](../guide/installation/) [Composants](./)</HeroActions>
+
+</Hero>
+```
+
+Tout ce qui est à l'intérieur est du Markdown ordinaire : un titre, un
+paragraphe, une rangée de liens. Le composant décide de la largeur de la
+phrase, des espacements, et fait des liens quelque chose sur quoi appuyer —
+**le premier porte l'accent**, parce qu'un lecteur doit voir une entrée et non
+trois.
+
+## Aligné au début
+
+`align="start"` laisse le bandeau là où se trouve le texte de la page, ce qui
+convient à une section qui ouvre un chapitre plutôt qu'un site.
+
+<Hero align="start">
+
+### Une section, pas un site
+
+Le même bloc, lu depuis la gauche.
+
+<HeroActions>[Lire la suite](../guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero align="start">
+
+## Une section, pas un site
+
+Le même bloc, lu depuis la gauche.
+
+</Hero>
+```
+
+Les valeurs acceptées sont `center`, par défaut, et `start`. Toute autre arrête
+la génération en listant les deux — un bandeau qui ignorerait son alignement en
+silence aurait l'air d'une feuille de style en panne.
+
+## Sur une page à vous
+
+Un bandeau va sur une page qui ouvre quelque chose : l'accueil d'une version,
+une page de tête pour une section. La mise en page `home` du frontmatter est sa
+compagne habituelle, puisqu'elle retire le menu et le sommaire :
+
+```mdx
+---
+title: Mon projet
+layout: home
+---
+
+<Hero>
+
+# Mon projet
+
+...
+```
+
+## Propriétés
+
+| Propriété   | Type     | Effet                             |
+| ----------- | -------- | --------------------------------- |
+| `align`     | `string` | `center` (par défaut) ou `start`. |
+| `className` | `string` | Classes ajoutées au bandeau.      |
+| `style`     | `object` | Styles en ligne sur le bandeau.   |
+
+`HeroActions` prend aussi `className` et `style`. Ses enfants sont des liens,
+et Markdown écrit des liens : rien d'autre n'est nécessaire.
+
+Une rangée d'entrées est une rangée de choix — [Columns](./columns/) montre
+comment tenir plusieurs blocs à la même hauteur quand le bandeau est suivi de
+cartes.

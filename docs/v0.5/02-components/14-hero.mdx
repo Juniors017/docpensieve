@@ -1,0 +1,102 @@
+---
+title: Hero
+description: The banner at the head of a page — a name, a sentence, and the way in.
+---
+
+# Hero
+
+A landing page opens on three things: what this is, what it does, and where to
+start. `Hero` is the block that holds them, so that the head of a page is a
+component rather than a `div` and a pile of classes.
+
+## A banner
+
+<Hero>
+
+## DocPensieve
+
+Your Markdown and MDX files become a static site. No runtime to load, one
+version per branch.
+
+<HeroActions>[Get started](../guide/installation/) [See the components](./)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero>
+
+# My project
+
+What it does, in one sentence.
+
+<HeroActions>[Get started](../guide/installation/) [Components](./)</HeroActions>
+
+</Hero>
+```
+
+Everything inside is ordinary Markdown: a heading, a paragraph, a row of
+links. The component sets the width of the sentence, the spacing, and turns
+the links into something to press — **the first one carries the accent**,
+because a reader should see one way in rather than three.
+
+## Aligned to the start
+
+`align="start"` leaves the banner where the text of the page is, which suits a
+section that opens a chapter rather than a site.
+
+<Hero align="start">
+
+### A section, not a site
+
+The same block, reading from the left.
+
+<HeroActions>[Read on](../guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero align="start">
+
+## A section, not a site
+
+The same block, reading from the left.
+
+</Hero>
+```
+
+Accepted values are `center`, the default, and `start`. Anything else stops the
+build and lists the two — a banner silently ignoring its alignment would look
+like a stylesheet that failed.
+
+## On a page of your own
+
+A banner belongs on a page that opens something: the home page of a version, a
+landing page for a section. The `home` layout of the frontmatter is its usual
+companion, since it drops the menu and the table of contents:
+
+```mdx
+---
+title: My project
+layout: home
+---
+
+<Hero>
+
+# My project
+
+...
+```
+
+## Properties
+
+| Property    | Type     | Effect                             |
+| ----------- | -------- | ---------------------------------- |
+| `align`     | `string` | `center` (the default) or `start`. |
+| `className` | `string` | Classes added to the banner.       |
+| `style`     | `object` | Inline styles on the banner.       |
+
+`HeroActions` takes `className` and `style` too. Its children are links, and
+Markdown writes links: nothing else is needed.
+
+A row of ways in is a row of choices — [Columns](./columns/) shows how to keep
+several blocks the same height when the banner is followed by cards.

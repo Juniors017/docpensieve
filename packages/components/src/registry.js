@@ -11,7 +11,9 @@ import { Admonition } from './admonition.js';
 import { Card, CardBody, CardFooter, CardHeader, CardImage } from './card.js';
 import { Cards } from './cards.js';
 import { Column, Columns } from './columns.js';
+import { Calendar, Event } from './calendar.js';
 import { ForTheme } from './for-theme.js';
+import { Hero, HeroActions } from './hero.js';
 import { LogoIcon } from './logo-icon.js';
 import { Menu, MenuGroup, MenuLink } from './menu.js';
 import { ScrollToTop } from './scroll-to-top.js';
@@ -35,6 +37,10 @@ export const builtinComponents = {
   Cards,
   Columns,
   Column,
+  Hero,
+  HeroActions,
+  Calendar,
+  Event,
   Menu,
   MenuLink,
   MenuGroup,

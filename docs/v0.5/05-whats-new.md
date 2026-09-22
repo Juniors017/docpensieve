@@ -20,6 +20,17 @@ written.
 
 ## Already there
 
+### A banner, and a calendar
+
+`Hero` holds the head of a page — a name, a sentence, a row of ways in — so
+that it is a component rather than a div and a pile of classes.
+
+`Calendar` draws the months your events fall on, each event on its day. Every
+month is in the page: a reader with no script gets them stacked and readable,
+and the client file folds them into one with two arrows.
+
+[Hero](./components/hero/) · [Calendar](./components/calendar/)
+
 ### A button that copies a block of code
 
 `copyCode: true` puts a copy button on every block of code. It is the first

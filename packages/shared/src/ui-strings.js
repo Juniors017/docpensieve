@@ -43,6 +43,7 @@
  * @property {string} written Byline prefix for the publication date.
  * @property {string} updated Byline prefix for the modification date.
  * @property {string} language Accessible name of the language switcher.
+ * @property {string} calendar Accessible name of a calendar.
  * @property {string} dateLocale Locale used to write a date in full.
  */
 
@@ -78,6 +79,7 @@ export const UI_STRINGS = Object.freeze({
     written: 'Written',
     updated: 'Updated',
     language: 'Language',
+    calendar: 'Calendar',
     dateLocale: 'en-GB',
   }),
   fr: Object.freeze({
@@ -107,6 +109,7 @@ export const UI_STRINGS = Object.freeze({
     written: 'Écrit',
     updated: 'Mis à jour',
     language: 'Langue',
+    calendar: 'Calendrier',
     dateLocale: 'fr-FR',
   }),
 });

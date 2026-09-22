@@ -4,6 +4,7 @@
  * @module @docpensieve/core/generator
  */
 
+import { readFileSync } from 'node:fs';
 import { copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -63,7 +64,33 @@ const CLIENT_SCRIPT = 'assets/client.js';
 
 /** Source of that script, shipped with this package. */
 const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.url));
-const CLIENT_COPY = fileURLToPath(new URL('../client/copy.js', import.meta.url));
+
+/**
+ * The behaviours a page can ask the client file for.
+ *
+ * Each says what a rendered page must hold for it to have anything to do: the
+ * file of a version carries the ones its pages actually use, and a page loads
+ * it only if one of them matched. `enabled` reads the configuration, since a
+ * behaviour a project did not ask for is one its readers do not pay for.
+ *
+ * @type {{ name: string, file: string, needs: RegExp, enabled: (config: any) => boolean }[]}
+ */
+const CLIENT_BEHAVIOURS = [
+  {
+    name: 'copy',
+    file: fileURLToPath(new URL('../client/copy.js', import.meta.url)),
+    needs: /<pre[\s>]/,
+    enabled: (config) => config.copyCode === true,
+  },
+  {
+    name: 'calendar',
+    file: fileURLToPath(new URL('../client/calendar.js', import.meta.url)),
+    needs: /class="[^"]*dp-calendar/,
+    // A calendar is written in a page, not turned on in a configuration: the
+    // pages that hold one are the ones that need it.
+    enabled: () => true,
+  },
+];
 
 /**
  * Targets a preview keeps as they are: another site, an anchor, a data URI.
@@ -102,9 +129,6 @@ const FAVICON_TYPES = { '.ico': 'image/x-icon', '.png': 'image/png', '.svg': 'im
 
 /** Collects the values of the `class` attributes of an HTML document. */
 const CLASS_ATTRIBUTE = /class="([^"]*)"/g;
-
-/** A rendered page that has a block of code for the copy button to fit. */
-const CODE_BLOCK = /<pre[\s>]/;
 
 /** Folders never copied from the sources. */
 const IGNORED_DIRS = new Set(['node_modules', 'dist', 'coverage']);
@@ -195,7 +219,7 @@ export class SiteGenerator {
    *   loader?: DocLoader,
    *   compiler?: Compiler,
    *   onPage?: (page: {
-   *     url: string, dirUrl?: string, basePath: string,
+   *     url: string, dirUrl?: string, basePath: string, lang?: string,
    *     filepath?: string, sourceDir?: string, slug?: string,
    *     pages?: { url: string, slug: string, title: string, description?: string,
    *       preview?: string, modified?: { iso: string, label: string } }[],
@@ -307,10 +331,11 @@ export class SiteGenerator {
     // The client file is addressed from the version root, like the
     // stylesheet: a translated page must not look for it under its own
     // language, where it was never written.
-    const copyCode = this.config.copyCode === true;
+    const behaviours = CLIENT_BEHAVIOURS.filter((behaviour) => behaviour.enabled(this.config));
     const clientHref =
       joinUrl(versionRoot, path.dirname(CLIENT_SCRIPT)) + path.basename(CLIENT_SCRIPT);
-    let needsClient = false;
+    /** @type {Set<string>} Behaviours a page of this version actually uses. */
+    const used = new Set();
     const layout = await this.#loadLayout();
     const classes = this.#classes();
 
@@ -511,6 +536,9 @@ export class SiteGenerator {
           url,
           dirUrl,
           basePath: versionBase,
+          // A component that writes a word of its own — the name of a month —
+          // speaks the language of the page, as the shell does.
+          lang: language.lang,
           filepath: doc.path,
           sourceDir,
           slug: doc.slug,
@@ -601,11 +629,13 @@ export class SiteGenerator {
           preloads,
           // Only where a behaviour has something to work on: a page without a
           // block of code has nothing to copy, and loads nothing.
-          scripts: copyCode && CODE_BLOCK.test(html) ? [clientHref] : [],
+          scripts: behaviours.some((behaviour) => behaviour.needs.test(html)) ? [clientHref] : [],
           content: html,
           jsonld,
         });
-        if (copyCode && CODE_BLOCK.test(html)) needsClient = true;
+        for (const behaviour of behaviours) {
+          if (behaviour.needs.test(html)) used.add(behaviour.name);
+        }
 
         for (const [, value] of page.matchAll(CLASS_ATTRIBUTE)) {
           for (const token of value.split(/\s+/)) if (token) candidates.add(token);
@@ -682,10 +712,15 @@ export class SiteGenerator {
 
     // Written once for the version, and only if a page of it asked: a site
     // whose pages carry no code block ships no script at all.
-    if (needsClient) {
+    if (used.size > 0) {
       const clientFile = path.join(target, ...CLIENT_SCRIPT.split('/'));
       await mkdir(path.dirname(clientFile), { recursive: true });
-      await copyFile(CLIENT_COPY, clientFile);
+      // Joined rather than imported one from another: the file is served as
+      // it is, and an import would be a second request for a reader.
+      const parts = behaviours
+        .filter((behaviour) => used.has(behaviour.name))
+        .map((behaviour) => readFileSync(behaviour.file, 'utf8'));
+      await this.#write(clientFile, parts.join('\n'));
       written.set(clientFile, 'the client script');
     }
 

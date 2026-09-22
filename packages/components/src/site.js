@@ -26,6 +26,9 @@ const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i;
  * @property {string} [dirUrl] Folder of the source file, mapped into URL
  *   space. Base of relative targets: the page URL has one more level.
  * @property {string} basePath Version root, deployment prefix included.
+ * @property {string} [lang] Language of the page. A component that writes a
+ *   word of its own — the name of a month, of a weekday — needs it for the
+ *   same reason the shell does.
  * @property {string} [filepath] Source file of the page, on disk.
  * @property {string} [sourceDir] Source folder of the version.
  * @property {string} [slug] Path of the page within the version, `''` at the
@@ -50,6 +53,7 @@ export function setSiteContext(page = {}) {
     url: page.url ?? '/',
     dirUrl: page.dirUrl,
     basePath: page.basePath ?? '/',
+    lang: page.lang,
     filepath: page.filepath,
     sourceDir: page.sourceDir,
     slug: page.slug,

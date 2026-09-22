@@ -20,6 +20,17 @@ endroit où quelque chose est écrit.
 
 ## Déjà là
 
+### Un bandeau, et un calendrier
+
+`Hero` tient la tête d'une page — un nom, une phrase, une rangée d'entrées —
+pour que ce soit un composant plutôt qu'un div et un tas de classes.
+
+`Calendar` dessine les mois où tombent vos événements, chacun sur son jour.
+Tous les mois sont dans la page : un lecteur sans script les reçoit empilés et
+lisibles, et le fichier client les replie en un seul avec deux flèches.
+
+[Hero](./components/hero/) · [Calendar](./components/calendar/)
+
 ### Un bouton qui copie un bloc de code
 
 `copyCode: true` pose un bouton de copie sur chaque bloc de code. C'est la
