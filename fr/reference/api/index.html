@@ -227,6 +227,12 @@
                 <li class="dp-nav-item">
                   <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
                 </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/hero/">Hero</a>
+                </li>
+                <li class="dp-nav-item">
+                  <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/calendar/">Calendar</a>
+                </li>
               </ul>
             </details>
           </li>
@@ -435,6 +441,12 @@
                   </li>
                   <li class="dp-nav-item">
                     <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/snippet/">Snippet</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/hero/">Hero</a>
+                  </li>
+                  <li class="dp-nav-item">
+                    <a class="dp-nav-link block rounded px-2 py-1 no-underline text-slate-600 hover:bg-slate-100 hover:text-slate-900 aria-[current=page]:bg-indigo-50 aria-[current=page]:font-medium aria-[current=page]:text-indigo-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:aria-[current=page]:bg-slate-800 dark:aria-[current=page]:text-indigo-300" href="/versions/beta/fr/components/calendar/">Calendar</a>
                   </li>
                 </ul>
               </details>
@@ -1106,6 +1118,54 @@ is read from the writing, with no prop to set.</p>
 <p>Named gauge, from 0 to 100.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, name?: any, level?: number, showValue?: boolean, shape?: string, icon?: any, color?: string, label?: string, }</code></td><td><code>children</code> stands as a comment under the gauge. <code>showValue</code> hides the numeric percentage without touching what the gauge announces. <code>shape</code> picks between the bar and the circle. <code>icon</code> goes before the name — a <code>LogoIcon</code> fits there. <code>color</code> tints the fill: any CSS colour, the accent colour by default. <code>label</code> names the gauge for screen readers when <code>name</code> is not text.</td></tr></tbody></table></div>
 <p><strong>Lève</strong> <code>DocPensieveError</code> — Without a name, outside 0–100, or with an unknown shape.</p>
+<h3 id="calendar"><code>Calendar</code></h3>
+<p><code>Calendar(props)</code></p>
+<p>A calendar of the days its events fall on.</p>
+<p>Every month from the first event to the last is drawn, so that an empty
+month between two others is not silently skipped — a gap is something a
+reader should see.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, label?: string, compact?: boolean, }</code></td><td><code>label</code> names the calendar for screen readers. <code>compact</code> asks for the small model at every width; a narrow screen takes it anyway, since seven columns of full cells there give each day a few millimetres.</td></tr></tbody></table></div>
+<p><strong>Lève</strong> <code>DocPensieveError</code> — Without an event, or with a child that is not one.</p>
+<h3 id="event"><code>Event</code></h3>
+<p><code>Event(props)</code></p>
+<p>One event of a calendar. Rendered by its calendar, never on its own.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ date?: string, label?: string, href?: string }</code></td><td></td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>any</code> — Never: it is the calendar that draws its events, and this function exists to be recognised among a calendar children — and to say so when it stands anywhere else.</p>
+<p><strong>Lève</strong> <code>DocPensieveError</code> — Always, outside a calendar.</p>
+<h3 id="firstweekday"><code>firstWeekday</code></h3>
+<p><code>firstWeekday(year, month)</code></p>
+<p>The weekday a month starts on, counted from Monday.</p>
+<p>Zeller&#x27;s congruence rather than <code>Date</code>: no time zone can move a day that was
+never a moment.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>year</code></td><td><code>number</code></td><td></td></tr><tr><td><code>month</code></td><td><code>number</code></td><td></td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>number</code> — 0 for Monday, 6 for Sunday.</p>
+<h3 id="monthgrid"><code>monthGrid</code></h3>
+<p><code>monthGrid(year, month)</code></p>
+<p>The weeks of a month, each of seven cells.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>year</code></td><td><code>number</code></td><td></td></tr><tr><td><code>month</code></td><td><code>number</code></td><td></td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>(number \| null)[][]</code> — <code>null</code> where the cell belongs to no day.</p>
+<h3 id="readday"><code>readDay</code></h3>
+<p><code>readDay(value)</code></p>
+<p>Reads a <code>YYYY-MM</code> or <code>YYYY-MM-DD</code>.</p>
+<p>Parsed rather than handed to <code>new Date()</code>: that reads a bare date as UTC and
+a dated-and-timed one as local, so a calendar built in one time zone showed
+an event a day early in another.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>value</code></td><td><code>string</code></td><td></td></tr></tbody></table></div>
+<p><strong>Renvoie</strong> <code>{ year: number, month: number, day: number } \| null</code></p>
+<h3 id="hero-alignments"><code>HERO_ALIGNMENTS</code></h3>
+<p><code>HERO_ALIGNMENTS</code></p>
+<p>How the banner sits within its page.</p>
+<h3 id="hero"><code>Hero</code></h3>
+<p><code>Hero(props)</code></p>
+<p>Head of a page: a name, a sentence, and the way in.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, }</code></td><td><code>align</code> is <code>center</code> (the default) or <code>start</code>; <code>size</code> is <code>small</code>, <code>medium</code>, <code>large</code> or <code>full</code>; <code>tone</code> names the colour the banner is lit with.</td></tr></tbody></table></div>
+<p><strong>Lève</strong> <code>DocPensieveError</code> — With an alignment, a size or a tone that does not exist.</p>
+<h3 id="heroactions"><code>HeroActions</code></h3>
+<p><code>HeroActions(props)</code></p>
+<p>Row of ways in, under the sentence of a banner.</p>
+<p>Its children are links, which Markdown writes as links: the row is what
+turns them into something to press, and the first one into the one meant.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Paramètre</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
 <h3 id="snippet"><code>Snippet</code></h3>
 <p><code>Snippet(props)</code></p>
 <p>A code block, framed and labelled.</p>
@@ -1546,6 +1606,30 @@ one, which makes it usable elsewhere and testable on its own.</p>
               </li>
               <li class="dp-toc-item">
                 <a href="#skill">Skill</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#calendar">Calendar</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#event">Event</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#firstweekday">firstWeekday</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#monthgrid">monthGrid</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#readday">readDay</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#hero-alignments">HERO_ALIGNMENTS</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#hero">Hero</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#heroactions">HeroActions</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#snippet">Snippet</a>
