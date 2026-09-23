@@ -80,26 +80,44 @@ words on one side, the picture on the other. Nothing to declare: having a
 visual is what makes it a split, which is the commonest shape of a landing
 page and the reason a project puts a screenshot there.
 
-```mdx
 <Hero>
+  <HeroText>
 
-# My project
+### My project
 
-What it does, in one sentence.
+What it does, in one sentence, with room to breathe.
 
 <HeroActions>[Get started](../guide/installation/) [Components](./)</HeroActions>
 
-<HeroVisual>
+  </HeroText>
+  <HeroVisual>
 
-![A page of the site](./icons/screenshot.png)
+![A page of the site](./icons/banner.svg)
 
-</HeroVisual>
+  </HeroVisual>
+</Hero>
 
+```mdx
+<Hero>
+  <HeroText>
+
+# My project
+
+What it does, in one sentence, with room to breathe.
+
+<HeroActions>[Get started](/guide/installation/) [Components](/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![A page of the site](./screenshot.png)
+
+  </HeroVisual>
 </Hero>
 ```
 
-Below 48rem the two columns become one, the picture following the words it
-illustrates.
+`HeroText` holds the words, `HeroVisual` the picture. Below 48rem the two
+columns become one, the picture following the words it illustrates.
 
 ## A frame, if you want one
 
@@ -193,10 +211,16 @@ layout: home
 | `className` | `string` | Classes added to the banner.       |
 | `style`     | `object` | Inline styles on the banner.       |
 
-`HeroActions`, `HeroText` and `HeroVisual` take `className` and `style` too.
-The children of `HeroActions` are links, and Markdown writes links: nothing
-else is needed. **One primary action and one alternative** is the shape that
-reads — a row of five buttons is a row of none.
+Its companions, each taking `className` and `style` as well:
+
+| Component     | What it holds                                                        |
+| ------------- | -------------------------------------------------------------------- |
+| `HeroActions` | The row of ways in. Its children are links, as Markdown writes them. |
+| `HeroText`    | The words, in a split. Not needed in a single column.                |
+| `HeroVisual`  | The picture. Its presence is what makes the banner a split.          |
+
+**One primary action and one alternative** is the shape that reads — a row of
+five buttons is a row of none.
 
 The classes are `dp-banner*`, after what the element is rather than after the
 component: a page that already writes a class of its own around a title keeps

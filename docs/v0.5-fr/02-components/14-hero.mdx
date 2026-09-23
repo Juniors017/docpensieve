@@ -81,26 +81,44 @@ les mots d'un côté, l'image de l'autre. Rien à déclarer : c'est d'avoir un
 visuel qui en fait un split, la forme la plus courante d'une page d'accueil et
 la raison pour laquelle un projet y met une capture.
 
-```mdx
 <Hero>
+  <HeroText>
 
-# Mon projet
+### Mon projet
 
-Ce qu'il fait, en une phrase.
+Ce qu'il fait, en une phrase, avec de la place pour respirer.
 
 <HeroActions>[Commencer](../guide/installation/) [Composants](./)</HeroActions>
 
-<HeroVisual>
+  </HeroText>
+  <HeroVisual>
 
-![Une page du site](./icons/capture.png)
+![Une page du site](./icons/banner.svg)
 
-</HeroVisual>
+  </HeroVisual>
+</Hero>
 
+```mdx
+<Hero>
+  <HeroText>
+
+# Mon projet
+
+Ce qu'il fait, en une phrase, avec de la place pour respirer.
+
+<HeroActions>[Commencer](/guide/installation/) [Composants](/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![Une page du site](./capture.png)
+
+  </HeroVisual>
 </Hero>
 ```
 
-Sous 48rem, les deux colonnes n'en font plus qu'une, l'image suivant les mots
-qu'elle illustre.
+`HeroText` tient les mots, `HeroVisual` l'image. Sous 48rem, les deux colonnes
+n'en font plus qu'une, l'image suivant les mots qu'elle illustre.
 
 ## Un cadre, si vous en voulez un
 
@@ -195,11 +213,16 @@ layout: home
 | `className` | `string` | Classes ajoutées au bandeau.      |
 | `style`     | `object` | Styles en ligne sur le bandeau.   |
 
-`HeroActions`, `HeroText` et `HeroVisual` prennent aussi `className` et
-`style`. Les enfants de `HeroActions` sont des liens, et Markdown écrit des
-liens : rien d'autre n'est nécessaire. **Une action principale et une
-alternative**, c'est la forme qui se lit — une rangée de cinq boutons est une
-rangée d'aucun.
+Ses compagnons, qui prennent eux aussi `className` et `style` :
+
+| Composant     | Ce qu'il tient                                                            |
+| ------------- | ------------------------------------------------------------------------- |
+| `HeroActions` | La rangée d'entrées. Ses enfants sont des liens, comme Markdown en écrit. |
+| `HeroText`    | Les mots, dans un split. Inutile en colonne simple.                       |
+| `HeroVisual`  | L'image. C'est sa présence qui fait du bandeau un split.                  |
+
+**Une action principale et une alternative**, c'est la forme qui se lit — une
+rangée de cinq boutons est une rangée d'aucun.
 
 Les classes sont `dp-banner*`, d'après ce qu'est l'élément plutôt que d'après
 le composant : une page qui écrit déjà une classe à elle autour d'un titre
