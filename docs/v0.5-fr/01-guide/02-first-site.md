@@ -102,6 +102,11 @@ part une fois en ligne.
     → ignores the deployment prefix "/mon-projet/"
 ```
 
+Deux commandes, dont la seconde lit ce que la première a écrit : elles vont
+donc ensemble. [Déploiement](./deployment/) montre comment le dire une fois,
+dans un `package.json`, et faire lancer par un workflow exactement ce que vous
+lancez.
+
 C'est le contrôle à lancer après tout changement de `baseUrl`, de structure de
 dossiers ou d'adresse. Quand quelque chose ne colle pas,
 [Quand ça casse](./when-it-breaks/) recense les pannes que cet outil produit,

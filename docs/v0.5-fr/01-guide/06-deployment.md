@@ -89,6 +89,34 @@ l'outil par `npx`, qui prend la dernière version publiée. Pour la figer d'une
 génération à l'autre, déclarez `docpensieve` dans un `package.json` et ajoutez
 `npm ci` avant la génération.
 
+## Une seule commande, pour vous et pour la machine
+
+Deux commandes, c'est une de trop à retenir, et un workflow devrait lancer
+exactement ce que vous lancez. Un `package.json` est l'endroit où le dire une
+fois :
+
+```json
+{
+  "scripts": {
+    "docs": "docpensieve dev",
+    "check": "docpensieve build && docpensieve check"
+  }
+}
+```
+
+`npm run check` génère alors le site et le relit. Un lien mort, une imbrication
+que le balisage ne peut pas porter, une page qui arrête la génération : chacun
+fait échouer la commande, sur votre machine comme dans votre workflow, de la
+même façon et avec le même message.
+
+Le `&&` est tout l'intérêt. `check` lit ce que `build` a écrit : une
+vérification lancée seule vous parle donc du site tel qu'il était à la dernière
+génération — c'est-à-dire, le jour où vous oubliez, du mauvais site.
+
+Avec cela en place, la recette ci-dessus devient `npm ci` puis
+`npm run check`, et la version de l'outil cesse de dépendre du jour où le
+workflow a tourné.
+
 ## Relire avant de publier
 
 Un site généré peut compiler sans erreur et contenir des liens morts.

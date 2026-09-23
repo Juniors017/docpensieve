@@ -88,6 +88,32 @@ the tool through `npx`, which takes the latest published version. To pin it
 from one build to the next, declare `docpensieve` in a `package.json` and add
 `npm ci` before the build.
 
+## One command, for you and for the machine
+
+Two commands are one too many to remember, and a workflow should run exactly
+what you run. A `package.json` is the place to say it once:
+
+```json
+{
+  "scripts": {
+    "docs": "docpensieve dev",
+    "check": "docpensieve build && docpensieve check"
+  }
+}
+```
+
+`npm run check` then generates the site and reads it back. A dead link, a
+nesting the markup cannot carry, a page that stops the build: each one fails
+the command, on your machine and in your workflow, in the same way and with
+the same message.
+
+The `&&` is the point of it. `check` reads what `build` wrote, so a check run
+on its own tells you about the site as it was the last time it was generated —
+which, the day you forget, is the day it matters.
+
+With that in place the recipe above becomes `npm ci` and `npm run check`, and
+the version of the tool stops depending on the day the workflow ran.
+
 ## Reading back before publishing
 
 A generated site can compile without error and contain dead links.

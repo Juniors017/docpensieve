@@ -98,6 +98,10 @@ online.
     → ignores the deployment prefix "/my-project/"
 ```
 
+Two commands, and the second reads what the first wrote — so they belong
+together. [Deployment](./deployment/) shows how to say that once, in a
+`package.json`, and have a workflow run the same thing you run.
+
 It is the check to run after any change of `baseUrl`, of folder structure or of
 URL. When something does not add up, [When it breaks](./when-it-breaks/) lists
 the failures this tool produces, by the symptom you see.
