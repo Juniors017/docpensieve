@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { DocPensieveError } from '@docpensieve/shared';
 import { describe, expect, it } from 'vitest';
 
-import { Hero, HeroActions } from '../src/hero.js';
+import { Hero, HeroActions, HeroVisual } from '../src/hero.js';
 
 const render = (/** @type {any} */ element) => renderToStaticMarkup(element);
 
@@ -14,13 +14,13 @@ describe('Hero', () => {
     // screen reader should be able to skip it.
     const html = render(h(Hero, null, h('h1', null, 'DocPensieve')));
 
-    expect(html).toContain('<section class="dp-hero">');
+    expect(html).toContain('<section class="dp-banner">');
     expect(html).toContain('<h1>DocPensieve</h1>');
   });
 
   it('can sit at the start instead of the centre', () => {
     const html = render(h(Hero, { align: 'start' }, 'Body'));
-    expect(html).toContain('class="dp-hero dp-hero--start"');
+    expect(html).toContain('class="dp-banner dp-banner--start"');
   });
 
   it('refuses an alignment that does not exist, and lists the ones that do', () => {
@@ -47,13 +47,33 @@ describe('Hero', () => {
       ),
     );
 
-    expect(html).toContain('<div class="dp-hero-actions">');
+    expect(html).toContain('<div class="dp-banner-actions">');
     expect(html.match(/<a /g)).toHaveLength(2);
   });
 
   it('takes a class and a style of its own, like every component', () => {
     const html = render(h(Hero, { className: 'tight', style: { paddingTop: '1rem' } }, 'Body'));
-    expect(html).toContain('class="dp-hero tight"');
+    expect(html).toContain('class="dp-banner tight"');
     expect(html).toContain('padding-top:1rem');
+  });
+});
+
+describe('a banner with something to show', () => {
+  it('becomes two columns as soon as it has a visual', () => {
+    // The commonest shape of a landing page, and the reason a project puts a
+    // screenshot there. Nothing to declare: having one is what makes it a
+    // split, and the stylesheet reads that from the markup.
+    const html = render(
+      h(Hero, null, h('h1', null, 'Name'), h(HeroVisual, null, h('img', { src: '/a.png' }))),
+    );
+
+    expect(html).toContain('<div class="dp-banner-visual">');
+  });
+
+  it('draws no frame unless it is asked for one', () => {
+    // A banner is not a card. The panel exists for the page that wants it,
+    // and a page that never asked must not grow a border on an upgrade.
+    expect(render(h(Hero, null, 'Body'))).toBe('<section class="dp-banner">Body</section>');
+    expect(render(h(Hero, { frame: true }, 'Body'))).toContain('dp-banner--framed');
   });
 });

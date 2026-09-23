@@ -1203,7 +1203,23 @@ an event a day early in another.
 
 `HERO_ALIGNMENTS`
 
-How the banner sits within its page.
+How the words sit when the banner is a single column.
+
+### `HERO_SIZES`
+
+`HERO_SIZES`
+
+How much room it takes. `full` is the height of the screen.
+
+### `HERO_TONES`
+
+`HERO_TONES`
+
+Tones a banner can take.
+
+The same ones an admonition carries: a theme defines a colour per tone, not
+a colour per component, so a project that gives `attention` its own colour
+gives it to both at once.
 
 ### `Hero`
 
@@ -1211,9 +1227,14 @@ How the banner sits within its page.
 
 Head of a page: a name, a sentence, and the way in.
 
+A `HeroVisual` among its children turns it into two columns — the words on
+one side, the picture on the other — which is what a landing page does when
+it has something to show. Nothing to declare: having a visual is what makes
+it a split.
+
 | Paramètre | Type | |
 | --- | --- | --- |
-| `props` | `{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, }` | `align` is `center` (the default) or `start`; `size` is `small`, `medium`, `large` or `full`; `tone` names the colour the banner is lit with. |
+| `props` | `{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, frame?: boolean, }` | `align` is `center` (the default) or `start`; `size` is `small`, `medium`, `large` or `full`; `tone` names the colour it is lit with; `frame` draws the panel a banner does not have by default. |
 
 **Lève** `DocPensieveError` — With an alignment, a size or a tone that does not exist.
 
@@ -1225,6 +1246,34 @@ Row of ways in, under the sentence of a banner.
 
 Its children are links, which Markdown writes as links: the row is what
 turns them into something to press, and the first one into the one meant.
+One primary action and one alternative is the shape that reads: a row of
+five is a row of none.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any }` |  |
+
+### `HeroText`
+
+`HeroText(props)`
+
+The words of a banner, when it also has something to show.
+
+Only needed in a split: on its own, a banner's children are its words
+already.
+
+| Paramètre | Type | |
+| --- | --- | --- |
+| `props` | `{ className?: string, style?: object, children?: any }` |  |
+
+### `HeroVisual`
+
+`HeroVisual(props)`
+
+The picture, the screenshot or the diagram beside the words.
+
+Its presence is what makes a banner a split: a landing page with something
+to show shows it, and one without stays a single column.
 
 | Paramètre | Type | |
 | --- | --- | --- |

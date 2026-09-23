@@ -9,6 +9,11 @@ Une page d'accueil s'ouvre sur trois choses : ce que c'est, ce que ça fait, et
 par où commencer. `Hero` est le bloc qui les tient, pour que la tête d'une page
 soit un composant plutôt qu'un `div` et un tas de classes.
 
+Ce **n'est pas une carte** : ni bordure, ni panneau. Ce dont un bandeau est
+fait, c'est de l'espace, un titre assez grand pour être lu en premier, et une
+entrée qui se détache des autres. Un cadre existe pour la page qui en demande
+un, et ce n'est pas ce que vous obtenez par défaut.
+
 ## Un bandeau
 
 <Hero>
@@ -68,6 +73,51 @@ Le même bloc, lu depuis la gauche.
 Les valeurs acceptées sont `center`, par défaut, et `start`. Toute autre arrête
 la génération en listant les deux — un bandeau qui ignorerait son alignement en
 silence aurait l'air d'une feuille de style en panne.
+
+## Avec quelque chose à montrer
+
+Posez un `HeroVisual` parmi les enfants et le bandeau passe en deux colonnes —
+les mots d'un côté, l'image de l'autre. Rien à déclarer : c'est d'avoir un
+visuel qui en fait un split, la forme la plus courante d'une page d'accueil et
+la raison pour laquelle un projet y met une capture.
+
+```mdx
+<Hero>
+
+# Mon projet
+
+Ce qu'il fait, en une phrase.
+
+<HeroActions>[Commencer](../guide/installation/) [Composants](./)</HeroActions>
+
+<HeroVisual>
+
+![Une page du site](./icons/capture.png)
+
+</HeroVisual>
+
+</Hero>
+```
+
+Sous 48rem, les deux colonnes n'en font plus qu'une, l'image suivant les mots
+qu'elle illustre.
+
+## Un cadre, si vous en voulez un
+
+`frame` dessine le panneau qu'un bandeau n'a pas par défaut — une bordure, et
+un lavis de son ton.
+
+<Hero frame size="small">
+
+### Encadré
+
+Pour un bandeau qu'il faut distinguer de la page autour.
+
+</Hero>
+
+```mdx
+<Hero frame>...</Hero>
+```
 
 ## La place qu'il prend
 
@@ -145,8 +195,15 @@ layout: home
 | `className` | `string` | Classes ajoutées au bandeau.      |
 | `style`     | `object` | Styles en ligne sur le bandeau.   |
 
-`HeroActions` prend aussi `className` et `style`. Ses enfants sont des liens,
-et Markdown écrit des liens : rien d'autre n'est nécessaire.
+`HeroActions`, `HeroText` et `HeroVisual` prennent aussi `className` et
+`style`. Les enfants de `HeroActions` sont des liens, et Markdown écrit des
+liens : rien d'autre n'est nécessaire. **Une action principale et une
+alternative**, c'est la forme qui se lit — une rangée de cinq boutons est une
+rangée d'aucun.
+
+Les classes sont `dp-banner*`, d'après ce qu'est l'élément plutôt que d'après
+le composant : une page qui écrit déjà une classe à elle autour d'un titre
+garde ce que cette classe faisait, et adopter le composant reste une décision.
 
 Une rangée d'entrées est une rangée de choix — [Columns](./columns/) montre
 comment tenir plusieurs blocs à la même hauteur quand le bandeau est suivi de

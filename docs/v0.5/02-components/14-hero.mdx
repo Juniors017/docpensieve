@@ -9,6 +9,11 @@ A landing page opens on three things: what this is, what it does, and where to
 start. `Hero` is the block that holds them, so that the head of a page is a
 component rather than a `div` and a pile of classes.
 
+It is **not a card**: no border, no panel. What a banner is made of is space, a
+title large enough to be the first thing read, and one way in that stands out
+from the rest. A frame exists for the page that asks for one, and it is not
+what you get by default.
+
 ## A banner
 
 <Hero>
@@ -67,6 +72,51 @@ The same block, reading from the left.
 Accepted values are `center`, the default, and `start`. Anything else stops the
 build and lists the two — a banner silently ignoring its alignment would look
 like a stylesheet that failed.
+
+## With something to show
+
+Put a `HeroVisual` among the children and the banner becomes two columns — the
+words on one side, the picture on the other. Nothing to declare: having a
+visual is what makes it a split, which is the commonest shape of a landing
+page and the reason a project puts a screenshot there.
+
+```mdx
+<Hero>
+
+# My project
+
+What it does, in one sentence.
+
+<HeroActions>[Get started](../guide/installation/) [Components](./)</HeroActions>
+
+<HeroVisual>
+
+![A page of the site](./icons/screenshot.png)
+
+</HeroVisual>
+
+</Hero>
+```
+
+Below 48rem the two columns become one, the picture following the words it
+illustrates.
+
+## A frame, if you want one
+
+`frame` draws the panel a banner does not have by default — a border, and a
+wash of its tone.
+
+<Hero frame size="small">
+
+### Framed
+
+For a banner that has to be told apart from the page around it.
+
+</Hero>
+
+```mdx
+<Hero frame>...</Hero>
+```
 
 ## How much room it takes
 
@@ -143,8 +193,14 @@ layout: home
 | `className` | `string` | Classes added to the banner.       |
 | `style`     | `object` | Inline styles on the banner.       |
 
-`HeroActions` takes `className` and `style` too. Its children are links, and
-Markdown writes links: nothing else is needed.
+`HeroActions`, `HeroText` and `HeroVisual` take `className` and `style` too.
+The children of `HeroActions` are links, and Markdown writes links: nothing
+else is needed. **One primary action and one alternative** is the shape that
+reads — a row of five buttons is a row of none.
+
+The classes are `dp-banner*`, after what the element is rather than after the
+component: a page that already writes a class of its own around a title keeps
+whatever that class did, and adopting the component stays a decision.
 
 A row of ways in is a row of choices — [Columns](./columns/) shows how to keep
 several blocks the same height when the banner is followed by cards.

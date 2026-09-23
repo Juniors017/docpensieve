@@ -13,7 +13,7 @@ import { Cards } from './cards.js';
 import { Column, Columns } from './columns.js';
 import { Calendar, Event } from './calendar.js';
 import { ForTheme } from './for-theme.js';
-import { Hero, HeroActions } from './hero.js';
+import { Hero, HeroActions, HeroText, HeroVisual } from './hero.js';
 import { LogoIcon } from './logo-icon.js';
 import { Menu, MenuGroup, MenuLink } from './menu.js';
 import { ScrollToTop } from './scroll-to-top.js';
@@ -39,6 +39,8 @@ export const builtinComponents = {
   Column,
   Hero,
   HeroActions,
+  HeroText,
+  HeroVisual,
   Calendar,
   Event,
   Menu,

@@ -128,7 +128,7 @@
 
 /* A banner opens a page rather than dividing one: the heading of a section
    has a rule under it and room above, and neither belongs here. */
-.dp-article .dp-hero > :is(h1, h2, h3) {
+.dp-article .dp-banner > :is(h1, h2, h3) {
   margin: 0 0 0.75rem;
   padding: 0;
   border: 0;
@@ -137,7 +137,7 @@
   letter-spacing: -0.02em;
 }
 
-.dp-article .dp-hero > p {
+.dp-article .dp-banner > p {
   max-width: 42rem;
   margin: 0 auto;
   color: var(--dp-text-soft);
@@ -145,7 +145,7 @@
   line-height: 1.6;
 }
 
-.dp-article .dp-hero--start > p {
+.dp-article .dp-banner--start > p {
   margin-inline: 0;
 }
 

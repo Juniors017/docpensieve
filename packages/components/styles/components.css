@@ -881,59 +881,60 @@
   }
 
   /*
-   * Banner at the head of a page. The rules live here rather than in a site's
-   * own stylesheet: written by hand it was a div and a pile of utilities, and
-   * the `dp-hero` class the home page carried was styled by nothing at all.
+   * Banner at the head of a page.
    *
-   * Everything it paints comes from a tone, as an admonition does: a project
-   * that gives a tone its own colour gives it to both at once, and neither
-   * component writes a colour of its own.
+   * Not a card: no border and no panel, which is what a banner is everywhere
+   * it is done well. What it is made of is space, a title large enough to be
+   * the first thing read, and one way in that stands out. The frame is for
+   * the page that asks for it.
    */
-  .dp-hero {
-    --dp-hero-colour: var(--dp-accent);
-    --dp-hero-ground: var(--dp-accent-soft);
-    --dp-hero-room: 3rem;
+  .dp-banner {
+    --dp-banner-colour: var(--dp-accent);
+    --dp-banner-ground: var(--dp-accent-soft);
+    --dp-banner-room: 3.5rem;
 
-    margin: 0 0 2.5rem;
-    padding: var(--dp-hero-room) 1.5rem calc(var(--dp-hero-room) * 0.85);
-    border: 1px solid var(--dp-border);
-    border-radius: var(--dp-radius);
-    /* Two layers, both from tokens: a light wash of the tone over the soft
-       ground, so the banner reads as one before a word is read and each theme
-       lights it its own way. */
-    background:
-      radial-gradient(70% 130% at 50% 0%, var(--dp-hero-ground), transparent 70%), var(--dp-bg-soft);
+    margin: 0 0 3rem;
+    padding: var(--dp-banner-room) 0 calc(var(--dp-banner-room) * 0.6);
     text-align: center;
   }
 
-  .dp-hero--info {
-    --dp-hero-colour: var(--dp-accent);
-    --dp-hero-ground: var(--dp-accent-soft);
+  .dp-banner--framed {
+    padding-inline: 1.5rem;
+    border: 1px solid var(--dp-border);
+    border-radius: var(--dp-radius);
+    background:
+      radial-gradient(70% 130% at 50% 0%, var(--dp-banner-ground), transparent 70%),
+      var(--dp-bg-soft);
   }
 
-  .dp-hero--tip {
-    --dp-hero-colour: var(--dp-tip);
-    --dp-hero-ground: var(--dp-tip-soft);
+  .dp-banner--info {
+    --dp-banner-colour: var(--dp-accent);
+    --dp-banner-ground: var(--dp-accent-soft);
   }
 
-  .dp-hero--attention {
-    --dp-hero-colour: var(--dp-attention);
-    --dp-hero-ground: var(--dp-attention-soft);
+  .dp-banner--tip {
+    --dp-banner-colour: var(--dp-tip);
+    --dp-banner-ground: var(--dp-tip-soft);
   }
 
-  .dp-hero--danger {
-    --dp-hero-colour: var(--dp-danger);
-    --dp-hero-ground: var(--dp-danger-soft);
+  .dp-banner--attention {
+    --dp-banner-colour: var(--dp-attention);
+    --dp-banner-ground: var(--dp-attention-soft);
+  }
+
+  .dp-banner--danger {
+    --dp-banner-colour: var(--dp-danger);
+    --dp-banner-ground: var(--dp-danger-soft);
   }
 
   /* How much room it takes. A number, not a look: the tone decides the
      colour, the size decides the air. */
-  .dp-hero--small {
-    --dp-hero-room: 1.75rem;
+  .dp-banner--small {
+    --dp-banner-room: 2rem;
   }
 
-  .dp-hero--large {
-    --dp-hero-room: 5.5rem;
+  .dp-banner--large {
+    --dp-banner-room: 6rem;
   }
 
   /*
@@ -941,79 +942,114 @@
    * address bar comes and goes, and `vh` measures the screen without it —
    * the banner then reached under the browser's own chrome.
    */
-  .dp-hero--full {
+  .dp-banner--full {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: calc(100svh - 5rem);
   }
 
-  .dp-hero--start {
+  .dp-banner--start {
     text-align: start;
-    background:
-      radial-gradient(60% 130% at 0% 0%, var(--dp-hero-ground), transparent 70%), var(--dp-bg-soft);
   }
 
-  .dp-hero-actions {
+  /*
+   * Two columns as soon as there is something to show — the commonest shape
+   * of a landing page, and the reason a project puts a screenshot there. The
+   * words lead, since they are what a reader came for.
+   */
+  .dp-banner:has(.dp-banner-visual) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 2.5rem;
+    text-align: start;
+  }
+
+  .dp-banner-visual > :first-child {
+    margin-top: 0;
+  }
+
+  .dp-banner-visual :where(img, svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .dp-banner-actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
-    margin-top: 1.9rem;
+    margin-top: 2rem;
   }
 
-  .dp-hero--start .dp-hero-actions {
+  .dp-banner--start .dp-banner-actions,
+  .dp-banner:has(.dp-banner-visual) .dp-banner-actions {
     justify-content: flex-start;
   }
 
   /*
-   * The links Markdown wrote become something to press. The first is the one
-   * meant, and carries the tone; the others stay outlined, so that a reader
-   * sees one way in rather than three.
+   * One primary action and one alternative: the first carries the tone, the
+   * others are plain links with an arrow. A row of five buttons is a row of
+   * none.
    */
-  .dp-hero-actions a {
-    display: inline-block;
-    padding: 0.6rem 1.25rem;
-    border: 1px solid var(--dp-border);
+  .dp-banner-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.4rem;
     border-radius: var(--dp-radius);
-    background: var(--dp-bg);
     color: var(--dp-text);
     font-weight: 600;
     text-decoration: none;
-    transition:
-      border-color 0.15s,
-      transform 0.15s;
   }
 
-  .dp-hero-actions a:first-child {
-    border-color: var(--dp-hero-colour);
-    background: var(--dp-hero-colour);
+  .dp-banner-actions a:first-child {
+    background: var(--dp-banner-colour);
     /* The tone is a background here: the text on it must not be the theme's,
        which is chosen against the page. */
     color: var(--dp-bg);
   }
 
-  .dp-hero-actions a:hover {
-    border-color: var(--dp-hero-colour);
+  .dp-banner-actions a:not(:first-child)::after {
+    content: '→';
+    transition: transform 0.15s;
+  }
+
+  .dp-banner-actions a:hover {
+    color: var(--dp-banner-colour);
+  }
+
+  .dp-banner-actions a:first-child:hover {
+    color: var(--dp-bg);
+    opacity: 0.9;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .dp-hero-actions a:hover {
-      transform: translateY(-1px);
+    .dp-banner-actions a:not(:first-child):hover::after {
+      transform: translateX(0.2rem);
     }
   }
 
   /* A banner is the first thing on a narrow screen, and the last thing that
-     should take a whole screen of it. */
+     should take a whole screen of it. Two columns become one, the picture
+     following the words it illustrates. */
+  @media (max-width: 48rem) {
+    .dp-banner:has(.dp-banner-visual) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
   @media (max-width: 40rem) {
-    .dp-hero {
-      --dp-hero-room: 2rem;
-      padding-inline: 1rem;
+    .dp-banner {
+      --dp-banner-room: 2.25rem;
     }
 
-    .dp-hero-actions a {
+    .dp-banner-actions a {
       flex: 1 1 100%;
-      text-align: center;
+      justify-content: center;
     }
   }
 

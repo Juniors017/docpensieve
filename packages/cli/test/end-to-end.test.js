@@ -158,14 +158,14 @@ describe('init, build, check', () => {
    * table of prose — three times the same fault, none of them reported.
    */
   const OVER_PROSE = [
-    '.dp-article .dp-hero >',
+    '.dp-article .dp-banner >',
     '.dp-article .dp-calendar-grid th',
     '.dp-article .dp-calendar-day',
     '.dp-article .dp-snippet-body >',
   ];
 
   /** Rules a component owns, which both themes must carry all the same. */
-  const OWNED = ['.dp-hero', '.dp-hero-actions', '.dp-calendar', '.dp-calendar--compact'];
+  const OWNED = ['.dp-banner', '.dp-banner-actions', '.dp-calendar', '.dp-calendar--compact'];
 
   for (const framework of ['tailwind', 'custom']) {
     it(
