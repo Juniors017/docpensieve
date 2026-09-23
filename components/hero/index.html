@@ -15,6 +15,7 @@
     <meta property="og:url" content="https://docpensieve.com/versions/beta/components/hero/" />
     <meta property="og:image" content="https://docpensieve.com/versions/beta/assets/social-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" as="image" href="/versions/beta/components/icons/banner.svg" />
     <link rel="stylesheet" href="/versions/beta/assets/docpensieve.css" />
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
     <script type="module" src="/versions/beta/assets/client.js"></script>
@@ -579,9 +580,13 @@
 <p>A landing page opens on three things: what this is, what it does, and where to
 start. <code>Hero</code> is the block that holds them, so that the head of a page is a
 component rather than a <code>div</code> and a pile of classes.</p>
+<p>It is <strong>not a card</strong>: no border, no panel. What a banner is made of is space, a
+title large enough to be the first thing read, and one way in that stands out
+from the rest. A frame exists for the page that asks for one, and it is not
+what you get by default.</p>
 <h2 id="a-banner">A banner</h2>
-<section class="dp-hero"><h2 id="docpensieve">DocPensieve</h2><p>Your Markdown and MDX files become a static site. No runtime to load, one
-version per branch.</p><div class="dp-hero-actions"><a href="/versions/beta/guide/installation/">Get started</a> <a href="/versions/beta/components/">See the components</a></div></section>
+<section class="dp-banner"><h2 id="docpensieve">DocPensieve</h2><p>Your Markdown and MDX files become a static site. No runtime to load, one
+version per branch.</p><div class="dp-banner-actions"><a href="/versions/beta/guide/installation/">Get started</a> <a href="/versions/beta/components/">See the components</a></div></section>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold"># My project</span></span>
@@ -598,7 +603,7 @@ because a reader should see one way in rather than three.</p>
 <h2 id="aligned-to-the-start">Aligned to the start</h2>
 <p><code>align=&quot;start&quot;</code> leaves the banner where the text of the page is, which suits a
 section that opens a chapter rather than a site.</p>
-<section class="dp-hero dp-hero--start"><h3 id="a-section-not-a-site">A section, not a site</h3><p>The same block, reading from the left.</p><div class="dp-hero-actions"><a href="/versions/beta/guide/writing-pages/">Read on</a></div></section>
+<section class="dp-banner dp-banner--start"><h3 id="a-section-not-a-site">A section, not a site</h3><p>The same block, reading from the left.</p><div class="dp-banner-actions"><a href="/versions/beta/guide/writing-pages/">Read on</a></div></section>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> align</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;start&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">## A section, not a site</span></span>
@@ -609,11 +614,40 @@ section that opens a chapter rather than a site.</p>
 <p>Accepted values are <code>center</code>, the default, and <code>start</code>. Anything else stops the
 build and lists the two — a banner silently ignoring its alignment would look
 like a stylesheet that failed.</p>
+<h2 id="with-something-to-show">With something to show</h2>
+<p>Put a <code>HeroVisual</code> among the children and the banner becomes two columns — the
+words on one side, the picture on the other. Nothing to declare: having a
+visual is what makes it a split, which is the commonest shape of a landing
+page and the reason a project puts a screenshot there.</p>
+<section class="dp-banner"><div class="dp-banner-text"><h3 id="my-project">My project</h3><p>What it does, in one sentence, with room to breathe.</p><div class="dp-banner-actions"><a href="/versions/beta/guide/installation/">Get started</a> <a href="/versions/beta/components/">Components</a></div></div><div class="dp-banner-visual"><p><img src="/versions/beta/components/icons/banner.svg" alt="A page of the site" width="320" height="120"/></p></div></section>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroText</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold"># My project</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">What it does, in one sentence, with room to breathe.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroActions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span><span style="color:#032F62;--shiki-dark:#9ECBFF">[</span><span style="color:#24292E;--shiki-dark:#E1E4E8">Get started</span><span style="color:#032F62;--shiki-dark:#9ECBFF">](</span><span style="color:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline">/guide/installation/</span><span style="color:#032F62;--shiki-dark:#9ECBFF">)</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> [</span><span style="color:#24292E;--shiki-dark:#E1E4E8">Components</span><span style="color:#032F62;--shiki-dark:#9ECBFF">](</span><span style="color:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline">/components/</span><span style="color:#032F62;--shiki-dark:#9ECBFF">)</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroActions</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroText</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroVisual</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#9ECBFF">![</span><span style="color:#24292E;--shiki-dark:#E1E4E8">A page of the site</span><span style="color:#032F62;--shiki-dark:#9ECBFF">](</span><span style="color:#032F62;--shiki-light-text-decoration:underline;--shiki-dark:#DBEDFF;--shiki-dark-text-decoration:underline">./screenshot.png</span><span style="color:#032F62;--shiki-dark:#9ECBFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">HeroVisual</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p><code>HeroText</code> holds the words, <code>HeroVisual</code> the picture. Below 48rem the two
+columns become one, the picture following the words it illustrates.</p>
+<h2 id="a-frame-if-you-want-one">A frame, if you want one</h2>
+<p><code>frame</code> draws the panel a banner does not have by default — a border, and a
+wash of its tone.</p>
+<section class="dp-banner dp-banner--small dp-banner--framed"><h3 id="framed">Framed</h3><p>For a banner that has to be told apart from the page around it.</p></section>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> frame</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;...&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
 <h2 id="how-much-room-it-takes">How much room it takes</h2>
 <p><code>size</code> decides the air around the words, not the look: <code>small</code>, <code>medium</code> —
 the default — <code>large</code>, and <code>full</code>, which takes the height of the screen and
 centres its content in it.</p>
-<section class="dp-hero dp-hero--small"><h3 id="a-small-one">A small one</h3><p>For a section that only needs announcing.</p></section>
+<section class="dp-banner dp-banner--small"><h3 id="a-small-one">A small one</h3><p>For a section that only needs announcing.</p></section>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> size</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;small&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;...&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> size</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;large&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;...&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> size</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;full&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;...&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
@@ -623,7 +657,7 @@ address bar comes and goes does not push the banner under it.</p>
 <p><code>tone</code> names a colour the theme already carries — the same tones an admonition
 takes, because a theme defines a colour per tone, not a colour per component.
 A project that gives <code>attention</code> its own colour gives it to both at once.</p>
-<section class="dp-hero dp-hero--start dp-hero--small dp-hero--tip"><h3 id="lit-by-a-tone">Lit by a tone</h3><p>The wash behind the words, and the first way in, follow it.</p><div class="dp-hero-actions"><a href="/versions/beta/guide/writing-pages/">Read on</a></div></section>
+<section class="dp-banner dp-banner--start dp-banner--small dp-banner--tip"><h3 id="lit-by-a-tone">Lit by a tone</h3><p>The wash behind the words, and the first way in, follow it.</p><div class="dp-banner-actions"><a href="/versions/beta/guide/writing-pages/">Read on</a></div></section>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> tone</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;tip&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;...&lt;/</span><span style="color:#005CC5;--shiki-dark:#79B8FF">Hero</span><span style="color:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
 <p>Accepted: <code>note</code> — the default, which is the accent of the theme — <code>info</code>,
 <code>tip</code>, <code>attention</code> and <code>danger</code>. Anything else stops the build and lists them,
@@ -645,8 +679,13 @@ companion, since it drops the menu and the table of contents:</p>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">...</span></span></code></pre>
 <h2 id="properties">Properties</h2>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Property</th><th>Type</th><th>Effect</th></tr></thead><tbody><tr><td><code>align</code></td><td><code>string</code></td><td><code>center</code> (the default) or <code>start</code>.</td></tr><tr><td><code>className</code></td><td><code>string</code></td><td>Classes added to the banner.</td></tr><tr><td><code>style</code></td><td><code>object</code></td><td>Inline styles on the banner.</td></tr></tbody></table></div>
-<p><code>HeroActions</code> takes <code>className</code> and <code>style</code> too. Its children are links, and
-Markdown writes links: nothing else is needed.</p>
+<p>Its companions, each taking <code>className</code> and <code>style</code> as well:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Component</th><th>What it holds</th></tr></thead><tbody><tr><td><code>HeroActions</code></td><td>The row of ways in. Its children are links, as Markdown writes them.</td></tr><tr><td><code>HeroText</code></td><td>The words, in a split. Not needed in a single column.</td></tr><tr><td><code>HeroVisual</code></td><td>The picture. Its presence is what makes the banner a split.</td></tr></tbody></table></div>
+<p><strong>One primary action and one alternative</strong> is the shape that reads — a row of
+five buttons is a row of none.</p>
+<p>The classes are <code>dp-banner*</code>, after what the element is rather than after the
+component: a page that already writes a class of its own around a title keeps
+whatever that class did, and adopting the component stays a decision.</p>
 <p>A row of ways in is a row of choices — <a href="/versions/beta/components/columns/">Columns</a> shows how to keep
 several blocks the same height when the banner is followed by cards.</p></article>
       </main>
@@ -665,6 +704,22 @@ several blocks the same height when the banner is followed by cards.</p></articl
             <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
               <li class="dp-toc-item">
                 <a href="#a-section-not-a-site">A section, not a site</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#with-something-to-show">With something to show</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#my-project">My project</a>
+              </li>
+            </ul>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#a-frame-if-you-want-one">A frame, if you want one</a>
+            <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#framed">Framed</a>
               </li>
             </ul>
           </li>

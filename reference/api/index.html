@@ -1151,17 +1151,44 @@ an event a day early in another.</p>
 <p><strong>Returns</strong> <code>{ year: number, month: number, day: number } \| null</code></p>
 <h3 id="hero-alignments"><code>HERO_ALIGNMENTS</code></h3>
 <p><code>HERO_ALIGNMENTS</code></p>
-<p>How the banner sits within its page.</p>
+<p>How the words sit when the banner is a single column.</p>
+<h3 id="hero-sizes"><code>HERO_SIZES</code></h3>
+<p><code>HERO_SIZES</code></p>
+<p>How much room it takes. <code>full</code> is the height of the screen.</p>
+<h3 id="hero-tones"><code>HERO_TONES</code></h3>
+<p><code>HERO_TONES</code></p>
+<p>Tones a banner can take.</p>
+<p>The same ones an admonition carries: a theme defines a colour per tone, not
+a colour per component, so a project that gives <code>attention</code> its own colour
+gives it to both at once.</p>
 <h3 id="hero"><code>Hero</code></h3>
 <p><code>Hero(props)</code></p>
 <p>Head of a page: a name, a sentence, and the way in.</p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, }</code></td><td><code>align</code> is <code>center</code> (the default) or <code>start</code>; <code>size</code> is <code>small</code>, <code>medium</code>, <code>large</code> or <code>full</code>; <code>tone</code> names the colour the banner is lit with.</td></tr></tbody></table></div>
+<p>A <code>HeroVisual</code> among its children turns it into two columns — the words on
+one side, the picture on the other — which is what a landing page does when
+it has something to show. Nothing to declare: having a visual is what makes
+it a split.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any, align?: string, size?: string, tone?: string, frame?: boolean, }</code></td><td><code>align</code> is <code>center</code> (the default) or <code>start</code>; <code>size</code> is <code>small</code>, <code>medium</code>, <code>large</code> or <code>full</code>; <code>tone</code> names the colour it is lit with; <code>frame</code> draws the panel a banner does not have by default.</td></tr></tbody></table></div>
 <p><strong>Throws</strong> <code>DocPensieveError</code> — With an alignment, a size or a tone that does not exist.</p>
 <h3 id="heroactions"><code>HeroActions</code></h3>
 <p><code>HeroActions(props)</code></p>
 <p>Row of ways in, under the sentence of a banner.</p>
 <p>Its children are links, which Markdown writes as links: the row is what
-turns them into something to press, and the first one into the one meant.</p>
+turns them into something to press, and the first one into the one meant.
+One primary action and one alternative is the shape that reads: a row of
+five is a row of none.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
+<h3 id="herotext"><code>HeroText</code></h3>
+<p><code>HeroText(props)</code></p>
+<p>The words of a banner, when it also has something to show.</p>
+<p>Only needed in a split: on its own, a banner&#x27;s children are its words
+already.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
+<h3 id="herovisual"><code>HeroVisual</code></h3>
+<p><code>HeroVisual(props)</code></p>
+<p>The picture, the screenshot or the diagram beside the words.</p>
+<p>Its presence is what makes a banner a split: a landing page with something
+to show shows it, and one without stays a single column.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>props</code></td><td><code>{ className?: string, style?: object, children?: any }</code></td><td></td></tr></tbody></table></div>
 <h3 id="snippet"><code>Snippet</code></h3>
 <p><code>Snippet(props)</code></p>
@@ -1623,10 +1650,22 @@ one, which makes it usable elsewhere and testable on its own.</p>
                 <a href="#hero-alignments">HERO_ALIGNMENTS</a>
               </li>
               <li class="dp-toc-item">
+                <a href="#hero-sizes">HERO_SIZES</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#hero-tones">HERO_TONES</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#hero">Hero</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#heroactions">HeroActions</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#herotext">HeroText</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#herovisual">HeroVisual</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#snippet">Snippet</a>
