@@ -588,6 +588,28 @@ export function normalizeConfig(userConfig) {
     throw new ConfigError('search must be true or false.', { hint: 'For instance search: false.' });
   }
 
+  // `copyCode: 'yes'` used to be accepted and to do nothing: the generator
+  // reads `=== true`, so any other value turned the button off in silence.
+  if (typeof config.copyCode !== 'boolean') {
+    throw new ConfigError('copyCode must be true or false.', {
+      hint: 'true puts a copy button on every code block; false, the default, loads no script.',
+    });
+  }
+
+  // The prefix of an icon collection, or nothing: a number or a path here was
+  // accepted, and every snippet then quietly fell back to its short mark.
+  if (
+    typeof config.snippetIcons !== 'string' ||
+    (config.snippetIcons !== '' && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(config.snippetIcons))
+  ) {
+    throw new ConfigError(
+      `snippetIcons must name an icon collection: "${String(config.snippetIcons)}".`,
+      {
+        hint: "Write the prefix of an installed collection — snippetIcons: 'simple-icons' — or leave it empty.",
+      },
+    );
+  }
+
   if (config.socialImage && !config.siteUrl) {
     throw new ConfigError('socialImage needs siteUrl.', {
       hint: 'Social networks only read an absolute address: set siteUrl, the public address of the site.',
