@@ -41,7 +41,8 @@
     other one. --}}
     <script>try{var s=localStorage.getItem('dp-scheme'),c=document.documentElement.classList;if(s==='dark'||s==='light'){c.remove('dark','light');c.add(s)}}catch(e){}</script>
     {{/if}}
-    {{!-- Only the search page carries a script: content pages load none. --}}
+    {{!-- The search page carries its script, and a content page the client file
+      of its version when it uses a behaviour of it — nothing otherwise. --}}
     {{#each scripts}}
     <script type="module" src="{{this}}"></script>
     {{/each}}

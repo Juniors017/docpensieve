@@ -32,8 +32,25 @@ npx docpensieve check
 
 ## Ce qui change tout seul
 
-Rien pour l'instant : la 0.5 vient de s'ouvrir. Chaque changement sera listé
-ici à son arrivée, à côté de ce qu'il demande à un projet déjà bâti sur la 0.4.
+- **`dev` et `serve` n'écoutent plus que cette machine.** Ils écoutaient toutes
+  les interfaces : quiconque était sur le même réseau pouvait lire le site en
+  cours d'écriture. Pour le regarder depuis un téléphone sur le même wifi,
+  dites-le : `npx docpensieve dev --host 0.0.0.0`.
+- **Les blocs de code ont leur propre fond.** Un bloc dans un langage que le
+  coloriseur ignore restait sur le fond nu de la page ; il ressemble désormais
+  à tous les autres.
+- **Une erreur garde son indice.** Une erreur levée par l'outil pendant la
+  compilation d'une page ne ressort plus en plainte de syntaxe générique.
+
+## Ce qu'il vaut la peine d'activer
+
+- [Snippet](../components/snippet/), pour montrer un vrai fichier plutôt
+  qu'une copie.
+- [Hero](../components/hero/) et [Calendar](../components/calendar/).
+- `copyCode`, un bouton de copie sur chaque bloc de code — éteint par défaut,
+  puisque c'est ce qui fait charger un script à une page. Voir
+  [la référence](../reference/configuration/).
+- `snippetIcons`, si votre projet installe un jeu d'icônes.
 
 ## Ce qu'il faut vérifier ensuite
 

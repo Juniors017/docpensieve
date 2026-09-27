@@ -31,8 +31,23 @@ npx docpensieve check
 
 ## What changes on its own
 
-Nothing yet: the 0.5 has just opened. Each change is listed here as it lands,
-beside what it asks of a project already built on the 0.4.
+- **`dev` and `serve` listen on this machine only.** They used to listen on
+  every interface, so anyone on the same network could read the site being
+  written. To look at it from a phone on the same wifi, say so:
+  `npx docpensieve dev --host 0.0.0.0`.
+- **Code blocks carry a background of their own.** A block in a language the
+  highlighter does not know used to sit on the bare page; it now looks like
+  every other block.
+- **An error keeps its hint.** An error the tool raises while a page compiles
+  no longer comes out as a generic syntax complaint.
+
+## What is worth turning on
+
+- [Snippet](../components/snippet/), to show a real file rather than a copy.
+- [Hero](../components/hero/) and [Calendar](../components/calendar/).
+- `copyCode`, a copy button on every code block — off by default, since it is
+  what makes a page load a script. See [the reference](../reference/configuration/).
+- `snippetIcons`, if your project installs an icon collection.
 
 ## What to check afterwards
 
