@@ -31,7 +31,7 @@ de page, sous le texte qu'ils décrivent — une étiquette seule peut s'écrire
 sans crochets. Tout est facultatif : sans `title`, le nom du projet prend le
 relais.
 
-Les champs sont détaillés dans la [référence](../../reference/frontmatter/).
+Les champs sont détaillés dans la [référence](../reference/frontmatter/).
 
 ## Qui a écrit la page
 
@@ -127,7 +127,7 @@ comme image, et sa date `modified`. Sur l'index d'un dossier qui en contient
 d'autres, les cartes de ces séries comptent aussi leurs pages. Rien n'est listé
 à la main, donc rien ne périme quand une page est ajoutée ou renommée.
 
-La page [Cards](../../components/cards/) détaille toutes les options.
+La page [Cards](../components/cards/) détaille toutes les options.
 
 ## Écrire le menu à la main
 
@@ -153,7 +153,7 @@ Une page se nomme par son chemin, comme dans son adresse.
 DocPensieve reste entière ainsi. Une page que le fichier oublie est quand même
 publiée, seulement hors du menu, et une version sans le fichier garde le menu
 de ses dossiers. Tous les genres d'entrée sont dans la
-[référence de `sidebar`](../../reference/configuration/).
+[référence de `sidebar`](../reference/configuration/).
 
 ## Liens internes
 
@@ -201,7 +201,7 @@ Dans une page `.mdx`, les composants livrés s'emploient **sans import** :
 ```
 
 Ils sont rendus à la génération : le HTML livré ne contient que leur résultat.
-La liste est dans [Composants](../../components/).
+La liste est dans [Composants](../components/).
 
 `globalComponents: false` les retire de toutes les pages. C'est fait pour un
 projet qui préfère apporter les siens : une page qui en emploie encore un
