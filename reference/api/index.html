@@ -1285,7 +1285,7 @@ one, which makes it usable elsewhere and testable on its own.</p>
 <p><strong>Returns</strong> <code>Promise&lt;{ pages: number, faults: Fault[] }&gt;</code></p>
 <h3 id="dev"><code>dev</code></h3>
 <p><code>dev([options])</code></p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, host?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>Promise&lt;{ server: import(&#x27;node:http&#x27;).Server, watcher: import(&#x27;chokidar&#x27;).FSWatcher, port: number, url: string, close: () =&gt; Promise&lt;void&gt;, }&gt;</code></p>
 <h3 id="init"><code>init</code></h3>
 <p><code>init([dir], [options])</code></p>
@@ -1295,7 +1295,7 @@ one, which makes it usable elsewhere and testable on its own.</p>
 <p><strong>Throws</strong> <code>DocPensieveError</code> — Unknown framework, unknown language, project already initialised, or documentation to install missing.</p>
 <h3 id="serve"><code>serve</code></h3>
 <p><code>serve([options])</code></p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, dir?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>[options]</code></td><td><code>{ port?: number, host?: string, dir?: string, cwd?: string }</code></td><td></td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>Promise&lt;{ server: import(&#x27;node:http&#x27;).Server, port: number, url: string }&gt;</code></p>
 <p><strong>Throws</strong> <code>DocPensieveError</code> — When the folder to serve does not exist.</p>
 <h3 id="createstaticserver"><code>createStaticServer</code></h3>
@@ -1304,9 +1304,12 @@ one, which makes it usable elsewhere and testable on its own.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>options</code></td><td><code>{ root: string, basePath?: string, inject?: string | null, onReload?: (send: () =&gt; void) =&gt; void, }</code></td><td><code>basePath</code> is the prefix under which the site is mounted: it must reflect the configuration&#x27;s <code>baseUrl</code>, otherwise the links of the pages do not resolve locally. <code>inject</code> is an HTML fragment inserted before <code>&lt;/body&gt;</code> — the development server uses it for its reload script, which leaves the generated output intact.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>import(&#x27;node:http&#x27;).Server</code></p>
 <h3 id="listen"><code>listen</code></h3>
-<p><code>listen(server, port, [attempts])</code></p>
+<p><code>listen(server, port, [attempts], [host])</code></p>
 <p>Starts listening, looking for a free port if needed.</p>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>server</code></td><td><code>import(&#x27;node:http&#x27;).Server</code></td><td></td></tr><tr><td><code>port</code></td><td><code>number</code></td><td>Desired port.</td></tr><tr><td><code>[attempts]</code></td><td><code>number</code></td><td>Number of ports tried from <code>port</code> on.</td></tr></tbody></table></div>
+<p>On this machine only, unless asked otherwise. Called without a host, Node
+listens on every interface: anyone on the same network — a café, a
+coworking space — could read the site being written, drafts included.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>server</code></td><td><code>import(&#x27;node:http&#x27;).Server</code></td><td></td></tr><tr><td><code>port</code></td><td><code>number</code></td><td>Desired port.</td></tr><tr><td><code>[attempts]</code></td><td><code>number</code></td><td>Number of ports tried from <code>port</code> on.</td></tr><tr><td><code>[host]</code></td><td><code>string</code></td><td>Address to listen on. <code>0.0.0.0</code> opens it to the network, which a phone on the same wifi needs.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>Promise&lt;number&gt;</code> — The port actually used.</p>
 <p><strong>Throws</strong> <code>DocPensieveError</code> — When no port is free in the range.</p>
 <h3 id="resolverequestpath"><code>resolveRequestPath</code></h3>

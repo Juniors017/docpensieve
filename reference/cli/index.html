@@ -630,11 +630,14 @@ continuous integration run without any particular setting.</p>
 <h2 id="dev"><code>dev</code></h2>
 <p>Development server, which rebuilds on every save.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dev</span></span></code></pre>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effect</th></tr></thead><tbody><tr><td><code>-p, --port &lt;number&gt;</code></td><td>Listening port. Default: <code>3000</code></td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effect</th></tr></thead><tbody><tr><td><code>-p, --port &lt;number&gt;</code></td><td>Listening port. Default: <code>3000</code></td></tr><tr><td><code>--host &lt;address&gt;</code></td><td>Address to listen on. Default: <code>127.0.0.1</code>, this machine only</td></tr></tbody></table></div>
+<p><code>0.0.0.0</code> opens the server to the network — to look at the site from a phone on
+the same wifi. Anyone on that network can then read it, drafts included, and
+the command says so when it starts.</p>
 <h2 id="serve"><code>serve</code></h2>
 <p>Serves the output folder statically, without rebuilding anything.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> serve</span></span></code></pre>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effect</th></tr></thead><tbody><tr><td><code>-p, --port &lt;number&gt;</code></td><td>Listening port. Default: <code>4000</code></td></tr><tr><td><code>-d, --dir &lt;dir&gt;</code></td><td>Folder to serve</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effect</th></tr></thead><tbody><tr><td><code>-p, --port &lt;number&gt;</code></td><td>Listening port. Default: <code>4000</code></td></tr><tr><td><code>--host &lt;address&gt;</code></td><td>Address to listen on. Default: <code>127.0.0.1</code>, this machine only</td></tr><tr><td><code>-d, --dir &lt;dir&gt;</code></td><td>Folder to serve</td></tr></tbody></table></div>
 <p>It is the command that faithfully reproduces what a host will do: to check what
 will be published, chain <code>build</code> then <code>serve</code>.</p>
 <h2 id="exit-codes">Exit codes</h2>

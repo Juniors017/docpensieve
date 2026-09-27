@@ -584,6 +584,12 @@ while the version installed by default stays the 0.4, documented in the
 reference: this page announces, it is never the only place something is
 written.</p>
 <h2 id="already-there">Already there</h2>
+<h3 id="the-development-server-stays-on-your-machine">The development server stays on your machine</h3>
+<p><code>dev</code> and <code>serve</code> now listen on this machine only. They used to listen on every
+interface, so anyone on the same network could read the site being written,
+drafts included. <code>--host 0.0.0.0</code> opens it on purpose — to look at it from a
+phone — and the command says so when it starts.</p>
+<p><a href="/versions/beta/reference/cli/">The commands</a></p>
 <h3 id="a-banner-and-a-calendar">A banner, and a calendar</h3>
 <p><code>Hero</code> holds the head of a page — a name, a sentence, a row of ways in — so
 that it is a component rather than a div and a pile of classes.</p>
@@ -635,6 +641,9 @@ its own, and what is worth turning on.</p></article>
           <li class="dp-toc-item">
             <a href="#already-there">Already there</a>
             <ul class="dp-toc-list border-l border-slate-200 dark:border-slate-800">
+              <li class="dp-toc-item">
+                <a href="#the-development-server-stays-on-your-machine">The development server stays on your machine</a>
+              </li>
               <li class="dp-toc-item">
                 <a href="#a-banner-and-a-calendar">A banner, and a calendar</a>
               </li>

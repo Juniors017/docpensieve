@@ -587,8 +587,27 @@ cher qui soit :</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> check</span></span></code></pre>
 <h2 id="ce-qui-change-tout-seul">Ce qui change tout seul</h2>
-<p>Rien pour l&#x27;instant : la 0.5 vient de s&#x27;ouvrir. Chaque changement sera listé
-ici à son arrivée, à côté de ce qu&#x27;il demande à un projet déjà bâti sur la 0.4.</p>
+<ul>
+<li><strong><code>dev</code> et <code>serve</code> n&#x27;écoutent plus que cette machine.</strong> Ils écoutaient toutes
+les interfaces : quiconque était sur le même réseau pouvait lire le site en
+cours d&#x27;écriture. Pour le regarder depuis un téléphone sur le même wifi,
+dites-le : <code>npx docpensieve dev --host 0.0.0.0</code>.</li>
+<li><strong>Les blocs de code ont leur propre fond.</strong> Un bloc dans un langage que le
+coloriseur ignore restait sur le fond nu de la page ; il ressemble désormais
+à tous les autres.</li>
+<li><strong>Une erreur garde son indice.</strong> Une erreur levée par l&#x27;outil pendant la
+compilation d&#x27;une page ne ressort plus en plainte de syntaxe générique.</li>
+</ul>
+<h2 id="ce-quil-vaut-la-peine-dactiver">Ce qu&#x27;il vaut la peine d&#x27;activer</h2>
+<ul>
+<li><a href="/versions/beta/fr/components/snippet/">Snippet</a>, pour montrer un vrai fichier plutôt
+qu&#x27;une copie.</li>
+<li><a href="/versions/beta/fr/components/hero/">Hero</a> et <a href="/versions/beta/fr/components/calendar/">Calendar</a>.</li>
+<li><code>copyCode</code>, un bouton de copie sur chaque bloc de code — éteint par défaut,
+puisque c&#x27;est ce qui fait charger un script à une page. Voir
+<a href="/versions/beta/fr/reference/configuration/">la référence</a>.</li>
+<li><code>snippetIcons</code>, si votre projet installe un jeu d&#x27;icônes.</li>
+</ul>
 <h2 id="ce-quil-faut-verifier-ensuite">Ce qu&#x27;il faut vérifier ensuite</h2>
 <ul>
 <li><strong>Votre propre CSS</strong>, si le dossier de thème habille ce que la bêta touche.</li>
@@ -608,6 +627,9 @@ morts et le balisage invalide.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#ce-qui-change-tout-seul">Ce qui change tout seul</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#ce-quil-vaut-la-peine-dactiver">Ce qu&#x27;il vaut la peine d&#x27;activer</a>
           </li>
           <li class="dp-toc-item">
             <a href="#ce-quil-faut-verifier-ensuite">Ce qu&#x27;il faut vérifier ensuite</a>

@@ -631,11 +631,14 @@ donc échouer une intégration continue sans réglage particulier.</p>
 <h2 id="dev"><code>dev</code></h2>
 <p>Serveur de développement, qui régénère à chaque enregistrement.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> dev</span></span></code></pre>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effet</th></tr></thead><tbody><tr><td><code>-p, --port &lt;numéro&gt;</code></td><td>Port d&#x27;écoute. Défaut : <code>3000</code></td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effet</th></tr></thead><tbody><tr><td><code>-p, --port &lt;numéro&gt;</code></td><td>Port d&#x27;écoute. Défaut : <code>3000</code></td></tr><tr><td><code>--host &lt;adresse&gt;</code></td><td>Adresse d&#x27;écoute. Défaut : <code>127.0.0.1</code>, cette seule machine</td></tr></tbody></table></div>
+<p><code>0.0.0.0</code> ouvre le serveur au réseau — pour regarder le site depuis un
+téléphone sur le même wifi. Quiconque est sur ce réseau peut alors le lire,
+brouillons compris, et la commande le dit au démarrage.</p>
 <h2 id="serve"><code>serve</code></h2>
 <p>Sert le dossier de sortie statiquement, sans rien regénérer.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> serve</span></span></code></pre>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effet</th></tr></thead><tbody><tr><td><code>-p, --port &lt;numéro&gt;</code></td><td>Port d&#x27;écoute. Défaut : <code>4000</code></td></tr><tr><td><code>-d, --dir &lt;dir&gt;</code></td><td>Dossier à servir</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Option</th><th>Effet</th></tr></thead><tbody><tr><td><code>-p, --port &lt;numéro&gt;</code></td><td>Port d&#x27;écoute. Défaut : <code>4000</code></td></tr><tr><td><code>--host &lt;adresse&gt;</code></td><td>Adresse d&#x27;écoute. Défaut : <code>127.0.0.1</code>, cette seule machine</td></tr><tr><td><code>-d, --dir &lt;dir&gt;</code></td><td>Dossier à servir</td></tr></tbody></table></div>
 <p>C&#x27;est la commande qui reproduit fidèlement ce que fera un hébergeur : pour
 vérifier ce qui sera publié, enchaînez <code>build</code> puis <code>serve</code>.</p>
 <h2 id="codes-de-sortie">Codes de sortie</h2>

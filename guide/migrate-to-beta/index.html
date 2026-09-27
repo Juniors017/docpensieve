@@ -586,8 +586,25 @@ every field the 0.5 adds is optional.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> check</span></span></code></pre>
 <h2 id="what-changes-on-its-own">What changes on its own</h2>
-<p>Nothing yet: the 0.5 has just opened. Each change is listed here as it lands,
-beside what it asks of a project already built on the 0.4.</p>
+<ul>
+<li><strong><code>dev</code> and <code>serve</code> listen on this machine only.</strong> They used to listen on
+every interface, so anyone on the same network could read the site being
+written. To look at it from a phone on the same wifi, say so:
+<code>npx docpensieve dev --host 0.0.0.0</code>.</li>
+<li><strong>Code blocks carry a background of their own.</strong> A block in a language the
+highlighter does not know used to sit on the bare page; it now looks like
+every other block.</li>
+<li><strong>An error keeps its hint.</strong> An error the tool raises while a page compiles
+no longer comes out as a generic syntax complaint.</li>
+</ul>
+<h2 id="what-is-worth-turning-on">What is worth turning on</h2>
+<ul>
+<li><a href="/versions/beta/components/snippet/">Snippet</a>, to show a real file rather than a copy.</li>
+<li><a href="/versions/beta/components/hero/">Hero</a> and <a href="/versions/beta/components/calendar/">Calendar</a>.</li>
+<li><code>copyCode</code>, a copy button on every code block — off by default, since it is
+what makes a page load a script. See <a href="/versions/beta/reference/configuration/">the reference</a>.</li>
+<li><code>snippetIcons</code>, if your project installs an icon collection.</li>
+</ul>
 <h2 id="what-to-check-afterwards">What to check afterwards</h2>
 <ul>
 <li><strong>Your own CSS</strong>, if the theme folder styles anything the beta touches.</li>
@@ -607,6 +624,9 @@ links and invalid markup.</li>
           </li>
           <li class="dp-toc-item">
             <a href="#what-changes-on-its-own">What changes on its own</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#what-is-worth-turning-on">What is worth turning on</a>
           </li>
           <li class="dp-toc-item">
             <a href="#what-to-check-afterwards">What to check afterwards</a>
