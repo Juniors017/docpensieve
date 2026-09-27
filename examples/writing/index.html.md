@@ -1,0 +1,23 @@
+# Writing well
+
+> Organise pages into series, and give them structure with components.
+
+A good documentation is easy to walk through before it is easy to read. This
+module turns a pile of pages into series, then gives each page a shape.
+
+<Columns>
+  <Column>
+    <Skill name="Difficulty" level={50} showValue={false}>
+      Intermediate — the first module is enough.
+    </Skill>
+  </Column>
+  <Column>
+    <Skill name="Time" level={30} showValue={false}>
+      About thirty minutes.
+    </Skill>
+  </Column>
+</Columns>
+
+## The lessons
+
+<Cards />
