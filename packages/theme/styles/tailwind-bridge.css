@@ -152,3 +152,16 @@ a {
 :root.light {
   color-scheme: light;
 }
+
+/*
+ * The focus ring of the theme, as the custom theme draws it: without it the
+ * two themes disagreed, one ringing in the accent, the other leaving the
+ * browser's. In the base layer, so that a project's own `focus-visible:`
+ * utilities still have the last word.
+ */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--dp-accent);
+    outline-offset: 2px;
+  }
+}
