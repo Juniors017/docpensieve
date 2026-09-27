@@ -1,8 +1,20 @@
 name: Deploy
 
+# Once the packages are on npm, never on a push. Deployed on every push, the
+# site described what main had done — features no package published under
+# `beta` had yet, so a reader following the beta pages got a configuration
+# field ignored in silence. Waiting for the publication keeps the pages and
+# the packages in step.
+#
+# After the publication rather than on the release itself: a workflow_run
+# runs on main, where the github-pages environment accepts a deployment, and
+# builds the site of main even when the release was a fix of an older
+# version, cut from its own branch. A fix of the pages alone goes out by hand,
+# with "Run workflow" on main.
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ['Publish to npm']
+    types: [completed]
   workflow_dispatch:
 
 # Two simultaneous deployments would step on each other, on Pages as well as
@@ -15,6 +27,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # A failed publication deploys nothing, and a run started by hand from
+    # another branch would push its orphan branches before Pages refused it.
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+      || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
 
     permissions:
       # Needed to push the orphan branches of the versions.
