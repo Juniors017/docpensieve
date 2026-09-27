@@ -633,6 +633,24 @@ otherwise the artifact is produced but never served.</p>
 the tool through <code>npx</code>, which takes the latest published version. To pin it
 from one build to the next, declare <code>docpensieve</code> in a <code>package.json</code> and add
 <code>npm ci</code> before the build.</p>
+<h2 id="one-command-for-you-and-for-the-machine">One command, for you and for the machine</h2>
+<p>Two commands are one too many to remember, and a workflow should run exactly
+what you run. A <code>package.json</code> is the place to say it once:</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  &quot;scripts&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;docs&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;docpensieve dev&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;check&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;docpensieve build &amp;&amp; docpensieve check&quot;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p><code>npm run check</code> then generates the site and reads it back. A dead link, a
+nesting the markup cannot carry, a page that stops the build: each one fails
+the command, on your machine and in your workflow, in the same way and with
+the same message.</p>
+<p>The <code>&amp;&amp;</code> is the point of it. <code>check</code> reads what <code>build</code> wrote, so a check run
+on its own tells you about the site as it was the last time it was generated —
+which, the day you forget, is the day it matters.</p>
+<p>With that in place the recipe above becomes <code>npm ci</code> and <code>npm run check</code>, and
+the version of the tool stops depending on the day the workflow ran.</p>
 <h2 id="reading-back-before-publishing">Reading back before publishing</h2>
 <p>A generated site can compile without error and contain dead links.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> check</span></span></code></pre>
@@ -682,6 +700,9 @@ load lazily, when the reader nears them. There is nothing to configure.</p></art
           </li>
           <li class="dp-toc-item">
             <a href="#continuous-integration">Continuous integration</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#one-command-for-you-and-for-the-machine">One command, for you and for the machine</a>
           </li>
           <li class="dp-toc-item">
             <a href="#reading-back-before-publishing">Reading back before publishing</a>

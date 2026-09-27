@@ -634,6 +634,26 @@ du dépôt : sinon l&#x27;artefact est produit mais jamais servi.</p>
 l&#x27;outil par <code>npx</code>, qui prend la dernière version publiée. Pour la figer d&#x27;une
 génération à l&#x27;autre, déclarez <code>docpensieve</code> dans un <code>package.json</code> et ajoutez
 <code>npm ci</code> avant la génération.</p>
+<h2 id="une-seule-commande-pour-vous-et-pour-la-machine">Une seule commande, pour vous et pour la machine</h2>
+<p>Deux commandes, c&#x27;est une de trop à retenir, et un workflow devrait lancer
+exactement ce que vous lancez. Un <code>package.json</code> est l&#x27;endroit où le dire une
+fois :</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  &quot;scripts&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;docs&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;docpensieve dev&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">    &quot;check&quot;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&quot;docpensieve build &amp;&amp; docpensieve check&quot;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p><code>npm run check</code> génère alors le site et le relit. Un lien mort, une imbrication
+que le balisage ne peut pas porter, une page qui arrête la génération : chacun
+fait échouer la commande, sur votre machine comme dans votre workflow, de la
+même façon et avec le même message.</p>
+<p>Le <code>&amp;&amp;</code> est tout l&#x27;intérêt. <code>check</code> lit ce que <code>build</code> a écrit : une
+vérification lancée seule vous parle donc du site tel qu&#x27;il était à la dernière
+génération — c&#x27;est-à-dire, le jour où vous oubliez, du mauvais site.</p>
+<p>Avec cela en place, la recette ci-dessus devient <code>npm ci</code> puis
+<code>npm run check</code>, et la version de l&#x27;outil cesse de dépendre du jour où le
+workflow a tourné.</p>
 <h2 id="relire-avant-de-publier">Relire avant de publier</h2>
 <p>Un site généré peut compiler sans erreur et contenir des liens morts.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> docpensieve</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> check</span></span></code></pre>
@@ -686,6 +706,9 @@ rien à configurer.</p></article>
           </li>
           <li class="dp-toc-item">
             <a href="#integration-continue">Intégration continue</a>
+          </li>
+          <li class="dp-toc-item">
+            <a href="#une-seule-commande-pour-vous-et-pour-la-machine">Une seule commande, pour vous et pour la machine</a>
           </li>
           <li class="dp-toc-item">
             <a href="#relire-avant-de-publier">Relire avant de publier</a>
