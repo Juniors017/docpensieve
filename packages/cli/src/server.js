@@ -4,8 +4,7 @@
  * @module docpensieve/server
  */
 
-import { createReadStream } from 'node:fs';
-import { stat } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 
@@ -134,9 +133,15 @@ export function createStaticServer({ root, basePath = '/', inject = null, onRelo
       return;
     }
 
-    let stats;
+    // Read whole, then answer. `dev` empties the version folder at every
+    // rebuild while a browser may still be asking for it: between a `stat`
+    // and a stream the file could vanish, the stream then threw with nobody
+    // listening, and the server went down in the middle of a save. Read at
+    // once, a file is either there or answered 404 — and its length is the
+    // one actually sent, not the one a rebuild was busy changing.
+    let body;
     try {
-      stats = await stat(filepath);
+      body = await readFile(filepath);
     } catch {
       response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
       response.end(`404 — ${url.pathname}`);
@@ -147,18 +152,17 @@ export function createStaticServer({ root, basePath = '/', inject = null, onRelo
     const headers = { 'content-type': type, 'cache-control': 'no-cache' };
 
     if (inject && type.startsWith('text/html')) {
-      const { readFile } = await import('node:fs/promises');
-      const html = await readFile(filepath, 'utf8');
-      const body = html.includes('</body>')
+      const html = body.toString('utf8');
+      const page = html.includes('</body>')
         ? html.replace('</body>', `${inject}</body>`)
         : html + inject;
-      response.writeHead(200, { ...headers, 'content-length': Buffer.byteLength(body) });
-      response.end(body);
+      response.writeHead(200, { ...headers, 'content-length': Buffer.byteLength(page) });
+      response.end(page);
       return;
     }
 
-    response.writeHead(200, { ...headers, 'content-length': stats.size });
-    createReadStream(filepath).pipe(response);
+    response.writeHead(200, { ...headers, 'content-length': body.length });
+    response.end(body);
   });
 }
 

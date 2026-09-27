@@ -258,3 +258,30 @@ describe('where the server listens', () => {
     expect(exposedNotice('0.0.0.0')).toContain('anyone on this network');
   });
 });
+
+describe('a file that vanishes while the server runs', () => {
+  it('answers 404 and stays up, as it must while dev rebuilds', async () => {
+    // `dev` empties the version folder at every rebuild. The server used to
+    // stat a file and then stream it: a rebuild in between made the stream
+    // throw with nobody listening, and the server went down mid-save.
+    const root = siteDir({ 'index.html': '<p>Home</p>', 'assets/site.css': 'body{}' });
+    const base = await start({ root, basePath: '/' });
+
+    expect((await fetch(`${base}/assets/site.css`)).status).toBe(200);
+
+    rmSync(path.join(root, 'assets'), { recursive: true, force: true });
+    expect((await fetch(`${base}/assets/site.css`)).status).toBe(404);
+
+    // Still up: the next request is answered.
+    expect(await (await fetch(`${base}/`)).text()).toContain('Home');
+  });
+
+  it('sends the length of what it sends, not of what it once measured', async () => {
+    const root = siteDir({ 'page/index.html': '<p>Short</p>' });
+    const base = await start({ root, basePath: '/' });
+
+    const response = await fetch(`${base}/page/`);
+    const text = await response.text();
+    expect(Number(response.headers.get('content-length'))).toBe(Buffer.byteLength(text));
+  });
+});
