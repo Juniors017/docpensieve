@@ -58,10 +58,11 @@ export default defineConfig({
       // languages stay iso from the first page of the new cycle.
       translations: { fr: 'docs/v0.5-fr' },
     },
-    // The 0.4, in both languages: its translation travelled with it.
+    // The 0.4, in both languages: its translation travelled with it. A fix
+    // released from release/0.4 updates this label by hand.
     {
       slug: 'latest',
-      name: '0.4.0',
+      name: '0.4.1',
       folder: 'docs/v0.4',
       current: true,
       translations: { fr: 'docs/v0.4-fr' },
