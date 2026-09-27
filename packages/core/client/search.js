@@ -119,8 +119,13 @@ export function excerpt(text, query, radius = 80) {
   return null;
 }
 
-/** Wires the search page: reads the query, filters the list, shows excerpts. */
-async function init() {
+/**
+ * Wires the search page: reads the query, filters the list, shows excerpts.
+ *
+ * Exported so that it can be tested against a real document; the page calls
+ * it on its own, below.
+ */
+export async function init() {
   const form = /** @type {HTMLFormElement | null} */ (
     document.querySelector('form[data-search-page]')
   );

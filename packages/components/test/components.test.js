@@ -287,6 +287,26 @@ describe('TimeTimer', () => {
     expect(render(h(TimeTimer, props, 'Active'))).toContain('Active');
   });
 
+  it('counts a duration in hours and in minutes, not only in days', () => {
+    // Only days were ever tested: an announcement for a two-hour outage would
+    // have gone unchecked, in local time and in UTC alike.
+    const start = '01/06/2024';
+    for (const strict of [false, true]) {
+      const inside = strict ? new Date('2024-06-01T01:30Z') : new Date(2024, 5, 1, 1, 30);
+      const outside = strict ? new Date('2024-06-01T02:30Z') : new Date(2024, 5, 1, 2, 30);
+
+      expect(render(h(TimeTimer, { start, duration: '2h', strict, now: inside }, 'On'))).toBe('On');
+      expect(render(h(TimeTimer, { start, duration: '2h', strict, now: outside }, 'On'))).toBe('');
+
+      const minute = strict ? new Date('2024-06-01T00:30Z') : new Date(2024, 5, 1, 0, 30);
+      const later = strict ? new Date('2024-06-01T00:50Z') : new Date(2024, 5, 1, 0, 50);
+      expect(render(h(TimeTimer, { start, duration: '45m', strict, now: minute }, 'On'))).toBe(
+        'On',
+      );
+      expect(render(h(TimeTimer, { start, duration: '45m', strict, now: later }, 'On'))).toBe('');
+    }
+  });
+
   it('refuses a misspelt duration instead of vanishing', () => {
     expect(() => render(h(TimeTimer, { start: '01/06/2024', duration: '30 days' }, 'x'))).toThrow(
       DocPensieveError,

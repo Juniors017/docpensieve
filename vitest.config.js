@@ -6,7 +6,9 @@ export default defineConfig({
     environment: 'node',
     coverage: {
       provider: 'v8',
-      include: ['packages/*/src/**/*.js'],
+      // The client scripts are measured too: they are the only code that runs
+      // in a reader's browser, which makes them the last place to skip.
+      include: ['packages/*/src/**/*.js', 'packages/core/client/**/*.js'],
     },
   },
 });

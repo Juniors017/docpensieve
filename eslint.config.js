@@ -31,4 +31,10 @@ export default [
     files: ['packages/*/test/**/*.js'],
     languageOptions: { globals: { ...globals.node } },
   },
+  {
+    // Tests that run the client scripts against a DOM: they see the browser's
+    // globals, as the scripts they test do.
+    files: ['packages/*/test/**/*-dom.test.js'],
+    languageOptions: { globals: { ...globals.browser } },
+  },
 ];
