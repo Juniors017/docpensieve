@@ -1757,6 +1757,49 @@ describe('a version in two languages', () => {
     expect(seen['/versions/v1.0/fr/guide/install/']).toBe('fr');
   });
 
+  it('keeps a reader in their language across versions, and never on a page not written', async () => {
+    // The notice of a beta, the version switcher and the header links all led
+    // a French reader to the English pages, although the French ones existed.
+    const config = bilingual({
+      outDir: 'dist',
+      headerLinks: [
+        { label: 'Install', href: '/guide/install/', version: 'v1.0' },
+        { label: 'Advanced', href: '/guide/advanced/', version: 'v1.0' },
+      ],
+    });
+    config.versions = [
+      {
+        slug: 'v2.0',
+        name: '2.0',
+        folder: 'docs/v1.0',
+        prerelease: true,
+        translations: { fr: 'docs/v1.0-fr' },
+      },
+      ...config.versions,
+      { slug: 'v0.9', name: '0.9', folder: 'docs/v1.0', archived: true },
+    ];
+    await generatorFor(config).buildAll();
+    const dist = path.join(config.rootDir, 'dist');
+    const html = read(dist, 'versions', 'v2.0', 'fr', 'index.html');
+    const hrefs = [...html.matchAll(/href="([^"]*)"/g)].map((match) => match[1]);
+
+    // The notice and the switcher: the French home of the current version.
+    expect(hrefs.filter((href) => href === '/versions/v1.0/fr/').length).toBeGreaterThanOrEqual(2);
+    expect(hrefs).not.toContain('/versions/v1.0/');
+    // A version with no French keeps its own language rather than a dead link.
+    expect(hrefs).toContain('/versions/v0.9/');
+    // A header link: in French where the page was translated, in English
+    // where it was not.
+    expect(hrefs).toContain('/versions/v1.0/fr/guide/install/');
+    expect(hrefs).toContain('/versions/v1.0/guide/advanced/');
+    expect(hrefs).not.toContain('/versions/v1.0/fr/guide/advanced/');
+
+    // The pages of the site language are left where they were.
+    const english = read(dist, 'versions', 'v2.0', 'index.html');
+    expect(english).toContain('href="/versions/v1.0/guide/install/"');
+    expect(english).not.toContain('/fr/guide/install/');
+  });
+
   it('publishes the pages of every language, and only those', async () => {
     const config = bilingual({ siteUrl: 'https://acme.example.com' });
     const out = path.join(config.rootDir, 'out');
