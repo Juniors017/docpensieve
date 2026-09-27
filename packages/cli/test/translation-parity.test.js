@@ -60,3 +60,23 @@ describe('the French translation of the beta', () => {
     expect(copied).toEqual([]);
   });
 });
+
+describe('the links of a translation', () => {
+  it('stay in their language, in the version this branch publishes', () => {
+    // Thirty links of the French pages climbed one level too many and landed
+    // on the English ones. No check could see it: those pages exist. A
+    // relative link resolves from the folder of its file, so it leaves the
+    // language as soon as it climbs more folders than lie between its file
+    // and the root of the translation.
+    const folder = 'v0.4-fr';
+    const leaving = pagesOf(folder).flatMap((page) => {
+      const depth = page.split('/').length - 1;
+      const text = readFileSync(`${ROOT}${folder}/${page}`, 'utf8');
+      return [...text.matchAll(/(?:\]\(|href=")((?:\.\.\/)+)/g)]
+        .filter((match) => match[1].length / 3 > depth)
+        .map((match) => `${page}: ${match[0]}`);
+    });
+
+    expect(leaving).toEqual([]);
+  });
+});
