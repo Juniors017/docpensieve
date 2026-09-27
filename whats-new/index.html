@@ -7,6 +7,7 @@
     <meta name="description" content="What the 0.5 brings, and what it changes for a 0.4 project." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/whats-new/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/whats-new/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -625,6 +626,13 @@ untranslated page does — nothing, in that language.</p>
 their wording for the shell; any other language keeps the English wording
 until the <code>ui</code> field gives it its own.</p>
 <p><a href="/versions/beta/guide/languages/">Languages</a> · <a href="/versions/beta/reference/cli/">The init options</a></p>
+<h3 id="pages-a-program-can-read">Pages a program can read</h3>
+<p><code>llms: true</code> writes <code>llms.txt</code> at the root of the site — the project, then a
+link to every page of the current version — and a Markdown copy beside each
+page, <code>index.html.md</code>, that its head names. An assistant asked about your
+project reads the text you wrote rather than prying it out of the HTML. Off by
+default, and it needs no <code>siteUrl</code>.</p>
+<p><a href="/versions/beta/reference/configuration/">The field</a></p>
 <h2 id="for-a-0-4-project">For a 0.4 project</h2>
 <p>Nothing to change: a 0.4 configuration builds as it is, and a site already in
 two languages is untouched — the question only shapes a <strong>new</strong> project.
@@ -656,6 +664,9 @@ its own, and what is worth turning on.</p></article>
               <li class="dp-toc-item">
                 <a href="#init-asks-about-languages">init asks about languages</a>
               </li>
+              <li class="dp-toc-item">
+                <a href="#pages-a-program-can-read">Pages a program can read</a>
+              </li>
             </ul>
           </li>
           <li class="dp-toc-item">
@@ -666,7 +677,7 @@ its own, and what is worth turning on.</p></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

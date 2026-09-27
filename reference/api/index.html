@@ -7,6 +7,7 @@
     <meta name="description" content="Every export of the five packages, from their JSDoc." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/reference/api/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/reference/api/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -31,9 +32,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -84,9 +85,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -864,6 +865,9 @@ humanised from their slug by <code>StructuredDataBuilder</code>.</p>
 <p><code>foldSidebar(nodes, [currentUrl])</code></p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>nodes</code></td><td><code>SidebarNode[]</code></td><td></td></tr><tr><td><code>[currentUrl]</code></td><td><code>string</code></td><td>URL of the page being rendered.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>FoldedNode[]</code></p>
+<h3 id="markdown-copy"><code>MARKDOWN_COPY</code></h3>
+<p><code>MARKDOWN_COPY</code></p>
+<p>File a page&#x27;s Markdown copy is written to, beside its HTML.</p>
 <h3 id="buildfeed"><code>buildFeed</code></h3>
 <p><code>buildFeed(pages, site)</code></p>
 <p>Builds the RSS feed of the dated pages, newest first.</p>
@@ -871,6 +875,16 @@ humanised from their slug by <code>StructuredDataBuilder</code>.</p>
 reference material, not news, and dating it at build time would announce
 every page again at every build.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pages</code></td><td><code>PublishedPage[]</code></td><td>Pages of the current version.</td></tr><tr><td><code>site</code></td><td><code>{ projectName: string, siteUrl: string, homeUrl: string, feedUrl: string, lang?: string, }</code></td><td><code>homeUrl</code> and <code>feedUrl</code> are absolute.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="buildllms"><code>buildLlms</code></h3>
+<p><code>buildLlms(pages, site)</code></p>
+<p>Builds <code>llms.txt</code>: the index of a documentation, for a reader that is a
+program.</p>
+<p>Follows the proposal as it stands: a title, a one-line summary, then a list
+of links, each to the Markdown copy of a page — the address of the page with
+<code>index.html.md</code> appended, since the pages are folders. A program reads that
+copy as the author wrote it, instead of prying the text out of the markup.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pages</code></td><td><code>PublishedPage[]</code></td><td>Pages of the version the site serves first.</td></tr><tr><td><code>site</code></td><td><code>{ projectName: string, summary?: string, base?: string }</code></td><td><code>base</code> makes each link absolute when the site has a public address, and root-relative otherwise.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>string</code></p>
 <h3 id="buildrobots"><code>buildRobots</code></h3>
 <p><code>buildRobots(sitemapUrl)</code></p>
@@ -883,6 +897,19 @@ every page again at every build.</p>
 <p><code>lastmod</code> is the page&#x27;s <code>modified</code> date, or failing that its <code>date</code>; a page
 that carries neither is listed without one rather than with a made-up date.</p>
 <div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>pages</code></td><td><code>PublishedPage[]</code></td><td>Pages of the versions to list.</td></tr><tr><td><code>siteUrl</code></td><td><code>string</code></td><td>Public address of the site: the sitemap only holds absolute addresses.</td></tr></tbody></table></div>
+<p><strong>Returns</strong> <code>string</code></p>
+<h3 id="markdowncopy"><code>markdownCopy</code></h3>
+<p><code>markdownCopy(frontmatter, content, [resolve])</code></p>
+<p>The Markdown copy of a page: its source, as the author wrote it.</p>
+<p>The title is added when the page does not open on one, since a program
+handed the copy alone has no frontmatter to read it from. What a component
+draws at build time is not in the copy — a snippet&#x27;s file, a grid of cards:
+the copy says what was written, not what was rendered.</p>
+<p>The links are the exception. The build resolves them from the folder of the
+source file, and a version-root one from the version: read from where the
+copy is served, as written, they would lead nowhere. <code>resolve</code> gives each the
+address the HTML page carries.</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Parameter</th><th>Type</th><th></th></tr></thead><tbody><tr><td><code>frontmatter</code></td><td><code>{ title?: string, description?: string }</code></td><td></td></tr><tr><td><code>content</code></td><td><code>string</code></td><td>Source of the page, frontmatter removed.</td></tr><tr><td><code>[resolve]</code></td><td><code>(target: string) =&gt; string | null</code></td><td>Address of a target on the site, or <code>null</code> to keep it as written.</td></tr></tbody></table></div>
 <p><strong>Returns</strong> <code>string</code></p>
 <h3 id="buildauthortable"><code>buildAuthorTable</code></h3>
 <p><code>buildAuthorTable(description, options)</code></p>
@@ -1481,13 +1508,22 @@ coworking space — could read the site being written, drafts included.</p>
                 <a href="#foldsidebar">foldSidebar</a>
               </li>
               <li class="dp-toc-item">
+                <a href="#markdown-copy">MARKDOWN_COPY</a>
+              </li>
+              <li class="dp-toc-item">
                 <a href="#buildfeed">buildFeed</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#buildllms">buildLlms</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#buildrobots">buildRobots</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#buildsitemap">buildSitemap</a>
+              </li>
+              <li class="dp-toc-item">
+                <a href="#markdowncopy">markdownCopy</a>
               </li>
               <li class="dp-toc-item">
                 <a href="#buildauthortable">buildAuthorTable</a>
@@ -1751,7 +1787,7 @@ coworking space — could read the site being written, drafts included.</p>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

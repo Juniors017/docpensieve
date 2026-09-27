@@ -7,6 +7,7 @@
     <meta name="description" content="Une arborescence repliable, bâtie sur des éléments natifs." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/fr/components/tree/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/fr/components/tree/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/fr/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, changer de version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, changer de version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, changer de version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -629,7 +630,11 @@ de toute liste, du HTML invalide qu&#x27;aucun navigateur ne signale. Une entré
 sans libellé est refusée aussi.</p>
 <p>Une arborescence est la façon dont cette documentation montre la forme d&#x27;un
 projet. Ce que ces dossiers deviennent une fois générés — l&#x27;ordre, les adresses
-— est dans <a href="/versions/beta/fr/guide/writing-pages/">Écrire des pages</a>.</p></article>
+— est dans <a href="/versions/beta/fr/guide/writing-pages/">Écrire des pages</a>.</p>
+<h2 id="proprietes">Propriétés</h2>
+<p><code>TreeItem</code> :</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Propriété</th><th>Type</th><th>Effet</th></tr></thead><tbody><tr><td><code>label</code></td><td>texte ou élément</td><td>Ce que montre la ligne.</td></tr><tr><td><code>open</code></td><td><code>boolean</code></td><td>Ouvre la branche dès l&#x27;ouverture de la page.</td></tr><tr><td><code>className</code></td><td><code>string</code></td><td>Classes ajoutées à la ligne.</td></tr><tr><td><code>style</code></td><td><code>object</code></td><td>Styles en ligne sur la ligne.</td></tr></tbody></table></div>
+<p><code>Tree</code> prend <code>className</code> et <code>style</code>.</p></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="Sur cette page">
@@ -656,12 +661,15 @@ projet. Ce que ces dossiers deviennent une fois générés — l&#x27;ordre, les
           <li class="dp-toc-item">
             <a href="#ce-quelle-nannonce-pas">Ce qu&#x27;elle n&#x27;annonce pas</a>
           </li>
+          <li class="dp-toc-item">
+            <a href="#proprietes">Propriétés</a>
+          </li>
         </ul>
       </nav>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">

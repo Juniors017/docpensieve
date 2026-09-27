@@ -1,0 +1,227 @@
+# Snippet
+
+> A code block that names a real file of your project, read when the page is generated, so that the example cannot go stale.
+
+An example written by hand is a copy. It stops being true the day the code
+changes, and nothing reports it: the page goes on showing something that
+worked once. `Snippet` names the file instead, and the file is read when the
+page is generated — there is no copy left to drift.
+
+The idea comes from **Christophe Avonture**, who built it for his own site.
+
+## Naming a file
+
+<Snippet source="./snippet-example.js" />
+
+```mdx
+<Snippet source="./snippet-example.js" />
+```
+
+The file name labels the block, and the highlighting is the one every code
+block gets. A path beginning with `./` or `../` is read **from the page**, as
+a link is; any other path is read **from the root of your project**, so that
+`src/index.js` means the same file from every page.
+
+## Part of a file
+
+Two ways, and they do not age the same.
+
+A **range of lines** is quick to write and means line 12 of the file as it is
+today:
+
+<Snippet source="./snippet-example.js" lines="9-10" title="The words it drops" />
+
+```mdx
+<Snippet source="./snippet-example.js" lines="9-10" title="The words it drops" />
+```
+
+Write `lines="9"` for one line, `"9-10"` for a range, `"9-"` from there to the
+end, `"-10"` from the start. It says what the file holds today, and only
+today.
+
+A **region** is a marker left in the source file itself, in a comment. It
+follows the code when the code moves, which is the whole point of naming a
+file rather than copying it:
+
+<Snippet source="./snippet-example.js" region="guard" title="The guard" />
+
+```mdx
+<Snippet source="./snippet-example.js" region="guard" title="The guard" />
+```
+
+In the file, the marker is an ordinary comment — the one editors already fold
+on:
+
+```js
+// #region guard
+if (!name) {
+  throw new Error('greet needs a name');
+}
+// #endregion
+```
+
+The indentation the kept lines share is removed, so a region marked inside a
+function does not come out shifted.
+
+## Folding a long file
+
+`collapsed` puts the block inside a `details`. No script: a long file can sit
+in a page without burying what follows it.
+
+<Snippet source="./snippet-example.js" collapsed title="The whole file" />
+
+```mdx
+<Snippet source="./snippet-example.js" collapsed title="The whole file" />
+```
+
+## Code you write yourself
+
+Without `source`, the component frames the code written in the page. A fenced
+block inside the tag is the dependable way to write it: it carries anything,
+braces and `<` included, and no formatter touches what is inside it.
+
+<Snippet title="greet.py">
+
+```python
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="greet.py">
+
+```python
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
+```
+
+</Snippet>
+````
+
+The extension of the title names the language; `lang` says it where the title
+does not, as for a shell:
+
+<Snippet title="Build the site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="Build the site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+````
+
+### Code typed straight into the tag
+
+Code written bare inside the tag is read too, from the page as you typed it —
+indentation kept, nothing taken for Markdown:
+
+```mdx
+<Snippet title="who_are_you.py">name = input("What's your name? ")</Snippet>
+```
+
+Two things it cannot carry, both of which happen before any component sees the
+code. A page is MDX, so `{`, `}` and `<` are read as MDX and stop the build on
+a syntax error. And a formatter run over your pages reflows what it takes for
+prose: two lines of shell come back as one. Where either applies — which is
+most real code — use the fenced form above.
+
+## The mark of the language
+
+A block carries the colour of its language — a rule above it, and a short mark
+beside the file name. The colour is set as a variable on the frame, so the
+theme decides what it paints and a project can set another.
+
+The same function, in the other file this page reads. Nothing was said about
+the language: the extension carried it, and with it the mark and the colour.
+
+<Snippet source="./snippet-example.py" region="guard" title="The same guard, in Python" />
+
+```mdx
+<Snippet source="./snippet-example.py" region="guard" title="The same guard, in Python" />
+```
+
+A block the page writes says its language in the fence, and is marked the same
+way:
+
+<Snippet title="deploy.yml">
+
+```yaml
+steps:
+  - run: npx docpensieve build
+  - run: npx docpensieve check
+```
+
+</Snippet>
+
+<Snippet title="A first build" lang="bash">
+
+```bash
+npx docpensieve init my-site
+npx docpensieve dev
+```
+
+</Snippet>
+
+Where a project installs an icon collection and names it, the drawing replaces
+the mark:
+
+```js
+snippetIcons: 'simple-icons',
+```
+
+It is never a reason to fail. The icon is the tool's idea, not something your
+page asked for: a collection you do not have, or a language it does not draw,
+brings back the mark. `icon="simple-icons:docker"` on a single block wins over
+both.
+
+### A language nobody marked
+
+Twenty-one languages have a mark and a colour. Any other is shown without
+one — the frame, the name, and the code.
+
+Highlighting is a separate matter, and a wider one: the highlighter knows
+several hundred languages, and a block in one it does not know comes out as
+plain text rather than stopping the build. You can write a snippet in anything
+your project is written in.
+
+## What it refuses
+
+Nothing fails quietly, because a snippet that resolved to nothing would leave
+an empty frame — and an empty frame looks deliberate.
+
+| Written                             | What happens                                                    |
+| ----------------------------------- | --------------------------------------------------------------- |
+| a file that is not there            | The build stops, saying which path was looked for.              |
+| a path leading outside the project  | Refused: a page is content, and content does not read the disk. |
+| a region no marker opens, or closes | The build stops, naming the region and the file.                |
+| a range that reads backwards        | The build stops.                                                |
+
+## Properties
+
+| Property    | Type      | Effect                                                                      |
+| ----------- | --------- | --------------------------------------------------------------------------- |
+| `source`    | `string`  | File to read. From the page with `./` or `../`, from the project otherwise. |
+| `title`     | `string`  | Label above the block. Defaults to the name of the file.                    |
+| `lines`     | `string`  | `8`, `8-14`, `8-` or `-14`.                                                 |
+| `region`    | `string`  | Name marked by `#region` and `#endregion` in the file.                      |
+| `lang`      | `string`  | Language for the highlighting, when the extension says the wrong thing.     |
+| `collapsed` | `boolean` | Folds the block into a `details`.                                           |
+| `icon`      | `string`  | An icon for this block, instead of the mark of its language.                |
+| `className` | `string`  | Classes added to the frame.                                                 |
+| `style`     | `object`  | Inline styles on the frame.                                                 |
+
+The file this page reads is installed along with it, so every example above
+works in your project exactly as it does here.

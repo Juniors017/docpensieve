@@ -1,0 +1,230 @@
+# Hero
+
+> Le bandeau en tête de page — un nom, une phrase, et par où commencer.
+
+Une page d'accueil s'ouvre sur trois choses : ce que c'est, ce que ça fait, et
+par où commencer. `Hero` est le bloc qui les tient, pour que la tête d'une page
+soit un composant plutôt qu'un `div` et un tas de classes.
+
+Ce **n'est pas une carte** : ni bordure, ni panneau. Ce dont un bandeau est
+fait, c'est de l'espace, un titre assez grand pour être lu en premier, et une
+entrée qui se détache des autres. Un cadre existe pour la page qui en demande
+un, et ce n'est pas ce que vous obtenez par défaut.
+
+## Un bandeau
+
+<Hero>
+
+## DocPensieve
+
+Vos fichiers Markdown et MDX deviennent un site statique. Aucun runtime à
+charger, une version par branche.
+
+<HeroActions>[Commencer](/versions/beta/fr/guide/installation/) [Voir les composants](/versions/beta/fr/components/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero>
+
+# Mon projet
+
+Ce qu'il fait, en une phrase.
+
+<HeroActions>[Commencer](../guide/installation/) [Composants](./)</HeroActions>
+
+</Hero>
+```
+
+Tout ce qui est à l'intérieur est du Markdown ordinaire : un titre, un
+paragraphe, une rangée de liens. Le composant décide de la largeur de la
+phrase, des espacements, et fait des liens quelque chose sur quoi appuyer —
+**le premier porte l'accent**, parce qu'un lecteur doit voir une entrée et non
+trois.
+
+## Aligné au début
+
+`align="start"` laisse le bandeau là où se trouve le texte de la page, ce qui
+convient à une section qui ouvre un chapitre plutôt qu'un site.
+
+<Hero align="start">
+
+### Une section, pas un site
+
+Le même bloc, lu depuis la gauche.
+
+<HeroActions>[Lire la suite](/versions/beta/fr/guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero align="start">
+
+## Une section, pas un site
+
+Le même bloc, lu depuis la gauche.
+
+</Hero>
+```
+
+Les valeurs acceptées sont `center`, par défaut, et `start`. Toute autre arrête
+la génération en listant les deux — un bandeau qui ignorerait son alignement en
+silence aurait l'air d'une feuille de style en panne.
+
+## Avec quelque chose à montrer
+
+Posez un `HeroVisual` parmi les enfants et le bandeau passe en deux colonnes —
+les mots d'un côté, l'image de l'autre. Rien à déclarer : c'est d'avoir un
+visuel qui en fait un split, la forme la plus courante d'une page d'accueil et
+la raison pour laquelle un projet y met une capture.
+
+<Hero>
+  <HeroText>
+
+### Mon projet
+
+Ce qu'il fait, en une phrase, avec de la place pour respirer.
+
+<HeroActions>[Commencer](/versions/beta/fr/guide/installation/) [Composants](/versions/beta/fr/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![Une page du site](/versions/beta/fr/components/icons/banner.svg)
+
+  </HeroVisual>
+</Hero>
+
+```mdx
+<Hero>
+  <HeroText>
+
+# Mon projet
+
+Ce qu'il fait, en une phrase, avec de la place pour respirer.
+
+<HeroActions>[Commencer](/guide/installation/) [Composants](/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![Une page du site](./capture.png)
+
+  </HeroVisual>
+</Hero>
+```
+
+`HeroText` tient les mots, `HeroVisual` l'image. Sous 48rem, les deux colonnes
+n'en font plus qu'une, l'image suivant les mots qu'elle illustre.
+
+## Un cadre, si vous en voulez un
+
+`frame` dessine le panneau qu'un bandeau n'a pas par défaut — une bordure, et
+un lavis de son ton.
+
+<Hero frame size="small">
+
+### Encadré
+
+Pour un bandeau qu'il faut distinguer de la page autour.
+
+</Hero>
+
+```mdx
+<Hero frame>...</Hero>
+```
+
+## La place qu'il prend
+
+`size` décide de l'air autour des mots, pas de l'allure : `small`, `medium` —
+par défaut — `large`, et `full`, qui prend la hauteur de l'écran et y centre
+son contenu.
+
+<Hero size="small">
+
+### Un petit
+
+Pour une section qu'il suffit d'annoncer.
+
+</Hero>
+
+```mdx
+<Hero size="small">...</Hero>
+<Hero size="large">...</Hero>
+<Hero size="full">...</Hero>
+```
+
+`full` mesure l'écran tel que le navigateur le montre vraiment : un téléphone
+dont la barre d'adresse va et vient ne pousse donc pas le bandeau dessous.
+
+## La teinte dont il est éclairé
+
+`tone` nomme une couleur que le thème porte déjà — les mêmes tons qu'une
+admonition, parce qu'un thème définit une couleur par ton, et non une couleur
+par composant. Un projet qui donne sa couleur à `attention` la donne aux deux
+d'un coup.
+
+<Hero tone="tip" align="start" size="small">
+
+### Éclairé par un ton
+
+Le lavis derrière les mots, et la première entrée, le suivent.
+
+<HeroActions>[Lire la suite](/versions/beta/fr/guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero tone="tip">...</Hero>
+```
+
+Acceptés : `note` — par défaut, c'est l'accent du thème — `info`, `tip`,
+`attention` et `danger`. Toute autre valeur arrête la génération en les
+listant, comme une taille ou un alignement inconnus : un bandeau qui ignorerait
+en silence ce qu'on lui demande aurait l'air d'une feuille de style en panne.
+
+## Sur une page à vous
+
+Un bandeau va sur une page qui ouvre quelque chose : l'accueil d'une version,
+une page de tête pour une section. La mise en page `home` du frontmatter est sa
+compagne habituelle, puisqu'elle retire le menu et le sommaire :
+
+```mdx
+---
+title: Mon projet
+layout: home
+---
+
+<Hero>
+
+# Mon projet
+
+...
+```
+
+## Propriétés
+
+| Propriété   | Type     | Effet                             |
+| ----------- | -------- | --------------------------------- |
+| `align`     | `string` | `center` (par défaut) ou `start`. |
+| `className` | `string` | Classes ajoutées au bandeau.      |
+| `style`     | `object` | Styles en ligne sur le bandeau.   |
+
+Ses compagnons, qui prennent eux aussi `className` et `style` :
+
+| Composant     | Ce qu'il tient                                                            |
+| ------------- | ------------------------------------------------------------------------- |
+| `HeroActions` | La rangée d'entrées. Ses enfants sont des liens, comme Markdown en écrit. |
+| `HeroText`    | Les mots, dans un split. Inutile en colonne simple.                       |
+| `HeroVisual`  | L'image. C'est sa présence qui fait du bandeau un split.                  |
+
+**Une action principale et une alternative**, c'est la forme qui se lit — une
+rangée de cinq boutons est une rangée d'aucun.
+
+Les classes sont `dp-banner*`, d'après ce qu'est l'élément plutôt que d'après
+le composant : une page qui écrit déjà une classe à elle autour d'un titre
+garde ce que cette classe faisait, et adopter le composant reste une décision.
+
+Une rangée d'entrées est une rangée de choix — [Columns](/versions/beta/fr/components/columns/) montre
+comment tenir plusieurs blocs à la même hauteur quand le bandeau est suivi de
+cartes.

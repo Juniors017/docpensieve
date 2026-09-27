@@ -7,6 +7,7 @@
     <meta name="description" content="Show content during a period, with fallbacks before and after." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/components/time-timer/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/components/time-timer/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -635,7 +636,12 @@ integration, whose time zone is not yours.</p>
 names the faulty value and recalls the expected format.</p>
 <p>Announcing a release is what this is usually for, and <a href="/versions/beta/guide/versions/">Versions</a>
 covers the rest of that cycle — the banner a prerelease carries on its own,
-and the day the two tracks swap.</p></article>
+and the day the two tracks swap.</p>
+<h2 id="properties">Properties</h2>
+<p><code>TimeTimer</code>:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Property</th><th>Type</th><th>Effect</th></tr></thead><tbody><tr><td><code>date</code></td><td><code>string</code></td><td>A single day, <code>DD/MM/YYYY</code>, optionally followed by <code>HH:mm</code>. The year may be left out.</td></tr><tr><td><code>start</code></td><td><code>string</code></td><td>Start of a period, in the same format, with <code>duration</code>.</td></tr><tr><td><code>duration</code></td><td><code>string</code></td><td>Length of the period from <code>start</code>: <code>30d</code>, <code>2h</code>, <code>45m</code>.</td></tr><tr><td><code>strict</code></td><td><code>boolean</code></td><td>Reads the dates in UTC rather than in local time.</td></tr><tr><td><code>now</code></td><td><code>Date</code></td><td>For tests only: without it, the moment of the build stands.</td></tr></tbody></table></div>
+<p>The fallbacks each take one bound:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Property</th><th>Type</th><th>Effect</th></tr></thead><tbody><tr><td><code>start</code> on <code>FallbackBefore</code></td><td><code>string</code></td><td>From when the content before the period shows. Without it, from always.</td></tr><tr><td><code>end</code> on <code>FallbackAfter</code></td><td><code>string</code></td><td>Until when the content after the period shows. Without it, for good.</td></tr></tbody></table></div></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -668,12 +674,15 @@ and the day the two tracks swap.</p></article>
           <li class="dp-toc-item">
             <a href="#what-it-refuses">What it refuses</a>
           </li>
+          <li class="dp-toc-item">
+            <a href="#properties">Properties</a>
+          </li>
         </ul>
       </nav>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

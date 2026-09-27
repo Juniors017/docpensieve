@@ -1,0 +1,80 @@
+# Composants
+
+> Les composants disponibles dans chaque page, sans import.
+
+Ces composants s'emploient dans n'importe quelle page `.mdx` **sans import**.
+
+Ils apportent la **structure** — enveloppes, séparateurs, espacements.
+L'apparence se règle avec `className`.
+
+<ForTheme framework="tailwind">
+
+Avec le thème Tailwind, un `className` porte des utilitaires, compilés depuis
+ceux qu'emploient vos pages :
+
+```mdx
+<Card className="max-w-sm">
+  <CardHeader className="text-center font-bold">Titre</CardHeader>
+</Card>
+```
+
+Les classes des composants vivent dans la couche `components`, sous les
+utilitaires : un `className` posé à l'emploi l'emporte toujours.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+Avec le thème custom, un `className` nomme vos propres classes : il n'y a pas
+d'utilitaires. Chaque fichier `.css` du dossier `theme/`, à la racine du
+projet, est ajouté à la feuille, et `docpensieve dev` suit chaque changement.
+
+```mdx
+<Card className="narrow">
+  <CardHeader className="centered">Titre</CardHeader>
+</Card>
+```
+
+```css
+/* theme/custom.css */
+.narrow {
+  max-inline-size: 24rem;
+}
+
+.centered {
+  text-align: center;
+}
+```
+
+Les classes des composants vivent dans la couche `components`, celles du
+dossier de thème dans aucune : une classe à vous l'emporte toujours.
+
+Les exemples de ces pages emploient les classes de `theme/99-docpensieve.css`,
+que `init` a écrit à côté de cette documentation : supprimez les deux ensemble.
+
+</ForTheme>
+
+Chaque exemple est montré dans les termes du thème du site, par
+[ForTheme](/versions/beta/fr/components/for-theme/) : changer `theme.framework` dans la configuration
+change aussi les exemples.
+
+## Disponibles
+
+<Cards />
+
+## Sans JavaScript
+
+Aucun composant ne charge de script, sauf un : `Calendar`, dont les flèches
+entre les mois viennent du fichier client de la version — et seulement sur les
+pages qui contiennent un calendrier. Tout le reste de ce qui demande une
+interaction passe par des éléments natifs ou par le CSS : `details` pour
+déplier, un lien pour se déplacer, `animation-timeline` pour apparaître au
+défilement.
+
+Le site, lui, peut ajouter un comportement à une page — `copyCode` pose un
+bouton de copie sur chaque bloc de code — mais c'est un champ que vous activez,
+il arrive dans un fichier partagé par la version, et seules les pages qui
+l'emploient le chargent.
+
+Quand le navigateur ne connaît pas encore l'une de ces propriétés, le composant
+reste utilisable dans son état le plus simple — visible, plein, déplié. Aucun
+n'attend une capacité pour fonctionner.

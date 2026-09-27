@@ -7,6 +7,7 @@
     <meta name="description" content="Every field of docpensieve.config.mjs, its default value and its effect." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/reference/configuration/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/reference/configuration/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -607,7 +608,7 @@ only runs through <code>npx</code>. In a project that installs it as a dependenc
 default, or commented out with an example — so that it also tells you what you
 can change.</p>
 <h2 id="the-fields">The fields</h2>
-<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Default</th><th>Effect</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Name shown in the header and in the JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Public URL. Used for the <code>canonical</code> and the JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Deployment prefix. Derived from <code>siteUrl</code> when omitted</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Output folder, relative to the root</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>At least one entry</td></tr><tr><td><code>theme</code></td><td>see below</td><td>Styling</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code>: the menu follows the file tree. Or a <code>.json</code> file of each version folder</td></tr><tr><td><code>authors</code></td><td><code>&#x27;&#x27;</code></td><td>A <code>.json</code> file describing the authors, in each version folder that has one</td></tr><tr><td><code>headerLinks</code></td><td><code>[]</code></td><td>Links of the header, beside the version switcher</td></tr><tr><td><code>foldedSidebar</code></td><td><code>false</code></td><td>Categories of the menu fold, opened where the reader stands</td></tr><tr><td><code>admonitions</code></td><td><code>{}</code></td><td>Kinds of admonition the project adds to the six shipped, each a label, a tone and an optional icon</td></tr><tr><td><code>stickyHeader</code></td><td><code>true</code></td><td>The header stays at the top of the screen; <code>false</code> lets it scroll away</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Shipped components available without an import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Back-to-top button on every page</td></tr><tr><td><code>copyCode</code></td><td><code>false</code></td><td>A button copying each block of code — the one field that makes a content page load a script</td></tr><tr><td><code>snippetIcons</code></td><td><code>&#x27;&#x27;</code></td><td>Icon collection a code block takes the mark of its language from, <code>&#x27;simple-icons&#x27;</code></td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Structured data</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Language of the site: <code>&lt;html lang&gt;</code>, and the wording of the shell</td></tr><tr><td><code>ui</code></td><td><code>{}</code></td><td>Wording of the shell, by language — corrects a word, or adds a language</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image beside the project name, in the header</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icon of the browser tab: <code>.ico</code>, <code>.png</code> or <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Preview of a shared page. Needs <code>siteUrl</code></td></tr><tr><td><code>sitemap</code></td><td><code>true</code></td><td><code>sitemap.xml</code> of the published versions, once <code>siteUrl</code> is set</td></tr><tr><td><code>feed</code></td><td><code>false</code></td><td>RSS feed of the dated pages. Needs <code>siteUrl</code></td></tr><tr><td><code>search</code></td><td><code>true</code></td><td>Search field in the header, and a search page built with the site</td></tr></tbody></table></div>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Field</th><th>Default</th><th>Effect</th></tr></thead><tbody><tr><td><code>projectName</code></td><td><code>&#x27;Documentation&#x27;</code></td><td>Name shown in the header and in the JSON-LD</td></tr><tr><td><code>siteUrl</code></td><td><code>&#x27;&#x27;</code></td><td>Public URL. Used for the <code>canonical</code> and the JSON-LD</td></tr><tr><td><code>baseUrl</code></td><td><code>&#x27;/&#x27;</code></td><td>Deployment prefix. Derived from <code>siteUrl</code> when omitted</td></tr><tr><td><code>outDir</code></td><td><code>&#x27;dist&#x27;</code></td><td>Output folder, relative to the root</td></tr><tr><td><code>versions</code></td><td><code>[]</code></td><td>At least one entry</td></tr><tr><td><code>theme</code></td><td>see below</td><td>Styling</td></tr><tr><td><code>sidebar</code></td><td><code>&#x27;auto&#x27;</code></td><td><code>&#x27;auto&#x27;</code>: the menu follows the file tree. Or a <code>.json</code> file of each version folder</td></tr><tr><td><code>authors</code></td><td><code>&#x27;&#x27;</code></td><td>A <code>.json</code> file describing the authors, in each version folder that has one</td></tr><tr><td><code>headerLinks</code></td><td><code>[]</code></td><td>Links of the header, beside the version switcher</td></tr><tr><td><code>foldedSidebar</code></td><td><code>false</code></td><td>Categories of the menu fold, opened where the reader stands</td></tr><tr><td><code>admonitions</code></td><td><code>{}</code></td><td>Kinds of admonition the project adds to the six shipped, each a label, a tone and an optional icon</td></tr><tr><td><code>stickyHeader</code></td><td><code>true</code></td><td>The header stays at the top of the screen; <code>false</code> lets it scroll away</td></tr><tr><td><code>globalComponents</code></td><td><code>true</code></td><td>Shipped components available without an import</td></tr><tr><td><code>scrollToTop</code></td><td><code>true</code></td><td>Back-to-top button on every page</td></tr><tr><td><code>copyCode</code></td><td><code>false</code></td><td>A button copying each block of code — the one field that makes a content page load a script</td></tr><tr><td><code>snippetIcons</code></td><td><code>&#x27;&#x27;</code></td><td>Icon collection a code block takes the mark of its language from, <code>&#x27;simple-icons&#x27;</code></td></tr><tr><td><code>jsonld</code></td><td><code>{ enabled: true }</code></td><td>Structured data</td></tr><tr><td><code>lang</code></td><td><code>&#x27;en&#x27;</code></td><td>Language of the site: <code>&lt;html lang&gt;</code>, and the wording of the shell</td></tr><tr><td><code>ui</code></td><td><code>{}</code></td><td>Wording of the shell, by language — corrects a word, or adds a language</td></tr><tr><td><code>logo</code></td><td><code>&#x27;&#x27;</code></td><td>Image beside the project name, in the header</td></tr><tr><td><code>favicon</code></td><td><code>&#x27;&#x27;</code></td><td>Icon of the browser tab: <code>.ico</code>, <code>.png</code> or <code>.svg</code></td></tr><tr><td><code>socialImage</code></td><td><code>&#x27;&#x27;</code></td><td>Preview of a shared page. Needs <code>siteUrl</code></td></tr><tr><td><code>sitemap</code></td><td><code>true</code></td><td><code>sitemap.xml</code> of the published versions, once <code>siteUrl</code> is set</td></tr><tr><td><code>feed</code></td><td><code>false</code></td><td>RSS feed of the dated pages. Needs <code>siteUrl</code></td></tr><tr><td><code>search</code></td><td><code>true</code></td><td>Search field in the header, and a search page built with the site</td></tr><tr><td><code>llms</code></td><td><code>false</code></td><td><code>llms.txt</code> at the root of the site, and a Markdown copy of each page</td></tr></tbody></table></div>
 <h2 id="images">Images</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">logo</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/logo.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">favicon</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">&#x27;branding/favicon.png&#x27;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
@@ -651,6 +652,31 @@ JavaScript, the page stays the full list of pages.</p>
 <p>The search page is kept out of search engines (<code>noindex</code>) and out of the
 sitemap. A page of your own at <code>/search/</code> would take its place: the build
 refuses it, and <code>search: false</code> frees the address.</p>
+<h2 id="llms"><code>llms</code></h2>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">llms</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span></code></pre>
+<p>A program that reads documentation on someone&#x27;s behalf — an assistant
+answering a question, a tool gathering the pages of a project — does better
+with the text than with the markup around it. <code>llms: true</code> gives it two ways
+in:</p>
+<ul>
+<li><strong><code>llms.txt</code></strong>, at the root of the site: the project name, the description
+of the home page, then one link per page of the current version, with its
+description. Each language of the version has its own section. The file
+follows the llms.txt proposal, at the address programs look for it.</li>
+<li><strong>A Markdown copy of each page</strong>, beside its HTML: <code>/guide/install/</code> has its
+copy at <code>/guide/install/index.html.md</code>, and every page names its copy in its
+head, with <code>&lt;link rel=&quot;alternate&quot; type=&quot;text/markdown&quot;&gt;</code>. The copy is the
+source of the page as you wrote it, headed by its title and description.</li>
+</ul>
+<p>What a component draws at build time is not in the copy — a grid of cards,
+the file a snippet reads: it says what was written, not what was rendered.</p>
+<p>It needs no <code>siteUrl</code>: the links start from the root of the domain until the
+site has an address, and are absolute once it has one. Like the sitemap,
+<code>llms.txt</code> is written by the build of the whole site; <code>build &lt;version&gt;</code> alone
+writes the copies of that version only.</p>
+<p>It is off by default. It doubles the files of a version, and whether programs
+should read your pages is yours to decide. It is a proposal, not a standard:
+reading it is up to each program.</p>
 <h2 id="copycode"><code>copyCode</code></h2>
 <p><code>copyCode: true</code> puts a button on every block of code, which copies it.</p>
 <p>It is off by default, because it is the one field that makes an ordinary page
@@ -804,6 +830,9 @@ starts to matter from the second version on.</p></article>
             <a href="#search">Search</a>
           </li>
           <li class="dp-toc-item">
+            <a href="#llms">llms</a>
+          </li>
+          <li class="dp-toc-item">
             <a href="#copycode">copyCode</a>
           </li>
           <li class="dp-toc-item">
@@ -846,7 +875,7 @@ starts to matter from the second version on.</p></article>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">

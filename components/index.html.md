@@ -1,0 +1,79 @@
+# Components
+
+> The components available in every page, without an import.
+
+These components can be used in any `.mdx` page **without an import**.
+
+They provide the **structure** — wrappers, separators, spacing. The look is set
+with `className`.
+
+<ForTheme framework="tailwind">
+
+With the Tailwind theme, a `className` holds utilities, compiled from the ones
+your pages use:
+
+```mdx
+<Card className="max-w-sm">
+  <CardHeader className="text-center font-bold">Title</CardHeader>
+</Card>
+```
+
+The component classes live in the `components` layer, below the utilities: a
+`className` set at use always wins.
+
+</ForTheme>
+<ForTheme framework="custom">
+
+With the custom theme, a `className` names classes of your own: there are no
+utilities. Every `.css` file of the `theme/` folder, at the root of the
+project, is appended to the stylesheet, and `docpensieve dev` picks up every
+change.
+
+```mdx
+<Card className="narrow">
+  <CardHeader className="centered">Title</CardHeader>
+</Card>
+```
+
+```css
+/* theme/custom.css */
+.narrow {
+  max-inline-size: 24rem;
+}
+
+.centered {
+  text-align: center;
+}
+```
+
+The component classes live in the `components` layer, those of the theme
+folder in none: a class of yours always wins.
+
+The examples of these pages use the classes of `theme/99-docpensieve.css`,
+which `init` wrote next to this documentation: delete both together.
+
+</ForTheme>
+
+Every example is shown in the terms of the site's theme, through
+[ForTheme](/versions/beta/components/for-theme/): changing `theme.framework` in the configuration
+changes the examples too.
+
+## Available
+
+<Cards />
+
+## Without JavaScript
+
+No component loads a script but one: `Calendar`, whose arrows between months
+come from the client file of the version — and only on the pages that hold a
+calendar. Whatever else needs interaction goes through native elements or
+through CSS: `details` for expanding, a link for moving, `animation-timeline`
+for appearing on scroll.
+
+The site itself can add a behaviour to a page — `copyCode` puts a copy button
+on each block of code — but that is a field you turn on, it lands in one file
+shared by the version, and only pages that use it load it.
+
+When the browser does not know one of these properties yet, the component stays
+usable in its simplest state — visible, full, expanded. None of them waits for
+a capability to work.

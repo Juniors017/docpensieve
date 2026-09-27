@@ -1,0 +1,227 @@
+# Hero
+
+> The banner at the head of a page — a name, a sentence, and the way in.
+
+A landing page opens on three things: what this is, what it does, and where to
+start. `Hero` is the block that holds them, so that the head of a page is a
+component rather than a `div` and a pile of classes.
+
+It is **not a card**: no border, no panel. What a banner is made of is space, a
+title large enough to be the first thing read, and one way in that stands out
+from the rest. A frame exists for the page that asks for one, and it is not
+what you get by default.
+
+## A banner
+
+<Hero>
+
+## DocPensieve
+
+Your Markdown and MDX files become a static site. No runtime to load, one
+version per branch.
+
+<HeroActions>[Get started](/versions/beta/guide/installation/) [See the components](/versions/beta/components/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero>
+
+# My project
+
+What it does, in one sentence.
+
+<HeroActions>[Get started](../guide/installation/) [Components](./)</HeroActions>
+
+</Hero>
+```
+
+Everything inside is ordinary Markdown: a heading, a paragraph, a row of
+links. The component sets the width of the sentence, the spacing, and turns
+the links into something to press — **the first one carries the accent**,
+because a reader should see one way in rather than three.
+
+## Aligned to the start
+
+`align="start"` leaves the banner where the text of the page is, which suits a
+section that opens a chapter rather than a site.
+
+<Hero align="start">
+
+### A section, not a site
+
+The same block, reading from the left.
+
+<HeroActions>[Read on](/versions/beta/guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero align="start">
+
+## A section, not a site
+
+The same block, reading from the left.
+
+</Hero>
+```
+
+Accepted values are `center`, the default, and `start`. Anything else stops the
+build and lists the two — a banner silently ignoring its alignment would look
+like a stylesheet that failed.
+
+## With something to show
+
+Put a `HeroVisual` among the children and the banner becomes two columns — the
+words on one side, the picture on the other. Nothing to declare: having a
+visual is what makes it a split, which is the commonest shape of a landing
+page and the reason a project puts a screenshot there.
+
+<Hero>
+  <HeroText>
+
+### My project
+
+What it does, in one sentence, with room to breathe.
+
+<HeroActions>[Get started](/versions/beta/guide/installation/) [Components](/versions/beta/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![A page of the site](/versions/beta/components/icons/banner.svg)
+
+  </HeroVisual>
+</Hero>
+
+```mdx
+<Hero>
+  <HeroText>
+
+# My project
+
+What it does, in one sentence, with room to breathe.
+
+<HeroActions>[Get started](/guide/installation/) [Components](/components/)</HeroActions>
+
+  </HeroText>
+  <HeroVisual>
+
+![A page of the site](./screenshot.png)
+
+  </HeroVisual>
+</Hero>
+```
+
+`HeroText` holds the words, `HeroVisual` the picture. Below 48rem the two
+columns become one, the picture following the words it illustrates.
+
+## A frame, if you want one
+
+`frame` draws the panel a banner does not have by default — a border, and a
+wash of its tone.
+
+<Hero frame size="small">
+
+### Framed
+
+For a banner that has to be told apart from the page around it.
+
+</Hero>
+
+```mdx
+<Hero frame>...</Hero>
+```
+
+## How much room it takes
+
+`size` decides the air around the words, not the look: `small`, `medium` —
+the default — `large`, and `full`, which takes the height of the screen and
+centres its content in it.
+
+<Hero size="small">
+
+### A small one
+
+For a section that only needs announcing.
+
+</Hero>
+
+```mdx
+<Hero size="small">...</Hero>
+<Hero size="large">...</Hero>
+<Hero size="full">...</Hero>
+```
+
+`full` measures the screen as the browser really shows it, so a phone whose
+address bar comes and goes does not push the banner under it.
+
+## The tone it is lit with
+
+`tone` names a colour the theme already carries — the same tones an admonition
+takes, because a theme defines a colour per tone, not a colour per component.
+A project that gives `attention` its own colour gives it to both at once.
+
+<Hero tone="tip" align="start" size="small">
+
+### Lit by a tone
+
+The wash behind the words, and the first way in, follow it.
+
+<HeroActions>[Read on](/versions/beta/guide/writing-pages/)</HeroActions>
+
+</Hero>
+
+```mdx
+<Hero tone="tip">...</Hero>
+```
+
+Accepted: `note` — the default, which is the accent of the theme — `info`,
+`tip`, `attention` and `danger`. Anything else stops the build and lists them,
+as an unknown size or alignment does: a banner silently ignoring what it was
+asked would look like a stylesheet that failed.
+
+## On a page of your own
+
+A banner belongs on a page that opens something: the home page of a version, a
+landing page for a section. The `home` layout of the frontmatter is its usual
+companion, since it drops the menu and the table of contents:
+
+```mdx
+---
+title: My project
+layout: home
+---
+
+<Hero>
+
+# My project
+
+...
+```
+
+## Properties
+
+| Property    | Type     | Effect                             |
+| ----------- | -------- | ---------------------------------- |
+| `align`     | `string` | `center` (the default) or `start`. |
+| `className` | `string` | Classes added to the banner.       |
+| `style`     | `object` | Inline styles on the banner.       |
+
+Its companions, each taking `className` and `style` as well:
+
+| Component     | What it holds                                                        |
+| ------------- | -------------------------------------------------------------------- |
+| `HeroActions` | The row of ways in. Its children are links, as Markdown writes them. |
+| `HeroText`    | The words, in a split. Not needed in a single column.                |
+| `HeroVisual`  | The picture. Its presence is what makes the banner a split.          |
+
+**One primary action and one alternative** is the shape that reads — a row of
+five buttons is a row of none.
+
+The classes are `dp-banner*`, after what the element is rather than after the
+component: a page that already writes a class of its own around a title keeps
+whatever that class did, and adopting the component stays a decision.
+
+A row of ways in is a row of choices — [Columns](/versions/beta/components/columns/) shows how to keep
+several blocks the same height when the banner is followed by cards.

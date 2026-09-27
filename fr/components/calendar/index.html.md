@@ -1,0 +1,132 @@
+# Calendar
+
+> Un mois de dates et ce qui s'y passe — construit à la génération, navigable une fois le script de la page chargé.
+
+Des dates se lisent mal en liste. Un plan de sorties, un calendrier de cours,
+les semaines d'une migration : ce qui compte, c'est où elles tombent et à
+quelle distance les unes des autres. `Calendar` dessine les mois, et pose
+chaque événement sur son jour.
+
+## Des jours, et ce qu'il y a dessus
+
+<Calendar>
+  <Event date="2026-10-14" label="Sortie 0.5" href="/versions/beta/fr/whats-new/" />
+  <Event date="2026-10-14" label="Billet de blog" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+
+```mdx
+<Calendar>
+  <Event date="2026-10-14" label="Sortie 0.5" href="/whats-new/" />
+  <Event date="2026-10-14" label="Billet de blog" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+```
+
+Un jour s'écrit `2026-10-14` — quatre chiffres, deux, deux. Plusieurs
+événements peuvent tomber le même jour, et ils sont dessinés dans l'ordre où
+ils sont écrits. `href` est résolu comme n'importe quel lien d'une page :
+depuis la page, ou depuis la racine de la version.
+
+Les événements sont écrits dans la page. Rien n'est lu dans le frontmatter des
+autres pages : un calendrier dit ce que son auteur y a mis, et le dit là où on
+le lit.
+
+## Plusieurs mois
+
+Chaque mois entre le premier événement et le dernier est dessiné — y compris
+ceux qui ne contiennent rien, parce qu'un creux est quelque chose qu'un lecteur
+doit voir.
+
+<Calendar>
+  <Event date="2026-11-18" label="Bêta" />
+  <Event date="2027-01-06" label="Sortie" />
+</Calendar>
+
+```mdx
+<Calendar>
+  <Event date="2026-11-18" label="Bêta" />
+  <Event date="2027-01-06" label="Sortie" />
+</Calendar>
+```
+
+Sans JavaScript, les mois sont empilés les uns après les autres et le
+calendrier entier se lit. Avec, ils se replient en un seul, deux flèches
+passent de l'un à l'autre, et le jour même est cerné. Les flèches sont
+**écrites masquées** et révélées par le script : elles n'apparaissent donc
+jamais sans le code qui les fait marcher.
+
+Ce script, c'est le fichier client de la version : deux kilooctets environ,
+chargé par les seules pages qui contiennent un calendrier, et partagé avec les
+autres comportements qu'emploie la version. Voir
+[copyCode](/versions/beta/fr/reference/configuration/) pour ce qu'est ce fichier.
+
+## Le modèle réduit
+
+`compact` dessine la grille en petit et écrit les événements au-dessous, à
+toute largeur — à côté d'un paragraphe, ou dans une colonne à lui.
+
+**Un écran étroit prend ce modèle, quoi que la page ait demandé.** Sept
+colonnes de cellules pleines sur un téléphone ne laissent que quelques
+millimètres à chaque jour, et un libellé écrit dedans fait un mot par ligne.
+Les deux formes sont dans la page et la feuille de style n'en montre qu'une,
+comme le menu de l'en-tête est écrit deux fois : aucun script n'en décide, et
+rien n'est lu deux fois par un lecteur d'écran.
+
+<Calendar compact>
+  <Event date="2026-10-14" label="Sortie 0.5" href="/versions/beta/fr/whats-new/" />
+  <Event date="2026-10-14" label="Billet de blog" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+
+```mdx
+<Calendar compact>
+  <Event date="2026-10-14" label="Sortie 0.5" />
+  <Event date="2026-10-28" label="Atelier" />
+</Calendar>
+```
+
+Un jour qui porte quelque chose reçoit un point, ou le nombre de choses qu'il
+porte — un jour qui en a trois doit dire trois plutôt que ressembler à un jour
+qui en a une. La liste au-dessous est ce qui dit lesquelles : **rien n'est
+seulement une couleur**, qu'aucun lecteur d'écran ne lit et qu'aucun lecteur
+daltonien ne voit.
+
+## La langue de la page
+
+Les noms de mois et de jours viennent de la langue de la page, et le nom
+qu'annonce un lecteur d'écran aussi. Une page française dit `octobre`, une page
+anglaise `October` — rien à déclarer.
+
+## Ce qu'il refuse
+
+| Écrit                           | Ce qui se passe                                                        |
+| ------------------------------- | ---------------------------------------------------------------------- |
+| un calendrier sans événement    | La génération s'arrête : un calendrier vide ne montre rien.            |
+| `2026-10` ou `14/10/2026`       | La génération s'arrête en disant comment s'écrit un jour.              |
+| `2026-09-31`                    | Refusé : septembre a trente jours, c'est donc une faute, pas une date. |
+| un événement sans libellé       | La génération s'arrête en nommant son jour.                            |
+| un `Event` hors d'un calendrier | La génération s'arrête : rien ne saurait dans quel mois le dessiner.   |
+| toute autre chose à l'intérieur | La génération s'arrête : un calendrier contient des événements.        |
+
+## Propriétés
+
+`Calendar` :
+
+| Propriété   | Type      | Effet                                                                      |
+| ----------- | --------- | -------------------------------------------------------------------------- |
+| `label`     | `string`  | Nom annoncé à un lecteur d'écran. Par défaut : `Calendrier`.               |
+| `compact`   | `boolean` | Le modèle réduit à toute largeur. Un écran étroit le prend de toute façon. |
+| `className` | `string`  | Classes ajoutées au calendrier.                                            |
+| `style`     | `object`  | Styles en ligne sur le calendrier.                                         |
+
+`Event` :
+
+| Propriété | Type     | Effet                                        |
+| --------- | -------- | -------------------------------------------- |
+| `date`    | `string` | Le jour, `2026-10-14`. Obligatoire.          |
+| `label`   | `string` | Ce qui se passe ce jour-là. Obligatoire.     |
+| `href`    | `string` | Où mène l'événement. Résolu comme tout lien. |
+
+Écrire un bloc deux fois et n'en montrer qu'un, c'est ainsi que ce site traite
+partout les écrans étroits — [Columns](/versions/beta/fr/components/columns/) fait le même choix.

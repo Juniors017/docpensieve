@@ -1,0 +1,232 @@
+# Snippet
+
+> Un bloc de code qui désigne un vrai fichier de votre projet, lu à la génération de la page, pour que l'exemple ne puisse pas se périmer.
+
+Un exemple écrit à la main est une copie. Il cesse d'être vrai le jour où le
+code change, et rien ne le signale : la page continue de montrer quelque chose
+qui a marché une fois. `Snippet` désigne le fichier à la place, et le fichier
+est lu à la génération de la page — il ne reste aucune copie pour dériver.
+
+L'idée vient de **Christophe Avonture**, qui l'a construite pour son site.
+
+## Désigner un fichier
+
+<Snippet source="./snippet-example.js" />
+
+```mdx
+<Snippet source="./snippet-example.js" />
+```
+
+Le nom du fichier sert d'étiquette au bloc, et la coloration est celle de
+n'importe quel bloc de code. Un chemin qui commence par `./` ou `../` est lu
+**depuis la page**, comme un lien ; tout autre chemin est lu **depuis la racine
+de votre projet**, si bien que `src/index.js` désigne le même fichier depuis
+n'importe quelle page.
+
+## Une partie d'un fichier
+
+Deux façons, et elles ne vieillissent pas pareil.
+
+Un **intervalle de lignes** s'écrit vite et veut dire « la ligne 12 du fichier
+tel qu'il est aujourd'hui » :
+
+<Snippet source="./snippet-example.js" lines="9-10" title="Les mots qu'il écarte" />
+
+```mdx
+<Snippet source="./snippet-example.js" lines="9-10" title="Les mots qu'il écarte" />
+```
+
+Écrivez `lines="9"` pour une ligne, `"9-10"` pour un intervalle, `"9-"` de là
+jusqu'à la fin, `"-10"` depuis le début. Cela dit ce que le fichier contient
+aujourd'hui, et rien de plus.
+
+Une **région** est un repère laissé dans le fichier source lui-même, dans un
+commentaire. Elle suit le code quand il bouge — ce qui est tout l'intérêt de
+désigner un fichier plutôt que de le recopier :
+
+<Snippet source="./snippet-example.js" region="guard" title="Le garde-fou" />
+
+```mdx
+<Snippet source="./snippet-example.js" region="guard" title="Le garde-fou" />
+```
+
+Dans le fichier, le repère est un commentaire ordinaire — celui-là même sur
+lequel les éditeurs savent déjà replier :
+
+```js
+// #region guard
+if (!name) {
+  throw new Error('greet needs a name');
+}
+// #endregion
+```
+
+L'indentation commune aux lignes gardées est retirée : une région repérée à
+l'intérieur d'une fonction ne ressort donc pas décalée.
+
+## Replier un long fichier
+
+`collapsed` met le bloc dans un `details`. Sans script : un long fichier peut
+ainsi tenir dans une page sans enterrer ce qui la suit.
+
+<Snippet source="./snippet-example.js" collapsed title="Le fichier entier" />
+
+```mdx
+<Snippet source="./snippet-example.js" collapsed title="Le fichier entier" />
+```
+
+## Du code que vous écrivez
+
+Sans `source`, le composant encadre le code écrit dans la page. Un bloc
+clôturé à l'intérieur de la balise est la façon sûre de l'écrire : il porte
+n'importe quoi, accolades et `<` compris, et aucun formateur ne touche à ce
+qu'il contient.
+
+<Snippet title="greet.py">
+
+```python
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="greet.py">
+
+```python
+def greet(name, greetings={'en': 'Hello'}):
+    return f"{greetings['en']}, {name}!"
+```
+
+</Snippet>
+````
+
+L'extension du titre nomme le langage ; `lang` le dit là où le titre ne le dit
+pas, pour un shell par exemple :
+
+<Snippet title="Générer le site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+
+````mdx
+<Snippet title="Générer le site" lang="bash">
+
+```bash
+npm install
+npx docpensieve build
+```
+
+</Snippet>
+````
+
+### Du code tapé à nu dans la balise
+
+Le code écrit à nu dans la balise est lu lui aussi, dans la page telle que vous
+l'avez tapée — indentation gardée, rien de pris pour du Markdown :
+
+```mdx
+<Snippet title="who_are_you.py">name = input("What's your name? ")</Snippet>
+```
+
+Deux choses qu'il ne peut pas porter, et toutes deux arrivent avant qu'aucun
+composant ne voie le code. Une page est du MDX : `{`, `}` et `<` y sont lus
+comme du MDX et arrêtent la génération sur une erreur de syntaxe. Et un
+formateur passé sur vos pages reflue ce qu'il prend pour de la prose : deux
+lignes de shell reviennent collées en une. Dès que l'un des deux s'applique —
+c'est-à-dire pour la plupart du vrai code — employez la forme clôturée
+ci-dessus.
+
+## La marque du langage
+
+Un bloc porte la couleur de son langage — un filet au-dessus, et une courte
+marque à côté du nom de fichier. La couleur est posée en variable sur le
+cadre : c'est donc le thème qui décide de ce qu'elle peint, et un projet peut
+en mettre une autre.
+
+La même fonction, dans l'autre fichier que lit cette page. Rien n'a été dit du
+langage : l'extension le portait, et avec lui la marque et la couleur.
+
+<Snippet source="./snippet-example.py" region="guard" title="Le même garde-fou, en Python" />
+
+```mdx
+<Snippet source="./snippet-example.py" region="guard" title="Le même garde-fou, en Python" />
+```
+
+Un bloc que la page écrit dit son langage dans sa clôture, et se marque de la
+même façon :
+
+<Snippet title="deploy.yml">
+
+```yaml
+steps:
+  - run: npx docpensieve build
+  - run: npx docpensieve check
+```
+
+</Snippet>
+
+<Snippet title="Une première génération" lang="bash">
+
+```bash
+npx docpensieve init mon-site
+npx docpensieve dev
+```
+
+</Snippet>
+
+Là où un projet installe un jeu d'icônes et le nomme, le dessin remplace la
+marque :
+
+```js
+snippetIcons: 'simple-icons',
+```
+
+Ce n'est jamais une raison d'échouer. L'icône est l'idée de l'outil, pas une
+demande de votre page : un jeu que vous n'avez pas, ou un langage qu'il ne
+dessine pas, ramène la marque. `icon="simple-icons:docker"` sur un bloc
+l'emporte sur les deux.
+
+### Un langage que personne n'a marqué
+
+Vingt et un langages ont une marque et une couleur. Tout autre s'affiche sans
+— le cadre, le nom, et le code.
+
+La coloration est une autre affaire, et plus large : le coloriseur connaît
+plusieurs centaines de langages, et un bloc écrit dans un langage qu'il ignore
+ressort en texte brut plutôt que d'arrêter la génération. Vous pouvez donc
+écrire un snippet dans tout ce dans quoi votre projet est écrit.
+
+## Ce qu'il refuse
+
+Rien n'échoue en silence : un snippet qui ne trouverait rien laisserait un
+cadre vide — et un cadre vide a l'air voulu.
+
+| Écrit                                     | Ce qui se passe                                                       |
+| ----------------------------------------- | --------------------------------------------------------------------- |
+| un fichier absent                         | La génération s'arrête en disant quel chemin a été cherché.           |
+| un chemin qui sort du projet              | Refusé : une page est du contenu, et le contenu ne lit pas le disque. |
+| une région qu'aucun repère ouvre ou ferme | La génération s'arrête en nommant la région et le fichier.            |
+| un intervalle qui se lit à l'envers       | La génération s'arrête.                                               |
+
+## Propriétés
+
+| Propriété   | Type      | Effet                                                                      |
+| ----------- | --------- | -------------------------------------------------------------------------- |
+| `source`    | `string`  | Fichier à lire. Depuis la page avec `./` ou `../`, depuis le projet sinon. |
+| `title`     | `string`  | Étiquette au-dessus du bloc. Par défaut, le nom du fichier.                |
+| `lines`     | `string`  | `8`, `8-14`, `8-` ou `-14`.                                                |
+| `region`    | `string`  | Nom repéré par `#region` et `#endregion` dans le fichier.                  |
+| `lang`      | `string`  | Langage de la coloration, quand l'extension dit autre chose que la vérité. |
+| `collapsed` | `boolean` | Replie le bloc dans un `details`.                                          |
+| `icon`      | `string`  | Une icône pour ce bloc, à la place de la marque de son langage.            |
+| `className` | `string`  | Classes ajoutées au cadre.                                                 |
+| `style`     | `object`  | Styles en ligne sur le cadre.                                              |
+
+Le fichier que lit cette page est installé avec elle : chaque exemple ci-dessus
+fonctionne donc dans votre projet comme il fonctionne ici.

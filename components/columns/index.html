@@ -7,6 +7,7 @@
     <meta name="description" content="Column grid, equal or in twelfths." />
     <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href="https://docpensieve.com/versions/beta/components/columns/" />
+    <link rel="alternate" type="text/markdown" href="/versions/beta/components/columns/index.html.md" />
     <link rel="icon" href="/versions/beta/assets/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="DocPensieve" />
@@ -32,9 +33,9 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/beta/"><img class="dp-brand-logo" src="/versions/beta/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+          <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+            <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
             <li><a href="/versions/latest/">0.4.0</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -85,9 +86,9 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.5.0-beta.3, switch version">0.5.0-beta.3</summary>
+            <summary aria-label="Version 0.5.0-beta.4, switch version">0.5.0-beta.4</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.3</a></li>
+              <li><a href="/versions/beta/" aria-current="true">0.5.0-beta.4</a></li>
               <li><a href="/versions/latest/">0.4.0</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
@@ -638,7 +639,11 @@ distributes as it likes; with <code>Columns</code>, each block stays where you p
 <p>Below tablet width, the grid columns stack one under the other. Shrink the
 window to check.</p>
 <p>The most frequent row is a row of cards; <a href="/versions/beta/components/card/">Card</a> shows how to keep
-them to the same height, which a grid alone does not do.</p></article>
+them to the same height, which a grid alone does not do.</p>
+<h2 id="properties">Properties</h2>
+<p><code>Column</code>:</p>
+<div class="dp-table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table><thead><tr><th>Property</th><th>Type</th><th>Effect</th></tr></thead><tbody><tr><td><code>span</code></td><td><code>number</code></td><td>Tracks taken out of twelve — <code>6</code> for a half, <code>8</code> for two thirds. Without it, the columns share the space equally.</td></tr><tr><td><code>className</code></td><td><code>string</code></td><td>Classes added to the column.</td></tr><tr><td><code>style</code></td><td><code>object</code></td><td>Inline styles on the column.</td></tr></tbody></table></div>
+<p><code>Columns</code> takes <code>className</code> and <code>style</code>. A <code>Column</code> outside a <code>Columns</code> stops the build.</p></article>
       </main>
 
       <nav class="dp-toc text-sm" aria-label="On this page">
@@ -665,12 +670,15 @@ them to the same height, which a grid alone does not do.</p></article>
           <li class="dp-toc-item">
             <a href="#on-small-screens">On small screens</a>
           </li>
+          <li class="dp-toc-item">
+            <a href="#properties">Properties</a>
+          </li>
         </ul>
       </nav>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.5.0-beta.3</p>
+      <p>DocPensieve — version 0.5.0-beta.4</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Back to top">
