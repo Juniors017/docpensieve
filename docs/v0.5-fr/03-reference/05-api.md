@@ -1492,7 +1492,7 @@ Checks the markup of a generated site.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `[options]` | `{ port?: number, cwd?: string }` |  |
+| `[options]` | `{ port?: number, host?: string, cwd?: string }` |  |
 
 **Renvoie** `Promise<{ server: import('node:http').Server, watcher: import('chokidar').FSWatcher, port: number, url: string, close: () => Promise<void>, }>`
 
@@ -1517,7 +1517,7 @@ Sets up a documentation project.
 
 | Paramètre | Type | |
 | --- | --- | --- |
-| `[options]` | `{ port?: number, dir?: string, cwd?: string }` |  |
+| `[options]` | `{ port?: number, host?: string, dir?: string, cwd?: string }` |  |
 
 **Renvoie** `Promise<{ server: import('node:http').Server, port: number, url: string }>`
 
@@ -1537,15 +1537,20 @@ Creates a static file server.
 
 ### `listen`
 
-`listen(server, port, [attempts])`
+`listen(server, port, [attempts], [host])`
 
 Starts listening, looking for a free port if needed.
+
+On this machine only, unless asked otherwise. Called without a host, Node
+listens on every interface: anyone on the same network — a café, a
+coworking space — could read the site being written, drafts included.
 
 | Paramètre | Type | |
 | --- | --- | --- |
 | `server` | `import('node:http').Server` |  |
 | `port` | `number` | Desired port. |
 | `[attempts]` | `number` | Number of ports tried from `port` on. |
+| `[host]` | `string` | Address to listen on. `0.0.0.0` opens it to the network, which a phone on the same wifi needs. |
 
 **Renvoie** `Promise<number>` — The port actually used.
 

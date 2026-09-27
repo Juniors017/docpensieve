@@ -20,6 +20,15 @@ endroit où quelque chose est écrit.
 
 ## Déjà là
 
+### Le serveur de développement reste sur votre machine
+
+`dev` et `serve` n'écoutent plus que cette machine. Ils écoutaient toutes les
+interfaces : quiconque était sur le même réseau pouvait lire le site en cours
+d'écriture, brouillons compris. `--host 0.0.0.0` l'ouvre volontairement — pour
+le regarder depuis un téléphone — et la commande le dit au démarrage.
+
+[Les commandes](./reference/cli/)
+
 ### Un bandeau, et un calendrier
 
 `Hero` tient la tête d'une page — un nom, une phrase, une rangée d'entrées —

@@ -20,6 +20,15 @@ written.
 
 ## Already there
 
+### The development server stays on your machine
+
+`dev` and `serve` now listen on this machine only. They used to listen on every
+interface, so anyone on the same network could read the site being written,
+drafts included. `--host 0.0.0.0` opens it on purpose — to look at it from a
+phone — and the command says so when it starts.
+
+[The commands](./reference/cli/)
+
 ### A banner, and a calendar
 
 `Hero` holds the head of a page — a name, a sentence, a row of ways in — so

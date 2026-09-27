@@ -113,9 +113,14 @@ Development server, which rebuilds on every save.
 npx docpensieve dev
 ```
 
-| Option                | Effect                          |
-| --------------------- | ------------------------------- |
-| `-p, --port <number>` | Listening port. Default: `3000` |
+| Option                | Effect                                                        |
+| --------------------- | ------------------------------------------------------------- |
+| `-p, --port <number>` | Listening port. Default: `3000`                               |
+| `--host <address>`    | Address to listen on. Default: `127.0.0.1`, this machine only |
+
+`0.0.0.0` opens the server to the network — to look at the site from a phone on
+the same wifi. Anyone on that network can then read it, drafts included, and
+the command says so when it starts.
 
 ## `serve`
 
@@ -125,10 +130,11 @@ Serves the output folder statically, without rebuilding anything.
 npx docpensieve serve
 ```
 
-| Option                | Effect                          |
-| --------------------- | ------------------------------- |
-| `-p, --port <number>` | Listening port. Default: `4000` |
-| `-d, --dir <dir>`     | Folder to serve                 |
+| Option                | Effect                                                        |
+| --------------------- | ------------------------------------------------------------- |
+| `-p, --port <number>` | Listening port. Default: `4000`                               |
+| `--host <address>`    | Address to listen on. Default: `127.0.0.1`, this machine only |
+| `-d, --dir <dir>`     | Folder to serve                                               |
 
 It is the command that faithfully reproduces what a host will do: to check what
 will be published, chain `build` then `serve`.

@@ -18,7 +18,14 @@ import { SiteGenerator, loadConfig } from '@docpensieve/core';
 import { CONFIG_FILENAME, DocPensieveError, THEME_FOLDER } from '@docpensieve/shared';
 import chokidar from 'chokidar';
 
-import { RELOAD_PATH, createStaticServer, listen } from '../server.js';
+import {
+  DEFAULT_HOST,
+  RELOAD_PATH,
+  createStaticServer,
+  exposedNotice,
+  isExposed,
+  listen,
+} from '../server.js';
 import { createTheme } from '../theme.js';
 
 /** Default port of `dev`, distinct from that of `serve`. */
@@ -41,7 +48,7 @@ const RELOAD_SCRIPT =
   `.addEventListener("message",()=>location.reload())</script>`;
 
 /**
- * @param {{ port?: number, cwd?: string }} [options]
+ * @param {{ port?: number, host?: string, cwd?: string }} [options]
  * @returns {Promise<{
  *   server: import('node:http').Server,
  *   watcher: import('chokidar').FSWatcher,
@@ -89,8 +96,10 @@ export async function dev(options = {}) {
     },
   });
 
-  const port = await listen(server, options.port ?? DEFAULT_PORT);
+  const host = options.host ?? DEFAULT_HOST;
+  const port = await listen(server, options.port ?? DEFAULT_PORT, 10, host);
   const url = `http://localhost:${port}${config.baseUrl}`;
+  if (isExposed(host)) console.log(exposedNotice(host));
   console.log(`served at ${url}`);
 
   // The project's own stylesheets, re-read by every rebuild.

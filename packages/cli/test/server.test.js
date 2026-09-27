@@ -5,7 +5,21 @@ import path from 'node:path';
 import { DocPensieveError } from '@docpensieve/shared';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createStaticServer, listen, resolveRequestPath } from '../src/server.js';
+import {
+  DEFAULT_HOST,
+  createStaticServer,
+  exposedNotice,
+  isExposed,
+  listen,
+  resolveRequestPath,
+} from '../src/server.js';
+
+/** An empty folder to serve: where the server listens is what is under test. */
+const scratchRoot = () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'docpensieve-host-'));
+  dirs.push(dir);
+  return dir;
+};
 
 /** @type {string[]} */
 const dirs = [];
@@ -209,5 +223,38 @@ describe('listen', () => {
     servers.push(second);
     // A range of a single port, already taken: no way out.
     await expect(listen(second, busy, 1)).rejects.toThrow(DocPensieveError);
+  });
+});
+
+describe('where the server listens', () => {
+  it('listens on this machine only, unless asked otherwise', async () => {
+    // Called without a host, Node listens on every interface: anyone on the
+    // same network could read the site being written, drafts included.
+    const server = createStaticServer({ root: scratchRoot(), basePath: '/' });
+    servers.push(server);
+    await listen(server, 0);
+
+    expect(/** @type {import('node:net').AddressInfo} */ (server.address()).address).toBe(
+      DEFAULT_HOST,
+    );
+  });
+
+  it('opens to the network when told to, for a phone on the same wifi', async () => {
+    const server = createStaticServer({ root: scratchRoot(), basePath: '/' });
+    servers.push(server);
+    await listen(server, 0, 10, '0.0.0.0');
+
+    expect(/** @type {import('node:net').AddressInfo} */ (server.address()).address).toBe(
+      '0.0.0.0',
+    );
+  });
+
+  it('knows which addresses reach beyond this machine', () => {
+    expect(isExposed('127.0.0.1')).toBe(false);
+    expect(isExposed('localhost')).toBe(false);
+    expect(isExposed('::1')).toBe(false);
+    expect(isExposed('0.0.0.0')).toBe(true);
+    expect(isExposed('192.168.1.12')).toBe(true);
+    expect(exposedNotice('0.0.0.0')).toContain('anyone on this network');
   });
 });

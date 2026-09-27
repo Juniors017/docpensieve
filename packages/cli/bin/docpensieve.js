@@ -63,6 +63,7 @@ program
   .command('dev')
   .description('Development server with reload')
   .option('-p, --port <number>', 'listening port', Number, 3000)
+  .option('--host <address>', 'address to listen on; 0.0.0.0 opens it to the network', '127.0.0.1')
   .action(async (options) => {
     await dev(options);
   });
@@ -71,6 +72,7 @@ program
   .command('serve')
   .description('Serves the output folder statically')
   .option('-p, --port <number>', 'listening port', Number, 4000)
+  .option('--host <address>', 'address to listen on; 0.0.0.0 opens it to the network', '127.0.0.1')
   .option('-d, --dir <dir>', 'folder to serve')
   .action(async (options) => {
     await serve(options);

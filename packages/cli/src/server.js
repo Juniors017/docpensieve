@@ -162,16 +162,35 @@ export function createStaticServer({ root, basePath = '/', inject = null, onRelo
   });
 }
 
+/** The loopback address: the site is served to this machine and to no other. */
+export const DEFAULT_HOST = '127.0.0.1';
+
+/**
+ * Whether an address reaches beyond this machine.
+ *
+ * @param {string} host
+ * @returns {boolean}
+ */
+export function isExposed(host) {
+  return !['127.0.0.1', 'localhost', '::1'].includes(host);
+}
+
 /**
  * Starts listening, looking for a free port if needed.
+ *
+ * On this machine only, unless asked otherwise. Called without a host, Node
+ * listens on every interface: anyone on the same network — a café, a
+ * coworking space — could read the site being written, drafts included.
  *
  * @param {import('node:http').Server} server
  * @param {number} port Desired port.
  * @param {number} [attempts] Number of ports tried from `port` on.
+ * @param {string} [host] Address to listen on. `0.0.0.0` opens it to the
+ *   network, which a phone on the same wifi needs.
  * @returns {Promise<number>} The port actually used.
  * @throws {DocPensieveError} When no port is free in the range.
  */
-export function listen(server, port, attempts = 10) {
+export function listen(server, port, attempts = 10, host = DEFAULT_HOST) {
   return new Promise((resolve, reject) => {
     let current = port;
 
@@ -181,7 +200,7 @@ export function listen(server, port, attempts = 10) {
       // the next one beats forcing --port.
       if (error.code === 'EADDRINUSE' && current < port + attempts - 1) {
         current += 1;
-        server.listen(current);
+        server.listen(current, host);
         return;
       }
       server.off('error', onError);
@@ -202,6 +221,17 @@ export function listen(server, port, attempts = 10) {
       const address = server.address();
       resolve(typeof address === 'object' && address !== null ? address.port : current);
     });
-    server.listen(current);
+    server.listen(current, host);
   });
+}
+
+/**
+ * Said when the site is opened to the network, so that it is never done
+ * without the person knowing.
+ *
+ * @param {string} host
+ * @returns {string}
+ */
+export function exposedNotice(host) {
+  return `listening on ${host}: anyone on this network can read the site.`;
 }

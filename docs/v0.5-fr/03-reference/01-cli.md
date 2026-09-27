@@ -114,9 +114,14 @@ Serveur de développement, qui régénère à chaque enregistrement.
 npx docpensieve dev
 ```
 
-| Option                | Effet                          |
-| --------------------- | ------------------------------ |
-| `-p, --port <numéro>` | Port d'écoute. Défaut : `3000` |
+| Option                | Effet                                                       |
+| --------------------- | ----------------------------------------------------------- |
+| `-p, --port <numéro>` | Port d'écoute. Défaut : `3000`                              |
+| `--host <adresse>`    | Adresse d'écoute. Défaut : `127.0.0.1`, cette seule machine |
+
+`0.0.0.0` ouvre le serveur au réseau — pour regarder le site depuis un
+téléphone sur le même wifi. Quiconque est sur ce réseau peut alors le lire,
+brouillons compris, et la commande le dit au démarrage.
 
 ## `serve`
 
@@ -126,10 +131,11 @@ Sert le dossier de sortie statiquement, sans rien regénérer.
 npx docpensieve serve
 ```
 
-| Option                | Effet                          |
-| --------------------- | ------------------------------ |
-| `-p, --port <numéro>` | Port d'écoute. Défaut : `4000` |
-| `-d, --dir <dir>`     | Dossier à servir               |
+| Option                | Effet                                                       |
+| --------------------- | ----------------------------------------------------------- |
+| `-p, --port <numéro>` | Port d'écoute. Défaut : `4000`                              |
+| `--host <adresse>`    | Adresse d'écoute. Défaut : `127.0.0.1`, cette seule machine |
+| `-d, --dir <dir>`     | Dossier à servir                                            |
 
 C'est la commande qui reproduit fidèlement ce que fera un hébergeur : pour
 vérifier ce qui sera publié, enchaînez `build` puis `serve`.

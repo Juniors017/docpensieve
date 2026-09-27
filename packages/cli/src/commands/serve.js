@@ -10,13 +10,13 @@ import path from 'node:path';
 import { loadConfig } from '@docpensieve/core';
 import { DocPensieveError } from '@docpensieve/shared';
 
-import { createStaticServer, listen } from '../server.js';
+import { DEFAULT_HOST, createStaticServer, exposedNotice, isExposed, listen } from '../server.js';
 
 /** Default port of `serve`, distinct from that of `dev`. */
 const DEFAULT_PORT = 4000;
 
 /**
- * @param {{ port?: number, dir?: string, cwd?: string }} [options]
+ * @param {{ port?: number, host?: string, dir?: string, cwd?: string }} [options]
  * @returns {Promise<{ server: import('node:http').Server, port: number, url: string }>}
  * @throws {DocPensieveError} When the folder to serve does not exist.
  */
@@ -34,11 +34,13 @@ export async function serve(options = {}) {
   // The site is mounted under the configuration's baseUrl: otherwise the links
   // of the generated pages would not resolve locally.
   const server = createStaticServer({ root, basePath: config.baseUrl });
-  const port = await listen(server, options.port ?? DEFAULT_PORT);
+  const host = options.host ?? DEFAULT_HOST;
+  const port = await listen(server, options.port ?? DEFAULT_PORT, 10, host);
   const url = `http://localhost:${port}${config.baseUrl}`;
 
   console.log(`${root}`);
   console.log(`served at ${url}`);
+  if (isExposed(host)) console.log(exposedNotice(host));
 
   return { server, port, url };
 }
