@@ -19,10 +19,10 @@
 
 import { createContext, createElement as h, useContext } from 'react';
 
-import { DocPensieveError } from '@docpensieve/shared';
+import { DocPensieveError, uiStrings } from '@docpensieve/shared';
 
 import { classNames, cls } from './classes.js';
-import { resolveUrl } from './site.js';
+import { getSiteContext, resolveUrl } from './site.js';
 
 /**
  * What an entry learns from the menu holding it.
@@ -43,7 +43,9 @@ const InMenu = createContext(false);
  * }} props `label` names the menu for screen readers, and labels the button it
  *   folds into on a narrow screen.
  */
-export function Menu({ className, style, children, label = 'Menu' }) {
+export function Menu({ className, style, children, label: given }) {
+  // The default name follows the page, as the header's own menu does.
+  const label = given ?? uiStrings(getSiteContext().lang).menu;
   const entries = h(InMenu.Provider, { value: true }, children);
 
   return h(
