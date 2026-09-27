@@ -48,6 +48,10 @@ npx docpensieve check
   the page** when you give them no label of your own. A project that writes
   its own words in `ui` gets two more to write: `switchToLight` and
   `switchToDark`.
+- **A reader stays in their language from one version to another.** The
+  version switcher, the notice of a beta and the links of the header led a
+  French reader to the English pages; they now lead to the French ones
+  wherever they exist.
 
 ## What is worth turning on
 

@@ -209,26 +209,28 @@ function pageLayout(doc) {
  *
  * @param {import('./config.js').Version} version
  * @param {import('./config.js').Version | undefined} current
- * @param {string} baseUrl
+ * @param {string} url Home of the current version, in the language of the page.
  * @returns {{ prerelease: boolean, name: string, url: string } | null}
  */
-function versionNotice(version, current, baseUrl) {
+function versionNotice(version, current, url) {
   if (version.current) return null;
   if (!version.prerelease && !version.archived) return null;
   // Without a current version, the notice would have nowhere to point to.
   if (!current || current.slug === version.slug) return null;
 
-  return {
-    prerelease: version.prerelease === true,
-    name: current.name,
-    url: joinUrl(baseUrl, 'versions', current.slug),
-  };
+  return { prerelease: version.prerelease === true, name: current.name, url };
 }
 
 /** Generates the static site of one or more versions. */
 export class SiteGenerator {
   /** @type {((data: any) => string) | null} */
   #layout = null;
+
+  /**
+   * The slugs of each language of each version, read once per build.
+   * @type {Map<string, Promise<Set<string>>>}
+   */
+  #slugs = new Map();
 
   /**
    * @param {import('./config.js').DocPensieveConfig} config Normalised config.
@@ -333,18 +335,15 @@ export class SiteGenerator {
           },
         );
       }
-      reading.push({
-        ...language,
-        sourceDir: dir,
-        docs: pages,
-        slugs: new Set(pages.map((doc) => doc.slug)),
-      });
+      const slugs = new Set(pages.map((doc) => doc.slug));
+      reading.push({ ...language, sourceDir: dir, docs: pages, slugs });
+      // What was just read answers the links of the other versions too.
+      this.#slugs.set(JSON.stringify([version.slug, language.lang]), Promise.resolve(slugs));
     }
 
     const versionRoot = joinUrl(this.config.baseUrl, 'versions', version.slug);
 
     const current = this.config.versions.find((candidate) => candidate.current);
-    const notice = versionNotice(version, current, this.config.baseUrl);
 
     const folded = this.config.foldedSidebar === true;
     // The client file is addressed from the version root, like the
@@ -418,34 +417,48 @@ export class SiteGenerator {
       // page, and a biography corrected in one version leaves the others alone.
       const authors = await this.#readAuthors(sourceDir, language.folder, versionBase);
 
-      // Links of the header, resolved once per version. A link naming a version
-      // leads there from every version: a section written in one version only
-      // stays reachable from the others.
+      // Links of the header, resolved once per language of the version. A link
+      // naming a version leads there from every version: a section written in
+      // one version only stays reachable from the others.
       /** @param {{ href: string, version?: string }} link */
-      const headerTarget = (link) =>
-        EXTERNAL_PREVIEW.test(link.href)
-          ? link.href
-          : joinUrl(this.config.baseUrl, 'versions', link.version ?? version.slug) +
-            link.href.replace(/^\/+/, '');
+      const headerTarget = async (link) => {
+        if (EXTERNAL_PREVIEW.test(link.href)) return link.href;
+        const target =
+          this.config.versions.find((candidate) => candidate.slug === link.version) ?? version;
+        return this.#inLanguage(target, language.lang, link.href);
+      };
 
-      const headerLinks = (this.config.headerLinks ?? []).map((link) =>
-        link.columns
-          ? {
-              label: link.label,
-              columns: link.columns.map((column) => ({
-                title: column.title,
-                items: column.items.map((item) => ({
-                  label: item.label,
-                  href: headerTarget(item),
-                })),
-              })),
-            }
-          : // Without columns the configuration has checked the target: an entry
-            // that leads nowhere and opens nothing never gets here.
-            {
-              label: link.label,
-              href: headerTarget({ href: String(link.href), version: link.version }),
-            },
+      const headerLinks = await Promise.all(
+        (this.config.headerLinks ?? []).map(async (link) =>
+          link.columns
+            ? {
+                label: link.label,
+                columns: await Promise.all(
+                  link.columns.map(async (column) => ({
+                    title: column.title,
+                    items: await Promise.all(
+                      column.items.map(async (item) => ({
+                        label: item.label,
+                        href: await headerTarget(item),
+                      })),
+                    ),
+                  })),
+                ),
+              }
+            : // Without columns the configuration has checked the target: an
+              // entry that leads nowhere and opens nothing never gets here.
+              {
+                label: link.label,
+                href: await headerTarget({ href: String(link.href), version: link.version }),
+              },
+        ),
+      );
+
+      // Where a reader of another version is sent back to, in their language.
+      const notice = versionNotice(
+        version,
+        current,
+        current ? await this.#inLanguage(current, language.lang, '') : '',
       );
 
       const shell = {
@@ -493,7 +506,7 @@ export class SiteGenerator {
         // The light / dark switch: a button, and the few lines of script it needs.
         schemeToggle: this.config.theme?.toggle !== false,
         cls: classes,
-        versions: this.#versionLinks(version.slug),
+        versions: await this.#versionLinks(version.slug, language.lang),
         // A switcher offering a single choice is not a switcher.
         showVersions: this.config.versions.length > 1,
         // The back-to-top button is page furniture, not content: writing it in
@@ -1085,6 +1098,9 @@ export class SiteGenerator {
     const rootDir = this.config.rootDir ?? process.cwd();
     const target = path.resolve(rootDir, this.config.outDir);
     this.#guardOutput(target);
+    // Read afresh: a generator kept between two builds would otherwise link
+    // to the pages of the first.
+    this.#slugs.clear();
 
     // The folder of a version no longer declared would stay online, unlisted
     // but reachable. Everything else in the output folder is left alone.
@@ -1169,19 +1185,76 @@ export class SiteGenerator {
   }
 
   /**
-   * Links of the version switcher.
+   * The pages a version has in a language, by slug: none when the version is
+   * not translated into it, or when its folder cannot be read — the build of
+   * that version reports it, and a link here falls back to the site language.
+   *
+   * @param {import('./config.js').Version} version
+   * @param {string} lang
+   * @returns {Promise<Set<string>>}
+   */
+  #slugsOf(version, lang) {
+    const key = JSON.stringify([version.slug, lang]);
+    let slugs = this.#slugs.get(key);
+    if (!slugs) {
+      const folder =
+        lang === (this.config.lang ?? DEFAULT_LANGUAGE)
+          ? version.folder
+          : version.translations?.[lang];
+      slugs = folder
+        ? this.loader
+            .load(path.resolve(this.config.rootDir ?? process.cwd(), folder))
+            .then((docs) => new Set(docs.map((doc) => doc.slug)))
+            .catch(() => new Set())
+        : Promise.resolve(new Set());
+      this.#slugs.set(key, slugs);
+    }
+    return slugs;
+  }
+
+  /**
+   * Address of a page of a version, in the language of the reader when the
+   * version has that page in it, in the language of the site otherwise.
+   *
+   * A French reader sent from the version switcher, the notice of a beta or a
+   * header link to the English page, when the French one existed, had to find
+   * their language again by hand. Falling back rather than guessing: a link
+   * never leads to a page that was not written.
+   *
+   * @param {import('./config.js').Version} version
+   * @param {string} lang Language of the page the link is written on.
+   * @param {string} href Path from the root of the version, `/guide/` or `''`.
+   * @returns {Promise<string>}
+   */
+  async #inLanguage(version, lang, href) {
+    const slug = href.replace(/[?#].*$/, '').replace(/^\/+|\/+$/g, '');
+    const translated =
+      lang !== (this.config.lang ?? DEFAULT_LANGUAGE) &&
+      (await this.#slugsOf(version, lang)).has(slug);
+    return (
+      joinUrl(this.config.baseUrl, 'versions', version.slug, translated ? lang : '') +
+      href.replace(/^\/+/, '')
+    );
+  }
+
+  /**
+   * Links of the version switcher, each to the home of a version in the
+   * language of the page.
    *
    * @param {string} currentSlug
-   * @returns {{ slug: string, name: string, url: string, current: boolean }[]}
+   * @param {string} lang
+   * @returns {Promise<{ slug: string, name: string, url: string, current: boolean }[]>}
    */
-  #versionLinks(currentSlug) {
-    return this.config.versions.map((version) => ({
-      slug: version.slug,
-      name: version.name,
-      url: joinUrl(this.config.baseUrl, 'versions', version.slug),
-      current: version.slug === currentSlug,
-      prerelease: version.prerelease === true,
-    }));
+  async #versionLinks(currentSlug, lang) {
+    return Promise.all(
+      this.config.versions.map(async (version) => ({
+        slug: version.slug,
+        name: version.name,
+        url: await this.#inLanguage(version, lang, ''),
+        current: version.slug === currentSlug,
+        prerelease: version.prerelease === true,
+      })),
+    );
   }
 
   /**
