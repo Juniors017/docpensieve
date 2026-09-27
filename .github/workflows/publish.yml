@@ -19,17 +19,18 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '24'
           registry-url: https://registry.npmjs.org
           cache: npm
 
       # Trusted publishing needs npm 11.5.1 or later, and the npm bundled with
-      # Node can lag behind.
-      - run: npm install -g npm@11
+      # Node can lag behind. Pinned exactly: this is the tool that publishes,
+      # and a floating version would change it between two releases unseen.
+      - run: npm install -g npm@11.20.0
 
       - run: npm ci
 
