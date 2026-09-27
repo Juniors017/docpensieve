@@ -88,7 +88,7 @@ Aucun. Chaque composant employé ici est rendu à la génération du site.
 
 </details>
 
-<Card href="/versions/latest/components/">
+<Card href="/versions/latest/fr/components/">
   <CardBody>
     Cette leçon emploie **Columns**, **Card**, **Skill**, **Tooltip** et **Admonition**.
   </CardBody>

@@ -127,7 +127,7 @@ quand le site se trouve à la racine de son domaine.
 Pour les pages qui relèvent de l'actualité plutôt que de la référence — notes
 de version, journal des changements — donnez-leur une `date` et posez
 `feed: true` : `feed.xml` les liste alors, la plus récente d'abord. Les champs
-sont dans la [référence de configuration](/versions/latest/reference/configuration/).
+sont dans la [référence de configuration](/versions/latest/fr/reference/configuration/).
 
 ## Ce que télécharge le lecteur
 

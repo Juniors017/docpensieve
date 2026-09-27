@@ -47,6 +47,6 @@ Sa carte suit à la génération suivante. Aucune liste à corriger nulle part.
 
 </details>
 
-<Card href="/versions/latest/components/cards/">
+<Card href="/versions/latest/fr/components/cards/">
   <CardBody>Cette leçon emploie **Cards**, **Tree** et **Skill**.</CardBody>
 </Card>

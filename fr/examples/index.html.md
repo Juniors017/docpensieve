@@ -16,7 +16,7 @@ de JavaScript.
 
 <Columns>
   <Column>
-    <Card href="/versions/latest/components/cards/" style={{ height: '100%' }}>
+    <Card href="/versions/latest/fr/components/cards/" style={{ height: '100%' }}>
       <CardHeader>Des séries en cartes</CardHeader>
       <CardBody>
         Chaque module est un dossier. Sa carte — couverture, description, nombre de leçons — est
@@ -34,7 +34,7 @@ de JavaScript.
     </Card>
   </Column>
   <Column>
-    <Card href="/versions/latest/components/" style={{ height: '100%' }}>
+    <Card href="/versions/latest/fr/components/" style={{ height: '100%' }}>
       <CardHeader>Des composants en situation</CardHeader>
       <CardBody>
         Des jauges pour la difficulté, des infobulles sur les termes, des arborescences, une

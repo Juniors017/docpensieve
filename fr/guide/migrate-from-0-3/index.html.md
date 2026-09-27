@@ -91,7 +91,7 @@ admonitions: {
 ```
 
 Un type que personne n'a déclaré arrête la génération plutôt que de rendre un
-bloc sans couleur ni libellé. Voir [Admonition](/versions/latest/components/admonition/).
+bloc sans couleur ni libellé. Voir [Admonition](/versions/latest/fr/components/admonition/).
 
 ### Des icônes issues d'un jeu
 
@@ -108,7 +108,7 @@ npm install --save-dev @iconify-json/simple-icons
 
 Le jeu est lu à la génération et le dessin posé dans la page : aucune requête
 ne part du navigateur de votre lecteur. Voir
-[LogoIcon](/versions/latest/components/logo-icon/).
+[LogoIcon](/versions/latest/fr/components/logo-icon/).
 
 ### Un site en plusieurs langues
 

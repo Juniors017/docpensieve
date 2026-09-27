@@ -15,5 +15,5 @@ calculé du côté du lecteur.
 
 Une conséquence à garder en tête tout du long : ce qui dépend du moment — une
 date, un compte à rebours — est figé à la génération, pas à la lecture.
-[TimeTimer](/versions/latest/components/time-timer/) le dit explicitement, et une
+[TimeTimer](/versions/latest/fr/components/time-timer/) le dit explicitement, et une
 génération programmée suffit à le garder juste.

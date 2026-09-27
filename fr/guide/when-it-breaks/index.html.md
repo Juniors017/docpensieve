@@ -169,6 +169,6 @@ parfaitement et laisse morts tous les liens qui la visaient.
 Une panne inattendue — sans piste — sort avec sa pile d'appels, et mérite d'être
 signalée avec la version qu'affiche `npx docpensieve --version`.
 
-Chaque message vient d'une commande, et la [référence du CLI](/versions/latest/reference/cli/)
+Chaque message vient d'une commande, et la [référence du CLI](/versions/latest/fr/reference/cli/)
 dit ce que fait chacune, avec les codes de sortie que lit une chaîne
 d'intégration.

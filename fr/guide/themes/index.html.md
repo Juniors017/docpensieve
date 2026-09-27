@@ -55,7 +55,7 @@ Les gabarits **n'écrivent aucune classe en dur**. Ils demandent au thème la
 classe de chaque créneau — l'en-tête, le menu, un lien de navigation — et le
 thème répond.
 
-Les cinquante créneaux sont listés dans la [référence](/versions/latest/reference/theme/).
+Les cinquante créneaux sont listés dans la [référence](/versions/latest/fr/reference/theme/).
 
 C'est ce qui permet à un habillage utilitaire et à un habillage classique de
 partager le même HTML : l'un répond `dp-nav-link`, l'autre une poignée
@@ -67,7 +67,7 @@ retombent sur une classe `dp-*` que leur feuille habille à partir des jetons
 
 ## Changer les couleurs
 
-Les jetons sont listés dans la [référence](/versions/latest/reference/theme/). Ils se
+Les jetons sont listés dans la [référence](/versions/latest/fr/reference/theme/). Ils se
 redéfinissent depuis la configuration :
 
 ```js
