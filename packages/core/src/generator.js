@@ -181,7 +181,7 @@ export class SiteGenerator {
    *   loader?: DocLoader,
    *   compiler?: Compiler,
    *   onPage?: (page: {
-   *     url: string, dirUrl?: string, basePath: string,
+   *     url: string, dirUrl?: string, basePath: string, lang?: string,
    *     filepath?: string, sourceDir?: string, slug?: string,
    *     pages?: { url: string, slug: string, title: string, description?: string,
    *       preview?: string, modified?: { iso: string, label: string } }[],
@@ -490,6 +490,9 @@ export class SiteGenerator {
           url,
           dirUrl,
           basePath: versionBase,
+          // A component that writes a word of its own speaks the language of
+          // the page, as the shell does.
+          lang: language.lang,
           filepath: doc.path,
           sourceDir,
           slug: doc.slug,

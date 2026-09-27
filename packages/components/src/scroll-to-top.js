@@ -17,7 +17,10 @@
 
 import { createElement as h } from 'react';
 
+import { uiStrings } from '@docpensieve/shared';
+
 import { classNames, cls } from './classes.js';
+import { getSiteContext } from './site.js';
 
 /**
  * Arrow of the button.
@@ -54,14 +57,18 @@ function Chevron() {
  * }} props `label` is read by screen readers. The children replace the arrow
  *   with whatever you want.
  */
-export function ScrollToTop({ className, style, children, label = 'Back to top' }) {
+export function ScrollToTop({ className, style, children, label }) {
+  // The default name follows the page, as the shell's own button does: a
+  // French page read aloud "Back to top", because the words were written here
+  // in English rather than asked of the page.
+  const name = label ?? uiStrings(getSiteContext().lang).backToTop;
   return h(
     'a',
     {
       className: classNames(cls('scrollTop'), className),
       style,
       href: '#top',
-      'aria-label': label,
+      'aria-label': name,
     },
     children ?? h(Chevron),
   );

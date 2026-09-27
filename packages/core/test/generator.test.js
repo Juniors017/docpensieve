@@ -1714,6 +1714,25 @@ describe('a version in two languages', () => {
     expect(alone).not.toContain('hreflang="fr"');
   });
 
+  it('tells the components the language of the page they render', async () => {
+    // Without it, a component falls back on English: ScrollToTop read "Back
+    // to top" aloud on French pages, beside a shell that said "Retour en haut".
+    const config = bilingual();
+    /** @type {Record<string, string | undefined>} */
+    const seen = {};
+    const generator = new SiteGenerator(config, {
+      compiler: new Compiler({ highlight: false }),
+      theme: stubTheme,
+      onPage: (page) => {
+        seen[page.url] = page.lang;
+      },
+    });
+    await generator.buildVersion('v1.0', path.join(config.rootDir, 'out'));
+
+    expect(seen['/versions/v1.0/guide/install/']).toBe('en');
+    expect(seen['/versions/v1.0/fr/guide/install/']).toBe('fr');
+  });
+
   it('publishes the pages of every language, and only those', async () => {
     const config = bilingual({ siteUrl: 'https://acme.example.com' });
     const out = path.join(config.rootDir, 'out');
