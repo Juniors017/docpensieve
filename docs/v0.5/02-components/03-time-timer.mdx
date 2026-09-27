@@ -122,3 +122,22 @@ names the faulty value and recalls the expected format.
 Announcing a release is what this is usually for, and [Versions](../guide/versions/)
 covers the rest of that cycle — the banner a prerelease carries on its own,
 and the day the two tracks swap.
+
+## Properties
+
+`TimeTimer`:
+
+| Property   | Type      | Effect                                                                                |
+| ---------- | --------- | ------------------------------------------------------------------------------------- |
+| `date`     | `string`  | A single day, `DD/MM/YYYY`, optionally followed by `HH:mm`. The year may be left out. |
+| `start`    | `string`  | Start of a period, in the same format, with `duration`.                               |
+| `duration` | `string`  | Length of the period from `start`: `30d`, `2h`, `45m`.                                |
+| `strict`   | `boolean` | Reads the dates in UTC rather than in local time.                                     |
+| `now`      | `Date`    | For tests only: without it, the moment of the build stands.                           |
+
+The fallbacks each take one bound:
+
+| Property                    | Type     | Effect                                                                  |
+| --------------------------- | -------- | ----------------------------------------------------------------------- |
+| `start` on `FallbackBefore` | `string` | From when the content before the period shows. Without it, from always. |
+| `end` on `FallbackAfter`    | `string` | Until when the content after the period shows. Without it, for good.    |

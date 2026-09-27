@@ -128,3 +128,25 @@ Un `MenuLink` ou un `MenuGroup` écrit hors d'un `Menu` arrête la génération,
 de même une entrée sans cible ou un groupe sans titre. Chacun rendrait sinon
 quelque chose qui ressemble à un menu et ne mène nulle part — le genre de
 défaut qu'une relecture ne rattrape pas.
+
+## Propriétés
+
+`Menu` :
+
+| Propriété | Type     | Effet                                                                                                                     |
+| --------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `label`   | `string` | Nom pour les lecteurs d'écran, et libellé du bouton dans lequel il se replie. Par défaut, le mot de la page pour un menu. |
+
+`MenuLink` :
+
+| Propriété | Type     | Effet                                            |
+| --------- | -------- | ------------------------------------------------ |
+| `href`    | `string` | Où il mène, résolu comme tout lien. Obligatoire. |
+
+`MenuGroup` :
+
+| Propriété | Type     | Effet                         |
+| --------- | -------- | ----------------------------- |
+| `title`   | `string` | Titre du groupe. Obligatoire. |
+
+Les trois prennent `className` et `style`.

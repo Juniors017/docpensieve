@@ -152,3 +152,12 @@ Its orphan branch keeps what was built, and the history keeps the sources.
 Like every component here, it is rendered at the build. It is an `aside`
 announced as a note, with its icon hidden from screen readers — the title
 beside it already says the kind, and saying it twice helps nobody.
+
+## Properties
+
+| Property    | Type     | Effect                                                                                                     |
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`      | `string` | The kind: `note`, the default, `info`, `tip`, `attention`, `alert`, `danger`, or one the project declares. |
+| `title`     | `string` | Replaces the label of the kind, for this block alone.                                                      |
+| `className` | `string` | Classes added to the block.                                                                                |
+| `style`     | `object` | Inline styles on the block.                                                                                |

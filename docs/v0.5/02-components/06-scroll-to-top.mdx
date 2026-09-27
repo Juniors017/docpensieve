@@ -144,3 +144,13 @@ build is enough to keep it right.
 
 Setting one up takes a few lines in the pipeline that already builds the
 site: [Deployment](../guide/deployment/) has the recipe.
+
+## Properties
+
+| Property    | Type     | Effect                                                                                                        |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------- |
+| `label`     | `string` | Name read by a screen reader. By default, the words of the page's language — "Back to top", "Retour en haut". |
+| `className` | `string` | Classes added to the button.                                                                                  |
+| `style`     | `object` | Inline styles on the button.                                                                                  |
+
+Its children, when it has any, replace the arrow.

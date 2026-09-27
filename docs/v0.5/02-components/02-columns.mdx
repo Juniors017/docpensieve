@@ -287,3 +287,15 @@ window to check.
 
 The most frequent row is a row of cards; [Card](./card/) shows how to keep
 them to the same height, which a grid alone does not do.
+
+## Properties
+
+`Column`:
+
+| Property    | Type     | Effect                                                                                                            |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| `span`      | `number` | Tracks taken out of twelve — `6` for a half, `8` for two thirds. Without it, the columns share the space equally. |
+| `className` | `string` | Classes added to the column.                                                                                      |
+| `style`     | `object` | Inline styles on the column.                                                                                      |
+
+`Columns` takes `className` and `style`. A `Column` outside a `Columns` stops the build.

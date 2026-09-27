@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { ADMONITION_KINDS } from '@docpensieve/components';
@@ -105,4 +105,57 @@ describe('what the documentation counts out loud', () => {
     const page = read('02-components/12-admonition.mdx');
     expect(claimed(page, 'kinds')).toBe(Object.keys(ADMONITION_KINDS).length);
   });
+});
+
+/**
+ * The properties a component declares, read from its JSDoc: the ones it
+ * destructures and the ones a parent reads off it, such as the bounds of a
+ * fallback. `className`, `style` and `children` are left out, being what every
+ * component takes.
+ *
+ * @param {string} source
+ * @returns {string[]}
+ */
+function declaredProperties(source) {
+  const found = new Set();
+  // Only the documentation of an exported component: internal helpers take
+  // parameters too, and a page has no business listing theirs.
+  for (const [, doc] of source.matchAll(
+    /\/\*\*((?:(?!\*\/)[\s\S])*?)\*\/\s*export function [A-Z]\w*\(/g,
+  )) {
+    const type = /@param \{([\s\S]*?)\}\s+\[?props\]?/.exec(doc)?.[1] ?? '';
+    for (const [, name] of type.matchAll(/(\w+)\??:\s/g)) found.add(name);
+  }
+  for (const common of ['className', 'style', 'children']) found.delete(common);
+  return [...found].sort();
+}
+
+describe('what the pages of the components list', () => {
+  const COMPONENTS = fileURLToPath(new URL('../../components/src/', import.meta.url));
+
+  for (const folder of ['v0.5', 'v0.5-fr']) {
+    it(`names every property a component declares, in ${folder}`, () => {
+      // Twelve of fifteen pages showed their properties in examples and never
+      // listed them: a reader who learnt to look for the table on one page
+      // did not find it on the next, and a property nobody wrote down is one
+      // nobody uses. A page is named after its component's file.
+      const root = fileURLToPath(
+        new URL(`../../../docs/${folder}/02-components/`, import.meta.url),
+      );
+      const missing = [];
+
+      for (const page of readdirSync(root).filter((file) => /^\d+-.+\.mdx$/.test(file))) {
+        const stem = page.replace(/^\d+-/, '').replace(/\.mdx$/, '');
+        const source = `${COMPONENTS}${stem}.js`;
+        if (!existsSync(source)) continue;
+
+        const text = readFileSync(`${root}${page}`, 'utf8');
+        for (const name of declaredProperties(readFileSync(source, 'utf8'))) {
+          if (!text.includes(`\`${name}\``)) missing.push(`${page}: ${name}`);
+        }
+      }
+
+      expect(missing).toEqual([]);
+    });
+  }
 });

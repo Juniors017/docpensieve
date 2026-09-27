@@ -195,3 +195,16 @@ label is refused too.
 A tree is how this documentation shows the shape of a project. What those
 folders become once built — the order, the addresses — is in
 [Writing pages](../guide/writing-pages/).
+
+## Properties
+
+`TreeItem`:
+
+| Property    | Type            | Effect                                      |
+| ----------- | --------------- | ------------------------------------------- |
+| `label`     | text or element | What the line shows.                        |
+| `open`      | `boolean`       | Opens the branch as soon as the page opens. |
+| `className` | `string`        | Classes added to the line.                  |
+| `style`     | `object`        | Inline styles on the line.                  |
+
+`Tree` takes `className` and `style`.

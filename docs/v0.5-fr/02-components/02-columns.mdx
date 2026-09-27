@@ -288,3 +288,15 @@ sous les autres. Rétrécissez la fenêtre pour le vérifier.
 
 La rangée la plus fréquente est une rangée de cartes ; [Card](./card/) montre
 comment les tenir à la même hauteur, ce qu'une grille seule ne fait pas.
+
+## Propriétés
+
+`Column` :
+
+| Propriété   | Type     | Effet                                                                                                              |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| `span`      | `number` | Pistes prises sur douze — `6` pour une moitié, `8` pour deux tiers. Sans elle, les colonnes se partagent l'espace. |
+| `className` | `string` | Classes ajoutées à la colonne.                                                                                     |
+| `style`     | `object` | Styles en ligne sur la colonne.                                                                                    |
+
+`Columns` prend `className` et `style`. Une `Column` hors d'un `Columns` arrête la génération.

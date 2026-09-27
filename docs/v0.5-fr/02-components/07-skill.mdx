@@ -278,3 +278,19 @@ qui compte.
 Un niveau hors de 0–100 arrête la génération, comme une jauge sans nom, un
 niveau qui n'est pas un nombre, ou une `shape` inconnue. Une barre muette ou
 qui déborde passe inaperçue à la relecture.
+
+## Propriétés
+
+| Propriété   | Type             | Effet                                                                                   |
+| ----------- | ---------------- | --------------------------------------------------------------------------------------- |
+| `name`      | texte ou élément | Ce qui est mesuré.                                                                      |
+| `level`     | `number`         | Le niveau, en pourcentage.                                                              |
+| `showValue` | `boolean`        | Affiche le pourcentage. Actif par défaut ; éteint, la jauge annonce toujours sa valeur. |
+| `shape`     | `string`         | `bar`, par défaut, ou `circle`.                                                         |
+| `icon`      | élément          | Affiché avant le nom — un `LogoIcon` y a sa place.                                      |
+| `color`     | `string`         | Couleur du remplissage : toute couleur CSS, l'accent par défaut.                        |
+| `label`     | `string`         | Nom pour les lecteurs d'écran, quand `name` n'est pas du texte.                         |
+| `className` | `string`         | Classes ajoutées à la jauge.                                                            |
+| `style`     | `object`         | Styles en ligne sur la jauge.                                                           |
+
+Ses enfants servent de commentaire sous la jauge.

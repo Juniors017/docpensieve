@@ -127,3 +127,25 @@ A `MenuLink` or a `MenuGroup` written outside a `Menu` stops the build, and so
 does an entry without a target or a group without a title. Each of these would
 otherwise render something that looks like a menu and leads nowhere — the kind
 of fault a review does not catch.
+
+## Properties
+
+`Menu`:
+
+| Property | Type     | Effect                                                                                                      |
+| -------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `label`  | `string` | Name for screen readers, and label of the button it folds into. By default, the page's own word for a menu. |
+
+`MenuLink`:
+
+| Property | Type     | Effect                                            |
+| -------- | -------- | ------------------------------------------------- |
+| `href`   | `string` | Where it leads, resolved like any link. Required. |
+
+`MenuGroup`:
+
+| Property | Type     | Effect                          |
+| -------- | -------- | ------------------------------- |
+| `title`  | `string` | Heading of the group. Required. |
+
+All three take `className` and `style`.

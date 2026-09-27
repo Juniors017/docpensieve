@@ -74,3 +74,12 @@ themes, so this needs no variant:
 Like every component here, the grid is built at the build. What reaches the
 reader is a list of links: it works with JavaScript turned off, and a card
 never waits for anything to become clickable.
+
+## Properties
+
+| Property    | Type     | Effect                                                                                                |
+| ----------- | -------- | ----------------------------------------------------------------------------------------------------- |
+| `of`        | `string` | `all`, the default; `series` for the sub-folders alone; `pages` for the pages beside the index alone. |
+| `from`      | `string` | Slug of another folder to list, instead of the one holding the page.                                  |
+| `className` | `string` | Classes added to the grid.                                                                            |
+| `style`     | `object` | Inline styles on the grid.                                                                            |

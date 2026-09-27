@@ -349,3 +349,25 @@ le style par défaut.
 
 La rangée la plus fréquente est une rangée de cartes ; [Columns](./columns/)
 montre comment les tenir à la même hauteur, ce qu'une grille seule ne fait pas.
+
+## Propriétés
+
+`Card` :
+
+| Propriété   | Type      | Effet                                                              |
+| ----------- | --------- | ------------------------------------------------------------------ |
+| `elevated`  | `boolean` | Ajoute une ombre.                                                  |
+| `href`      | `string`  | Fait de toute la carte un lien, résolu comme tout lien de la page. |
+| `className` | `string`  | Classes ajoutées à la carte.                                       |
+| `style`     | `object`  | Styles en ligne sur la carte.                                      |
+
+`CardImage` :
+
+| Propriété                  | Type     | Effet                                                            |
+| -------------------------- | -------- | ---------------------------------------------------------------- |
+| `src`                      | `string` | L'image, résolue comme tout lien de la page.                     |
+| `alt`                      | `string` | Ce que montre l'image. Vide par défaut : l'image est décorative. |
+| `loading`                  | `string` | `lazy`, par défaut, ou `eager`.                                  |
+| `title`, `srcSet`, `sizes` | `string` | Transmis à l'image tels quels.                                   |
+
+`CardHeader`, `CardBody` et `CardFooter` prennent `className` et `style`.

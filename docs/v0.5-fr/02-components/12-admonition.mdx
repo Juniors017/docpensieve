@@ -156,3 +156,12 @@ Sa branche orpheline garde ce qui a été généré, et l'historique garde les s
 Comme tous les composants d'ici, elle est rendue à la génération. C'est un
 `aside` annoncé comme une note, avec son icône masquée aux lecteurs d'écran —
 le titre à côté dit déjà le type, et le dire deux fois n'aide personne.
+
+## Propriétés
+
+| Propriété   | Type     | Effet                                                                                                          |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------- |
+| `type`      | `string` | Le type : `note`, par défaut, `info`, `tip`, `attention`, `alert`, `danger`, ou un type déclaré par le projet. |
+| `title`     | `string` | Remplace le libellé du type, pour ce seul bloc.                                                                |
+| `className` | `string` | Classes ajoutées au bloc.                                                                                      |
+| `style`     | `object` | Styles en ligne sur le bloc.                                                                                   |

@@ -195,3 +195,16 @@ sans libellé est refusée aussi.
 Une arborescence est la façon dont cette documentation montre la forme d'un
 projet. Ce que ces dossiers deviennent une fois générés — l'ordre, les adresses
 — est dans [Écrire des pages](../guide/writing-pages/).
+
+## Propriétés
+
+`TreeItem` :
+
+| Propriété   | Type             | Effet                                        |
+| ----------- | ---------------- | -------------------------------------------- |
+| `label`     | texte ou élément | Ce que montre la ligne.                      |
+| `open`      | `boolean`        | Ouvre la branche dès l'ouverture de la page. |
+| `className` | `string`         | Classes ajoutées à la ligne.                 |
+| `style`     | `object`         | Styles en ligne sur la ligne.                |
+
+`Tree` prend `className` et `style`.

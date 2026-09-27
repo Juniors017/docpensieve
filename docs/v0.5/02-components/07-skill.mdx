@@ -274,3 +274,19 @@ is full from the start — the value stays readable, which is what matters.
 A level outside 0–100 stops the build, as does a gauge without a name, a level
 that is not a number, or an unknown `shape`. A silent or overflowing bar goes
 unnoticed on review.
+
+## Properties
+
+| Property    | Type            | Effect                                                                         |
+| ----------- | --------------- | ------------------------------------------------------------------------------ |
+| `name`      | text or element | What is measured.                                                              |
+| `level`     | `number`        | The level, as a percentage.                                                    |
+| `showValue` | `boolean`       | Shows the percentage. On by default; off, the gauge still announces its value. |
+| `shape`     | `string`        | `bar`, the default, or `circle`.                                               |
+| `icon`      | element         | Shown before the name — a `LogoIcon` fits there.                               |
+| `color`     | `string`        | Colour of the fill: any CSS colour, the accent by default.                     |
+| `label`     | `string`        | Name for screen readers, when `name` is not text.                              |
+| `className` | `string`        | Classes added to the gauge.                                                    |
+| `style`     | `object`        | Inline styles on the gauge.                                                    |
+
+Its children stand as a comment under the gauge.

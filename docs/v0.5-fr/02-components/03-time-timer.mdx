@@ -124,3 +124,22 @@ message nomme la valeur fautive et rappelle le format attendu.
 Annoncer une sortie est l'usage habituel, et [Versions](../guide/versions/)
 couvre le reste de ce cycle — le bandeau qu'une préversion porte d'elle-même,
 et le jour où les deux voies s'échangent.
+
+## Propriétés
+
+`TimeTimer` :
+
+| Propriété  | Type      | Effet                                                                            |
+| ---------- | --------- | -------------------------------------------------------------------------------- |
+| `date`     | `string`  | Un seul jour, `JJ/MM/AAAA`, suivi au besoin de `HH:mm`. L'année peut être omise. |
+| `start`    | `string`  | Début d'une période, au même format, avec `duration`.                            |
+| `duration` | `string`  | Longueur de la période depuis `start` : `30d`, `2h`, `45m`.                      |
+| `strict`   | `boolean` | Lit les dates en UTC plutôt qu'en heure locale.                                  |
+| `now`      | `Date`    | Pour les tests seulement : sans elle, c'est le moment de la génération.          |
+
+Les replis prennent chacun une borne :
+
+| Propriété                    | Type     | Effet                                                                       |
+| ---------------------------- | -------- | --------------------------------------------------------------------------- |
+| `start` sur `FallbackBefore` | `string` | À partir de quand le contenu d'avant s'affiche. Sans elle, depuis toujours. |
+| `end` sur `FallbackAfter`    | `string` | Jusqu'à quand le contenu d'après s'affiche. Sans elle, pour de bon.         |

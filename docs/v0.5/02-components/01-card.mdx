@@ -344,3 +344,25 @@ in none: a class of yours always wins, even to undo the default style.
 
 The commonest row is a row of cards; [Columns](./columns/) shows how to keep
 them the same height, which a grid alone does not.
+
+## Properties
+
+`Card`:
+
+| Property    | Type      | Effect                                                           |
+| ----------- | --------- | ---------------------------------------------------------------- |
+| `elevated`  | `boolean` | Adds a shadow.                                                   |
+| `href`      | `string`  | Makes the whole card a link, resolved like any link of the page. |
+| `className` | `string`  | Classes added to the card.                                       |
+| `style`     | `object`  | Inline styles on the card.                                       |
+
+`CardImage`:
+
+| Property                   | Type     | Effect                                                           |
+| -------------------------- | -------- | ---------------------------------------------------------------- |
+| `src`                      | `string` | The image, resolved like any link of the page.                   |
+| `alt`                      | `string` | What the image shows. Empty by default: the image is decorative. |
+| `loading`                  | `string` | `lazy`, the default, or `eager`.                                 |
+| `title`, `srcSet`, `sizes` | `string` | Passed to the image as they are.                                 |
+
+`CardHeader`, `CardBody` and `CardFooter` take `className` and `style`.
