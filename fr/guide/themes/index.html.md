@@ -55,7 +55,7 @@ Les gabarits **n'écrivent aucune classe en dur**. Ils demandent au thème la
 classe de chaque créneau — l'en-tête, le menu, un lien de navigation — et le
 thème répond.
 
-Les cinquante créneaux sont listés dans la [référence](/versions/beta/reference/theme/).
+Les cinquante créneaux sont listés dans la [référence](/versions/beta/fr/reference/theme/).
 
 C'est ce qui permet à un habillage utilitaire et à un habillage classique de
 partager le même HTML : l'un répond `dp-nav-link`, l'autre une poignée
@@ -67,7 +67,7 @@ retombent sur une classe `dp-*` que leur feuille habille à partir des jetons
 
 ## Changer les couleurs
 
-Les jetons sont listés dans la [référence](/versions/beta/reference/theme/). Ils se
+Les jetons sont listés dans la [référence](/versions/beta/fr/reference/theme/). Ils se
 redéfinissent depuis la configuration :
 
 ```js
@@ -115,9 +115,10 @@ défaut, suit son système ; `'dark'` ou `'light'` en impose une quel que soit l
 système — la génération pose alors la classe sur `<html>`.
 
 L'en-tête porte aussi un bouton qui bascule entre clair et sombre, et retient
-le choix du lecteur de page en page — quelques centaines d'octets de script en
-ligne, le seul que portent les pages de contenu. `theme.toggle: false` le
-retire. Sans JavaScript, le bouton ne s'affiche pas.
+le choix du lecteur de page en page — quelques centaines d'octets de script
+écrit dans la page, le seul script qui ne soit pas un fichier du site. Une
+Content-Security-Policy l'autorise par son empreinte, que donne le
+[guide de déploiement](/versions/beta/fr/guide/deployment/). `theme.toggle: false` le retire. Sans JavaScript, le bouton ne s'affiche pas.
 
 La palette sombre est un jeu de jetons, le même sous les deux thèmes. Pour la
 changer, redéfinissez-les dans le dossier `theme/`, pour les deux façons d'être

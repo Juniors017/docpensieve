@@ -83,6 +83,8 @@ Vos fichiers Markdown et MDX deviennent un site statique. Aucun runtime à charg
   démarrer.
 - **Des pages qu'un programme sait lire** — `llms: true` écrit `llms.txt` et
   une copie Markdown de chaque page.
+- **Une Content-Security-Policy stricte** — les deux scripts en ligne sont
+  autorisés par leur empreinte, et le guide de déploiement donne la politique.
 
 [Toutes les nouveautés](/versions/beta/fr/whats-new/) ·
 [Migrer de latest vers la bêta](/versions/beta/fr/guide/migrate-to-beta/)

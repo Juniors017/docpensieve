@@ -82,6 +82,8 @@ Your Markdown and MDX files become a static site. No runtime to load, one versio
   start from.
 - **Pages a program can read** — `llms: true` writes `llms.txt` and a
   Markdown copy of each page.
+- **A strict Content-Security-Policy** — the two inline scripts are allowed by
+  their hash, and the deployment guide gives the policy.
 
 [Everything that is new](/versions/beta/whats-new/) ·
 [Migrate from latest to beta](/versions/beta/guide/migrate-to-beta/)

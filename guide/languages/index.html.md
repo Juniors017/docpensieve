@@ -61,6 +61,23 @@ Nothing already published moves, which is the point: a link shared last year
 still leads where it led. The translation lives **inside** the version, so a
 version is still one folder, one orphan branch, one stylesheet.
 
+## Moving from one version to another
+
+The version switcher, the notice on a beta or an archive, and the links of the
+header lead to another version — in the reader's language when that version
+has the page in it, in the language of the site when it does not. A French
+reader of the beta who follows its notice lands on the French pages of the
+current version; a version never translated opens in the language it was
+written in, rather than on an address that leads nowhere.
+
+The links you write in a page stay in their language by themselves, as long as
+they are written from the page. A link that starts from the root of the
+version — `/guide/install/` — leads to the French page from a French page. A
+relative link climbs from the folder of its file, and the folders of a
+translation mirror those of the site language: write it as the twin page
+writes it. One level too many and it leaves the language, which `check` cannot
+see — the English page it lands on exists.
+
 ## A page nobody translated
 
 It does not exist in that language. It is absent from the menu of that

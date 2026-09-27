@@ -32,6 +32,18 @@ npx docpensieve check
   every other block.
 - **An error keeps its hint.** An error the tool raises while a page compiles
   no longer comes out as a generic syntax complaint.
+- **A setting that did nothing now stops the build.** `copyCode: 'yes'` turned
+  the button off in silence, and a `TimeTimer` with a `start` but no
+  `duration` hid its content; both now name what is wrong. Build once after
+  updating: that is where it shows.
+- **`ScrollToTop`, `Menu` and the light / dark button speak the language of
+  the page** when you give them no label of your own. A project that writes
+  its own words in `ui` gets two more to write: `switchToLight` and
+  `switchToDark`.
+- **A reader stays in their language from one version to another.** The
+  version switcher, the notice of a beta and the links of the header led a
+  French reader to the English pages; they now lead to the French ones
+  wherever they exist.
 
 ## What is worth turning on
 

@@ -91,6 +91,16 @@ default, and it needs no `siteUrl`.
 
 [The field](/versions/beta/reference/configuration/)
 
+### A strict Content-Security-Policy
+
+The light / dark button no longer writes its words into its script: they come
+from the page, in its language — a French page used to name the button in
+English to a screen reader. Its two scripts are then the same text on every
+page, and a Content-Security-Policy allows them by their hash. The deployment
+guide gives a strict policy, checked in a browser against this site.
+
+[The policy](/versions/beta/guide/deployment/)
+
 ## For a 0.4 project
 
 Nothing to change: a 0.4 configuration builds as it is, and a site already in

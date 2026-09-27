@@ -62,6 +62,23 @@ mène toujours là où il menait. La traduction vit **à l'intérieur** de la
 version, si bien qu'une version reste un dossier, une branche orpheline, une
 feuille de style.
 
+## D'une version à l'autre
+
+Le sélecteur de version, le bandeau d'une bêta ou d'une archive, et les liens
+de l'en-tête mènent à une autre version — dans la langue du lecteur quand cette
+version a la page dans cette langue, dans la langue du site quand elle ne l'a
+pas. Un lecteur français de la bêta qui suit son bandeau arrive sur les pages
+françaises de la version courante ; une version jamais traduite s'ouvre dans la
+langue où elle a été écrite, plutôt que sur une adresse qui ne mène nulle part.
+
+Les liens que vous écrivez dans une page restent d'eux-mêmes dans leur langue,
+pourvu qu'ils soient écrits depuis la page. Un lien qui part de la racine de la
+version — `/guide/install/` — mène à la page française depuis une page
+française. Un lien relatif remonte depuis le dossier de son fichier, et les
+dossiers d'une traduction reflètent ceux de la langue du site : écrivez-le
+comme l'écrit la page jumelle. Un niveau de trop et il quitte la langue, ce que
+`check` ne peut pas voir — la page anglaise où il arrive existe.
+
 ## Une page que personne n'a traduite
 
 Elle n'existe pas dans cette langue. Elle est absente du menu de cette langue

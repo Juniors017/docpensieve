@@ -33,6 +33,19 @@ npx docpensieve check
   à tous les autres.
 - **Une erreur garde son indice.** Une erreur levée par l'outil pendant la
   compilation d'une page ne ressort plus en plainte de syntaxe générique.
+- **Un réglage qui ne faisait rien arrête désormais la génération.**
+  `copyCode: 'yes'` éteignait le bouton en silence, et un `TimeTimer` avec un
+  `start` sans `duration` cachait son contenu ; les deux nomment maintenant ce
+  qui ne va pas. Générez une fois après la mise à jour : c'est là que ça se
+  voit.
+- **`ScrollToTop`, `Menu` et le bouton clair / sombre parlent la langue de la
+  page** quand vous ne leur donnez pas de libellé. Un projet qui écrit ses
+  propres mots dans `ui` en a deux de plus à écrire : `switchToLight` et
+  `switchToDark`.
+- **Un lecteur garde sa langue d'une version à l'autre.** Le sélecteur de
+  version, le bandeau d'une bêta et les liens de l'en-tête menaient un lecteur
+  français aux pages anglaises ; ils mènent désormais aux pages françaises
+  partout où elles existent.
 
 ## Ce qu'il vaut la peine d'activer
 

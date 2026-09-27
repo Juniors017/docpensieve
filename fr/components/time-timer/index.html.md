@@ -118,6 +118,11 @@ continue, dont le fuseau n'est pas le vôtre.
 Une durée mal écrite arrête la génération, et une date invalide aussi. Le
 message nomme la valeur fautive et rappelle le format attendu.
 
+De même pour un minuteur qui ne désigne aucune période : pas de `date` du tout,
+un `start` sans sa `duration`, une `duration` à côté d'une `date`, ou une `date`
+et un `start` ensemble. Chacun de ces cas n'affichait rien, sans un mot — un
+bloc disparu de la page, et rien pour dire pourquoi.
+
 Annoncer une sortie est l'usage habituel, et [Versions](/versions/beta/fr/guide/versions/)
 couvre le reste de ce cycle — le bandeau qu'une préversion porte d'elle-même,
 et le jour où les deux voies s'échangent.

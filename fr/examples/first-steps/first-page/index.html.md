@@ -47,7 +47,7 @@ Le <Tooltip text="Le bloc entre les deux lignes de tirets, en haut du fichier.">
 
 </details>
 
-<Card href="/versions/beta/components/tree/">
+<Card href="/versions/beta/fr/components/tree/">
   <CardBody>
     Cette leçon emploie **Tree**, **Tooltip** et **Skill**, et montre ses propres étiquettes en bas
     de page.
