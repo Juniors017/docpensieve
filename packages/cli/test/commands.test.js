@@ -2,10 +2,12 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { SiteGenerator } from '@docpensieve/core';
 import { DocPensieveError } from '@docpensieve/shared';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { build, check, dev, serve, verifyLinks, verifyMarkup } from '../src/index.js';
+import { RELOAD_PATH } from '../src/server.js';
 
 /** @type {string[]} */
 const dirs = [];
@@ -187,6 +189,25 @@ describe('serve', () => {
     },
     BUILD_TIMEOUT,
   );
+
+  it('serves the folder it is told, from the current project, and says when it is exposed', async () => {
+    const cwd = project({ 'index.md': page('Home') });
+    mkdirSync(path.join(cwd, 'elsewhere'));
+    writeFileSync(path.join(cwd, 'elsewhere', 'index.html'), '<p>Elsewhere</p>', 'utf8');
+    const logs = vi.spyOn(console, 'log').mockImplementation(() => {});
+    vi.spyOn(process, 'cwd').mockReturnValue(cwd);
+
+    const { server, port } = await serve({ port: 0, host: '0.0.0.0', dir: 'elsewhere' });
+    teardown.push(async () => {
+      server.closeAllConnections();
+      await new Promise((resolve) => server.close(resolve));
+    });
+
+    // Bound to IPv4 only: named by its address rather than "localhost", which
+    // may resolve to IPv6 first.
+    expect(await (await fetch(`http://127.0.0.1:${port}/`)).text()).toContain('Elsewhere');
+    expect(logs.mock.calls.flat().join('\n')).toContain('anyone on this network');
+  });
 });
 
 describe('dev', () => {
@@ -262,6 +283,110 @@ describe('dev', () => {
     },
     BUILD_TIMEOUT,
   );
+
+  it(
+    'tells the open pages to reload once a rebuild is written',
+    async () => {
+      // The stream itself is tested with the server; this is the wiring. Were
+      // dev to stop calling it after a rebuild, the pages would go stale while
+      // every other test stayed green.
+      const cwd = project({ 'index.md': page('Home') });
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const session = await dev({ cwd, port: 0 });
+      teardown.push(session.close);
+
+      const stream = await fetch(`http://localhost:${session.port}${RELOAD_PATH}`);
+      const reader = /** @type {ReadableStream<Uint8Array>} */ (stream.body).getReader();
+      writeFileSync(path.join(cwd, 'docs', 'v1.0', 'index.md'), page('Changed'), 'utf8');
+
+      let received = '';
+      while (!received.includes('data:')) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        received += new TextDecoder().decode(value);
+      }
+      expect(received).toContain('data: reload');
+      await reader.cancel();
+    },
+    BUILD_TIMEOUT,
+  );
+
+  it(
+    'prints an unexpected failure whole, and a known one without a hint it lacks',
+    async () => {
+      const cwd = project({ 'index.md': page('Home') });
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+      const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      const session = await dev({ cwd, port: 0 });
+      teardown.push(session.close);
+      const source = path.join(cwd, 'docs', 'v1.0', 'index.md');
+
+      // What the tool did not expect keeps its stack: it is a bug to report,
+      // not a message for the author of the pages.
+      const failure = new Error('disk full');
+      const buildAll = vi.spyOn(SiteGenerator.prototype, 'buildAll').mockRejectedValueOnce(failure);
+      writeFileSync(source, page('One'), 'utf8');
+      await until(() => errors.mock.calls.some(([first]) => first === failure));
+
+      buildAll.mockRejectedValueOnce(new DocPensieveError('Known, nothing to add.'));
+      writeFileSync(source, page('Two'), 'utf8');
+      await until(() => errors.mock.calls.some(([first]) => first === 'Known, nothing to add.'));
+      // No hint: nothing printed under the message, not even "undefined".
+      expect(errors.mock.calls.flat()).not.toContain(undefined);
+    },
+    BUILD_TIMEOUT,
+  );
+
+  it(
+    'watches a theme folder that exists from the start',
+    async () => {
+      const cwd = project({ 'index.md': page('Home') }, { theme: { framework: 'custom' } });
+      mkdirSync(path.join(cwd, 'theme'));
+      writeFileSync(path.join(cwd, 'theme', 'site.css'), '.first-rule { color: red; }', 'utf8');
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const session = await dev({ cwd, port: 0 });
+      teardown.push(session.close);
+
+      writeFileSync(path.join(cwd, 'theme', 'site.css'), '.second-rule { color: red; }', 'utf8');
+      const url = `http://localhost:${session.port}/versions/v1.0/assets/docpensieve.css`;
+      const css = await until(async () => {
+        const text = await (await fetch(url)).text();
+        return text.includes('.second-rule') ? text : null;
+      });
+      expect(css).not.toContain('.first-rule');
+    },
+    BUILD_TIMEOUT,
+  );
+
+  it(
+    'says so when it listens beyond this machine',
+    async () => {
+      const cwd = project({ 'index.md': page('Home') });
+      const logs = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const session = await dev({ cwd, port: 0, host: '0.0.0.0' });
+      teardown.push(session.close);
+
+      expect(logs.mock.calls.flat().join('\n')).toContain('anyone on this network');
+    },
+    BUILD_TIMEOUT,
+  );
+
+  it('reads the project of the current folder, and honours globalComponents as build does', async () => {
+    const cwd = project(
+      { 'index.mdx': `${page('Home')}\n<Card>\n  <CardBody>x</CardBody>\n</Card>\n` },
+      { globalComponents: false },
+    );
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+    vi.spyOn(process, 'cwd').mockReturnValue(cwd);
+
+    // Without the shipped components, Card is a name nobody defined: the
+    // first build stops, before anything listens.
+    await expect(dev({ port: 0 })).rejects.toThrow(/Card/);
+  });
 });
 
 describe('globalComponents', () => {
