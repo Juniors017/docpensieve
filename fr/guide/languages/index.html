@@ -32,10 +32,10 @@
       <a class="dp-brand font-semibold tracking-tight text-slate-900 no-underline dark:text-slate-100" href="/versions/latest/fr/"><img class="dp-brand-logo" src="/versions/latest/assets/logo.png" alt="" />DocPensieve</a>
       <nav class="dp-header-nav" aria-label="Site">
         <details class="dp-versions">
-          <summary aria-label="Version 0.4.0, changer de version">0.4.0</summary>
+          <summary aria-label="Version 0.4.1, changer de version">0.4.1</summary>
           <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <li><a href="/versions/beta/fr/">0.5.0-beta.5</a></li>
-            <li><a href="/versions/latest/fr/" aria-current="true">0.4.0</a></li>
+            <li><a href="/versions/beta/fr/">0.5.0-beta.6</a></li>
+            <li><a href="/versions/latest/fr/" aria-current="true">0.4.1</a></li>
             <li><a href="/versions/v0.3/">0.3.0</a></li>
             <li><a href="/versions/v0.2/">0.2.0</a></li>
           </ul>
@@ -85,10 +85,10 @@
         </summary>
         <nav class="dp-menu-panel" aria-label="Site">
           <details class="dp-versions">
-            <summary aria-label="Version 0.4.0, changer de version">0.4.0</summary>
+            <summary aria-label="Version 0.4.1, changer de version">0.4.1</summary>
             <ul class="dp-versions-list rounded-md border border-slate-200 bg-white p-1 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <li><a href="/versions/beta/fr/">0.5.0-beta.5</a></li>
-              <li><a href="/versions/latest/fr/" aria-current="true">0.4.0</a></li>
+              <li><a href="/versions/beta/fr/">0.5.0-beta.6</a></li>
+              <li><a href="/versions/latest/fr/" aria-current="true">0.4.1</a></li>
               <li><a href="/versions/v0.3/">0.3.0</a></li>
               <li><a href="/versions/v0.2/">0.2.0</a></li>
             </ul>
@@ -586,6 +586,20 @@ son code :</p>
 mène toujours là où il menait. La traduction vit <strong>à l&#x27;intérieur</strong> de la
 version, si bien qu&#x27;une version reste un dossier, une branche orpheline, une
 feuille de style.</p>
+<h2 id="dune-version-a-lautre">D&#x27;une version à l&#x27;autre</h2>
+<p>Le sélecteur de version, le bandeau d&#x27;une bêta ou d&#x27;une archive, et les liens
+de l&#x27;en-tête mènent à une autre version — dans la langue du lecteur quand cette
+version a la page dans cette langue, dans la langue du site quand elle ne l&#x27;a
+pas. Un lecteur français de la bêta qui suit son bandeau arrive sur les pages
+françaises de la version courante ; une version jamais traduite s&#x27;ouvre dans la
+langue où elle a été écrite, plutôt que sur une adresse qui ne mène nulle part.</p>
+<p>Les liens que vous écrivez dans une page restent d&#x27;eux-mêmes dans leur langue,
+pourvu qu&#x27;ils soient écrits depuis la page. Un lien qui part de la racine de la
+version — <code>/guide/install/</code> — mène à la page française depuis une page
+française. Un lien relatif remonte depuis le dossier de son fichier, et les
+dossiers d&#x27;une traduction reflètent ceux de la langue du site : écrivez-le
+comme l&#x27;écrit la page jumelle. Un niveau de trop et il quitte la langue, ce que
+<code>check</code> ne peut pas voir — la page anglaise où il arrive existe.</p>
 <h2 id="une-page-que-personne-na-traduite">Une page que personne n&#x27;a traduite</h2>
 <p>Elle n&#x27;existe pas dans cette langue. Elle est absente du menu de cette langue
 et du plan du site, aucun <code>hreflang</code> ne la promet, et le sélecteur de langue
@@ -666,6 +680,9 @@ sélecteur le dit.</li>
             <a href="#les-adresses">Les adresses</a>
           </li>
           <li class="dp-toc-item">
+            <a href="#dune-version-a-lautre">D&#x27;une version à l&#x27;autre</a>
+          </li>
+          <li class="dp-toc-item">
             <a href="#une-page-que-personne-na-traduite">Une page que personne n&#x27;a traduite</a>
           </li>
           <li class="dp-toc-item">
@@ -693,7 +710,7 @@ sélecteur le dit.</li>
     </div>
 
     <footer class="dp-footer border-t border-slate-200 p-6 text-center text-sm text-slate-500 dark:border-slate-800">
-      <p>DocPensieve — version 0.4.0</p>
+      <p>DocPensieve — version 0.4.1</p>
     </footer>
 
     <a class="dp-scroll-top" href="#top" aria-label="Retour en haut">
