@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -105,6 +106,41 @@ describe('what the documentation counts out loud', () => {
     const page = read('02-components/12-admonition.mdx');
     expect(claimed(page, 'kinds')).toBe(Object.keys(ADMONITION_KINDS).length);
   });
+});
+
+describe('the Content-Security-Policy the deployment guide gives', () => {
+  const layout = readFileSync(
+    fileURLToPath(new URL('../../core/templates/layout.hbs', import.meta.url)),
+    'utf8',
+  );
+  const inline = [...layout.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((match) => match[1]);
+
+  it('rests on scripts that are the same text on every page', () => {
+    // A value written into one of them would give it a hash per site, or per
+    // language, and no policy could be published for all.
+    expect(inline).toHaveLength(2);
+    for (const code of inline) expect(code).not.toContain('{{');
+  });
+
+  for (const folder of ['v0.5', 'v0.5-fr']) {
+    it(`allows exactly the inline scripts of the pages, in ${folder}`, () => {
+      // After a change to either script, the published hashes would refuse it:
+      // the light / dark button would vanish from every site that copied them.
+      const guide = readFileSync(
+        fileURLToPath(
+          new URL(`../../../docs/${folder}/01-guide/06-deployment.md`, import.meta.url),
+        ),
+        'utf8',
+      );
+      const published = new Set(
+        [...guide.matchAll(/'(sha256-[A-Za-z0-9+/=]+)'/g)].map((m) => m[1]),
+      );
+      const actual = new Set(
+        inline.map((code) => `sha256-${createHash('sha256').update(code).digest('base64')}`),
+      );
+      expect(published).toEqual(actual);
+    });
+  }
 });
 
 /**

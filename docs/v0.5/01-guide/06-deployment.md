@@ -170,3 +170,37 @@ The build keeps it light on its own. The stylesheet is minified — a third to
 half lighter. Every image of a page gets its width and height, read from its
 file, so that the text does not jump when it arrives, and all but the first
 load lazily, when the reader nears them. There is nothing to configure.
+
+## A Content-Security-Policy
+
+A Content-Security-Policy tells the browser what a page may load and run, so
+that a script slipped into it is refused. A host that lets you set response
+headers can send one with the site, and the pages hold up under a strict one —
+one line in the header, split here to be read:
+
+```text
+default-src 'self';
+script-src 'self' 'sha256-9V5TjnZ1QZI4gqywFKZk0OWiHyt6/BX2XWMibvI5UKc=' 'sha256-uoMvfl2Wu3fqzsh38hLYURHzlNXf65BbRUVEBM5sots=';
+style-src 'self'; style-src-attr 'unsafe-inline';
+object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+```
+
+- **The two hashes** are the two scripts written into the page by the light /
+  dark button: one applies the reader's choice before the first paint, the
+  other runs the button. Their words come from the button itself, in the
+  language of the page, so the scripts are the same text on every page of
+  every site: the hashes do not change with your content. They change with the
+  tool — after an update, a refused script names in the browser console the
+  hash it expected. `theme.toggle: false` removes both scripts, and the hashes
+  with them.
+- **Every other script is a file of the site** — the client file of the
+  version, the search script and its index — which `'self'` covers.
+- **`style-src-attr 'unsafe-inline'`** is the one allowance. The code
+  highlighter colours each word with a `style` attribute, and some components
+  size themselves that way. It lets style attributes through, not `<style>`
+  elements, and a style attribute runs no code.
+
+This policy was checked in a browser against the pages of this site: search,
+copy buttons, calendars and the light / dark button all work, and nothing is
+refused. If your pages load anything from another address — an image, a font —
+add that address to the matching directive.

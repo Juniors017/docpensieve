@@ -46,8 +46,10 @@ npx docpensieve check
   `start` sans `duration` cachait son contenu ; les deux nomment maintenant ce
   qui ne va pas. Générez une fois après la mise à jour : c'est là que ça se
   voit.
-- **`ScrollToTop` et `Menu` parlent la langue de la page** quand vous ne leur
-  donnez pas de libellé.
+- **`ScrollToTop`, `Menu` et le bouton clair / sombre parlent la langue de la
+  page** quand vous ne leur donnez pas de libellé. Un projet qui écrit ses
+  propres mots dans `ui` en a deux de plus à écrire : `switchToLight` et
+  `switchToDark`.
 
 ## Ce qu'il vaut la peine d'activer
 

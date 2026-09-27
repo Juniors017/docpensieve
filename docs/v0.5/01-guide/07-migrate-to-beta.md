@@ -44,8 +44,10 @@ npx docpensieve check
   the button off in silence, and a `TimeTimer` with a `start` but no
   `duration` hid its content; both now name what is wrong. Build once after
   updating: that is where it shows.
-- **`ScrollToTop` and `Menu` speak the language of the page** when you give
-  them no label of your own.
+- **`ScrollToTop`, `Menu` and the light / dark button speak the language of
+  the page** when you give them no label of your own. A project that writes
+  its own words in `ui` gets two more to write: `switchToLight` and
+  `switchToDark`.
 
 ## What is worth turning on
 

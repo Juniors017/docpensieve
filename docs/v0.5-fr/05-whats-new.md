@@ -97,6 +97,17 @@ Désactivé par défaut, et il ne demande pas de `siteUrl`.
 
 [Le champ](./reference/configuration/)
 
+### Une Content-Security-Policy stricte
+
+Le bouton clair / sombre n'écrit plus ses mots dans son script : ils viennent
+de la page, dans sa langue — une page française nommait le bouton en anglais à
+un lecteur d'écran. Ses deux scripts sont alors le même texte sur chaque page,
+et une Content-Security-Policy les autorise par leur empreinte. Le guide de
+déploiement donne une politique stricte, vérifiée dans un navigateur sur ce
+site.
+
+[La politique](./guide/deployment/)
+
 ## Pour un projet en 0.4
 
 Rien à changer : une configuration 0.4 se génère telle quelle, et un site déjà

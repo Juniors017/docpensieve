@@ -176,3 +176,39 @@ la moitié de moins. Chaque image d'une page reçoit sa largeur et sa hauteur,
 lues dans son fichier, pour que le texte ne saute pas à son arrivée, et toutes
 sauf la première se chargent en différé, quand le lecteur en approche. Il n'y a
 rien à configurer.
+
+## Une Content-Security-Policy
+
+Une Content-Security-Policy dit au navigateur ce qu'une page a le droit de
+charger et d'exécuter, pour qu'un script glissé dedans soit refusé. Un
+hébergeur qui laisse poser des en-têtes de réponse peut l'envoyer avec le site,
+et les pages tiennent sous une politique stricte — une seule ligne dans
+l'en-tête, découpée ici pour la lecture :
+
+```text
+default-src 'self';
+script-src 'self' 'sha256-9V5TjnZ1QZI4gqywFKZk0OWiHyt6/BX2XWMibvI5UKc=' 'sha256-uoMvfl2Wu3fqzsh38hLYURHzlNXf65BbRUVEBM5sots=';
+style-src 'self'; style-src-attr 'unsafe-inline';
+object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+```
+
+- **Les deux empreintes** sont les deux scripts que le bouton clair / sombre
+  écrit dans la page : l'un applique le choix du lecteur avant le premier
+  affichage, l'autre fait marcher le bouton. Leurs mots viennent du bouton
+  lui-même, dans la langue de la page : les scripts sont donc le même texte sur
+  chaque page de chaque site, et les empreintes ne changent pas avec votre
+  contenu. Elles changent avec l'outil — après une mise à jour, un script
+  refusé donne dans la console du navigateur l'empreinte qu'il attendait.
+  `theme.toggle: false` retire les deux scripts, et les empreintes avec.
+- **Tout autre script est un fichier du site** — le fichier client de la
+  version, le script de recherche et son index — ce que couvre `'self'`.
+- **`style-src-attr 'unsafe-inline'`** est la seule concession. Le coloriseur
+  de code colore chaque mot par un attribut `style`, et certains composants se
+  dimensionnent ainsi. Elle laisse passer les attributs de style, pas les
+  éléments `<style>`, et un attribut de style n'exécute aucun code.
+
+Cette politique a été vérifiée dans un navigateur sur les pages de ce site :
+recherche, boutons de copie, calendriers et bouton clair / sombre marchent, et
+rien n'est refusé. Si vos pages chargent quelque chose depuis une autre adresse
+— une image, une police —, ajoutez cette adresse à la directive qui lui
+correspond.
