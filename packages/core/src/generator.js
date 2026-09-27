@@ -49,7 +49,7 @@ const STYLESHEET = 'assets/docpensieve.css';
 /** Index of a version, which the search page reads. */
 const SEARCH_INDEX = 'assets/search-index.json';
 
-/** Script of the search page, the only one a site loads. */
+/** Script of the search page, which carries it rather than the client file. */
 const SEARCH_SCRIPT = 'assets/search.js';
 
 /**
@@ -61,6 +61,18 @@ const SEARCH_SCRIPT = 'assets/search.js';
  * page uses, which is what replaced the rule of no script at all.
  */
 const CLIENT_SCRIPT = 'assets/client.js';
+
+/**
+ * How the build removes what it wrote before.
+ *
+ * On Windows a file written a moment ago can still be held — by an antivirus
+ * scanning it, by a synchronised folder uploading it — and a removal then
+ * fails with EBUSY or EPERM for a few milliseconds. Without retries the build
+ * stopped with "Could not empty the output folder" at random, and so did a
+ * test that builds twice in the same folder. Node retries these very errors
+ * when asked to.
+ */
+const REMOVAL = Object.freeze({ recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 
 /** Source of that script, shipped with this package. */
 const CLIENT_SEARCH = fileURLToPath(new URL('../client/search.js', import.meta.url));
@@ -258,7 +270,7 @@ export class SiteGenerator {
     // nothing but what a build wrote there.
     this.#guardOutput(target);
     try {
-      await rm(target, { recursive: true, force: true });
+      await rm(target, REMOVAL);
     } catch (cause) {
       throw new GeneratorError(`Could not empty the output folder "${target}".`, {
         cause,
@@ -938,7 +950,7 @@ export class SiteGenerator {
     // Written anew every time: a sitemap or a feed turned off since the last
     // build must not linger at the root of the site.
     for (const file of ['sitemap.xml', 'robots.txt', 'feed.xml']) {
-      await rm(path.join(target, file), { force: true });
+      await rm(path.join(target, file), REMOVAL);
     }
 
     const { siteUrl, baseUrl } = this.config;
@@ -1045,7 +1057,7 @@ export class SiteGenerator {
     }
     for (const entry of existing) {
       if (entry.isDirectory() && !declared.has(entry.name)) {
-        await rm(path.join(target, 'versions', entry.name), { recursive: true, force: true });
+        await rm(path.join(target, 'versions', entry.name), REMOVAL);
       }
     }
 
