@@ -47,14 +47,12 @@ export function FallbackAfter({ children }) {
 /**
  * Parses a date in the `DD/MM[/YYYY] [HH:mm]` format.
  *
- * @param {string | undefined} text
+ * @param {string} text
  * @param {boolean} strict Read in UTC rather than in local time.
  * @param {Date} now Provides the default year when it is omitted.
- * @returns {Date | null}
+ * @returns {Date}
  */
 function parseDate(text, strict, now) {
-  if (!text) return null;
-
   const [datePart, timePart] = String(text).trim().split(/\s+/);
   const [day, month, year] = datePart.split('/');
   const [hours = '0', minutes = '0'] = timePart ? timePart.split(':') : [];
@@ -137,14 +135,13 @@ function addDuration(from, duration, strict) {
  * Places the current moment relative to the period.
  *
  * @param {Date} now
- * @param {Date | null} start
- * @param {Date | null} end
+ * @param {Date} start
+ * @param {Date} end
  * @param {Date | null} beforeStart Lower bound of the “before” fallback.
  * @param {Date | null} afterEnd    Upper bound of the “after” fallback.
  * @returns {'during' | 'before' | 'after' | 'none'}
  */
 function locate(now, start, end, beforeStart, afterEnd) {
-  if (!start || !end) return 'none';
   if (now >= start && now <= end) return 'during';
 
   if (now < start) {
@@ -173,17 +170,22 @@ function locate(now, start, end, beforeStart, afterEnd) {
 export function TimeTimer({ date, start, duration, strict = false, children, now }) {
   const current = now ?? new Date();
 
-  let startDate = null;
-  let endDate = null;
-
-  if (date && !start) {
-    startDate = parseDate(date, strict, current);
-    // A date alone covers the whole day.
-    if (startDate) endDate = addDuration(startDate, '1d', strict);
-  } else if (start && duration) {
-    startDate = parseDate(start, strict, current);
-    if (startDate) endDate = addDuration(startDate, duration, strict);
+  // Each of these rendered nothing and said nothing: a period that cannot be
+  // placed hid its content without a word, which a typo must never do.
+  let misuse = '';
+  if (date && start) misuse = 'takes date or start, not both';
+  else if (date && duration) misuse = 'counts a duration from start, not from date';
+  else if (!date && !start) misuse = 'needs a date, or a start and a duration';
+  else if (start && !duration) misuse = `needs a duration after start="${start}"`;
+  if (misuse) {
+    throw new DocPensieveError(`TimeTimer ${misuse}.`, {
+      hint: 'date="25/12/2026" for a single day, or start="01/06/2026" duration="30d" for a period.',
+    });
   }
+
+  const startDate = parseDate(/** @type {string} */ (date || start), strict, current);
+  // A date alone covers the whole day.
+  const endDate = addDuration(startDate, date ? '1d' : /** @type {string} */ (duration), strict);
 
   const { before, after, main } = extractFallbacks(children);
 

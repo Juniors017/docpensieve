@@ -313,6 +313,67 @@ describe('TimeTimer', () => {
     );
   });
 
+  it('refuses a period it cannot place instead of hiding its content', () => {
+    // Each of these rendered nothing, without a word.
+    for (const [props, message] of /** @type {[Record<string, string>, RegExp][]} */ ([
+      [{}, /needs a date, or a start and a duration/],
+      [{ start: '01/06/2024' }, /needs a duration after start="01\/06\/2024"/],
+      [{ date: '15/06/2024', start: '01/06/2024', duration: '2h' }, /date or start, not both/],
+      [{ date: '15/06/2024', duration: '2h' }, /counts a duration from start/],
+    ])) {
+      try {
+        render(h(TimeTimer, props, 'x'));
+        expect.unreachable(JSON.stringify(props));
+      } catch (error) {
+        const failure = /** @type {DocPensieveError} */ (error);
+        expect(failure).toBeInstanceOf(DocPensieveError);
+        expect(failure.message).toMatch(message);
+        expect(failure.hint).toContain('duration="30d"');
+      }
+    }
+  });
+
+  it('shows the before fallback only from its own start', () => {
+    const timer = (/** @type {Date} */ now) =>
+      render(
+        h(
+          TimeTimer,
+          { date: '24/12/2024', now },
+          'During',
+          h(FallbackBefore, { start: '17/12/2024' }, 'Soon'),
+        ),
+      );
+    expect(timer(new Date(2024, 11, 1))).toBe('');
+    expect(timer(new Date(2024, 11, 20))).toBe('Soon');
+  });
+
+  it('shows the after fallback only until its own end', () => {
+    const timer = (/** @type {Date} */ now) =>
+      render(
+        h(
+          TimeTimer,
+          { date: '24/12/2024', now },
+          'During',
+          h(FallbackAfter, { end: '31/12/2024' }, 'Just over'),
+        ),
+      );
+    expect(timer(new Date(2024, 11, 28))).toBe('Just over');
+    expect(timer(new Date(2025, 0, 15))).toBe('');
+  });
+
+  it('takes the year of the build when a date leaves it out', () => {
+    // In local time and in UTC: at the turn of a year, the two disagree.
+    expect(render(h(TimeTimer, { date: '15/06', now: new Date(2031, 5, 15, 10) }, 'On'))).toBe(
+      'On',
+    );
+    expect(
+      render(
+        h(TimeTimer, { date: '15/06', strict: true, now: new Date('2031-06-15T10:00Z') }, 'On'),
+      ),
+    ).toBe('On');
+    expect(render(h(TimeTimer, { date: '15/06', now: new Date(2032, 5, 16, 10) }, 'On'))).toBe('');
+  });
+
   it('reads in UTC with strict', () => {
     const local = render(
       h(TimeTimer, { date: '15/06/2024', now: new Date('2024-06-15T00:30Z') }, 'x'),

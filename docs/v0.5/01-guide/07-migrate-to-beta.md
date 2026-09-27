@@ -40,6 +40,12 @@ npx docpensieve check
   every other block.
 - **An error keeps its hint.** An error the tool raises while a page compiles
   no longer comes out as a generic syntax complaint.
+- **A setting that did nothing now stops the build.** `copyCode: 'yes'` turned
+  the button off in silence, and a `TimeTimer` with a `start` but no
+  `duration` hid its content; both now name what is wrong. Build once after
+  updating: that is where it shows.
+- **`ScrollToTop` and `Menu` speak the language of the page** when you give
+  them no label of your own.
 
 ## What is worth turning on
 
