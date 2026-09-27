@@ -180,6 +180,37 @@ function rehypeTableScroll() {
 }
 
 /**
+ * Where a target written in a page leads on the site, by the two rules of
+ * {@link rehypeSiteLinks}.
+ *
+ * Exported because the Markdown copy of a page needs the same answer: its
+ * links are the ones the author wrote, and read from where the copy is
+ * served, they would lead a level too deep.
+ *
+ * @param {unknown} target What the author wrote.
+ * @param {{ url?: string, dirUrl?: string, basePath?: string }} context
+ * @returns {string | null} The rewritten target, or `null` when there is
+ *   nothing to do — an external address, an anchor, a target already right.
+ */
+export function siteTarget(target, { url, dirUrl, basePath }) {
+  if (typeof target !== 'string' || target === '' || EXTERNAL_TARGET.test(target)) return null;
+
+  const base = basePath ?? '/';
+  if (target.startsWith('/')) {
+    if (base === '/' || target.startsWith(base)) return null;
+    return `${base.replace(/\/$/, '')}${target}`;
+  }
+
+  const from = dirUrl ?? url;
+  if (!from) return null;
+
+  // The origin is throwaway: only the resolved pathname matters. Going
+  // through URL handles "./" and "../" without hand-writing a normalisation.
+  const resolved = new URL(target, `https://docpensieve.invalid${from}`);
+  return resolved.pathname + resolved.search + resolved.hash;
+}
+
+/**
  * Rehype plugin: rewrites internal links and media into site URLs.
  *
  * Two rules, from the point of view of a page's author:
@@ -202,31 +233,9 @@ function rehypeTableScroll() {
  *   `/guide/install/diagram.png` instead of `/guide/diagram.png`.
  * @returns {() => (tree: any) => void}
  */
-function rehypeSiteLinks({ url, dirUrl, basePath }) {
-  const base = basePath ?? '/';
-  const from = dirUrl ?? url;
-
-  /**
-   * Applies both rules to a target.
-   *
-   * @param {string} target
-   * @returns {string | null} The rewritten target, or `null` when there is nothing to do.
-   */
-  const rewrite = (target) => {
-    if (typeof target !== 'string' || target === '' || EXTERNAL_TARGET.test(target)) return null;
-
-    if (target.startsWith('/')) {
-      if (base === '/' || target.startsWith(base)) return null;
-      return `${base.replace(/\/$/, '')}${target}`;
-    }
-
-    if (!from) return null;
-
-    // The origin is throwaway: only the resolved pathname matters. Going
-    // through URL handles "./" and "../" without hand-writing a normalisation.
-    const resolved = new URL(target, `https://docpensieve.invalid${from}`);
-    return resolved.pathname + resolved.search + resolved.hash;
-  };
+function rehypeSiteLinks(context) {
+  /** @param {string} target */
+  const rewrite = (target) => siteTarget(target, context);
 
   return () => (tree) => {
     walk(tree, (node) => {

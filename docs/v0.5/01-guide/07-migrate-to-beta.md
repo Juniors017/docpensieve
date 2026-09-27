@@ -48,6 +48,7 @@ npx docpensieve check
 - `copyCode`, a copy button on every code block — off by default, since it is
   what makes a page load a script. See [the reference](../reference/configuration/).
 - `snippetIcons`, if your project installs an icon collection.
+- `llms`, for `llms.txt` and a Markdown copy of each page.
 
 ## What to check afterwards
 

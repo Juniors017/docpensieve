@@ -87,6 +87,16 @@ garde l'anglais tant que le champ `ui` ne lui donne pas les siens.
 
 [Les langues](./guide/languages/) · [Les options d'init](./reference/cli/)
 
+### Des pages qu'un programme sait lire
+
+`llms: true` écrit `llms.txt` à la racine du site — le projet, puis un lien
+vers chaque page de la version courante — et une copie Markdown à côté de
+chaque page, `index.html.md`, que son en-tête nomme. Un assistant interrogé sur
+votre projet lit le texte que vous avez écrit, au lieu de l'extraire du HTML.
+Désactivé par défaut, et il ne demande pas de `siteUrl`.
+
+[Le champ](./reference/configuration/)
+
 ## Pour un projet en 0.4
 
 Rien à changer : une configuration 0.4 se génère telle quelle, et un site déjà

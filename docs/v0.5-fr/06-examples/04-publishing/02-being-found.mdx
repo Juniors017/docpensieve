@@ -1,9 +1,9 @@
 ---
 title: Se faire trouver
-description: Une documentation que personne ne trouve est une documentation que personne ne lit — recherche, plan du site, liens partagés et poids.
+description: Une documentation que personne ne trouve est une documentation que personne ne lit — recherche, plan du site, assistants, liens partagés et poids.
 authors: [valentin, pensy]
 date: 2026-09-19
-modified: 2026-09-20
+modified: 2026-09-27
 tags: [cours, avancé, découvrabilité]
 ---
 
@@ -14,8 +14,9 @@ tags: [cours, avancé, découvrabilité]
 </Skill>
 
 Votre lecteur arrive rarement par la page d'accueil. Il arrive par un moteur de
-recherche, par un lien qu'un collègue a collé, ou par le champ de votre propre
-en-tête — trois portes, et cette leçon les ouvre toutes.
+recherche, par un lien qu'un collègue a collé, par le champ de votre propre
+en-tête — ou par un assistant qui a lu vos pages pour lui. Quatre portes, et
+cette leçon les ouvre toutes.
 
 ## La recherche dans le site
 
@@ -56,6 +57,36 @@ sur la documentation d'une version que personne ne peut encore installer.
   réclamerait des règles sur des adresses qui ne sont pas les vôtres. La génération ne l'écrit donc
   pas, ce qui est le bon choix et se prend facilement pour un bug.
 </Admonition>
+
+## Un lecteur qui est un programme
+
+```js
+llms: true,
+```
+
+Quelqu'un demande à un assistant comment mettre en place votre outil.
+L'assistant va chercher vos pages, et ce qu'il reçoit, c'est du HTML : un
+en-tête, un menu, un pied de page, et quelque part au milieu le texte qu'il
+était venu chercher. `llms: true` lui tend le texte directement.
+
+| Fichier         | Écrit où              | Ce qu'il porte                                                         |
+| --------------- | --------------------- | ---------------------------------------------------------------------- |
+| `llms.txt`      | à la racine du site   | Le projet, puis chaque page de la version courante                     |
+| `index.html.md` | à côté de chaque page | La page telle que vous l'avez écrite, avec son titre et sa description |
+
+Les descriptions font ici aussi le travail. Une page sans `description` n'est
+qu'un lien nu dans `llms.txt`, et l'assistant doit l'ouvrir pour savoir de quoi
+elle parle : le champ qui écrit la ligne sous votre résultat de recherche écrit
+aussi celle-ci.
+
+<Admonition type="note" title="Ce que la copie ne contient pas">
+  Ce qu'un composant dessine à la génération — une grille de cartes, le fichier que lit un snippet —
+  reste dans la copie sous la balise que vous avez écrite. Une phrase qui dit ce que contient la
+  grille épargne un `<Cards />` nu au programme qui lit la copie.
+</Admonition>
+
+Il ne demande pas de `siteUrl`, et reste éteint tant que vous ne le demandez
+pas : que des programmes lisent vos pages, c'est à vous d'en décider.
 
 ## À quoi ressemble un lien partagé
 
@@ -150,6 +181,16 @@ que les gens devraient lire.
 Le site est servi depuis un sous-dossier. Un `robots.txt` ne veut dire quelque
 chose qu'à la racine d'un domaine : la génération s'abstient plutôt que
 d'écrire un fichier qui parlerait pour des adresses qui ne sont pas les vôtres.
+
+</details>
+
+<details>
+<summary>Un assistant cite votre page, mais pas le fichier que montre son snippet. Pourquoi ?</summary>
+
+Il a lu la copie Markdown, qui porte la page telle que vous l'avez écrite : la
+balise `Snippet`, pas le fichier que la génération y verse. Nommez le fichier
+et dites ce qu'il fait dans le texte autour du snippet — le lecteur du HTML y
+gagne aussi.
 
 </details>
 

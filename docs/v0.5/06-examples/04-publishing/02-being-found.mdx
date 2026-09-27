@@ -1,8 +1,9 @@
 ---
 title: Being found
-description: A documentation nobody finds is a documentation nobody reads — search, sitemap, shared links and weight.
+description: A documentation nobody finds is a documentation nobody reads — search, sitemap, assistants, shared links and weight.
 authors: [valentin, pensy]
 date: 2026-09-19
+modified: 2026-09-27
 tags: [course, advanced, discovery]
 ---
 
@@ -13,8 +14,9 @@ tags: [course, advanced, discovery]
 </Skill>
 
 Your reader rarely arrives at the home page. They arrive from a search engine,
-from a link a colleague pasted, or from the field in your own header — three
-doors, and this lesson opens all three.
+from a link a colleague pasted, from the field in your own header — or through
+an assistant that read your pages for them. Four doors, and this lesson opens
+all four.
 
 ## The search inside the site
 
@@ -55,6 +57,35 @@ the documentation of a version nobody can install yet.
   over addresses that are not yours. The build simply does not write it, which is the right call and
   easy to mistake for a bug.
 </Admonition>
+
+## A reader that is a program
+
+```js
+llms: true,
+```
+
+Someone asks an assistant how to set up your tool. The assistant fetches your
+pages, and what it gets is HTML: a header, a menu, a footer, and somewhere in
+the middle the text it came for. `llms: true` hands it the text directly.
+
+| File            | Written where     | What it holds                                                 |
+| --------------- | ----------------- | ------------------------------------------------------------- |
+| `llms.txt`      | root of the site  | The project, then every page of the current version           |
+| `index.html.md` | beside every page | The page as you wrote it, headed by its title and description |
+
+The descriptions do the work here too. A page with no `description` is a bare
+link in `llms.txt`, and the assistant has to open it to learn what it is about:
+the field that writes the line under your search result writes this one.
+
+<Admonition type="note" title="What the copy does not hold">
+  What a component draws at build time — a grid of cards, the file a snippet reads — stays in the
+  copy as the tag you wrote. A sentence saying what the grid holds spares a program reading the copy
+  a bare `<Cards />
+  `.
+</Admonition>
+
+It needs no `siteUrl`, and it stays off until you ask: whether programs should
+read your pages is your call.
 
 ## What a shared link looks like
 
@@ -149,6 +180,15 @@ the version people should be reading.
 The site is served from a subfolder. A `robots.txt` only means something at the
 root of a domain, so the build leaves it out rather than write a file that
 would speak for addresses that are not yours.
+
+</details>
+
+<details>
+<summary>An assistant quotes your page, but not the file its snippet shows. Why?</summary>
+
+It read the Markdown copy, which holds the page as you wrote it: the `Snippet`
+tag, not the file the build reads into it. Name the file and say what it does
+in the text around the snippet — the reader of the HTML gains from it too.
 
 </details>
 

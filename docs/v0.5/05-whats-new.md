@@ -85,6 +85,16 @@ until the `ui` field gives it its own.
 
 [Languages](./guide/languages/) · [The init options](./reference/cli/)
 
+### Pages a program can read
+
+`llms: true` writes `llms.txt` at the root of the site — the project, then a
+link to every page of the current version — and a Markdown copy beside each
+page, `index.html.md`, that its head names. An assistant asked about your
+project reads the text you wrote rather than prying it out of the HTML. Off by
+default, and it needs no `siteUrl`.
+
+[The field](./reference/configuration/)
+
 ## For a 0.4 project
 
 Nothing to change: a 0.4 configuration builds as it is, and a site already in

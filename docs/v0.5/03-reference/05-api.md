@@ -571,6 +571,12 @@ humanised from their slug by `StructuredDataBuilder`.
 
 **Returns** `FoldedNode[]`
 
+### `MARKDOWN_COPY`
+
+`MARKDOWN_COPY`
+
+File a page's Markdown copy is written to, beside its HTML.
+
 ### `buildFeed`
 
 `buildFeed(pages, site)`
@@ -585,6 +591,25 @@ every page again at every build.
 | --- | --- | --- |
 | `pages` | `PublishedPage[]` | Pages of the current version. |
 | `site` | `{ projectName: string, siteUrl: string, homeUrl: string, feedUrl: string, lang?: string, }` | `homeUrl` and `feedUrl` are absolute. |
+
+**Returns** `string`
+
+### `buildLlms`
+
+`buildLlms(pages, site)`
+
+Builds `llms.txt`: the index of a documentation, for a reader that is a
+program.
+
+Follows the proposal as it stands: a title, a one-line summary, then a list
+of links, each to the Markdown copy of a page — the address of the page with
+`index.html.md` appended, since the pages are folders. A program reads that
+copy as the author wrote it, instead of prying the text out of the markup.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `pages` | `PublishedPage[]` | Pages of the version the site serves first. |
+| `site` | `{ projectName: string, summary?: string, base?: string }` | `base` makes each link absolute when the site has a public address, and root-relative otherwise. |
 
 **Returns** `string`
 
@@ -613,6 +638,30 @@ that carries neither is listed without one rather than with a made-up date.
 | --- | --- | --- |
 | `pages` | `PublishedPage[]` | Pages of the versions to list. |
 | `siteUrl` | `string` | Public address of the site: the sitemap only holds absolute addresses. |
+
+**Returns** `string`
+
+### `markdownCopy`
+
+`markdownCopy(frontmatter, content, [resolve])`
+
+The Markdown copy of a page: its source, as the author wrote it.
+
+The title is added when the page does not open on one, since a program
+handed the copy alone has no frontmatter to read it from. What a component
+draws at build time is not in the copy — a snippet's file, a grid of cards:
+the copy says what was written, not what was rendered.
+
+The links are the exception. The build resolves them from the folder of the
+source file, and a version-root one from the version: read from where the
+copy is served, as written, they would lead nowhere. `resolve` gives each the
+address the HTML page carries.
+
+| Parameter | Type | |
+| --- | --- | --- |
+| `frontmatter` | `{ title?: string, description?: string }` |  |
+| `content` | `string` | Source of the page, frontmatter removed. |
+| `[resolve]` | `(target: string) => string \| null` | Address of a target on the site, or `null` to keep it as written. |
 
 **Returns** `string`
 

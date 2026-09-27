@@ -121,6 +121,7 @@ const REFUSALS = [
   ['authors given as a text file', { ...base, authors: 'authors.txt' }, /\.json file/],
   ['copyCode written as a word', { ...base, copyCode: 'yes' }, /copyCode must be true or false/],
   ['copyCode written as a number', { ...base, copyCode: 1 }, /copyCode must be true or false/],
+  ['llms written as a word', { ...base, llms: 'yes' }, /llms must be true or false/],
   ['snippetIcons given a number', { ...base, snippetIcons: 42 }, /name an icon collection/],
   [
     'snippetIcons given a path out of the collections',

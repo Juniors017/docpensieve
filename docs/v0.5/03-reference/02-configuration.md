@@ -76,6 +76,7 @@ can change.
 | `sitemap`          | `true`              | `sitemap.xml` of the published versions, once `siteUrl` is set                                     |
 | `feed`             | `false`             | RSS feed of the dated pages. Needs `siteUrl`                                                       |
 | `search`           | `true`              | Search field in the header, and a search page built with the site                                  |
+| `llms`             | `false`             | `llms.txt` at the root of the site, and a Markdown copy of each page                               |
 
 ## Images
 
@@ -136,6 +137,38 @@ JavaScript, the page stays the full list of pages.
 The search page is kept out of search engines (`noindex`) and out of the
 sitemap. A page of your own at `/search/` would take its place: the build
 refuses it, and `search: false` frees the address.
+
+## `llms`
+
+```js
+llms: true,
+```
+
+A program that reads documentation on someone's behalf — an assistant
+answering a question, a tool gathering the pages of a project — does better
+with the text than with the markup around it. `llms: true` gives it two ways
+in:
+
+- **`llms.txt`**, at the root of the site: the project name, the description
+  of the home page, then one link per page of the current version, with its
+  description. Each language of the version has its own section. The file
+  follows the llms.txt proposal, at the address programs look for it.
+- **A Markdown copy of each page**, beside its HTML: `/guide/install/` has its
+  copy at `/guide/install/index.html.md`, and every page names its copy in its
+  head, with `<link rel="alternate" type="text/markdown">`. The copy is the
+  source of the page as you wrote it, headed by its title and description.
+
+What a component draws at build time is not in the copy — a grid of cards,
+the file a snippet reads: it says what was written, not what was rendered.
+
+It needs no `siteUrl`: the links start from the root of the domain until the
+site has an address, and are absolute once it has one. Like the sitemap,
+`llms.txt` is written by the build of the whole site; `build <version>` alone
+writes the copies of that version only.
+
+It is off by default. It doubles the files of a version, and whether programs
+should read your pages is yours to decide. It is a proposal, not a standard:
+reading it is up to each program.
 
 ## `copyCode`
 

@@ -16,6 +16,9 @@
     {{#if feedUrl}}
     <link rel="alternate" type="application/rss+xml" title="{{projectName}}" href="{{feedUrl}}" />
     {{/if}}
+    {{#if markdownUrl}}
+    <link rel="alternate" type="text/markdown" href="{{markdownUrl}}" />
+    {{/if}}
     {{#if favicon}}
     <link rel="icon" href="{{favicon.href}}" type="{{favicon.type}}" />
     {{/if}}

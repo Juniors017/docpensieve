@@ -553,6 +553,83 @@ ${title}.
     expect(existsSync(path.join(out, 'feed.xml'))).toBe(false);
     expect(read(out, 'versions', 'v1.0', 'index.html')).not.toContain('application/rss+xml');
   });
+
+  it('writes llms.txt and the Markdown copies only when asked', async () => {
+    const { config, out } = site({ siteUrl: 'https://example.com' });
+    await generatorFor(config).buildAll();
+
+    expect(existsSync(path.join(out, 'llms.txt'))).toBe(false);
+    expect(existsSync(path.join(out, 'versions', 'v1.0', 'index.html.md'))).toBe(false);
+    expect(read(out, 'versions', 'v1.0', 'index.html')).not.toContain('text/markdown');
+  });
+
+  it('lists the current version in llms.txt, without siteUrl', async () => {
+    const { config, out } = site({ llms: true });
+    await generatorFor(config).buildAll();
+
+    const llms = read(out, 'llms.txt');
+    expect(llms).toContain('# My docs');
+    expect(llms).toContain('- [News](/versions/v1.0/news/index.html.md)');
+    // The version in preparation and the archived one are not the site's
+    // answer to "what is this": the current version is.
+    expect(llms).not.toContain('/versions/v2.0/');
+    expect(llms).not.toContain('/versions/v0.9/');
+
+    expect(read(out, 'versions', 'v1.0', 'news', 'index.html.md')).toBe('# News\n\nNews.\n');
+    expect(read(out, 'versions', 'v1.0', 'news', 'index.html')).toContain(
+      '<link rel="alternate" type="text/markdown" href="/versions/v1.0/news/index.html.md" />',
+    );
+    // Every version carries its copies: a reader of the archive gets them too.
+    expect(existsSync(path.join(out, 'versions', 'v0.9', 'index.html.md'))).toBe(true);
+  });
+
+  it('sums the site up with the description of its home page', async () => {
+    const { config, out } = site({ llms: true, siteUrl: 'https://example.com' });
+    writeFileSync(
+      path.join(path.dirname(out), 'docs', 'v1.0', 'index.md'),
+      '---\ntitle: Home\ndescription: Documentation of a tool.\n---\n\nHome.\n',
+      'utf8',
+    );
+    await generatorFor(config).buildAll();
+
+    const llms = read(out, 'llms.txt');
+    expect(llms).toContain('> Documentation of a tool.');
+    expect(llms).toContain('(https://example.com/versions/v1.0/news/index.html.md)');
+  });
+
+  it('gives the Markdown copy the links of its page', async () => {
+    // Written for the folder of the source, and read from one level deeper,
+    // the links of the copy all led a level too deep.
+    const config = project(
+      {
+        'index.md': page('Home'),
+        'guide/install.md': page('Install', '[Home](../) · [Reference](/reference/)'),
+        'reference/index.md': page('Reference'),
+      },
+      { llms: true, baseUrl: '/docs/' },
+    );
+    const out = path.join(config.rootDir, 'out');
+    await generatorFor(config).buildVersion('v1.0', out);
+
+    const html = read(out, 'guide', 'install', 'index.html');
+    const copy = read(out, 'guide', 'install', 'index.html.md');
+    expect(html).toContain('href="/docs/versions/v1.0/reference/"');
+    expect(copy).toContain(
+      '[Home](/docs/versions/v1.0/) · [Reference](/docs/versions/v1.0/reference/)',
+    );
+  });
+
+  it('removes llms.txt turned off since the last build', async () => {
+    const { config, out } = site({ llms: true, siteUrl: 'https://example.com' });
+    await generatorFor(config).buildAll();
+    expect(existsSync(path.join(out, 'llms.txt'))).toBe(true);
+
+    const off = normalizeConfig({ ...config, llms: false });
+    off.rootDir = config.rootDir;
+    await generatorFor(off).buildAll();
+    expect(existsSync(path.join(out, 'llms.txt'))).toBe(false);
+    expect(existsSync(path.join(out, 'versions', 'v1.0', 'news', 'index.html.md'))).toBe(false);
+  });
 });
 
 describe('errors', () => {
@@ -1712,6 +1789,19 @@ describe('a version in two languages', () => {
     const alone = read(out, 'guide', 'advanced', 'index.html');
     expect(alone).toContain('hreflang="en"');
     expect(alone).not.toContain('hreflang="fr"');
+  });
+
+  it('gives llms.txt one section per language, and each page its copy', async () => {
+    const config = bilingual({ llms: true, outDir: 'dist' });
+    await generatorFor(config).buildAll();
+    const dist = path.join(config.rootDir, 'dist');
+
+    const llms = read(dist, 'llms.txt');
+    expect(llms).toContain('## English');
+    expect(llms).toContain('- [Installation](/versions/v1.0/fr/guide/install/index.html.md)');
+    expect(read(dist, 'versions', 'v1.0', 'fr', 'guide', 'install', 'index.html.md')).toContain(
+      '# Installation',
+    );
   });
 
   it('publishes the pages of every language, and only those', async () => {

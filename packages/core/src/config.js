@@ -71,6 +71,8 @@ import {
  * @property {boolean} [sitemap] `sitemap.xml` of the published versions.
  * @property {boolean} [feed] RSS feed of the dated pages of the current version.
  * @property {boolean} [search] Search field, index and search page of each version.
+ * @property {boolean} [llms] `llms.txt` at the root of the site, and a Markdown
+ *   copy beside each page, for the programs that read documentation.
  * @property {string} [rootDir]   Project root, set by `loadConfig`.
  * @property {string} [configFile] Path of the configuration file, set by `loadConfig`.
  * @property {string} [lang]      Document language, `'en'` by default.
@@ -126,6 +128,9 @@ export const DEFAULT_CONFIG = Object.freeze({
   // is always empty would be announced in every page.
   feed: false,
   search: true,
+  // Off by default: it doubles the files of a version, and a project decides
+  // whether it wants programs reading its pages.
+  llms: false,
 });
 
 /** Values of `theme.darkMode`. */
@@ -586,6 +591,12 @@ export function normalizeConfig(userConfig) {
 
   if (typeof config.search !== 'boolean') {
     throw new ConfigError('search must be true or false.', { hint: 'For instance search: false.' });
+  }
+
+  if (typeof config.llms !== 'boolean') {
+    throw new ConfigError('llms must be true or false.', {
+      hint: 'true writes llms.txt and a Markdown copy of each page; false, the default, writes neither.',
+    });
   }
 
   // `copyCode: 'yes'` used to be accepted and to do nothing: the generator

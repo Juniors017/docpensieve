@@ -160,6 +160,10 @@ For pages that are news rather than reference — release notes, a changelog —
 give them a `date` and set `feed: true`: `feed.xml` then lists them, newest
 first. The fields are in the [configuration reference](../reference/configuration/).
 
+For programs that read documentation on someone's behalf, `llms: true` writes
+`llms.txt` at the root and a Markdown copy beside each page — the text
+without the markup. It needs no `siteUrl`.
+
 ## What the reader downloads
 
 The build keeps it light on its own. The stylesheet is minified — a third to

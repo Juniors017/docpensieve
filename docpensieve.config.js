@@ -161,5 +161,9 @@ export default defineConfig({
   // stands in — which is what a project that installs none gets.
   snippetIcons: 'simple-icons',
 
+  // llms.txt at the root, and a Markdown copy beside each page: a tool's
+  // documentation is what an assistant is asked about first.
+  llms: true,
+
   jsonld: { enabled: true },
 });

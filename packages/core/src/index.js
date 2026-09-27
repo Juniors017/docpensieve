@@ -41,6 +41,13 @@ export {
   collectSectionTitles,
   foldSidebar,
 } from './sidebar.js';
-export { buildFeed, buildRobots, buildSitemap } from './discovery.js';
+export {
+  MARKDOWN_COPY,
+  buildFeed,
+  buildLlms,
+  buildRobots,
+  buildSitemap,
+  markdownCopy,
+} from './discovery.js';
 export { buildAuthorTable, buildByline, readDate, resolvePageAuthors } from './authors.js';
 export { SNIPPET_LANGUAGES, snippetLanguage, snippetLines, snippetPath } from './snippet.js';

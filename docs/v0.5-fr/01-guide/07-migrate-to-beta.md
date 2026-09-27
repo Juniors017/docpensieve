@@ -51,6 +51,7 @@ npx docpensieve check
   puisque c'est ce qui fait charger un script à une page. Voir
   [la référence](../reference/configuration/).
 - `snippetIcons`, si votre projet installe un jeu d'icônes.
+- `llms`, pour `llms.txt` et une copie Markdown de chaque page.
 
 ## Ce qu'il faut vérifier ensuite
 

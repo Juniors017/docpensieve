@@ -165,6 +165,10 @@ de version, journal des changements — donnez-leur une `date` et posez
 `feed: true` : `feed.xml` les liste alors, la plus récente d'abord. Les champs
 sont dans la [référence de configuration](../../reference/configuration/).
 
+Pour les programmes qui lisent une documentation pour le compte de quelqu'un,
+`llms: true` écrit `llms.txt` à la racine et une copie Markdown à côté de
+chaque page — le texte sans le balisage. Il ne demande pas de `siteUrl`.
+
 ## Ce que télécharge le lecteur
 
 La génération allège d'elle-même. La feuille de style est minifiée — un tiers à

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildFeed, buildRobots, buildSitemap } from '../src/index.js';
+import { buildFeed, buildLlms, buildRobots, buildSitemap, markdownCopy } from '../src/index.js';
 
 /** A site served under a sub-path, as on GitHub Pages. */
 const site = {
@@ -89,5 +89,122 @@ describe('buildFeed', () => {
     expect(xml).not.toContain('<item>');
     expect(xml).not.toContain('lastBuildDate');
     expect(xml).toContain('</channel>');
+  });
+});
+
+describe('buildLlms', () => {
+  const pages = [
+    { url: '/versions/v1.0/', frontmatter: { title: 'Home', description: 'What it is.' } },
+    { url: '/versions/v1.0/guide/', frontmatter: { title: 'The [guide]' } },
+  ];
+
+  it('opens on the project, summed up in one line', () => {
+    const text = buildLlms(pages, { projectName: 'My docs', summary: 'Docs\n  for all.' });
+    expect(text.startsWith('# My docs\n\n> Docs for all.\n\n## Pages\n\n')).toBe(true);
+  });
+
+  it('links each page to its Markdown copy, with its description', () => {
+    const text = buildLlms(pages, { projectName: 'My docs' });
+    expect(text).toContain('- [Home](/versions/v1.0/index.html.md): What it is.');
+    // A bracket in a title would close the link early.
+    expect(text).toContain('- [The guide](/versions/v1.0/guide/index.html.md)\n');
+  });
+
+  it('writes absolute links once the site has an address', () => {
+    const text = buildLlms(pages, { projectName: 'My docs', base: 'https://example.com' });
+    expect(text).toContain('(https://example.com/versions/v1.0/index.html.md)');
+  });
+
+  it('gives each language its section, the site language first', () => {
+    const text = buildLlms(
+      [
+        { url: '/v/', frontmatter: { title: 'Home' }, lang: 'en' },
+        { url: '/v/fr/', frontmatter: { title: 'Accueil' }, lang: 'fr' },
+      ],
+      { projectName: 'My docs' },
+    );
+    expect(text.indexOf('## English')).toBeLessThan(text.indexOf('## French'));
+    expect(text.indexOf('## French')).toBeLessThan(text.indexOf('[Accueil]'));
+    expect(text).not.toContain('## Pages');
+  });
+
+  it('names a page after the project when it has no title', () => {
+    expect(buildLlms([{ url: '/', frontmatter: {} }], { projectName: 'Docs' })).toContain(
+      '- [Docs](/index.html.md)',
+    );
+  });
+});
+
+describe('markdownCopy', () => {
+  it('adds the title and the description the frontmatter held', () => {
+    expect(markdownCopy({ title: 'Install', description: 'Two steps.' }, '\nRun it.\n\n')).toBe(
+      '# Install\n\n> Two steps.\n\nRun it.\n',
+    );
+  });
+
+  it('keeps the title the page opens on, the description under it', () => {
+    expect(
+      markdownCopy({ title: 'Install', description: 'Two steps.' }, '# Installing\n\nRun it.'),
+    ).toBe('# Installing\n\n> Two steps.\n\nRun it.\n');
+    expect(markdownCopy({ description: 'Nothing else.' }, '# Alone')).toBe(
+      '# Alone\n\n> Nothing else.\n',
+    );
+  });
+
+  it('keeps what the author wrote, components included', () => {
+    expect(markdownCopy({}, '<Cards />')).toBe('<Cards />\n');
+  });
+
+  describe('its links', () => {
+    /** @param {string} target */
+    const resolve = (target) =>
+      /^(?:[a-z]+:|#)/.test(target) ? null : `/v/${target.replace(/^[./]+/, '')}`;
+
+    it('lead where the page leads', () => {
+      const copy = markdownCopy(
+        {},
+        [
+          '[Install](../guide/install/) and ![diagram](<./a b.png> "A title")',
+          '[site]: /reference/',
+          '<Card href="/guide/" /> <img src=\'./logo.png\' />',
+        ].join('\n'),
+        resolve,
+      );
+      expect(copy).toBe(
+        [
+          '[Install](/v/guide/install/) and ![diagram](</v/a b.png> "A title")',
+          '[site]: /v/reference/',
+          '<Card href="/v/guide/" /> <img src=\'/v/logo.png\' />',
+          '',
+        ].join('\n'),
+      );
+    });
+
+    it('keep the addresses of other sites and the anchors', () => {
+      const text = '[Home](https://example.com/) [Below](#below)';
+      expect(markdownCopy({}, text, resolve)).toBe(`${text}\n`);
+    });
+
+    it('leave the code alone, where a link is an example', () => {
+      const text = [
+        'Write `[a](./b/)` for a link.',
+        '````mdx',
+        '```',
+        '[inside](./fence/)',
+        '```',
+        '````',
+        '~~~',
+        '<Card href="./tilde/" />',
+        '~~~',
+        '[after](./after/)',
+      ].join('\n');
+      const copy = markdownCopy({}, text, resolve);
+
+      expect(copy).toContain('`[a](./b/)`');
+      expect(copy).toContain('[inside](./fence/)');
+      expect(copy).toContain('<Card href="./tilde/" />');
+      // The fence closed where it should: what follows is prose again.
+      expect(copy).toContain('[after](/v/after/)');
+    });
   });
 });

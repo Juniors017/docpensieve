@@ -76,6 +76,7 @@ que vous pouvez changer.
 | `sitemap`          | `true`              | `sitemap.xml` des versions publiées, dès que `siteUrl` est posé                                    |
 | `feed`             | `false`             | Flux RSS des pages datées. A besoin de `siteUrl`                                                   |
 | `search`           | `true`              | Champ de recherche dans l'en-tête, et une page de recherche générée avec le site                   |
+| `llms`             | `false`             | `llms.txt` à la racine du site, et une copie Markdown de chaque page                               |
 
 ## Les images
 
@@ -138,6 +139,40 @@ un extrait de chacune. Sans JavaScript, la page reste la liste complète.
 La page de recherche est tenue hors des moteurs (`noindex`) et hors du plan du
 site. Une page à vous sous `/search/` prendrait sa place : la génération la
 refuse, et `search: false` libère l'adresse.
+
+## `llms`
+
+```js
+llms: true,
+```
+
+Un programme qui lit une documentation pour le compte de quelqu'un — un
+assistant qui répond à une question, un outil qui rassemble les pages d'un
+projet — s'en tire mieux avec le texte qu'avec le balisage qui l'entoure.
+`llms: true` lui ouvre deux entrées :
+
+- **`llms.txt`**, à la racine du site : le nom du projet, la description de la
+  page d'accueil, puis un lien par page de la version courante, avec sa
+  description. Chaque langue de la version a sa section. Le fichier suit la
+  proposition llms.txt, à l'adresse où les programmes le cherchent.
+- **Une copie Markdown de chaque page**, à côté de son HTML : `/guide/install/`
+  a sa copie en `/guide/install/index.html.md`, et chaque page nomme sa copie
+  dans son en-tête, par `<link rel="alternate" type="text/markdown">`. La copie
+  est la source de la page telle que vous l'avez écrite, précédée de son titre
+  et de sa description.
+
+Ce qu'un composant dessine à la génération n'est pas dans la copie — une
+grille de cartes, le fichier que lit un snippet : elle dit ce qui a été écrit,
+pas ce qui a été rendu.
+
+Il ne demande pas de `siteUrl` : les liens partent de la racine du domaine tant
+que le site n'a pas d'adresse, et deviennent absolus dès qu'il en a une. Comme
+le plan du site, `llms.txt` est écrit par la génération du site entier ;
+`build <version>` seul n'écrit que les copies de cette version.
+
+Il est désactivé par défaut. Il double les fichiers d'une version, et c'est à
+vous de décider si des programmes doivent lire vos pages. C'est une
+proposition, pas une norme : la lire dépend de chaque programme.
 
 ## `copyCode`
 

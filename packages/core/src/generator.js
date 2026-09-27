@@ -25,10 +25,17 @@ import {
 import Handlebars from 'handlebars';
 
 import { buildAuthorTable, buildByline, readDate } from './authors.js';
-import { Compiler } from './compiler.js';
+import { Compiler, siteTarget } from './compiler.js';
 import { resolveVersion } from './config.js';
 import { DocLoader } from './loader.js';
-import { buildFeed, buildRobots, buildSitemap } from './discovery.js';
+import {
+  MARKDOWN_COPY,
+  buildFeed,
+  buildLlms,
+  buildRobots,
+  buildSitemap,
+  markdownCopy,
+} from './discovery.js';
 import { imageSize } from './image-size.js';
 import { minifyCss } from './minify-css.js';
 import { SEARCH_SLUG, htmlToText, searchPageContent } from './search-index.js';
@@ -615,6 +622,9 @@ export class SiteGenerator {
           title: documentTitle(doc.frontmatter.title, this.config.projectName),
           description: doc.frontmatter.description ?? '',
           canonical: this.config.siteUrl ? new URL(url, this.config.siteUrl).href : '',
+          // Announced in the head, so a program that lands on the HTML finds
+          // the text it would rather read.
+          markdownUrl: this.config.llms ? `${url}${MARKDOWN_COPY}` : '',
           currentUrl: url,
           wide,
           // A version in preparation must not compete with the current one:
@@ -658,8 +668,17 @@ export class SiteGenerator {
           ...doc.slug.split('/').filter(Boolean),
           'index.html',
         );
-        written.set(destination, path.relative(sourceDir, doc.path).split(path.sep).join('/'));
+        const source = path.relative(sourceDir, doc.path).split(path.sep).join('/');
+        written.set(destination, source);
         await this.#write(destination, page);
+
+        if (this.config.llms) {
+          const copy = path.join(path.dirname(destination), MARKDOWN_COPY);
+          written.set(copy, source);
+          const resolve = (/** @type {string} */ target) =>
+            siteTarget(target, { url, dirUrl, basePath: versionBase });
+          await this.#write(copy, markdownCopy(doc.frontmatter, doc.content, resolve));
+        }
       }
 
       // The search page and the index it reads, built with the site: content
@@ -718,7 +737,13 @@ export class SiteGenerator {
 
       await this.#copyAssets(sourceDir, language.target, '', written);
 
-      published.push(...docs.map((doc) => ({ url: pageUrl(doc), frontmatter: doc.frontmatter })));
+      published.push(
+        ...docs.map((doc) => ({
+          url: pageUrl(doc),
+          frontmatter: doc.frontmatter,
+          lang: language.lang,
+        })),
+      );
       pageTotal += docs.length;
     }
 
@@ -939,8 +964,9 @@ export class SiteGenerator {
   }
 
   /**
-   * Writes what search engines and feed readers read, at the root of the
-   * site: `sitemap.xml`, `robots.txt` and the RSS feed.
+   * Writes what search engines, feed readers and other programs read, at the
+   * root of the site: `sitemap.xml`, `robots.txt`, the RSS feed and
+   * `llms.txt`.
    *
    * @param {string} target Output folder.
    * @param {Map<string, import('./discovery.js').PublishedPage[]>} published
@@ -949,11 +975,26 @@ export class SiteGenerator {
   async #writeDiscovery(target, published) {
     // Written anew every time: a sitemap or a feed turned off since the last
     // build must not linger at the root of the site.
-    for (const file of ['sitemap.xml', 'robots.txt', 'feed.xml']) {
+    for (const file of ['sitemap.xml', 'robots.txt', 'feed.xml', 'llms.txt']) {
       await rm(path.join(target, file), REMOVAL);
     }
 
     const { siteUrl, baseUrl } = this.config;
+
+    // The one file here that needs no public address: its links work
+    // root-relative, and become absolute once siteUrl is set.
+    if (this.config.llms) {
+      const current = resolveVersion(this.config);
+      const pages = published.get(current.slug) ?? [];
+      const home = joinUrl(baseUrl, 'versions', current.slug);
+      const llms = buildLlms(pages, {
+        projectName: this.config.projectName,
+        summary: pages.find((page) => page.url === home)?.frontmatter.description,
+        base: siteUrl || undefined,
+      });
+      await this.#write(path.join(target, 'llms.txt'), llms);
+    }
+
     if (!siteUrl) return;
 
     if (this.config.sitemap !== false) {
