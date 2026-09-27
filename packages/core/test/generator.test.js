@@ -944,6 +944,30 @@ describe('the light / dark switch', () => {
     for (const code of scripts) expect(() => new Function(code)).not.toThrow();
   });
 
+  it('names the switch in the language of the page, and keeps its scripts the same', async () => {
+    // Its script used to write "Switch to light mode" over the name the page
+    // gave, in English on a French page. The words now ride on the button.
+    /** @param {string} lang */
+    const scriptsOf = async (lang) => {
+      const config = project({ 'index.md': page('Home') }, { lang });
+      const out = path.join(config.rootDir, 'out');
+      await generatorFor(config).buildVersion('v1.0', out);
+      const html = read(out, 'index.html');
+      return {
+        html,
+        scripts: [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((match) => match[1]),
+      };
+    };
+
+    const french = await scriptsOf('fr');
+    expect(french.html).toContain('data-label-light="Passer en mode clair"');
+    expect(french.html).toContain('data-label-dark="Passer en mode sombre"');
+    expect(french.scripts.join('')).not.toMatch(/Switch|mode/);
+
+    const english = await scriptsOf('en');
+    expect(english.scripts).toEqual(french.scripts);
+  });
+
   it('leaves the pages without any script once turned off', async () => {
     const config = project(
       { 'index.md': page('Home') },

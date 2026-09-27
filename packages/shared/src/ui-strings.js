@@ -20,6 +20,9 @@
  * @property {string} site Accessible name of the header navigation.
  * @property {string} menu Accessible name of the narrow-screen menu button.
  * @property {string} switchScheme Accessible name of the light/dark button.
+ * @property {string} switchToLight Its name while the page is dark, once its
+ *   script knows which way it goes.
+ * @property {string} switchToDark Its name while the page is light.
  * @property {string} switchVersion Completes the accessible name of the version switcher.
  * @property {string} versionLabel The word before a version number, mid-sentence.
  * @property {string} versionSwitch The same word opening a label, where a capital is due.
@@ -57,6 +60,8 @@ export const UI_STRINGS = Object.freeze({
     site: 'Site',
     menu: 'Menu',
     switchScheme: 'Switch the colour scheme',
+    switchToLight: 'Switch to light mode',
+    switchToDark: 'Switch to dark mode',
     switchVersion: 'switch version',
     versionLabel: 'version',
     versionSwitch: 'Version',
@@ -85,6 +90,8 @@ export const UI_STRINGS = Object.freeze({
     site: 'Site',
     menu: 'Menu',
     switchScheme: 'Basculer entre clair et sombre',
+    switchToLight: 'Passer en mode clair',
+    switchToDark: 'Passer en mode sombre',
     switchVersion: 'changer de version',
     versionLabel: 'version',
     versionSwitch: 'Version',
